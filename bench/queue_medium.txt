@@ -1,0 +1,103 @@
+# 28-thread throughput (two passes; batch and query-parallel modes)
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 rig,postfilter
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig,postfilter
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_acorn.py deep10m b0.0_s0.1+b0.9_s0.1
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_acorn.py sift1m b0.9_s0.1
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.9_s0.1
+BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1
+BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf
+BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 rig
+BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 rig,postfilter
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig,postfilter
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_acorn.py deep10m b0.0_s0.1+b0.9_s0.1
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_acorn.py sift1m b0.9_s0.1
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.9_s0.1
+BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1
+BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf
+BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 rig
+BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py yfcc10m_test tags
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py yfcc10m_test tags
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py yfcc10m_test tags
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags gamma=1 M=32 Mb=32
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift500k_adv_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py sift500k_adv_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift500k_adv_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift500k_adv_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift500k_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py sift500k_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift500k_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift500k_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py yfcc10m_test tags
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py yfcc10m_test tags
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py yfcc10m_test tags
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags gamma=1 M=32 Mb=32
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift500k_adv_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py sift500k_adv_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift500k_adv_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift500k_adv_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift500k_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py sift500k_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift500k_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift500k_r20 live
+# same-session single-thread references for the 28-thread runs (scaling = 28t / 1t within one session)
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.9_s0.1
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_acorn.py deep10m b0.0_s0.1+b0.9_s0.1
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_acorn.py sift1m b0.9_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.9_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_acorn.py deep10m b0.0_s0.1+b0.9_s0.1
+BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_acorn.py sift1m b0.9_s0.1
+# Curator (hatsu3/curator-v2 c185042), static and streams, two passes
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift1m b0.0_s0.1+b0.5_s0.1+b0.9_s0.1+b1.0_s0.1+b0.0_s0.01+b0.9_s0.01+b0.9_s0.5
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.9_s0.1+b0.9_s0.01
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.1+b0.9_s0.03125+b0.9_s0.003125
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01+b0.9_s0.001
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m_test tags
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift500k_adv_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift500k_r20 live
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py sift500k
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py sift500k_adv
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py deep5m
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift1m b0.0_s0.1+b0.5_s0.1+b0.9_s0.1+b1.0_s0.1+b0.0_s0.01+b0.9_s0.01+b0.9_s0.5
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.9_s0.1+b0.9_s0.01
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.1+b0.9_s0.03125+b0.9_s0.003125
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01+b0.9_s0.001
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m_test tags
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift500k_adv_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift500k_r20 live
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py sift500k
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py sift500k_adv
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py deep5m
+BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf
+BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1

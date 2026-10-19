@@ -1,0 +1,5 @@
+# Curator on YFCC with query-tag remapping (int16 label ids)
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags
+BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m_test tags
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags
+BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m_test tags

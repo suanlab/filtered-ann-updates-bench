@@ -1,0 +1,12 @@
+Measurement results and figures
+
+Copyright (c) 2026 Suan Lee
+
+The contents of results/ and paper/figures/ are licensed under the Creative Commons
+Attribution 4.0 International License (CC BY 4.0): https://creativecommons.org/licenses/by/4.0/
+
+The source code in this repository is licensed under the MIT License (LICENSE).
+The manuscript (paper/paper_eab.tex, paper/paper_eab.pdf) is included for reference and is not covered by either
+license; its copyright is held by the author until any transfer upon publication.
+The ACORN patch in patches/ modifies third-party code (stanford-futuredata/ACORN, MIT License).
+Datasets are not redistributed; scripts/download_data.sh fetches them from their original sources.

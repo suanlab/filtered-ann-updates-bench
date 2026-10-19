@@ -1,0 +1,15 @@
+--- faiss/impl/ACORN.cpp.orig	2026-10-02 17:38:07.439374123 +0900
++++ faiss/impl/ACORN.cpp	2026-10-02 17:38:07.453373689 +0900
+@@ -678,6 +678,12 @@
+     if (level == 0) {
+         shrink_neighbor_list(qdis, resultSet, end - begin, hnsw.gamma, src, hnsw.metadata[src], hnsw);
+ 
++    } else {
++        // [Vector patch] upstream ACORN does not shrink upper levels, so a full list plus the new
++        // candidate (end-begin+1 entries) was written back one slot past this node's range,
++        // corrupting the neighbor array (segfault on incremental add). Keep the nearest end-begin,
++        // as upstream faiss HNSW does at every level. top() is the farthest candidate.
++        while (resultSet.size() > end - begin) resultSet.pop();
+     }
+     
+     

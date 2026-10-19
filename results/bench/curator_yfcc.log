@@ -1,0 +1,49 @@
+=== [2] 2026-10-17 06:26:21 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags
+[06:32:54] yfcc10m tags curator built 392.4 s 18.75 GB
+[06:32:55] yfcc10m tags curator 32 0.7408 2288.1
+[06:32:56] yfcc10m tags curator 64 0.7924 2080.3
+[06:32:58] yfcc10m tags curator 128 0.8416 1771.6
+[06:32:59] yfcc10m tags curator 256 0.8866 1471.0
+[06:33:01] yfcc10m tags curator 512 0.9196 1138.9
+[06:33:04] yfcc10m tags curator 1024 0.9482 771.8
+[06:33:08] yfcc10m tags curator 2048 0.9672 519.9
+[06:33:15] yfcc10m tags curator 4096 0.988 286.4
+[06:33:19] DONE yfcc10m curator
+--- [2] exit=0
+=== [3] 2026-10-17 06:33:27 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m_test tags
+[06:40:01] yfcc10m_test tags curator built 392.8 s 18.75 GB
+[06:40:02] yfcc10m_test tags curator 32 0.7254 2073.4
+[06:40:03] yfcc10m_test tags curator 64 0.778 1907.9
+[06:40:04] yfcc10m_test tags curator 128 0.8236 1654.0
+[06:40:06] yfcc10m_test tags curator 256 0.8726 1402.5
+[06:40:08] yfcc10m_test tags curator 512 0.9126 1088.5
+[06:40:11] yfcc10m_test tags curator 1024 0.9412 733.7
+[06:40:15] yfcc10m_test tags curator 2048 0.9644 491.6
+[06:40:23] yfcc10m_test tags curator 4096 0.9788 280.3
+[06:40:27] DONE yfcc10m_test curator
+--- [3] exit=0
+=== [4] 2026-10-17 06:40:33 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags
+[06:47:17] yfcc10m tags curator built 402.7 s 18.75 GB
+[06:47:19] yfcc10m tags curator 32 0.7408 2192.0
+[06:47:20] yfcc10m tags curator 64 0.7924 1935.1
+[06:47:21] yfcc10m tags curator 128 0.8416 1743.3
+[06:47:22] yfcc10m tags curator 256 0.8866 1455.1
+[06:47:24] yfcc10m tags curator 512 0.9196 1118.5
+[06:47:27] yfcc10m tags curator 1024 0.9482 753.4
+[06:47:31] yfcc10m tags curator 2048 0.9672 500.7
+[06:47:39] yfcc10m tags curator 4096 0.988 280.5
+[06:47:43] DONE yfcc10m curator
+--- [4] exit=0
+=== [5] 2026-10-17 06:47:50 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m_test tags
+[06:54:25] yfcc10m_test tags curator built 393.5 s 18.75 GB
+[06:54:26] yfcc10m_test tags curator 32 0.7254 2088.4
+[06:54:27] yfcc10m_test tags curator 64 0.778 1918.2
+[06:54:29] yfcc10m_test tags curator 128 0.8236 1686.8
+[06:54:30] yfcc10m_test tags curator 256 0.8726 1409.5
+[06:54:32] yfcc10m_test tags curator 512 0.9126 1092.3
+[06:54:35] yfcc10m_test tags curator 1024 0.9412 736.4
+[06:54:39] yfcc10m_test tags curator 2048 0.9644 494.7
+[06:54:47] yfcc10m_test tags curator 4096 0.9788 280.6
+[06:54:51] DONE yfcc10m_test curator
+--- [5] exit=0
+QUEUE_EMPTY 06:54:56

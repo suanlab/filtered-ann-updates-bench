@@ -1,0 +1,3 @@
+# ---- fix: post-filter multi-threaded with one batch
+SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 postfilter
+SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 python3 bench/run_main.py sift1m b0.9_s0.1 postfilter

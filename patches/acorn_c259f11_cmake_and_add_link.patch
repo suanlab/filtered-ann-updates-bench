@@ -1,0 +1,30 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 76ba69b..2ae7c8f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -77,7 +77,7 @@ if(NOT nlohmann_json_POPULATED)
+     add_subdirectory(${nlohmann_json_SOURCE_DIR} ${nlohmann_json_BINARY_DIR})
+ endif()
+ 
+-target_include_directories(faiss PUBLIC ${nlohmann_json_SOURCE_DIR}/include)
++target_include_directories(faiss PUBLIC $<BUILD_INTERFACE:${nlohmann_json_SOURCE_DIR}/include>)
+ 
+ find_package(ZLIB REQUIRED)
+ target_link_libraries(faiss PUBLIC ${ZLIB_LIBRARIES})
+diff --git a/faiss/impl/ACORN.cpp b/faiss/impl/ACORN.cpp
+index e2c3da5..697aacf 100644
+--- a/faiss/impl/ACORN.cpp
++++ b/faiss/impl/ACORN.cpp
+@@ -678,6 +678,12 @@ void add_link(
+     if (level == 0) {
+         shrink_neighbor_list(qdis, resultSet, end - begin, hnsw.gamma, src, hnsw.metadata[src], hnsw);
+ 
++    } else {
++        // [Vector patch] upstream ACORN does not shrink upper levels, so a full list plus the new
++        // candidate (end-begin+1 entries) was written back one slot past this node's range,
++        // corrupting the neighbor array (segfault on incremental add). Keep the nearest end-begin,
++        // as upstream faiss HNSW does at every level. top() is the farthest candidate.
++        while (resultSet.size() > end - begin) resultSet.pop();
+     }
+     
+     
