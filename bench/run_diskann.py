@@ -10,7 +10,7 @@ search 1 thread, one query per call, L sweep."""
 import sys, os, time, shutil
 sys.path.insert(0, 'bench')
 import numpy as np, diskannpy as dp
-from common import load_base, load_schema, recall, per_query, timed_search, save, log, ds_dir, K, THREADS
+from common import load_base, load_schema, recall, per_query, timed_search, save, log, ds_dir, K, THREADS, sweep
 
 ds, sc = sys.argv[1], sys.argv[2]
 X, Q, meta = load_base(ds); pred, gt = load_schema(ds, sc); n, d = X.shape; nq = len(Q)
@@ -33,7 +33,7 @@ idx = dp.StaticMemoryIndex(idir, num_threads=THREADS, initial_search_complexity=
 if not is_label:
     qadm = [set(pred['qids'][pred['qoff'][i]:pred['qoff'][i + 1]].tolist()) for i in range(nq)]
 recs = []
-for L in (16, 32, 64, 128, 256, 512, 1024):
+for L in sweep((16, 32, 64, 128, 256, 512, 1024)):
     def run():
         o = np.full((nq, K), -1, np.int32); tot = 0.0; tq = np.zeros(nq)
         for i in range(nq):

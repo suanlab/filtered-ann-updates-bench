@@ -11,14 +11,14 @@ query (tags)."""
 import sys, time, os
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
-from common import load_base, load_schema, groups, admissible_ids, recall, per_query, timed_search, save, log, K, THREADS
+from common import load_base, load_schema, groups, admissible_ids, recall, per_query, timed_search, save, log, K, THREADS, sweep
 
 def rss_bytes():
     return int(open('/proc/self/statm').read().split()[1]) * os.sysconf('SC_PAGE_SIZE')
 
 ds = sys.argv[1]; schemas = sys.argv[2].split('+')
 X, Q, meta = load_base(ds); X = np.ascontiguousarray(X, np.float32); n, d = X.shape; nq = len(Q)
-EFS = (32, 64, 128, 256, 512, 1024, 2048, 4096)
+EFS = sweep((32, 64, 128, 256, 512, 1024, 2048, 4096))
 
 def build(tags_of):
     """tags_of(i) -> iterable of labels for point i. Returns (index, build seconds, bytes)."""
@@ -39,9 +39,12 @@ for sc in schemas:
         # frequent tags), while YFCC-10M has ~200K tags. We index exactly the tags that occur in this query set,
         # remapped to dense ids: every query behaves as with all tags indexed, but the build does less work.
         pp, pi = pred['ptag_ptr'], pred['ptag_idx']; qp, qi_ = pred['qtag_ptr'], pred['qtag_idx']
-        remap = {int(t): j for j, t in enumerate(np.unique(qi_))}
+        # A query tag that no point carries (-1 from bench/prep.py, e.g. an arXiv query category absent from the sample)
+        # has an empty admissible set; Curator rejects unknown labels, so such a query returns nothing, untimed --
+        # the answer every other method is scored against (recall_vec counts an empty ground truth as recall 1).
+        remap = {int(t): j for j, t in enumerate(np.unique(qi_[qi_ >= 0]))}
         ix, build_s, nbytes = build(lambda i: [remap[int(t)] for t in pi[pp[i]:pp[i + 1]] if int(t) in remap])
-        qi_ = np.array([remap[int(t)] for t in qi_], np.int64)
+        qi_ = np.array([remap.get(int(t), -1) for t in qi_], np.int64)
     log(ds, sc, 'curator built', round(build_s, 1), 's', round(nbytes / 1e9, 2), 'GB'); faiss.omp_set_num_threads(1)
     G = groups(pred, nq); recs = []
     for ef in EFS:
@@ -54,6 +57,7 @@ for sc in schemas:
                     o[qidx] = I; tot += dt; tq[qidx] = dt / len(qidx)
                 else:
                     i = int(qidx[0]); tags = qi_[qp[i]:qp[i + 1]]
+                    if (tags < 0).any(): continue
                     if len(tags) == 1:
                         t = time.perf_counter(); _, I = ix.search(Q[i:i + 1], K, int(tags[0])); dt = time.perf_counter() - t
                     else:

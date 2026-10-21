@@ -10,7 +10,7 @@
 set -euo pipefail; cd "$(dirname "$0")/.."
 MKL_LIB=${MKL_LIB:-$HOME/.local/lib/libmkl_rt.so}
 A=third_party/ACORN
-if [ ! -d $A ]; then git clone https://github.com/stanford-futuredata/ACORN.git $A; git -C $A checkout c259f11; git -C $A apply ../../patches/acorn_c259f11_cmake_and_add_link.patch; fi
+if [ ! -d $A ]; then git clone https://github.com/stanford-futuredata/ACORN.git $A; git -C $A checkout c259f11; git -C $A apply ../../patches/acorn_c259f11_cmake_and_add_link.patch; git -C $A apply ../../patches/acorn_c259f11_count_checks.patch; fi
 cmake -S $A -B $A/build_avx2 -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON \
       -DCMAKE_BUILD_TYPE=Release -DFAISS_OPT_LEVEL=avx2 -DBLA_VENDOR=Intel10_64_dyn -DMKL_LIBRARIES=$MKL_LIB
 make -C $A/build_avx2 -j"$(nproc)" faiss_avx2
@@ -18,3 +18,11 @@ for b in acorn_driver acorn_stream; do
   g++ -O3 -march=native -fopenmp -std=c++17 -I$A src/$b.cpp -o src/${b}_avx2 -L$A/build_avx2/faiss -lfaiss_avx2 \
       -L"$(dirname $MKL_LIB)" -lmkl_rt -Wl,-rpath,$PWD/$A/build_avx2/faiss -Wl,-rpath,"$(dirname $MKL_LIB)"
 done
+# Counting build (cost accounting only, H2): the same source compiled with -DACORN_COUNT_CHECKS, which enables
+# per-thread counters of level-0 hops and predicate checks (patches/acorn_c259f11_count_checks.patch; without the
+# define the patch compiles to nothing, so the measured build above is unaffected).
+cmake -S $A -B $A/build_count -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON \
+      -DCMAKE_BUILD_TYPE=Release -DFAISS_OPT_LEVEL=avx2 -DBLA_VENDOR=Intel10_64_dyn -DMKL_LIBRARIES=$MKL_LIB -DCMAKE_CXX_FLAGS=-DACORN_COUNT_CHECKS
+make -C $A/build_count -j"$(nproc)" faiss_avx2
+g++ -O3 -march=native -fopenmp -std=c++17 -DACORN_COUNT_CHECKS -I$A src/acorn_driver.cpp -o src/acorn_driver_count -L$A/build_count/faiss -lfaiss_avx2 \
+    -L"$(dirname $MKL_LIB)" -lmkl_rt -Wl,-rpath,$PWD/$A/build_count/faiss -Wl,-rpath,"$(dirname $MKL_LIB)"

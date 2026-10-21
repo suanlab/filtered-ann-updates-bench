@@ -57,6 +57,15 @@ def stream_stats(name):
         return meta
     return _stats()['streams'][name]
 
+def sweep(grid):
+    """A method's search-knob grid. With SWEEP=dense the geometric midpoint of every consecutive pair is added
+    (doubling steps become sqrt(2) steps), so that QPS at a recall target can be read from measured points that
+    bracket it closely rather than interpolated across a factor of two."""
+    g = sorted(set(int(x) for x in grid))
+    if os.environ.get('SWEEP') == 'dense':
+        g = sorted(set(g + [int(round((a * b) ** 0.5)) for a, b in zip(g, g[1:])]))
+    return tuple(g)
+
 def write_fbin(path, A):
     """Write A (n x d) as float32 .fbin (int32 n, d header, then rows), in 1M-row chunks."""
     with open(path, 'wb') as f:
@@ -86,7 +95,10 @@ def pool_map(fn, n, threads):
 
 def ds_dir(ds): return f'{ROOT}/{ds}'
 def load_base(ds):
-    return np.load(f'{ds_dir(ds)}/X.npy', mmap_mode='r'), np.load(f'{ds_dir(ds)}/Q.npy'), json.load(open(f'{ds_dir(ds)}/meta.json'))
+    """(X, Q, meta). X is memory-mapped; a float16 store (the 4096-dimensional arXiv sets) is upcast to float32 in memory."""
+    X = np.load(f'{ds_dir(ds)}/X.npy', mmap_mode='r')
+    if X.dtype == np.float16: X = X.astype(np.float32)
+    return X, np.load(f'{ds_dir(ds)}/Q.npy'), json.load(open(f'{ds_dir(ds)}/meta.json'))
 def load_schema(ds, schema):
     z = np.load(f'{ds_dir(ds)}/{schema}/pred.npz'); gt = np.load(f'{ds_dir(ds)}/{schema}/gt.npy')
     return {k: z[k] for k in z.files}, gt

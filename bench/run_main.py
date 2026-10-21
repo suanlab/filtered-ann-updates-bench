@@ -8,7 +8,7 @@ across schemas when the runner is given several schemas separated by '+'."""
 import sys, time, os
 sys.path.insert(0, 'experiments'); sys.path.insert(0, 'bench')
 import numpy as np
-from common import load_base, load_schema, groups, admissible, recall, per_query, timed_search, save, log, K, THREADS, MT_MODE, pool_map
+from common import load_base, load_schema, groups, admissible, recall, per_query, timed_search, save, log, K, THREADS, MT_MODE, pool_map, sweep
 
 ds = sys.argv[1]; schemas = sys.argv[2].split('+')
 arms = sys.argv[3].split(',') if len(sys.argv) > 3 else ['rig', 'postfilter']
@@ -51,7 +51,7 @@ if 'postfilter' in arms:
     for sc in schemas:
         pred, gt = load_schema(ds, sc); G = groups(pred, nq); masks = {key: admissible(pred, key, n) for key, _ in G}
         is_label = str(pred['kind']) == 'label'; recs = []
-        for kp in (100, 400, 1600, 6400):
+        for kp in sweep((100, 400, 1600, 6400)):
             h.set_ef(kp)
             # multi-threaded mode: one call over all queries (post-filtering needs no per-label batches, and
             # hnswlib's binding runs single-threaded when a batch has at most 4x as many rows as threads)

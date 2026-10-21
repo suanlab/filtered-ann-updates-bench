@@ -11,11 +11,13 @@
 # the done file records "<key> <exit code> <start> <end> <line number>". Editing or inserting other lines
 # therefore never marks the wrong job done. (Done files written by the earlier line-number format are not read.)
 # A probe that fails (no numeric output) is retried; PROBE_FAILS consecutive failures stop the queue.
+# Disk gate: a job starts only when the file system holding the repository has at least MIN_FREE_GB free
+# (default 20); otherwise the queue waits, so that a full disk pauses the queue instead of failing every job.
 cd "$(dirname "$0")/.."; mkdir -p results/bench
 QF=${QUEUE_FILE:-bench/queue.txt}; DF=${DONE_FILE:-results/bench/queue.done}; LF=${LOG_FILE:-results/bench/queue.log}
 touch "$DF"; chmod 600 "$QF" "$DF"
 export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
-GATE=${GATE:-380}; PROBE_FAILS=${PROBE_FAILS:-5}; PROBE_LOG=${PROBE_LOG:-results/bench/probe.log}; PROBE_CPU=${PROBE_CPU:-16}
+GATE=${GATE:-380}; MIN_FREE_GB=${MIN_FREE_GB:-20}; PROBE_FAILS=${PROBE_FAILS:-5}; PROBE_LOG=${PROBE_LOG:-results/bench/probe.log}; PROBE_CPU=${PROBE_CPU:-16}
 probe() {   # prints the probe's QPS as an integer, or -1 if the probe failed
   local q
   q=$(taskset -c "$PROBE_CPU" python3 bench/probe.py "$1" | tee -a "$PROBE_LOG" |
@@ -42,6 +44,11 @@ while true; do
   done < "$QF"
   unset seen
   [[ -z "$job" ]] && { echo "QUEUE_EMPTY $(date +%T)" >> "$LF"; break; }
+  while true; do
+    free=$(df -BG --output=avail . | tail -1 | tr -dc 0-9)
+    [[ $free -ge $MIN_FREE_GB ]] && break
+    echo "disk gate [$n] ${free}G free < ${MIN_FREE_GB}G, waiting $(date +%T)" >> "$LF"; sleep 300
+  done
   gated=1; [[ "$job" == python3\ bench/stream_prep* || "$job" == python3\ bench/prep* ]] && gated=0
   if [[ $gated == 1 ]]; then
     ok=0

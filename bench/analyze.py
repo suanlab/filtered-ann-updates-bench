@@ -18,12 +18,14 @@ from common import admissible_sizes
 
 TARGETS = (0.9, 0.95, 0.99)
 
-def passes():
+def passes(tag=None):
+    """Result roots of one measurement campaign: the paper's (tag None) or a tagged follow-up (results/bench_<tag>)."""
+    if tag: return [f'results/bench_{tag}'] + sorted(glob.glob(f'results/bench_{tag}_pass*'))
     return ['results/bench'] + sorted(glob.glob('results/bench_pass*'))
 
-def load_static():
+def load_static(tag=None):
     W = {}
-    for root in passes():
+    for root in passes(tag):
         for f in glob.glob(f'{root}/*/*/*.json'):
             parts = f.split('/'); ds, sc, m = parts[-3], parts[-2], parts[-1][:-5]
             if ds.startswith('stream_'): continue
@@ -204,12 +206,13 @@ def merge_stream_passes(files):
                 r['sweep'] = list(by.values())
     base['passes'] = len(runs); return base
 
-def summarize_streams():
+def summarize_streams(tag=None):
     S = {}; groups = {}
-    for root in passes():
+    for root in passes(tag):
         for f in glob.glob(f'{root}/stream_*/*.json'):
             groups.setdefault((f.split('/')[-2], f.split('/')[-1]), []).append(f)
     for (sdir, fname), files in groups.items():
+        if 'rounds' not in json.load(open(files[0])): continue      # e.g. fdiskann_delta.json (by index age, bench/analyze_h.py)
         name = sdir[len('stream_'):]; d = merge_stream_passes(files); m = d['method']; rows = []
         for r in d['rounds']:
             if 'sweep' not in r: continue

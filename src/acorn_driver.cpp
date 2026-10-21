@@ -7,6 +7,10 @@
 //                                     qbin_file: int32[nq] required bin per query)
 // Writes out_dir/acorn_<tag>_ef<ef>.i32 (nq x 10 ids) and prints build/search timings as JSON lines.
 #include <faiss/IndexACORN.h>
+#include <faiss/impl/ACORN.h>
+#ifdef ACORN_COUNT_CHECKS     // counting build (third_party/ACORN/build_count): level-0 hops and predicate checks
+namespace faiss { void acorn_count_reset(); size_t acorn_count_get_hops(); size_t acorn_count_get_checks(); }
+#endif
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -84,6 +88,10 @@ int main(int argc, char** argv) {
             index.acorn.efSearch = ef;
             index.search(std::min(nq, 64), xq.data(), k, D.data(), I.data(), fmap.data());   // warmup
             std::string qs; std::vector<double> tq(nq, 0.0);
+            faiss::acorn_stats.reset();      // level-0 searches (n1) and their distance computations (n3), all reps
+#ifdef ACORN_COUNT_CHECKS
+            faiss::acorn_count_reset();
+#endif
             for (int r = 0; r < reps; ++r) {
                 double el;
                 if (csr) {          // one query per call so that per-query times are available
@@ -108,7 +116,13 @@ int main(int argc, char** argv) {
             FILE* f = std::fopen(path.c_str(), "wb");
             std::vector<int32_t> o(I.size()); for (size_t i = 0; i < I.size(); ++i) o[i] = (int32_t)I[i];
             std::fwrite(o.data(), 4, o.size(), f); std::fclose(f);
-            std::printf("{\"event\":\"search\",\"tag\":\"%s\",\"ef\":%d,\"qps_reps\":[%s]}\n", tag.c_str(), ef, qs.c_str());
+            double ndq = faiss::acorn_stats.n1 ? (double)faiss::acorn_stats.n3 / faiss::acorn_stats.n1 : -1.0;
+#ifdef ACORN_COUNT_CHECKS
+            double nsr = (double)nq * reps;
+            std::printf("{\"event\":\"counts\",\"tag\":\"%s\",\"ef\":%d,\"hops_per_query\":%.2f,\"checks_per_query\":%.2f}\n", tag.c_str(), ef,
+                        faiss::acorn_count_get_hops() / nsr, faiss::acorn_count_get_checks() / nsr);
+#endif
+            std::printf("{\"event\":\"search\",\"tag\":\"%s\",\"ef\":%d,\"qps_reps\":[%s],\"ndis_per_query\":%.2f}\n", tag.c_str(), ef, qs.c_str(), ndq);
             std::fflush(stdout);
         }
     }

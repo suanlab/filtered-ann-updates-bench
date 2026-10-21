@@ -37,11 +37,27 @@ def base(ds):
             X = np.array(f['train'], np.float32); Q = np.array(f['test'][:NQ], np.float32)
         X /= np.linalg.norm(X, axis=1, keepdims=True) + 1e-9; Q /= np.linalg.norm(Q, axis=1, keepdims=True) + 1e-9
         save_base(ds, X, Q, {'source': 'ann-benchmarks deep-image-96-angular (normalized; L2 = angular order)', 'metric': 'l2'})
-    elif ds in ('deep1m', 'deep3m'):
+    elif ds in ('deep300k', 'deep1m', 'deep3m'):
         X = np.load(f'{ds_dir("deep10m")}/X.npy', mmap_mode='r'); Q = np.load(f'{ds_dir("deep10m")}/Q.npy')
-        m = {'deep1m': 1_000_000, 'deep3m': 3_162_278}[ds]
+        m = {'deep300k': 316_228, 'deep1m': 1_000_000, 'deep3m': 3_162_278}[ds]
         idx = np.sort(np.random.default_rng(13).choice(len(X), m, replace=False))
         save_base(ds, X[idx], Q, {'source': f'random subset (seed 13) of deep10m, m={m}', 'metric': 'l2'})
+    elif ds in ('arxiv1m', 'arxiv300k', 'arxiv100k'):
+        # arxiv-for-fanns (Iff et al.): 4096-d stella embeddings of arXiv abstracts; bench/fetch_arxiv.py samples ~1e6 rows of
+        # the large set. arxiv1m is that sample, arxiv300k/arxiv100k random subsets of it (seed 13). Vectors stay float16 on
+        # disk (upcast when loaded); 500 queries are drawn from the 10,000 public ones (seed 17).
+        S_ = 'data/arxiv/large_sample'; Xs = np.load(f'{S_}/X.f16.npy', mmap_mode='r'); Qa = np.load(f'{S_}/Q.npy')
+        qsel = np.sort(np.random.default_rng(17).choice(len(Qa), NQ, replace=False))
+        m = {'arxiv1m': len(Xs), 'arxiv300k': 316_228, 'arxiv100k': 100_000}[ds]
+        idx = np.arange(len(Xs)) if m == len(Xs) else np.sort(np.random.default_rng(13).choice(len(Xs), m, replace=False))
+        os.makedirs(ds_dir(ds), exist_ok=True)
+        if m == len(Xs):                               # the whole sample: link instead of copying 8 GB
+            if not os.path.exists(f'{ds_dir(ds)}/X.npy'): os.symlink(os.path.abspath(f'{S_}/X.f16.npy'), f'{ds_dir(ds)}/X.npy')
+        else: np.save(f'{ds_dir(ds)}/X.npy', np.ascontiguousarray(Xs[idx]))
+        np.save(f'{ds_dir(ds)}/Q.npy', Qa[qsel])
+        np.save(f'{ds_dir(ds)}/rows.npy', idx); np.save(f'{ds_dir(ds)}/qsel.npy', qsel)
+        json.dump({'source': f'arxiv-for-fanns-large sample, {m} rows (float16 storage)', 'metric': 'l2', 'n': int(m), 'd': int(Xs.shape[1]), 'nq': NQ},
+                  open(f'{ds_dir(ds)}/meta.json', 'w'), indent=1)
     elif ds in ('yfcc10m', 'yfcc10m_test'):
         # yfcc10m: 500 fixed random public queries (seed 17). yfcc10m_test: 500 further public queries disjoint from
         # them (seed 18), used only to validate choices tuned on yfcc10m (the dispatcher); same base vectors.
@@ -73,8 +89,32 @@ def labels(X, beta, L, seed=11):
 def schema(ds, sc, out=None):
     X = np.load(f'{ds_dir(ds)}/X.npy', mmap_mode='r'); Q = np.load(f'{ds_dir(ds)}/Q.npy'); n = len(X)
     out = out or f'{ds_dir(ds)}/{sc}'; os.makedirs(out, exist_ok=True)
-    Xc = np.ascontiguousarray(X)
-    if sc == 'tags':
+    Xc = np.ascontiguousarray(X, np.float32)
+    if sc == 'cat':
+        # arXiv: a query asks for the papers whose main categories include its category (the dataset's
+        # exact-match-in-set queries); admissible sets as csr, like the YFCC tags
+        rows = np.load(f'{ds_dir(ds)}/rows.npy'); qsel = np.load(f'{ds_dir(ds)}/qsel.npy'); S_ = 'data/arxiv/large_sample'
+        cats = [json.loads(l)['main_categories'] for l in open(f'{S_}/attributes.jsonl')]
+        cats = [cats[i] for i in rows]
+        qlabs = [json.loads(l)['label'] for l in open(f'{S_}/qattr_emis.jsonl')]; qlabs = [qlabs[i] for i in qsel]
+        inv = {}
+        for i, cs in enumerate(cats):
+            for c in cs: inv.setdefault(c, []).append(i)
+        qoff = [0]; qids = []
+        for c in qlabs: ids = np.array(inv.get(c, []), np.int32); qids.append(ids); qoff.append(qoff[-1] + len(ids))
+        qoff = np.array(qoff, np.int64); qids = np.concatenate(qids)
+        vocab = sorted(inv); vid = {c: j for j, c in enumerate(vocab)}
+        ptag_ptr = np.zeros(n + 1, np.int64); ptag_ptr[1:] = np.cumsum([len(cs) for cs in cats])
+        ptag_idx = np.array([vid[c] for cs in cats for c in cs], np.int32)
+        np.savez(f'{out}/pred.npz', kind='csr', qoff=qoff, qids=qids, ntags=np.ones(len(Q), np.int32), ptag_ptr=ptag_ptr, ptag_idx=ptag_idx,
+                 qtag_ptr=np.arange(len(Q) + 1, dtype=np.int64), qtag_idx=np.array([vid.get(c, -1) for c in qlabs], np.int32))
+        gt = np.full((len(Q), 10), -1, np.int32)
+        for c in sorted(set(qlabs)):
+            qi = np.array([i for i, x in enumerate(qlabs) if x == c]); m = np.zeros(n, bool); m[inv.get(c, [])] = True
+            if m.any(): g = _rigx().brute(Xc, Q[qi], mask=m, k=10, threads=64)[0]; gt[qi] = g
+        sel = np.diff(qoff) / n
+        meta = {'kind': 'csr', 'sel_median': float(np.median(sel)), 'sel_quantiles': np.quantile(sel, [0.1, 0.5, 0.9]).tolist(), 'categories': len(vocab)}
+    elif sc == 'tags':
         def spmat(p):        # BigANN .spmat: int64 nrow,ncol,nnz | int64 indptr[nrow+1] | int32 indices[nnz] | f32 data
             with open(p, 'rb') as f:
                 nr, nc, nnz = (int(v) for v in np.fromfile(f, np.int64, 3))
@@ -107,13 +147,19 @@ def schema(ds, sc, out=None):
         meta = {'kind': 'csr', 'sel_median': float(np.median(sel)), 'sel_quantiles': np.quantile(sel, [0.1, 0.5, 0.9]).tolist(),
                 'ntags_hist': np.bincount(ntags).tolist()}
     else:
-        beta = float(sc.split('_')[0][1:]); s = float(sc.split('_')[1][1:]); L = int(round(1 / s))
+        # b<beta>_s<s>[_r<rho>]: rho is the query-filter correlation. With probability rho a query asks for the label
+        # of its exact (unfiltered) nearest neighbor, otherwise for a uniformly random label; rho=0 is the default.
+        parts = sc.split('_'); beta = float(parts[0][1:]); s = float(parts[1][1:]); L = int(round(1 / s))
+        rho = float(parts[2][1:]) if len(parts) > 2 else 0.0
         attr = labels(X, beta, L); qlab = np.random.default_rng(7).integers(0, L, len(Q)).astype(np.int32)
+        if rho > 0:
+            nn1 = _rigx().brute(Xc, Q, mask=np.ones(n, bool), k=1, threads=64)[0][:, 0]
+            near = np.random.default_rng(8).random(len(Q)) < rho; qlab[near] = attr[nn1[near]]
         np.savez(f'{out}/pred.npz', kind='label', attr=attr, qlab=qlab)
         gt = np.full((len(Q), 10), -1, np.int32)
         for b in np.unique(qlab):
             qi = np.where(qlab == b)[0]; gt[qi] = _rigx().brute(Xc, Q[qi], mask=(attr == b), k=10, threads=64)[0]
-        meta = {'kind': 'label', 'beta': beta, 's': s, 'labels': L}
+        meta = {'kind': 'label', 'beta': beta, 's': s, 'labels': L, 'rho': rho}
     np.save(f'{out}/gt.npy', gt); json.dump(meta, open(f'{out}/meta.json', 'w'), indent=1)
     log(f'{ds}/{sc}: {meta}')
 

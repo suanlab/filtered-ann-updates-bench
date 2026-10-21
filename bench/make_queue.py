@@ -65,7 +65,46 @@ jobs += extra_jobs()
 jobs += mt_jobs()
 jobs += ['# predicate-cost and binding-overhead measurements', 'taskset -c 16 python3 bench/overhead.py',
          'taskset -c 16 .venv-faiss/bin/python bench/overhead.py', 'taskset -c 16 .venv-diskann/bin/python bench/overhead.py']
+# ---- follow-up experiments (H1-H8 of the research plan); results go to tagged directories results/bench_<tag> ----
+H1_L = {'deep300k': (316, 100, 32, 10, 3), 'deep1m': (1000, 316, 100, 32, 10, 3),
+        'deep3m': (3162, 1000, 316, 100, 32, 10), 'deep10m': (10000, 3162, 1000, 316, 100, 32)}
+def h1_schemas(ds): return [f'b0.0_s{1 / L:.6g}' for L in H1_L[ds]]
+H4_SC = ['b0.0_s0.1', 'b0.0_s0.1_r0.5', 'b0.0_s0.1_r1.0', 'b0.9_s0.1', 'b0.9_s0.1_r0.5', 'b0.9_s0.1_r1.0']
+
+def h_jobs():
+    """H1 (crossover vs n at beta=0, fixed admissible-set sizes 1e3..3e5), H2 counters (recorded by every IVF and
+    ACORN run), H4 (query-filter correlation rho on SIFT1M), H5 (predicate cost), H7 (28 threads on the n=1e7 slice).
+    Two passes each; the label-partitioned IVF (ivf_part) runs wherever IVF does."""
+    out = ['# preparation (ungated)']
+    for ds in H1_L: out.append(f'python3 bench/prep.py {ds} ' + ' '.join(h1_schemas(ds)))
+    out.append('python3 bench/prep.py sift1m ' + ' '.join(sc for sc in H4_SC if '_r' in sc))
+    out.append('python3 bench/workload_stats.py')
+    for p in (1, 2):
+        out.append(f'# pass {p}')
+        for tag, wl in (('h1', [(ds, h1_schemas(ds)) for ds in H1_L]), ('h4', [('sift1m', H4_SC)])):
+            P = f'BENCH_TAG={tag} BENCH_PASS={p} {T}'
+            for ds, scs in wl:
+                for sc in scs:
+                    out.append(f'{P} .venv-faiss/bin/python bench/run_faiss.py {ds} {sc} scan_part,ivf,ivf_part' + (',scan_mask' if tag == 'h4' else ''))
+                    if tag == 'h4' or int(round(1 / float(sc.split('_')[1][1:]))) <= 32:
+                        out.append(f'{P} .venv-diskann/bin/python bench/run_diskann.py {ds} {sc}')
+                j = '+'.join(scs)
+                out += [f'{P} python3 bench/run_main.py {ds} {j} postfilter', f'{P} python3 bench/run_acorn.py {ds} {j}',
+                        f'{P} .venv-curator/bin/python bench/run_curator.py {ds} {j}']
+                if tag == 'h4': out.append(f'{P} python3 bench/run_acorn.py {ds} {j} gamma=1 M=32 Mb=32')
+        if p == 1: out.append('taskset -c 16 python3 bench/predicate_cost.py')
+    out.append('# H7: 28 threads, n=1e7 slice of H1, batched mode, two passes')
+    for p in (1, 2):
+        M = f'BENCH_TAG=h7mt28 BENCH_PASS={p} MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27'
+        j = '+'.join(h1_schemas('deep10m'))
+        out += [f'{M} .venv-faiss/bin/python bench/run_faiss.py deep10m {sc} scan_part,ivf,ivf_part' for sc in h1_schemas('deep10m')]
+        out += [f'{M} python3 bench/run_main.py deep10m {j} postfilter', f'{M} python3 bench/run_acorn.py deep10m {j}']
+    return out
+
 import sys
+if len(sys.argv) > 1 and sys.argv[1] == 'hplan':
+    J = h_jobs(); open('bench/queue_h.txt', 'w').write('\n'.join(J) + '\n')
+    print(sum(1 for j in J if not j.startswith('#')), 'jobs written to bench/queue_h.txt'); sys.exit()
 if len(sys.argv) > 1 and sys.argv[1] == 'medium':  # re-measurements added after the audit (bench/queue_medium.txt)
     J = mt_jobs() + extra_jobs()[4:]                  # snapshots/held-out set are already prepared
     open('bench/queue_medium.txt', 'w').write('\n'.join(J) + '\n'); print(sum(1 for j in J if not j.startswith('#')), 'jobs written to bench/queue_medium.txt'); sys.exit()

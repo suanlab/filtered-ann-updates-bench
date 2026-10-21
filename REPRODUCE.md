@@ -82,3 +82,40 @@ cd paper && pdflatex paper_eab.tex && pdflatex paper_eab.tex
 
 Superseded runs are kept under `results/bench_superseded/` (one directory per reason); every defect found during
 the study is described in the paper's lessons section (Section VII).
+
+## 6. Follow-up campaign (cost model, Sections IV-VIII)
+
+The follow-up experiments were run from one gated queue (`bench/make_queue.py hplan`, then entries appended for the
+streams, counting build, pgvector, and dense sweeps; the queue file actually run is `bench/queue_h.txt`). Results go
+to tagged directories `results/bench_<tag>[_pass2]`, which `bench/analyze.py` never merges with the paper's main
+results.
+
+| tag | experiment | paper | runner |
+|---|---|---|---|
+| `h1` | beta=0 n-sweep (DEEP subsets 3.16e5-1e7), H1/H2 | V-A | `run_faiss.py` (`scan_part,ivf,ivf_part`), `run_main.py postfilter`, `run_acorn.py`, `run_curator.py`, `run_diskann.py` |
+| `h2c` | ACORN counting build (hops, predicate checks) | V-A | `ACORN_BIN=./src/acorn_driver_count run_acorn.py` |
+| `h3`, `h3b` | ACORN streams with `PERC=1`, `REPAIR=1` (level 0), `REPAIR=2` (all levels) | VI | `stream_acorn.py` |
+| `h4` | query-filter correlation rho on SIFT1M | V-B | all static runners |
+| `h5` | predicate cost (numpy, Roaring, dense bitmaps) | IX | `predicate_cost.py` |
+| `h6` | Filtered-DiskANN stale index + exact delta by age; IVF reference | VII | `stream_diskann_delta.py`, `stream_faiss.py` |
+| `h7mt28` | 28 threads, n=1e7 slice of h1 | V-F | static runners with `SEARCH_THREADS=28` |
+| `h8` | dispatcher with estimated cardinalities (analysis only) | V-C | `h8_estimation.py` |
+| `pg` | PostgreSQL 16 + pgvector 0.8.1 | V-E | `run_pgvector.py` (needs `postgresql-16`, `postgresql-16-pgvector`, `psycopg`) |
+| `dense` | sqrt(2) knob steps on the key workloads | VIII | static runners with `SWEEP=dense` |
+| `ax` | arXiv abstracts, 4096-d embeddings, real categories (`prep.py arxiv*`) | V-A | static runners |
+
+```bash
+python3 bench/analyze_h.py > results/bench_h_analysis.txt   # results/bench_h_summary.json
+python3 paper/make_eab_hnumbers.py                           # paper/eab_hnumbers.tex (macros \V{h/...})
+python3 paper/make_eab_hfigures.py                           # paper/figures/eab_law.pdf, eab_percolation.pdf
+python3 paper/make_eab_anumbers.py                           # paper/eab_anumbers.tex (\V{a/...}): per-run ranges, same-run ratios
+```
+
+`h3b` passes 2 and 3 replicate the same-session tombstone / level-0 repair / all-level repair triple (audit item I31).
+All follow-up jobs of `bench/queue_h.txt` completed on 2026-10-22 (queue log `results/bench/h.log`, done file
+`results/bench/h.done`). `bench/analyze_h.py` reads `data/` only for two workload statistics (the arXiv category
+predicate sizes and the stream schedules of H6) and caches them in `results/bench_ax/cat_workload.json` and
+`results/bench_h6/stream_*_sched.json`, so the follow-up analysis and its macros regenerate byte-identically without
+`data/` (checked by `scripts/make_release.sh`). One arXiv query asks for a category that no sampled paper carries; it
+has an empty admissible set, counts as recall 1 for every method, and `run_curator.py` answers it without calling
+Curator, which rejects unknown labels.

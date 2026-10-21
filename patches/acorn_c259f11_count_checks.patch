@@ -1,0 +1,48 @@
+--- a/faiss/impl/ACORN.cpp
++++ b/faiss/impl/ACORN.cpp
+@@ -9,6 +9,20 @@
+ 
+ #include <faiss/impl/ACORN.h>
+ 
++// [Vector instrumentation] Compiled only with -DACORN_COUNT_CHECKS (a separate build used for cost accounting):
++// counts, per thread, level-0 expansions (hops) and neighbor-list entries examined against the predicate (checks).
++#ifdef ACORN_COUNT_CHECKS
++namespace faiss { thread_local size_t acorn_count_hops = 0, acorn_count_checks = 0;
++    void acorn_count_reset() { acorn_count_hops = acorn_count_checks = 0; }
++    size_t acorn_count_get_hops() { return acorn_count_hops; }
++    size_t acorn_count_get_checks() { return acorn_count_checks; } }
++#define ACORN_COUNT_HOP() (++faiss::acorn_count_hops)
++#define ACORN_COUNT_CHECK() (++faiss::acorn_count_checks)
++#else
++#define ACORN_COUNT_HOP() ((void)0)
++#define ACORN_COUNT_CHECK() ((void)0)
++#endif
++
+ #include <string>
+ 
+ #include <faiss/impl/AuxIndexStructures.h>
+@@ -1247,7 +1261,7 @@
+     
+     while (candidates.size() > 0) { // candidates is heap of size max(efs, k)
+         float d0 = 0;
+-        int v0 = candidates.pop_min(&d0);
++        int v0 = candidates.pop_min(&d0); ACORN_COUNT_HOP();
+         // debug_search("--------visiting v0: %d, d0: %f, candidates_size: %d\n", v0, d0, candidates.size());
+ 
+         if (do_dis_check) {
+@@ -1287,6 +1301,7 @@
+             if (v1 < 0) {
+                 break;
+             }
++            ACORN_COUNT_CHECK();
+ 
+             // note that this slows down search performance significantly
+             // if (debugSearchFlag) {
+@@ -1347,6 +1362,7 @@
+                         // continue;
+                         break;
+                     }
++                    ACORN_COUNT_CHECK();
+ 
+                     // if (metadata2 == filter) {
+                     if (filter_map[v2]) {

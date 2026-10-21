@@ -5,12 +5,17 @@
               query per call; csr schemas: per-query gather of the admissible ids + scan.
   scan_mask   exact scan over all points with the predicate as a bitmap (IDSelectorBitmap).
   ivf         IVF-Flat (nlist = 4 sqrt n), predicate as IDSelectorBitmap, one query per call, nprobe sweep.
+              Each record also stores, per query and outside the timer, the entries in the probed lists
+              (bitmap checks) and the admissible entries among them (distance computations).
+  ivf_part    label-partitioned IVF (label schemas only): one IVF-Flat per label over that label's points
+              (nlist_b = 4 sqrt n_b, own k-means), so a search never touches an inadmissible entry; exact
+              insertions and deletions like IVF. A design point predicted by the inadmissible-territory cost model.
 Predicates are handed to every method precomputed (admissible set / bitmap); predicate evaluation is
 not timed for any method. Builds use 32 threads, searches 1 thread."""
 import sys, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
-from common import load_base, load_schema, groups, admissible, admissible_ids, recall, per_query, timed_search, save, log, K, THREADS, MT_MODE, pool_map, faiss_bitmap
+from common import load_base, load_schema, groups, admissible, admissible_ids, recall, per_query, timed_search, save, log, K, THREADS, MT_MODE, pool_map, faiss_bitmap, sweep
 
 ds, sc = sys.argv[1], sys.argv[2]
 arms = sys.argv[3].split(',') if len(sys.argv) > 3 else ['scan_part', 'scan_mask', 'ivf']
@@ -79,7 +84,17 @@ if 'ivf' in arms:
     quant = faiss.IndexFlatL2(d); ivf = faiss.IndexIVFFlat(quant, d, nlist)
     ivf.train(X[np.random.default_rng(0).choice(n, min(n, 50 * nlist), replace=False)]); ivf.add(X)
     build = time.time() - t0; faiss.omp_set_num_threads(THREADS); recs = []
-    for npb in [p for p in (8, 16, 32, 64, 128, 256, 512, 1024, 2048) if p <= nlist // 2]:
+    # cost accounting (untimed): list of every point, list sizes, admissible entries per (query, list)
+    il = ivf.invlists; sizes = np.array([il.list_size(l) for l in range(nlist)], np.int64); assign = np.empty(n, np.int64)
+    for l in range(nlist):
+        if sizes[l]: assign[faiss.rev_swig_ptr(il.get_ids(l), int(sizes[l])).astype(np.int64)] = l
+    def probe_cost(npb):
+        _, P = quant.search(Q, npb); ent = sizes[P].sum(1); adm = np.zeros(nq, np.int64)
+        for key, qi in G:
+            cnt = np.bincount(assign[admissible_ids(pred, key)], minlength=nlist)
+            for i in qi: adm[i] = cnt[P[i]].sum()
+        return ent, adm
+    for npb in [p for p in sweep((8, 16, 32, 64, 128, 256, 512, 1024, 2048)) if p <= nlist // 2]:
         def run_batched():      # multi-threaded mode: one call per label group, Faiss parallelizes over queries
             o = np.full((nq, K), -1, np.int32); tot = 0.0
             for key, qi in G:
@@ -103,7 +118,42 @@ if 'ivf' in arms:
         else: o, q, tq = timed_search(run, nq)
         recs.append({'method': 'ivf', 'param': f'nprobe={npb}', 'recall': recall(o, gt), 'qps': q, 'threads': THREADS, 'build_s': build,
                      'bytes': int(n * d * 4 + n * 8 + nlist * d * 4), 'extra': {'nlist': nlist}, **per_query(o, gt, tq)})
-        log(ds, sc, 'ivf', npb, round(recs[-1]['recall'], 4), round(q['mean'], 1))
+        ent, adm = probe_cost(npb); recs[-1]['extra'].update(entries_q=ent.tolist(), admissible_q=adm.tolist())
+        log(ds, sc, 'ivf', npb, round(recs[-1]['recall'], 4), round(q['mean'], 1), 'entries', int(ent.mean()), 'admissible', int(adm.mean()))
         if recs[-1]['recall'] > 0.999: break
     save(ds, sc, 'ivf', recs)
+
+if 'ivf_part' in arms and is_label:
+    attr = pred['attr']; faiss.omp_set_num_threads(32); t0 = time.time(); parts = {}; nl_tot = 0
+    for b in np.unique(attr):
+        ids = np.where(attr == b)[0]; nlb = max(1, int(4 * np.sqrt(len(ids)))); qb = faiss.IndexFlatL2(d); ix = faiss.IndexIVFFlat(qb, d, nlb)
+        ix.train(X[ids[np.random.default_rng(0).choice(len(ids), min(len(ids), 50 * nlb), replace=False)]])
+        ix.add_with_ids(X[ids], ids.astype(np.int64)); parts[int(b)] = (ix, qb, nlb); nl_tot += nlb
+    build = time.time() - t0; faiss.omp_set_num_threads(THREADS); recs = []
+    for npb in sweep((1, 2, 4, 8, 16, 32, 64, 128, 256, 512)):
+        def run():
+            o = np.full((nq, K), -1, np.int32); tot = 0.0; tq = np.zeros(nq)
+            for key, qi in G:
+                ix, _, nlb = parts[int(key)]; ix.nprobe = min(npb, nlb)
+                for i in qi:
+                    t = time.perf_counter(); _, I = ix.search(Q[i:i + 1], K); tq[i] = time.perf_counter() - t; tot += tq[i]; o[i] = I[0]
+            return o, tot, tq
+        def run_batched():
+            o = np.full((nq, K), -1, np.int32); tot = 0.0
+            for key, qi in G:
+                ix, _, nlb = parts[int(key)]; ix.nprobe = min(npb, nlb)
+                t = time.perf_counter(); _, I = ix.search(Q[qi], K); tot += time.perf_counter() - t; o[qi] = I
+            return o, tot
+        def run_pool():
+            faiss.omp_set_num_threads(1); qk = {int(i): int(key) for key, qi in G for i in qi}
+            for key, _ in G: ix, _, nlb = parts[int(key)]; ix.nprobe = min(npb, nlb)
+            res, wall = pool_map(lambda i: parts[qk[i]][0].search(Q[i:i + 1], K)[1][0], nq, THREADS)
+            return np.stack(res).astype(np.int32), wall
+        if THREADS > 1: (o, q), tq = timed_search(run_pool if MT_MODE == 'pool' else run_batched, nq), None
+        else: o, q, tq = timed_search(run, nq)
+        recs.append({'method': 'ivf_part', 'param': f'nprobe={npb}', 'recall': recall(o, gt), 'qps': q, 'threads': THREADS, 'build_s': build,
+                     'bytes': int(n * d * 4 + n * 8 + nl_tot * d * 4), 'extra': {'nlist_total': nl_tot, 'labels': len(parts)}, **per_query(o, gt, tq)})
+        log(ds, sc, 'ivf_part', npb, round(recs[-1]['recall'], 4), round(q['mean'], 1))
+        if recs[-1]['recall'] > 0.999: break
+    save(ds, sc, 'ivf_part', recs); del parts
 log('DONE', ds, sc)

@@ -7,7 +7,7 @@ timed repetitions after a warm-up) for every schema with the predicate as a per-
 import sys, os, json, subprocess, tempfile
 sys.path.insert(0, 'bench')
 import numpy as np
-from common import load_base, load_schema, recall, per_query, ci, save, log, ds_dir, REPS, K, THREADS, write_fbin
+from common import load_base, load_schema, recall, per_query, ci, save, log, ds_dir, REPS, K, THREADS, write_fbin, sweep
 
 ds = sys.argv[1]; schemas = sys.argv[2].split('+'); kw = dict(a.split('=') for a in sys.argv[3:])
 gamma, M, Mb = int(kw.get('gamma', 12)), int(kw.get('M', 32)), int(kw.get('Mb', 64))
@@ -25,23 +25,25 @@ for sc in schemas:
     else:
         pred['qoff'].astype(np.int64).tofile(f'{tmp}/{sc}.qoff'); pred['qids'].astype(np.int32).tofile(f'{tmp}/{sc}.qids')
         jobs.append(f'csr:{tmp}/{sc}.qoff:{tmp}/{sc}.qids:{sc}')
-efs = '16,32,64,128,256,512,1024,2048'
+efs = ','.join(map(str, sweep((16, 32, 64, 128, 256, 512, 1024, 2048))))
 cmd = [os.environ.get('ACORN_BIN', './src/acorn_driver_avx2'), f'{tmp}/X.fbin', f'{tmp}/Q.fbin', str(M), str(gamma), str(Mb), f'32:{THREADS}', efs, out] + jobs
 log(ds, method, 'running', ' '.join(cmd[:8]))
 p = subprocess.run(cmd, capture_output=True, text=True, env={**os.environ, 'ACORN_REPS': str(REPS)})
 if p.returncode != 0: log('acorn_driver failed', p.returncode, p.stderr[-2000:]); sys.exit(1)
-build = None; recs = {sc: [] for sc in schemas}
+build = None; recs = {sc: [] for sc in schemas}; counts = {}
 for line in p.stdout.splitlines():
     if not line.startswith('{'): continue
     ev = json.loads(line)
     if ev['event'] == 'build': build = ev['build_s']; gbytes = ev['graph_bytes']
+    if ev['event'] == 'counts': counts[(ev['tag'], ev['ef'])] = ev; continue
     if ev['event'] == 'search':
         sc, ef = ev['tag'], ev['ef']; _, gt = load_schema(ds, sc)
         o = np.fromfile(f'{out}/acorn_{sc}_ef{ef}.i32', np.int32).reshape(nq, K)
         nbytes = int(n * d * 4 + gbytes)
         tpath = f'{out}/acorn_{sc}_ef{ef}.t'; tq = np.fromfile(tpath, np.float64) if os.path.exists(tpath) else None
         recs[sc].append({'method': method, 'param': f'ef={ef}', 'recall': recall(o, gt), 'qps': ci(ev['qps_reps']),
-                         'threads': THREADS, 'build_s': build, 'bytes': nbytes, 'extra': {'M': M, 'gamma': gamma, 'M_beta': Mb},
+                         'threads': THREADS, 'build_s': build, 'bytes': nbytes, 'extra': {'M': M, 'gamma': gamma, 'M_beta': Mb, 'ndis_per_query': ev.get('ndis_per_query'),
+                                   **{k: counts[(sc, ef)][k] for k in ('hops_per_query', 'checks_per_query') if (sc, ef) in counts}},
                          **per_query(o, gt, tq)})
         log(ds, sc, method, ef, round(recs[sc][-1]['recall'], 4), round(recs[sc][-1]['qps']['mean'], 1))
 for sc in schemas: save(ds, sc, method, recs[sc])
