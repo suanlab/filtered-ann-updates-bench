@@ -47,6 +47,14 @@ for nm in ('sift500k', 'sift500k_adv', 'deep5m'):
         if 1 < r['best_P'] < max(int(a) for a in H6[nm]['ages']) + 1:
             n += 1; ok += abs(r['best_P'] / r['P_star_eoq'] - 1) <= 0.3
 out['a/h6/eoq_within30'] = str(ok); out['a/h6/eoq_interior'] = str(n)
+# Figure 1 / introduction: how wrong a fixed dispatcher threshold is across n (IVF, recall 0.95, beta=0)
+HS = json.load(open('results/bench_h_summary.json')); P1 = HS['H1']['per_n']['0.95']
+m7, m3 = P1['deep10m']['ivf']['m_star'], P1['deep300k']['ivf']['m_star']
+out['a/fig1/ivf_mstar_n3e5'] = f'{m3:,.0f}'; out['a/fig1/ivf_mstar_n1e7'] = f'{m7:,.0f}'
+out['a/fig1/A1e4_low_at_1e7'] = f'{m7 / 1e4:.1f}'                  # |A|=1e4 threshold, right near n=3.16e5, too low by this at 1e7
+out['a/fig1/s001_high_at_1e7'] = f'{1e-2 * 1e7 / m7:.1f}'          # s=1e-2 threshold at n=1e7 vs the crossover there
+ax_ = HS['AX']['H1']['per_n']['0.95']['arxiv1m']['ivf']['m_star']
+out['a/fig1/A1e4_high_arxiv1m'] = f'{1e4 / ax_:.1f}'                # the same |A|=1e4 threshold on arXiv-1M
 H8 = json.load(open('results/bench_h8/estimation.json'))
 out['a/h8/indep_under_factor'] = f"{1 / H8['estimate_over_true_and_queries']['independence']['median']:.0f}"
 with open('paper/eab_anumbers.tex', 'w') as fo:

@@ -136,5 +136,10 @@
  "a/h5/roaring_ids_factor": "10",
  "a/h6/eoq_within30": "4",
  "a/h6/eoq_interior": "5",
+ "a/fig1/ivf_mstar_n3e5": "9,648",
+ "a/fig1/ivf_mstar_n1e7": "54,344",
+ "a/fig1/A1e4_low_at_1e7": "5.4",
+ "a/fig1/s001_high_at_1e7": "1.8",
+ "a/fig1/A1e4_high_arxiv1m": "2.6",
  "a/h8/indep_under_factor": "12"
 }

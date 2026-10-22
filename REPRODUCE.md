@@ -107,7 +107,7 @@ results.
 ```bash
 python3 bench/analyze_h.py > results/bench_h_analysis.txt   # results/bench_h_summary.json
 python3 paper/make_eab_hnumbers.py                           # paper/eab_hnumbers.tex (macros \V{h/...})
-python3 paper/make_eab_hfigures.py                           # paper/figures/eab_law.pdf, eab_percolation.pdf
+python3 paper/make_eab_hfigures.py                           # paper/figures/eab_teaser.pdf (Fig. 1), eab_law.pdf, eab_percolation.pdf
 python3 paper/make_eab_anumbers.py                           # paper/eab_anumbers.tex (\V{a/...}): per-run ranges, same-run ratios
 ```
 

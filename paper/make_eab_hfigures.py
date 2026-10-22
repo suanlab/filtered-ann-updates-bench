@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Figures for the follow-up experiments (main env): paper/figures/eab_law.pdf (H1: crossover admissible-set size
-vs n per method, with the sqrt(n) bound's slope for reference) and paper/figures/eab_percolation.pdf (H3: per-label
+vs n per method, with the sqrt(n) bound's slope for reference), paper/figures/eab_teaser.pdf (Figure 1: the same at recall
+0.95 with arXiv, against fixed thresholds) and paper/figures/eab_percolation.pdf (H3: per-label
 maximum recall against the effective admissible degree; maximum recall by round with and without repair).
 Reads results/bench_h_summary.json and the raw H3 stream results."""
 import json, glob, os, sys
@@ -37,6 +38,35 @@ def law():
     h, l = axs[0].get_legend_handles_labels(); fig.legend(h, l, loc='upper center', ncol=6, frameon=False, fontsize=7, bbox_to_anchor=(0.5, 1.08))
     fig.tight_layout(); fig.savefig('paper/figures/eab_law.pdf', bbox_inches='tight'); plt.close(fig)
 
+NS_AX = {'arxiv100k': 100_000, 'arxiv300k': 316_228, 'arxiv1m': 999_424}
+
+def teaser():
+    """Figure 1: crossover m* vs n at recall 0.95 (DEEP, beta=0; IVF also on 4096-d arXiv) against the two ways a
+    dispatcher threshold is usually stated -- a fixed admissible-set size (horizontal) and a fixed selectivity (slope 1)."""
+    H = S.get('H1'); AX = (S.get('AX') or {}).get('H1')
+    if not H: return
+    fig, ax = plt.subplots(figsize=(3.45, 2.35)); t = '0.95'
+    def series(rows, ns, m):
+        pts = sorted((ns[ds], r[m]['m_star'], r[m]['censor']) for ds, r in rows.items() if m in r and ds in ns)
+        return np.array([p[0] for p in pts]), np.array([p[1] for p in pts]), np.array([p[2] for p in pts])
+    for m in ('ivf', 'acorn', 'postfilter', 'curator', 'ivf_part'):
+        lab, c, mk = STY[m]; xs, ys, cen = series(H['per_n'][t], NS, m); ok = cen == 'interp'
+        ax.plot(xs[ok], ys[ok], marker=mk, color=c, lw=1.2, ms=3.5, label=lab); ax.plot(xs[~ok], ys[~ok], marker=mk, color=c, lw=0, ms=3.5, mfc='none')
+        ex = H['fit'][t].get(m); dy = {'acorn': 3, 'postfilter': -3}.get(m, 0)
+        if ex: ax.annotate(f"$n^{{{ex['exponent']:.2f}}}$", (xs[ok][-1], ys[ok][-1]), xytext=(3, dy), textcoords='offset points', color=c, fontsize=6.5, va='center')
+    if AX:
+        xs, ys, cen = series(AX['per_n'][t], NS_AX, 'ivf'); ok = cen == 'interp'
+        ax.plot(xs[ok], ys[ok], marker='o', color='C0', lw=1.0, ls='--', ms=3.5, mfc='white', label='IVF, arXiv 4096-d')
+        ex = AX['fit'][t].get('ivf')
+        if ex: ax.annotate(f"$n^{{{ex['exponent']:.2f}}}$", (xs[ok][-1], ys[ok][-1]), xytext=(3, 0), textcoords='offset points', color='C0', fontsize=6.5, va='center')
+    x = np.array([8e4, 1.6e7])
+    ax.plot(x, [1e4, 1e4], color='0.45', lw=0.8, ls=(0, (4, 2)), label='fixed $|A|{=}10^4$')
+    ax.plot(x, 1e-2 * x, color='0.45', lw=0.8, ls=(0, (1, 1.5)), label='fixed $s{=}10^{-2}$')
+    ax.set_xscale('log'); ax.set_yscale('log'); ax.set_xlim(8e4, 1.6e7); ax.set_ylim(7e2, 4e6)
+    ax.set_xlabel('collection size $n$ (labels independent of geometry)'); ax.set_ylabel('crossover $|A|$ at recall 0.95')
+    ax.legend(loc='upper left', fontsize=5.6, frameon=False, ncol=3, handlelength=1.8, columnspacing=0.7, borderaxespad=0.2)
+    fig.tight_layout(); fig.savefig('paper/figures/eab_teaser.pdf', bbox_inches='tight'); plt.close(fig)
+
 def percolation():
     from analyze import passes
     rows = []
@@ -64,4 +94,4 @@ def percolation():
     axs[1].set_xlabel('round'); axs[1].set_ylabel('max recall'); axs[1].legend(frameon=False, fontsize=6.5)
     fig.tight_layout(); fig.savefig('paper/figures/eab_percolation.pdf', bbox_inches='tight'); plt.close(fig)
 
-law(); percolation(); print('follow-up figures written')
+law(); teaser(); percolation(); print('follow-up figures written')
