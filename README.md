@@ -20,7 +20,7 @@ python3 paper/make_eab_figures.py          # paper/figures/eab_*.pdf
 cd paper && pdflatex paper_eab.tex && pdflatex paper_eab.tex
 ```
 
-The follow-up campaign (cost model, crossover law, percolation and repair, rebuild law, PostgreSQL, arXiv 4096-d;
+The follow-up campaign (cost model, crossover law, percolation and repair, rebuild law, PostgreSQL, Milvus, arXiv 4096-d;
 paper Sections IV-VIII) has its own analysis and macro files:
 
 ```bash
@@ -47,7 +47,7 @@ about two days on a 2-socket, 56-core machine.
 | `src/`, `experiments/` | ACORN drivers (`acorn_*.cpp`); RIG kernels (`rig.cpp`, `carve.cpp`, `rigx.py`) and the modules its unit tests use |
 | `patches/`, `scripts/` | ACORN patch; environment setup, builds, data download |
 | `results/bench*/` | raw results: two single-thread passes, 28-thread runs, same-session 1-thread references |
-| `results/bench_<tag>[_pass<k>]/` | follow-up campaign by tag (`h1`...`h8`, `pg`, `dense`, `ax`; table in REPRODUCE.md section 6); queue file `bench/queue_h.txt`, log `results/bench/h.log` |
+| `results/bench_<tag>[_pass<k>]/` | follow-up campaign by tag (`h1`...`h8`, `pg`, `mv`, `dense`, `ax`; table in REPRODUCE.md section 6); queue file `bench/queue_h.txt`, log `results/bench/h.log` |
 | `results/bench_superseded/` | results discarded during the study, one directory per reason |
 | `results/workload_stats.json` | admissible-set sizes and stream summaries the analysis needs without the datasets |
 | `paper/` | paper source, generated macros, number and figure generators |

@@ -101,6 +101,7 @@ results.
 | `h7mt28` | 28 threads, n=1e7 slice of h1 | V-F | static runners with `SEARCH_THREADS=28` |
 | `h8` | dispatcher with estimated cardinalities (analysis only) | V-C | `h8_estimation.py` |
 | `pg` | PostgreSQL 16 + pgvector 0.8.1 | V-E | `run_pgvector.py` (needs `postgresql-16`, `postgresql-16-pgvector`, `psycopg`) |
+| `mv` | Milvus 2.6.18 standalone (private, own network namespace) | V-E | `run_milvus.py` (`scripts/setup_milvus.sh`: official .deb extracted without root, `.venv-milvus`) |
 | `dense` | sqrt(2) knob steps on the key workloads | VIII | static runners with `SWEEP=dense` |
 | `ax` | arXiv abstracts, 4096-d embeddings, real categories (`prep.py arxiv*`) | V-A | static runners |
 
@@ -119,3 +120,8 @@ predicate sizes and the stream schedules of H6) and caches them in `results/benc
 `data/` (checked by `scripts/make_release.sh`). One arXiv query asks for a category that no sampled paper carries; it
 has an empty admissible set, counts as recall 1 for every method, and `run_curator.py` answers it without calling
 Curator, which rejects unknown labels.
+Milvus (`mv`): the brute-force switch quoted in Section V-E is Knowhere's `HnswSearchThresholds::kHnswSearchKnnBFFilterThreshold
+= 0.93` (`src/index/hnsw/impl/IndexConditionalWrapper.h`, applied per segment in `IndexConditionalWrapper.cc`, Knowhere
+v2.6.15 as bundled with Milvus 2.6.18). `run_milvus.py` compacts the flushed segments until their layout is stable before
+building indexes (all reported runs: one segment of 10^6 rows) and asserts that layout around every sweep; a first pass
+without this step is kept in `results/bench_superseded/milvus_unsettled_segments/` with its reason.

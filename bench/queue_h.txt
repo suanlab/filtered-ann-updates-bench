@@ -352,3 +352,12 @@ BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py arxiv
 # re-run after the run_curator.py fix for empty-label queries (one arXiv query category is absent from the 1M sample)
 BENCH_TAG=ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv1m cat
 BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv1m cat
+
+# Milvus 2.6.18 standalone (private, in its own network namespace): the pgvector workloads, two passes
+BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
+BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01
+BENCH_TAG=mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
+BENCH_TAG=mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01
+# Milvus pass 1 again, after the segment-layout fix (the first pass is in results/bench_superseded/milvus_unsettled_segments)
+BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
+BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01

@@ -408,6 +408,53 @@ def pgv():
         fs = [S[wl]['scan_part']['qps@0.95'] if 'scan_part' in S[wl] else None for wl in wls]
     return res
 
+def mvs():
+    """Milvus 2.6 standalone (tag 'mv'): QPS of each mode, the recall of a search with the server's default parameters,
+    the crossover of HNSW and IVF_FLAT with Milvus's own exact (FLAT) search on the DEEP-1M n-sweep, the per-query
+    floor (a search on a 1-row collection), and whether HNSW at its smallest ef is exact on selective filters (the
+    server switching to brute force over the admissible rows)."""
+    W = load_static('mv')
+    if not W: return None
+    raw, S = summarize_static(W); res = {'workloads': {}, 'crossover_deep1m': {}}
+    say('\n== Milvus 2.6 standalone ==')
+    for wl in sorted(S):
+        ms = S[wl]; dflt = (raw[wl].get('milvus_hnsw_default') or [{}])[0]; h = sorted(raw[wl].get('milvus_hnsw', []), key=lambda r: int(r['param']))
+        res['workloads'][wl] = {'qps@0.95': {m: d['qps@0.95'] for m, d in ms.items()}, 'qps@0.99': {m: d['qps@0.99'] for m, d in ms.items()},
+                                'max_recall': {m: d['max_recall'] for m, d in ms.items()}, 'default_recall': dflt.get('recall'),
+                                'hnsw_ef16_recall': h[0]['recall'] if h else None, 'trivial_ms': 1e3 * (dflt.get('extra') or {}).get('trivial_query_s', float('nan'))}
+        say(f"{wl}: default-parameter recall {dflt.get('recall', 0):.3f}; HNSW ef=16 recall {res['workloads'][wl]['hnsw_ef16_recall'] or 0:.3f}; QPS@0.95 " +
+            ', '.join(f"{m[7:]} {d['qps@0.95']:,.0f}" for m, d in ms.items() if d['qps@0.95']))
+    wls = sorted([wl for wl in S if wl.startswith('deep1m/b0.0_s')], key=lambda wl: -L_of(wl.split('/')[1]))
+    if wls and all('milvus_flat' in S[wl] for wl in wls):
+        m_ = [1e6 / L_of(wl.split('/')[1]) for wl in wls]
+        for meth in ('milvus_hnsw', 'milvus_ivf_flat'):
+            for t in TGT:
+                rat = [None if not S[wl].get(meth, {}).get(f'qps@{t}') else S[wl][meth][f'qps@{t}'] / S[wl]['milvus_flat'][f'qps@{t}'] for wl in wls]
+                ms_, cen = crossing(m_, rat); res['crossover_deep1m'][f'{meth[7:]}_{t}'] = {'m_star': ms_, 'censor': cen, 'ratio': rat}
+                say(f'  deep1m crossover with FLAT, {meth[7:]} @ {t}: m* = {ms_:,.0f} ({cen}); ratios ' + ' '.join('-' if r is None else f'{r:.2f}' for r in rat))
+    gd = [w['default_recall'] for w in res['workloads'].values() if w['default_recall'] is not None and (w['hnsw_ef16_recall'] or 0) < 0.999]
+    res['graph_default_recall_min'] = min(gd) if gd else None; res['graph_default_recall_max'] = max(gd) if gd else None
+    dr = [w['default_recall'] for w in res['workloads'].values() if w['default_recall'] is not None]
+    res['default_recall_min'] = min(dr) if dr else None; res['default_recall_max'] = max(dr) if dr else None
+    tr = [w['trivial_ms'] for w in res['workloads'].values() if math.isfinite(w['trivial_ms'])]
+    res['trivial_ms_median'] = float(np.median(tr)) if tr else None
+    ex = [wl for wl, w in res['workloads'].items() if (w['hnsw_ef16_recall'] or 0) >= 0.999]
+    res['hnsw_exact_at_ef16'] = ex; res['hnsw_exact_at_ef16_n'] = len(ex)
+    # Knowhere's fixed rule (brute force when >= 93% of a segment is filtered out, i.e. s <= 0.07): on the DEEP-1M
+    # n-sweep, compare that brute-force path (HNSW mode at s <= 0.07, exact at every ef) with IVF_FLAT in the same server
+    bf = [wl for wl in wls if float(wl.split('_s')[1]) <= 0.07 and 'milvus_hnsw' in S[wl] and 'milvus_ivf_flat' in S[wl]]
+    if bf:
+        q_bf = [S[wl]['milvus_hnsw']['qps@0.95'] for wl in bf]; q_ivf = [S[wl]['milvus_ivf_flat']['qps@0.95'] for wl in bf]
+        g = [wl for wl in wls if float(wl.split('_s')[1]) > 0.07 and 'milvus_hnsw' in S[wl]]
+        res['bf_rule'] = {'workloads': bf, 'bf_qps_min': min(q_bf), 'bf_qps_max': max(q_bf), 'ivf_qps_min': min(q_ivf), 'ivf_qps_max': max(q_ivf),
+                          'ivf_over_bf': [i / b for i, b in zip(q_ivf, q_bf)], 'ivf_over_bf_max': max(i / b for i, b in zip(q_ivf, q_bf)),
+                          'ivf_over_bf_min': min(i / b for i, b in zip(q_ivf, q_bf)),
+                          'graph_qps': {wl: S[wl]['milvus_hnsw']['qps@0.95'] for wl in g}}
+        say(f"  Knowhere brute-force rule on deep1m (s <= 0.07): HNSW-as-brute-force {min(q_bf):,.0f}-{max(q_bf):,.0f} QPS, IVF_FLAT {min(q_ivf):,.0f}-{max(q_ivf):,.0f} QPS @0.95 "
+            f"(IVF_FLAT / brute force {res['bf_rule']['ivf_over_bf_min']:.2f}-{res['bf_rule']['ivf_over_bf_max']:.2f}); graph path above: " +
+            ', '.join(f"{wl.split('/')[1]} {q:,.0f}" for wl, q in res['bf_rule']['graph_qps'].items() if q))
+    return res
+
 # ------------------------------------------------------------------------------------------------ arXiv (4096-d)
 NS_AX = {'arxiv100k': 100_000, 'arxiv300k': 316_228, 'arxiv1m': 999_424}
 def arxiv():
@@ -438,7 +485,7 @@ def arxiv():
     return res
 
 if __name__ == '__main__':
-    OUT['bias'] = biases(); OUT['dense'] = dense(OUT['bias']); OUT['pg'] = pgv()
+    OUT['bias'] = biases(); OUT['dense'] = dense(OUT['bias']); OUT['pg'] = pgv(); OUT['mv'] = mvs()
     OUT['H1'] = h1('h1'); OUT['H7'] = h1('h7mt28', 'H7 (28 threads)'); OUT['H2'] = h2(); OUT['H4'] = h4(); OUT['H5'] = h5()
     OUT['H3'] = h3(); OUT['H6'] = h6(); OUT['A'] = predictive(); OUT['AX'] = arxiv()
     if OUT['H2'] and 'ivf' in OUT['H2']:      # Proposition 1's bound with the measured per-entry and per-distance costs

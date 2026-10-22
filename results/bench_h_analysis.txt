@@ -46,6 +46,23 @@ sift1m/b0.9_s0.1: auto plan HNSW recall 0.335; QPS@0.95 ivfflat 42, hnsw 23, exa
   deep1m crossover with the exact plan, ivfflat @ 0.95: m* = 12,625 (interp)
   deep1m crossover with the exact plan, ivfflat @ 0.99: m* = 25,789 (interp)
 
+== Milvus 2.6 standalone ==
+deep1m/b0.0_s0.001: default-parameter recall 1.000; HNSW ef=16 recall 1.000; QPS@0.95 ivf_flat 163, hnsw 98, hnsw_default 98, flat 52
+deep1m/b0.0_s0.00316456: default-parameter recall 1.000; HNSW ef=16 recall 1.000; QPS@0.95 ivf_flat 175, hnsw 93, hnsw_default 95, flat 50
+deep1m/b0.0_s0.01: default-parameter recall 1.000; HNSW ef=16 recall 1.000; QPS@0.95 ivf_flat 186, hnsw 81, hnsw_default 81, flat 47
+deep1m/b0.0_s0.03125: default-parameter recall 1.000; HNSW ef=16 recall 1.000; QPS@0.95 ivf_flat 177, hnsw 71, hnsw_default 70, flat 42
+deep1m/b0.0_s0.1: default-parameter recall 0.906; HNSW ef=16 recall 0.906; QPS@0.95 ivf_flat 163, hnsw 163, flat 30
+deep1m/b0.0_s0.333333: default-parameter recall 0.860; HNSW ef=16 recall 0.862; QPS@0.95 ivf_flat 118, hnsw 124, flat 19
+sift1m/b0.0_s0.01: default-parameter recall 1.000; HNSW ef=16 recall 1.000; QPS@0.95 ivf_flat 175, hnsw 76, hnsw_default 79, flat 41
+sift1m/b0.0_s0.1: default-parameter recall 0.895; HNSW ef=16 recall 0.895; QPS@0.95 ivf_flat 151, hnsw 157, flat 26
+sift1m/b0.9_s0.01: default-parameter recall 1.000; HNSW ef=16 recall 1.000; QPS@0.95 ivf_flat 151, hnsw 76, hnsw_default 77, flat 41
+sift1m/b0.9_s0.1: default-parameter recall 0.889; HNSW ef=16 recall 0.889; QPS@0.95 ivf_flat 135, hnsw 102, flat 26
+  deep1m crossover with FLAT, hnsw @ 0.95: m* = 1,000 (below); ratios 1.88 1.86 1.71 1.69 5.42 6.61
+  deep1m crossover with FLAT, hnsw @ 0.99: m* = 1,000 (below); ratios 1.88 1.86 1.71 1.69 4.63 6.05
+  deep1m crossover with FLAT, ivf_flat @ 0.95: m* = 1,000 (below); ratios 3.14 3.47 3.94 4.21 5.40 6.28
+  deep1m crossover with FLAT, ivf_flat @ 0.99: m* = 1,000 (below); ratios 2.59 2.93 3.36 3.79 4.72 5.54
+  Knowhere brute-force rule on deep1m (s <= 0.07): HNSW-as-brute-force 71-98 QPS, IVF_FLAT 163-186 QPS @0.95 (IVF_FLAT / brute force 1.67-2.49); graph path above: b0.0_s0.1 163, b0.0_s0.333333 124
+
 == H1 (1 thread): crossover admissible-set size m* at recall 0.95, beta=0 ==
 deep300k  n=   316,228  ivf:9.65e+03(i)  ivf_part:1e+03(b)  acorn:1.99e+04(i)  postfilter:3.17e+04(i)  curator:3.32e+04(i)  best:1e+03(b)
 deep1m    n= 1,000,000  ivf:1.64e+04(i)  ivf_part:1e+03(b)  acorn:3.87e+04(i)  postfilter:4.63e+04(i)  curator:3.47e+04(i)  best:1e+03(b)

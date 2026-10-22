@@ -98257,3 +98257,380 @@ QUEUE_EMPTY 04:23:25
 [07:21:12] DONE arxiv1m curator
 --- [354] exit=0
 QUEUE_EMPTY 07:21:15
+=== [357 c7378af7ba59b518.1] 2026-10-22 14:32:36 BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
+[14:32:38] deep1m milvus up 2.6.18
+[14:32:59] deep1m milvus loaded 1000000 rows in 20.5 s
+[14:33:24] deep1m trivial query 3.932 ms
+[14:33:57] deep1m b0.0_s0.001 milvus_hnsw_default default 1.0 167.8
+[14:34:09] deep1m b0.0_s0.00316456 milvus_hnsw_default default 1.0 162.5
+[14:34:23] deep1m b0.0_s0.01 milvus_hnsw_default default 1.0 148.1
+[14:34:39] deep1m b0.0_s0.03125 milvus_hnsw_default default 1.0 122.0
+[14:34:49] deep1m b0.0_s0.1 milvus_hnsw_default default 0.9684 215.5
+[14:35:00] deep1m b0.0_s0.333333 milvus_hnsw_default default 0.9382 196.4
+[14:35:11] deep1m b0.0_s0.001 milvus_hnsw 16 1.0 182.0
+[14:35:23] deep1m b0.0_s0.00316456 milvus_hnsw 16 1.0 165.9
+[14:35:43] deep1m b0.0_s0.01 milvus_hnsw 16 1.0 89.0
+[14:36:11] deep1m b0.0_s0.03125 milvus_hnsw 16 1.0 71.9
+[14:36:23] deep1m b0.0_s0.1 milvus_hnsw 16 0.9112 170.5
+[14:36:35] deep1m b0.0_s0.1 milvus_hnsw 32 0.9648 157.3
+[14:36:50] deep1m b0.0_s0.1 milvus_hnsw 64 0.9868 142.1
+[14:37:06] deep1m b0.0_s0.1 milvus_hnsw 128 0.9964 121.7
+[14:37:27] deep1m b0.0_s0.1 milvus_hnsw 256 0.998 96.6
+[14:37:55] deep1m b0.0_s0.1 milvus_hnsw 512 0.9996 70.2
+[14:38:11] deep1m b0.0_s0.333333 milvus_hnsw 16 0.8712 127.2
+[14:38:28] deep1m b0.0_s0.333333 milvus_hnsw 32 0.9394 122.6
+[14:38:45] deep1m b0.0_s0.333333 milvus_hnsw 64 0.9774 117.9
+[14:39:03] deep1m b0.0_s0.333333 milvus_hnsw 128 0.9924 109.8
+[14:39:24] deep1m b0.0_s0.333333 milvus_hnsw 256 0.9976 97.0
+[14:39:49] deep1m b0.0_s0.333333 milvus_hnsw 512 0.9996 80.0
+[14:40:38] deep1m b0.0_s0.001 milvus_ivf_flat 8 0.1558 208.0
+[14:40:48] deep1m b0.0_s0.001 milvus_ivf_flat 16 0.2642 203.5
+[14:40:57] deep1m b0.0_s0.001 milvus_ivf_flat 32 0.4186 206.8
+[14:41:08] deep1m b0.0_s0.001 milvus_ivf_flat 64 0.6132 191.3
+[14:41:18] deep1m b0.0_s0.001 milvus_ivf_flat 128 0.7788 193.1
+[14:41:29] deep1m b0.0_s0.001 milvus_ivf_flat 256 0.894 181.6
+[14:41:42] deep1m b0.0_s0.001 milvus_ivf_flat 512 0.9608 161.6
+[14:41:57] deep1m b0.0_s0.001 milvus_ivf_flat 1024 0.9918 137.3
+[14:42:06] deep1m b0.0_s0.00316456 milvus_ivf_flat 8 0.3048 204.8
+[14:42:16] deep1m b0.0_s0.00316456 milvus_ivf_flat 16 0.4618 212.2
+[14:42:26] deep1m b0.0_s0.00316456 milvus_ivf_flat 32 0.6268 202.7
+[14:42:36] deep1m b0.0_s0.00316456 milvus_ivf_flat 64 0.7868 197.6
+[14:42:46] deep1m b0.0_s0.00316456 milvus_ivf_flat 128 0.8874 191.7
+[14:42:58] deep1m b0.0_s0.00316456 milvus_ivf_flat 256 0.9556 180.0
+[14:43:10] deep1m b0.0_s0.00316456 milvus_ivf_flat 512 0.9866 156.2
+[14:43:26] deep1m b0.0_s0.00316456 milvus_ivf_flat 1024 0.9976 129.7
+[14:43:35] deep1m b0.0_s0.01 milvus_ivf_flat 8 0.4606 210.4
+[14:43:45] deep1m b0.0_s0.01 milvus_ivf_flat 16 0.6234 206.0
+[14:43:55] deep1m b0.0_s0.01 milvus_ivf_flat 32 0.7634 207.0
+[14:44:05] deep1m b0.0_s0.01 milvus_ivf_flat 64 0.8776 198.9
+[14:44:15] deep1m b0.0_s0.01 milvus_ivf_flat 128 0.947 189.6
+[14:44:27] deep1m b0.0_s0.01 milvus_ivf_flat 256 0.9804 174.1
+[14:44:40] deep1m b0.0_s0.01 milvus_ivf_flat 512 0.9962 154.0
+[14:44:56] deep1m b0.0_s0.01 milvus_ivf_flat 1024 0.999 126.2
+[14:45:06] deep1m b0.0_s0.03125 milvus_ivf_flat 8 0.5828 202.6
+[14:45:16] deep1m b0.0_s0.03125 milvus_ivf_flat 16 0.7302 205.1
+[14:45:26] deep1m b0.0_s0.03125 milvus_ivf_flat 32 0.8398 192.1
+[14:45:37] deep1m b0.0_s0.03125 milvus_ivf_flat 64 0.9202 187.2
+[14:45:48] deep1m b0.0_s0.03125 milvus_ivf_flat 128 0.9684 176.5
+[14:46:01] deep1m b0.0_s0.03125 milvus_ivf_flat 256 0.9904 162.0
+[14:46:15] deep1m b0.0_s0.03125 milvus_ivf_flat 512 0.998 142.4
+[14:46:32] deep1m b0.0_s0.03125 milvus_ivf_flat 1024 0.9998 113.6
+[14:46:44] deep1m b0.0_s0.1 milvus_ivf_flat 8 0.6838 177.2
+[14:46:55] deep1m b0.0_s0.1 milvus_ivf_flat 16 0.8104 176.8
+[14:47:07] deep1m b0.0_s0.1 milvus_ivf_flat 32 0.8956 168.5
+[14:47:19] deep1m b0.0_s0.1 milvus_ivf_flat 64 0.9524 161.9
+[14:47:33] deep1m b0.0_s0.1 milvus_ivf_flat 128 0.982 154.3
+[14:47:47] deep1m b0.0_s0.1 milvus_ivf_flat 256 0.996 136.2
+[14:48:05] deep1m b0.0_s0.1 milvus_ivf_flat 512 0.9984 112.9
+[14:48:28] deep1m b0.0_s0.1 milvus_ivf_flat 1024 0.9998 86.1
+[14:48:44] deep1m b0.0_s0.333333 milvus_ivf_flat 8 0.7452 128.1
+[14:49:00] deep1m b0.0_s0.333333 milvus_ivf_flat 16 0.8548 126.1
+[14:49:17] deep1m b0.0_s0.333333 milvus_ivf_flat 32 0.9254 120.4
+[14:49:34] deep1m b0.0_s0.333333 milvus_ivf_flat 64 0.9684 116.0
+[14:49:53] deep1m b0.0_s0.333333 milvus_ivf_flat 128 0.9892 106.7
+[14:50:14] deep1m b0.0_s0.333333 milvus_ivf_flat 256 0.9962 92.3
+[14:50:42] deep1m b0.0_s0.333333 milvus_ivf_flat 512 0.9994 73.4
+[14:51:25] deep1m b0.0_s0.001 milvus_flat exact 1.0 51.8
+[14:52:05] deep1m b0.0_s0.00316456 milvus_flat exact 1.0 50.1
+[14:52:46] deep1m b0.0_s0.01 milvus_flat exact 1.0 48.3
+[14:53:34] deep1m b0.0_s0.03125 milvus_flat exact 1.0 42.1
+[14:54:41] deep1m b0.0_s0.1 milvus_flat exact 1.0 29.8
+[14:56:30] deep1m b0.0_s0.333333 milvus_flat exact 1.0 18.2
+[14:56:33] DONE deep1m milvus
+--- [357] exit=0
+=== [358 9a2565c4215f3e30.1] 2026-10-22 14:56:37 BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01
+[14:56:39] sift1m milvus up 2.6.18
+[14:57:04] sift1m milvus loaded 1000000 rows in 25.0 s
+[14:57:27] sift1m trivial query 3.828 ms
+[14:57:58] sift1m b0.0_s0.1 milvus_hnsw_default default 0.9754 207.3
+[14:58:11] sift1m b0.9_s0.1 milvus_hnsw_default default 0.9706 160.7
+[14:58:23] sift1m b0.0_s0.01 milvus_hnsw_default default 1.0 163.3
+[14:58:35] sift1m b0.9_s0.01 milvus_hnsw_default default 1.0 165.1
+[14:58:45] sift1m b0.0_s0.1 milvus_hnsw 16 0.9754 205.8
+[14:58:56] sift1m b0.0_s0.1 milvus_hnsw 32 0.9938 181.8
+--- [358] exit=143
+=== [359 41169451f1fe82e6.1] 2026-10-22 14:59:15 BENCH_TAG=mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
+[14:59:19] deep1m milvus up 2.6.18
+[14:59:53] deep1m milvus loaded 1000000 rows in 34.0 s
+[15:00:26] deep1m segments [1000000]
+[15:00:53] deep1m trivial query 3.654 ms
+[15:01:49] deep1m b0.0_s0.001 milvus_hnsw_default default 1.0 97.8
+[15:02:10] deep1m b0.0_s0.00316456 milvus_hnsw_default default 1.0 95.2
+[15:02:34] deep1m b0.0_s0.01 milvus_hnsw_default default 1.0 80.9
+[15:03:03] deep1m b0.0_s0.03125 milvus_hnsw_default default 1.0 69.9
+[15:03:15] deep1m b0.0_s0.1 milvus_hnsw_default default 0.9062 168.3
+[15:03:31] deep1m b0.0_s0.333333 milvus_hnsw_default default 0.8622 130.3
+[15:03:51] deep1m b0.0_s0.001 milvus_hnsw 16 1.0 97.7
+[15:04:13] deep1m b0.0_s0.00316456 milvus_hnsw 16 1.0 93.5
+[15:04:37] deep1m b0.0_s0.01 milvus_hnsw 16 1.0 80.8
+[15:05:06] deep1m b0.0_s0.03125 milvus_hnsw 16 1.0 70.9
+[15:05:18] deep1m b0.0_s0.1 milvus_hnsw 16 0.9062 169.9
+[15:05:30] deep1m b0.0_s0.1 milvus_hnsw 32 0.9636 161.4
+[15:05:44] deep1m b0.0_s0.1 milvus_hnsw 64 0.9878 146.4
+[15:06:00] deep1m b0.0_s0.1 milvus_hnsw 128 0.9956 123.7
+[15:06:20] deep1m b0.0_s0.1 milvus_hnsw 256 0.9988 101.1
+[15:06:48] deep1m b0.0_s0.1 milvus_hnsw 512 0.9994 72.3
+[15:07:03] deep1m b0.0_s0.333333 milvus_hnsw 16 0.8622 128.2
+[15:07:19] deep1m b0.0_s0.333333 milvus_hnsw 32 0.9384 124.8
+[15:07:36] deep1m b0.0_s0.333333 milvus_hnsw 64 0.9772 121.4
+[15:07:54] deep1m b0.0_s0.333333 milvus_hnsw 128 0.9922 111.9
+[15:08:14] deep1m b0.0_s0.333333 milvus_hnsw 256 0.9976 99.8
+[15:08:38] deep1m b0.0_s0.333333 milvus_hnsw 512 0.9996 82.6
+[15:09:27] deep1m b0.0_s0.001 milvus_ivf_flat 8 0.1558 209.5
+[15:09:36] deep1m b0.0_s0.001 milvus_ivf_flat 16 0.2642 213.7
+[15:09:46] deep1m b0.0_s0.001 milvus_ivf_flat 32 0.4186 208.8
+[15:09:56] deep1m b0.0_s0.001 milvus_ivf_flat 64 0.6132 198.2
+[15:10:07] deep1m b0.0_s0.001 milvus_ivf_flat 128 0.7788 188.0
+[15:10:17] deep1m b0.0_s0.001 milvus_ivf_flat 256 0.894 184.5
+[15:10:30] deep1m b0.0_s0.001 milvus_ivf_flat 512 0.9608 159.4
+[15:10:45] deep1m b0.0_s0.001 milvus_ivf_flat 1024 0.9918 133.2
+[15:10:55] deep1m b0.0_s0.00316456 milvus_ivf_flat 8 0.3048 207.5
+[15:11:05] deep1m b0.0_s0.00316456 milvus_ivf_flat 16 0.4618 202.9
+[15:11:15] deep1m b0.0_s0.00316456 milvus_ivf_flat 32 0.6268 199.1
+[15:11:25] deep1m b0.0_s0.00316456 milvus_ivf_flat 64 0.7868 190.1
+[15:11:36] deep1m b0.0_s0.00316456 milvus_ivf_flat 128 0.8874 190.5
+[15:11:48] deep1m b0.0_s0.00316456 milvus_ivf_flat 256 0.9556 173.4
+[15:12:01] deep1m b0.0_s0.00316456 milvus_ivf_flat 512 0.9866 152.7
+[15:12:17] deep1m b0.0_s0.00316456 milvus_ivf_flat 1024 0.9976 127.7
+[15:12:27] deep1m b0.0_s0.01 milvus_ivf_flat 8 0.4606 200.8
+[15:12:37] deep1m b0.0_s0.01 milvus_ivf_flat 16 0.6234 201.3
+[15:12:47] deep1m b0.0_s0.01 milvus_ivf_flat 32 0.7634 204.8
+[15:12:57] deep1m b0.0_s0.01 milvus_ivf_flat 64 0.8776 197.1
+[15:13:08] deep1m b0.0_s0.01 milvus_ivf_flat 128 0.947 188.1
+[15:13:19] deep1m b0.0_s0.01 milvus_ivf_flat 256 0.9804 170.7
+[15:13:33] deep1m b0.0_s0.01 milvus_ivf_flat 512 0.9962 152.2
+[15:13:49] deep1m b0.0_s0.01 milvus_ivf_flat 1024 0.999 123.9
+[15:13:59] deep1m b0.0_s0.03125 milvus_ivf_flat 8 0.5828 194.1
+[15:14:09] deep1m b0.0_s0.03125 milvus_ivf_flat 16 0.7302 194.4
+[15:14:20] deep1m b0.0_s0.03125 milvus_ivf_flat 32 0.8398 189.8
+[15:14:31] deep1m b0.0_s0.03125 milvus_ivf_flat 64 0.9202 182.2
+[15:14:43] deep1m b0.0_s0.03125 milvus_ivf_flat 128 0.9684 170.1
+[15:14:56] deep1m b0.0_s0.03125 milvus_ivf_flat 256 0.9904 159.0
+[15:15:10] deep1m b0.0_s0.03125 milvus_ivf_flat 512 0.998 140.6
+[15:15:28] deep1m b0.0_s0.03125 milvus_ivf_flat 1024 0.9998 112.1
+[15:15:39] deep1m b0.0_s0.1 milvus_ivf_flat 8 0.6838 176.1
+[15:15:51] deep1m b0.0_s0.1 milvus_ivf_flat 16 0.8104 171.4
+[15:16:03] deep1m b0.0_s0.1 milvus_ivf_flat 32 0.8956 162.4
+[15:16:15] deep1m b0.0_s0.1 milvus_ivf_flat 64 0.9524 162.6
+[15:16:29] deep1m b0.0_s0.1 milvus_ivf_flat 128 0.982 150.9
+[15:16:43] deep1m b0.0_s0.1 milvus_ivf_flat 256 0.996 136.1
+[15:17:01] deep1m b0.0_s0.1 milvus_ivf_flat 512 0.9984 112.6
+[15:17:25] deep1m b0.0_s0.1 milvus_ivf_flat 1024 0.9998 85.6
+[15:17:41] deep1m b0.0_s0.333333 milvus_ivf_flat 8 0.7452 126.7
+[15:17:57] deep1m b0.0_s0.333333 milvus_ivf_flat 16 0.8548 123.7
+[15:18:14] deep1m b0.0_s0.333333 milvus_ivf_flat 32 0.9254 118.1
+[15:18:31] deep1m b0.0_s0.333333 milvus_ivf_flat 64 0.9684 116.1
+[15:18:50] deep1m b0.0_s0.333333 milvus_ivf_flat 128 0.9892 105.5
+[15:19:12] deep1m b0.0_s0.333333 milvus_ivf_flat 256 0.9962 90.7
+[15:19:40] deep1m b0.0_s0.333333 milvus_ivf_flat 512 0.9994 73.3
+[15:20:25] deep1m b0.0_s0.001 milvus_flat exact 1.0 51.2
+[15:21:04] deep1m b0.0_s0.00316456 milvus_flat exact 1.0 50.3
+[15:21:46] deep1m b0.0_s0.01 milvus_flat exact 1.0 47.4
+[15:22:34] deep1m b0.0_s0.03125 milvus_flat exact 1.0 41.7
+[15:23:40] deep1m b0.0_s0.1 milvus_flat exact 1.0 29.9
+[15:25:29] deep1m b0.0_s0.333333 milvus_flat exact 1.0 18.5
+[15:25:31] DONE deep1m milvus
+--- [359] exit=0
+=== [360 4dbb11393b0cb940.1] 2026-10-22 15:25:36 BENCH_TAG=mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01
+[15:25:38] sift1m milvus up 2.6.18
+[15:26:03] sift1m milvus loaded 1000000 rows in 25.2 s
+[15:26:56] sift1m segments [1000000]
+[15:27:15] sift1m trivial query 3.972 ms
+[15:28:08] sift1m b0.0_s0.1 milvus_hnsw_default default 0.8952 166.0
+[15:28:25] sift1m b0.9_s0.1 milvus_hnsw_default default 0.8888 115.0
+[15:28:51] sift1m b0.0_s0.01 milvus_hnsw_default default 1.0 79.1
+[15:29:17] sift1m b0.9_s0.01 milvus_hnsw_default default 1.0 76.9
+[15:29:29] sift1m b0.0_s0.1 milvus_hnsw 16 0.8952 166.2
+[15:29:42] sift1m b0.0_s0.1 milvus_hnsw 32 0.9566 156.1
+[15:29:56] sift1m b0.0_s0.1 milvus_hnsw 64 0.985 137.1
+[15:30:14] sift1m b0.0_s0.1 milvus_hnsw 128 0.9978 115.6
+[15:30:36] sift1m b0.0_s0.1 milvus_hnsw 256 0.9994 91.4
+[15:30:53] sift1m b0.9_s0.1 milvus_hnsw 16 0.8888 115.3
+[15:31:13] sift1m b0.9_s0.1 milvus_hnsw 32 0.9534 99.7
+[15:31:37] sift1m b0.9_s0.1 milvus_hnsw 64 0.9816 84.9
+[15:32:04] sift1m b0.9_s0.1 milvus_hnsw 128 0.9922 73.8
+[15:32:35] sift1m b0.9_s0.1 milvus_hnsw 256 0.9968 64.9
+[15:33:13] sift1m b0.9_s0.1 milvus_hnsw 512 0.9982 52.7
+[15:33:59] sift1m b0.9_s0.1 milvus_hnsw 1000 0.999 43.6
+[15:34:25] sift1m b0.0_s0.01 milvus_hnsw 16 1.0 76.0
+[15:34:52] sift1m b0.9_s0.01 milvus_hnsw 16 1.0 75.8
+[15:35:50] sift1m b0.0_s0.1 milvus_ivf_flat 8 0.5472 167.9
+[15:36:01] sift1m b0.0_s0.1 milvus_ivf_flat 16 0.6976 169.1
+[15:36:14] sift1m b0.0_s0.1 milvus_ivf_flat 32 0.8274 165.5
+[15:36:27] sift1m b0.0_s0.1 milvus_ivf_flat 64 0.9234 155.6
+[15:36:40] sift1m b0.0_s0.1 milvus_ivf_flat 128 0.979 145.2
+[15:36:56] sift1m b0.0_s0.1 milvus_ivf_flat 256 0.9966 130.6
+[15:37:15] sift1m b0.0_s0.1 milvus_ivf_flat 512 0.9998 105.4
+[15:37:26] sift1m b0.9_s0.1 milvus_ivf_flat 8 0.4398 173.6
+[15:37:38] sift1m b0.9_s0.1 milvus_ivf_flat 16 0.5848 171.5
+[15:37:50] sift1m b0.9_s0.1 milvus_ivf_flat 32 0.7182 165.5
+[15:38:03] sift1m b0.9_s0.1 milvus_ivf_flat 64 0.8186 157.5
+[15:38:16] sift1m b0.9_s0.1 milvus_ivf_flat 128 0.9056 150.5
+[15:38:32] sift1m b0.9_s0.1 milvus_ivf_flat 256 0.9646 130.4
+[15:38:50] sift1m b0.9_s0.1 milvus_ivf_flat 512 0.99 108.9
+[15:39:15] sift1m b0.9_s0.1 milvus_ivf_flat 1024 0.9992 81.0
+[15:39:25] sift1m b0.0_s0.01 milvus_ivf_flat 8 0.3506 200.2
+[15:39:35] sift1m b0.0_s0.01 milvus_ivf_flat 16 0.499 201.6
+[15:39:45] sift1m b0.0_s0.01 milvus_ivf_flat 32 0.667 197.7
+[15:39:56] sift1m b0.0_s0.01 milvus_ivf_flat 64 0.8164 184.6
+[15:40:07] sift1m b0.0_s0.01 milvus_ivf_flat 128 0.927 180.4
+[15:40:19] sift1m b0.0_s0.01 milvus_ivf_flat 256 0.9826 167.6
+[15:40:33] sift1m b0.0_s0.01 milvus_ivf_flat 512 0.997 147.7
+[15:40:50] sift1m b0.0_s0.01 milvus_ivf_flat 1024 1.0 118.4
+[15:41:00] sift1m b0.9_s0.01 milvus_ivf_flat 8 0.2676 199.1
+[15:41:10] sift1m b0.9_s0.01 milvus_ivf_flat 16 0.3892 198.0
+[15:41:21] sift1m b0.9_s0.01 milvus_ivf_flat 32 0.5258 189.3
+[15:41:31] sift1m b0.9_s0.01 milvus_ivf_flat 64 0.6726 189.4
+[15:41:42] sift1m b0.9_s0.01 milvus_ivf_flat 128 0.8028 181.1
+[15:41:55] sift1m b0.9_s0.01 milvus_ivf_flat 256 0.9042 166.8
+[15:42:08] sift1m b0.9_s0.01 milvus_ivf_flat 512 0.9626 147.0
+[15:42:25] sift1m b0.9_s0.01 milvus_ivf_flat 1024 0.9908 119.0
+[15:43:48] sift1m b0.0_s0.1 milvus_flat exact 1.0 26.2
+[15:45:05] sift1m b0.9_s0.1 milvus_flat exact 1.0 25.9
+[15:45:55] sift1m b0.0_s0.01 milvus_flat exact 1.0 40.2
+[15:46:44] sift1m b0.9_s0.01 milvus_flat exact 1.0 40.2
+[15:46:46] DONE sift1m milvus
+--- [360] exit=0
+=== [362 c7378af7ba59b518.2] 2026-10-22 15:46:50 BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
+[15:46:53] deep1m milvus up 2.6.18
+[15:47:13] deep1m milvus loaded 1000000 rows in 20.3 s
+[15:47:45] deep1m segments [1000000]
+[15:48:11] deep1m trivial query 3.897 ms
+[15:49:07] deep1m b0.0_s0.001 milvus_hnsw_default default 1.0 95.9
+[15:49:29] deep1m b0.0_s0.00316456 milvus_hnsw_default default 1.0 91.6
+[15:49:54] deep1m b0.0_s0.01 milvus_hnsw_default default 1.0 78.2
+[15:50:23] deep1m b0.0_s0.03125 milvus_hnsw_default default 1.0 69.1
+[15:50:36] deep1m b0.0_s0.1 milvus_hnsw_default default 0.9078 164.5
+[15:50:51] deep1m b0.0_s0.333333 milvus_hnsw_default default 0.86 131.9
+[15:51:12] deep1m b0.0_s0.001 milvus_hnsw 16 1.0 96.3
+[15:51:34] deep1m b0.0_s0.00316456 milvus_hnsw 16 1.0 91.5
+[15:52:00] deep1m b0.0_s0.01 milvus_hnsw 16 1.0 77.7
+[15:52:28] deep1m b0.0_s0.03125 milvus_hnsw 16 1.0 69.6
+[15:52:41] deep1m b0.0_s0.1 milvus_hnsw 16 0.9078 164.7
+[15:52:54] deep1m b0.0_s0.1 milvus_hnsw 32 0.964 156.5
+[15:53:08] deep1m b0.0_s0.1 milvus_hnsw 64 0.9888 141.3
+[15:53:24] deep1m b0.0_s0.1 milvus_hnsw 128 0.9948 122.1
+[15:53:45] deep1m b0.0_s0.1 milvus_hnsw 256 0.9988 96.9
+[15:54:13] deep1m b0.0_s0.1 milvus_hnsw 512 0.9998 70.4
+[15:54:29] deep1m b0.0_s0.333333 milvus_hnsw 16 0.86 126.1
+[15:54:46] deep1m b0.0_s0.333333 milvus_hnsw 32 0.9364 122.8
+[15:55:02] deep1m b0.0_s0.333333 milvus_hnsw 64 0.977 119.2
+[15:55:21] deep1m b0.0_s0.333333 milvus_hnsw 128 0.9928 108.6
+[15:55:41] deep1m b0.0_s0.333333 milvus_hnsw 256 0.998 97.3
+[15:56:06] deep1m b0.0_s0.333333 milvus_hnsw 512 0.9996 80.4
+[15:56:54] deep1m b0.0_s0.001 milvus_ivf_flat 8 0.1558 207.0
+[15:57:04] deep1m b0.0_s0.001 milvus_ivf_flat 16 0.2642 204.4
+[15:57:14] deep1m b0.0_s0.001 milvus_ivf_flat 32 0.4186 198.6
+[15:57:25] deep1m b0.0_s0.001 milvus_ivf_flat 64 0.6132 190.9
+[15:57:35] deep1m b0.0_s0.001 milvus_ivf_flat 128 0.7788 187.1
+[15:57:47] deep1m b0.0_s0.001 milvus_ivf_flat 256 0.894 175.6
+[15:58:00] deep1m b0.0_s0.001 milvus_ivf_flat 512 0.9608 156.4
+[15:58:15] deep1m b0.0_s0.001 milvus_ivf_flat 1024 0.9918 131.4
+[15:58:25] deep1m b0.0_s0.00316456 milvus_ivf_flat 8 0.3048 205.7
+[15:58:35] deep1m b0.0_s0.00316456 milvus_ivf_flat 16 0.4618 199.6
+[15:58:45] deep1m b0.0_s0.00316456 milvus_ivf_flat 32 0.6268 195.7
+[15:58:56] deep1m b0.0_s0.00316456 milvus_ivf_flat 64 0.7868 190.3
+[15:59:07] deep1m b0.0_s0.00316456 milvus_ivf_flat 128 0.8874 184.5
+[15:59:18] deep1m b0.0_s0.00316456 milvus_ivf_flat 256 0.9556 171.7
+[15:59:31] deep1m b0.0_s0.00316456 milvus_ivf_flat 512 0.9866 155.3
+[15:59:47] deep1m b0.0_s0.00316456 milvus_ivf_flat 1024 0.9976 130.9
+[15:59:57] deep1m b0.0_s0.01 milvus_ivf_flat 8 0.4606 199.2
+[16:00:07] deep1m b0.0_s0.01 milvus_ivf_flat 16 0.6234 200.3
+[16:00:17] deep1m b0.0_s0.01 milvus_ivf_flat 32 0.7634 195.4
+[16:00:28] deep1m b0.0_s0.01 milvus_ivf_flat 64 0.8776 190.7
+[16:00:39] deep1m b0.0_s0.01 milvus_ivf_flat 128 0.947 180.4
+[16:00:51] deep1m b0.0_s0.01 milvus_ivf_flat 256 0.9804 168.7
+[16:01:04] deep1m b0.0_s0.01 milvus_ivf_flat 512 0.9962 151.6
+[16:01:20] deep1m b0.0_s0.01 milvus_ivf_flat 1024 0.999 124.5
+[16:01:31] deep1m b0.0_s0.03125 milvus_ivf_flat 8 0.5828 193.0
+[16:01:41] deep1m b0.0_s0.03125 milvus_ivf_flat 16 0.7302 192.9
+[16:01:52] deep1m b0.0_s0.03125 milvus_ivf_flat 32 0.8398 187.2
+[16:02:03] deep1m b0.0_s0.03125 milvus_ivf_flat 64 0.9202 179.0
+[16:02:15] deep1m b0.0_s0.03125 milvus_ivf_flat 128 0.9684 173.5
+[16:02:28] deep1m b0.0_s0.03125 milvus_ivf_flat 256 0.9904 159.1
+[16:02:42] deep1m b0.0_s0.03125 milvus_ivf_flat 512 0.998 137.7
+[16:03:00] deep1m b0.0_s0.03125 milvus_ivf_flat 1024 0.9998 109.5
+[16:03:12] deep1m b0.0_s0.1 milvus_ivf_flat 8 0.6838 172.6
+[16:03:24] deep1m b0.0_s0.1 milvus_ivf_flat 16 0.8104 168.9
+[16:03:36] deep1m b0.0_s0.1 milvus_ivf_flat 32 0.8956 165.1
+[16:03:49] deep1m b0.0_s0.1 milvus_ivf_flat 64 0.9524 160.4
+[16:04:02] deep1m b0.0_s0.1 milvus_ivf_flat 128 0.982 146.6
+[16:04:17] deep1m b0.0_s0.1 milvus_ivf_flat 256 0.996 132.3
+[16:04:36] deep1m b0.0_s0.1 milvus_ivf_flat 512 0.9984 110.5
+[16:04:59] deep1m b0.0_s0.1 milvus_ivf_flat 1024 0.9998 86.7
+[16:05:15] deep1m b0.0_s0.333333 milvus_ivf_flat 8 0.7452 126.8
+[16:05:31] deep1m b0.0_s0.333333 milvus_ivf_flat 16 0.8548 122.7
+[16:05:48] deep1m b0.0_s0.333333 milvus_ivf_flat 32 0.9254 119.5
+[16:06:05] deep1m b0.0_s0.333333 milvus_ivf_flat 64 0.9684 113.5
+[16:06:25] deep1m b0.0_s0.333333 milvus_ivf_flat 128 0.9892 103.4
+[16:06:47] deep1m b0.0_s0.333333 milvus_ivf_flat 256 0.9962 90.8
+[16:07:14] deep1m b0.0_s0.333333 milvus_ivf_flat 512 0.9994 73.2
+[16:08:00] deep1m b0.0_s0.001 milvus_flat exact 1.0 52.0
+[16:08:40] deep1m b0.0_s0.00316456 milvus_flat exact 1.0 50.2
+[16:09:23] deep1m b0.0_s0.01 milvus_flat exact 1.0 47.1
+[16:10:11] deep1m b0.0_s0.03125 milvus_flat exact 1.0 42.0
+[16:11:17] deep1m b0.0_s0.1 milvus_flat exact 1.0 30.1
+[16:13:04] deep1m b0.0_s0.333333 milvus_flat exact 1.0 18.7
+[16:13:06] DONE deep1m milvus
+--- [362] exit=0
+=== [363 9a2565c4215f3e30.2] 2026-10-22 16:13:10 BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01
+[16:13:14] sift1m milvus up 2.6.18
+[16:13:39] sift1m milvus loaded 1000000 rows in 25.2 s
+[16:14:31] sift1m segments [1000000]
+[16:14:50] sift1m trivial query 3.911 ms
+[16:15:41] sift1m b0.0_s0.1 milvus_hnsw_default default 0.8988 162.5
+[16:15:59] sift1m b0.9_s0.1 milvus_hnsw_default default 0.8932 113.4
+[16:16:25] sift1m b0.0_s0.01 milvus_hnsw_default default 1.0 75.6
+[16:16:51] sift1m b0.9_s0.01 milvus_hnsw_default default 1.0 76.3
+[16:17:04] sift1m b0.0_s0.1 milvus_hnsw 16 0.8988 157.5
+[16:17:17] sift1m b0.0_s0.1 milvus_hnsw 32 0.958 151.6
+[16:17:32] sift1m b0.0_s0.1 milvus_hnsw 64 0.9878 140.5
+[16:17:49] sift1m b0.0_s0.1 milvus_hnsw 128 0.9966 118.5
+[16:18:10] sift1m b0.0_s0.1 milvus_hnsw 256 0.9996 95.1
+[16:18:27] sift1m b0.9_s0.1 milvus_hnsw 16 0.8932 113.6
+[16:18:47] sift1m b0.9_s0.1 milvus_hnsw 32 0.9534 101.2
+[16:19:11] sift1m b0.9_s0.1 milvus_hnsw 64 0.9786 85.2
+[16:19:38] sift1m b0.9_s0.1 milvus_hnsw 128 0.9926 73.3
+[16:20:09] sift1m b0.9_s0.1 milvus_hnsw 256 0.9978 64.9
+[16:20:47] sift1m b0.9_s0.1 milvus_hnsw 512 0.9984 53.8
+[16:21:32] sift1m b0.9_s0.1 milvus_hnsw 1000 0.9986 43.6
+[16:21:59] sift1m b0.0_s0.01 milvus_hnsw 16 1.0 74.8
+[16:22:26] sift1m b0.9_s0.01 milvus_hnsw 16 1.0 75.8
+[16:23:24] sift1m b0.0_s0.1 milvus_ivf_flat 8 0.5472 167.1
+[16:23:36] sift1m b0.0_s0.1 milvus_ivf_flat 16 0.6976 165.8
+[16:23:49] sift1m b0.0_s0.1 milvus_ivf_flat 32 0.8274 159.8
+[16:24:02] sift1m b0.0_s0.1 milvus_ivf_flat 64 0.9234 154.2
+[16:24:16] sift1m b0.0_s0.1 milvus_ivf_flat 128 0.979 142.9
+[16:24:31] sift1m b0.0_s0.1 milvus_ivf_flat 256 0.9966 128.4
+[16:24:50] sift1m b0.0_s0.1 milvus_ivf_flat 512 0.9998 104.1
+[16:25:02] sift1m b0.9_s0.1 milvus_ivf_flat 8 0.4398 168.2
+[16:25:15] sift1m b0.9_s0.1 milvus_ivf_flat 16 0.5848 163.5
+[16:25:27] sift1m b0.9_s0.1 milvus_ivf_flat 32 0.7182 159.3
+[16:25:40] sift1m b0.9_s0.1 milvus_ivf_flat 64 0.8186 154.6
+[16:25:54] sift1m b0.9_s0.1 milvus_ivf_flat 128 0.9056 143.3
+[16:26:10] sift1m b0.9_s0.1 milvus_ivf_flat 256 0.9646 126.0
+[16:26:29] sift1m b0.9_s0.1 milvus_ivf_flat 512 0.99 104.1
+[16:26:55] sift1m b0.9_s0.1 milvus_ivf_flat 1024 0.9992 77.4
+[16:27:06] sift1m b0.0_s0.01 milvus_ivf_flat 8 0.3506 195.9
+[16:27:16] sift1m b0.0_s0.01 milvus_ivf_flat 16 0.499 196.3
+[16:27:27] sift1m b0.0_s0.01 milvus_ivf_flat 32 0.667 185.7
+[16:27:37] sift1m b0.0_s0.01 milvus_ivf_flat 64 0.8164 185.1
+[16:27:49] sift1m b0.0_s0.01 milvus_ivf_flat 128 0.927 177.7
+[16:28:01] sift1m b0.0_s0.01 milvus_ivf_flat 256 0.9826 167.0
+[16:28:15] sift1m b0.0_s0.01 milvus_ivf_flat 512 0.997 146.0
+[16:28:32] sift1m b0.0_s0.01 milvus_ivf_flat 1024 1.0 118.2
+[16:28:42] sift1m b0.9_s0.01 milvus_ivf_flat 8 0.2676 197.9
+[16:28:52] sift1m b0.9_s0.01 milvus_ivf_flat 16 0.3892 193.9
+[16:29:03] sift1m b0.9_s0.01 milvus_ivf_flat 32 0.5258 192.1
+[16:29:14] sift1m b0.9_s0.01 milvus_ivf_flat 64 0.6726 183.4
+[16:29:25] sift1m b0.9_s0.01 milvus_ivf_flat 128 0.8028 175.9
+[16:29:37] sift1m b0.9_s0.01 milvus_ivf_flat 256 0.9042 165.3
+[16:29:51] sift1m b0.9_s0.01 milvus_ivf_flat 512 0.9626 146.3
+[16:30:08] sift1m b0.9_s0.01 milvus_ivf_flat 1024 0.9908 119.5
+[16:31:31] sift1m b0.0_s0.1 milvus_flat exact 1.0 25.7
+[16:32:49] sift1m b0.9_s0.1 milvus_flat exact 1.0 25.9
+[16:33:38] sift1m b0.0_s0.01 milvus_flat exact 1.0 40.6
+[16:34:27] sift1m b0.9_s0.01 milvus_flat exact 1.0 40.6
+[16:34:30] DONE sift1m milvus
+--- [363] exit=0
+QUEUE_EMPTY 16:34:32
