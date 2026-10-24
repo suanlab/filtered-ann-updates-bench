@@ -14,6 +14,7 @@ import numpy as np
 from common import ROOT, RES, recall, recall_vec, ci, log, REPS, K, write_fbin
 
 name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
+if os.environ.get('MAX_ROUND'): R = min(R, int(os.environ['MAX_ROUND'])); meta['measure_rounds'] = [x for x in meta['measure_rounds'] if x <= R]   # smoke tests only
 X = np.load(f'{D}/Xall.npy', mmap_mode='r'); Q = np.load(f'{D}/Q.npy'); gt = np.load(f'{D}/gt.npy'); sch = np.load(f'{D}/sched.npz'); nq = len(Q)
 tmp = tempfile.mkdtemp(dir=ROOT); os.makedirs(f'{tmp}/sched'); os.makedirs(f'{tmp}/out')
 fbin = write_fbin
@@ -28,7 +29,7 @@ env = {**os.environ, 'ACORN_REPS': str(REPS), 'MEASURE': ','.join(map(str, meta[
 log(name, 'acorn stream start')
 p = subprocess.run(cmd, capture_output=True, text=True, env=env)
 if p.returncode != 0: log('acorn_stream failed', p.returncode, p.stderr[-1500:]); sys.exit(1)
-RMODE = int(os.environ.get('REPAIR', '0') or 0); method = {0: 'acorn', 1: 'acorn_repair'}.get(RMODE, 'acorn_repair_all')
+RMODE = int(os.environ.get('REPAIR', '0') or 0); method = {0: 'acorn', 1: 'acorn_repair', 2: 'acorn_repair_all', 3: 'acorn_repair_upper', 4: 'acorn_repair_fill'}[RMODE]
 qlab = np.load(f'{D}/qlab.npy')
 out = {'method': method, 'rounds': []}; perc = {}; reps_ = {}
 for line in p.stdout.splitlines():

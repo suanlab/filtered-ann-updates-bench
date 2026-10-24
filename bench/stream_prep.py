@@ -11,7 +11,13 @@ filtered ground truth over the live set after each round), meta.json.
             label direction (correlation x churn: high labels' regions are emptied progressively)
   deep5m:   DEEP-10M (normalized), 5M live, 10 rounds of 10% deletes + 499,000 inserts of unseen rows
             (100% turnover), labels recomputed on the stream's rows with the same construction as the
-            b0.9_s0.1 schema (prep.labels, beta=0.9, 10 labels, seed 11), so they differ from deep10m's labels."""
+            b0.9_s0.1 schema (prep.labels, beta=0.9, 10 labels, seed 11), so they differ from deep10m's labels.
+  arxiv_time: real temporal drift (review experiment D2). arXiv abstracts (4096-d embeddings of Iff et al.'s sample,
+            float16 stored, used as float32) ordered by their update_date; the 200K oldest are live at round 0, and
+            each of 10 rounds inserts the next 40K papers and deletes the 40K oldest live ones (a sliding time window,
+            200% turnover). Label = the paper's first main category, the 9 most frequent in the initial window plus
+            'other' (10 labels, real and unequal in size; fixed on the initial window, so no look-ahead). Queries: 500 papers drawn (seed 7) from the 100K papers that
+            follow the stream in time, each asking for its own label -- newer papers searching the window."""
 import sys, os, json
 sys.path.insert(0, 'experiments'); sys.path.insert(0, 'bench')
 import numpy as np
@@ -47,13 +53,54 @@ if name in ('sift500k', 'sift500k_adv'):
         ins = np.arange(N0 + r * NI, N0 + (r + 1) * NI, dtype=np.int32)
         alive[de] = False; alive[ins] = True; dels.append(de); inss.append(ins); gts.append(gt_now()); log(name, 'gt round', r + 1)
     gt = np.stack(gts)
+elif name == 'arxiv_time':
+    S_ = 'data/arxiv/large_sample'; R, N0, NI = 10, 200_000, 40_000
+    att = [json.loads(l) for l in open(f'{S_}/attributes.jsonl')]
+    date = np.array([a['update_date'] for a in att]); order = np.argsort(date, kind='stable')
+    cat = np.array([a['main_categories'][0] if a['main_categories'] else 'none' for a in att])
+    rows = order[:N0 + R * NI]; qpool = order[N0 + R * NI:N0 + R * NI + 100_000]
+    # label mapping fixed on the initial window only (no look-ahead): its 9 most frequent first main categories; every
+    # other category, including those that only appear later, is 'other'
+    names, cnt = np.unique(cat[rows[:N0]], return_counts=True); top = list(names[np.argsort(-cnt)[:9]])
+    lab = lambda c: top.index(c) if c in top else 9
+    Xf = np.load(f'{S_}/X.f16.npy', mmap_mode='r')
+    Xall = np.ascontiguousarray(Xf[np.sort(rows)][np.argsort(np.argsort(rows))], np.float32)    # rows in time order
+    attr = np.array([lab(c) for c in cat[rows]], np.int32)
+    qrows = np.sort(np.random.default_rng(7).choice(qpool, 500, replace=False))
+    Q = np.ascontiguousarray(Xf[qrows], np.float32); qlab = np.array([lab(c) for c in cat[qrows]], np.int32)
+    alive = np.zeros(len(Xall), bool); alive[:N0] = True; dels, inss, gts = [], [], []
+    def gt_now():
+        g = np.full((len(Q), 10), -1, np.int32)
+        for b in range(10):
+            qi = np.where(qlab == b)[0]
+            if len(qi): g[qi] = rigx.brute(Xall, Q[qi], mask=alive & (attr == b), k=10, threads=64)[0]
+        return g
+    gts.append(gt_now()); oldest = 0
+    for r in range(R):
+        de = np.arange(oldest, oldest + NI, dtype=np.int32); oldest += NI      # FIFO: the oldest live papers
+        ins = np.arange(N0 + r * NI, N0 + (r + 1) * NI, dtype=np.int32)
+        alive[de] = False; alive[ins] = True; dels.append(de); inss.append(ins); gts.append(gt_now()); log(name, 'gt round', r + 1)
+    gt = np.stack(gts)
+    import hashlib
+    hs = {hashlib.sha1(np.ascontiguousarray(Xf[i]).tobytes()).hexdigest() for i in rows}
+    qdup = int(sum(hashlib.sha1(np.ascontiguousarray(Xf[i]).tobytes()).hexdigest() in hs for i in qrows))
+    json.dump({'labels': top + ['other'], 'label_mapping': 'top 9 first main categories of the initial window (rows 0..N0-1)',
+               'time_attribute': "update_date of the arXiv metadata (date of the paper's latest version, not first submission)",
+               'queries': 'fixed: 500 papers that follow the stream in time (a stress test, not time-matched queries)',
+               'query_vectors_identical_to_a_stream_row': qdup, 'date_first': int(date[rows].min()), 'date_last': int(date[rows].max()),
+               'query_dates': [int(date[qrows].min()), int(date[qrows].max())],
+               'label_share_round0': np.bincount(attr[:N0], minlength=10).tolist(), 'label_share_inserted': np.bincount(attr[N0:], minlength=10).tolist(),
+               'query_labels': np.bincount(qlab, minlength=10).tolist()}, open(f'{D}/drift.json', 'w'), indent=1)
 else:
     X = np.load(f'{ROOT}/deep10m/X.npy', mmap_mode='r'); Q = np.load(f'{ROOT}/deep10m/Q.npy')
     n = len(X); R, N0 = 10, 5_000_000; NI = (n - N0) // R
-    perm = np.random.default_rng(23).permutation(n)
-    Xall = np.ascontiguousarray(X[perm[:N0 + R * NI]]); attr = labels(Xall, 0.9, 10)
-    qlab = np.random.default_rng(7).integers(0, 10, len(Q)).astype(np.int32)
-    rng = np.random.default_rng(24); alive = np.zeros(len(Xall), bool); alive[:N0] = True; nxt = N0
+    # deep5m_seed<k>: an independent replicate of the stream (row sample/order, label direction, query labels, and
+    # deletion schedule from seed k); plain deep5m keeps seeds 23 / 11 / 7 / 24
+    k = int(name.split('_seed')[1]) if '_seed' in name else None
+    perm = np.random.default_rng(23 if k is None else 1000 + k).permutation(n)
+    Xall = np.ascontiguousarray(X[perm[:N0 + R * NI]]); attr = labels(Xall, 0.9, 10, seed=11 if k is None else k)
+    qlab = np.random.default_rng(7 if k is None else 100 + k).integers(0, 10, len(Q)).astype(np.int32)
+    rng = np.random.default_rng(24 if k is None else 2000 + k); alive = np.zeros(len(Xall), bool); alive[:N0] = True; nxt = N0
     dels, inss = [], []
     for r in range(R):
         cur = np.where(alive)[0]
@@ -75,5 +122,6 @@ np.save(f'{D}/attr.npy', attr.astype(np.int32)); np.save(f'{D}/qlab.npy', qlab.a
 np.savez(f'{D}/sched.npz', **{f'del{r}': dels[r] for r in range(R)}, **{f'ins{r}': inss[r] for r in range(R)})
 measure = list(range(0, R + 1, 4)) if R == 20 else list(range(0, R + 1, 5))
 json.dump({'name': name, 'N0': N0, 'R': R, 'n_rows': int(len(Xall)), 'd': int(Xall.shape[1]), 'nq': int(len(Q)),
-           'beta': 0.9, 's': 0.1, 'measure_rounds': measure}, open(f'{D}/meta.json', 'w'), indent=1)
+           **({'beta': 0.9, 's': 0.1} if name != 'arxiv_time' else {'labels': 'first main category (top 9 + other)', 'order': 'update_date'}),
+           'measure_rounds': measure}, open(f'{D}/meta.json', 'w'), indent=1)
 log(name, 'stream prepared', len(Xall), 'rows; measure rounds', measure)

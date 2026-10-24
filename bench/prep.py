@@ -149,9 +149,13 @@ def schema(ds, sc, out=None):
     else:
         # b<beta>_s<s>[_r<rho>]: rho is the query-filter correlation. With probability rho a query asks for the label
         # of its exact (unfiltered) nearest neighbor, otherwise for a uniformly random label; rho=0 is the default.
+        # optional _seed<k>: an independent replicate (label direction and noise with seed k, query labels with k + 100);
+        # without it the seeds are those of every other schema (labels 11, query labels 7)
         parts = sc.split('_'); beta = float(parts[0][1:]); s = float(parts[1][1:]); L = int(round(1 / s))
-        rho = float(parts[2][1:]) if len(parts) > 2 else 0.0
-        attr = labels(X, beta, L); qlab = np.random.default_rng(7).integers(0, L, len(Q)).astype(np.int32)
+        extra = parts[2:]; seed = next((int(x[4:]) for x in extra if x.startswith('seed')), None)
+        rho = next((float(x[1:]) for x in extra if x.startswith('r')), 0.0)
+        attr = labels(X, beta, L, seed=11 if seed is None else seed)
+        qlab = np.random.default_rng(7 if seed is None else seed + 100).integers(0, L, len(Q)).astype(np.int32)
         if rho > 0:
             nn1 = _rigx().brute(Xc, Q, mask=np.ones(n, bool), k=1, threads=64)[0][:, 0]
             near = np.random.default_rng(8).random(len(Q)) < rho; qlab[near] = attr[nn1[near]]
@@ -159,7 +163,7 @@ def schema(ds, sc, out=None):
         gt = np.full((len(Q), 10), -1, np.int32)
         for b in np.unique(qlab):
             qi = np.where(qlab == b)[0]; gt[qi] = _rigx().brute(Xc, Q[qi], mask=(attr == b), k=10, threads=64)[0]
-        meta = {'kind': 'label', 'beta': beta, 's': s, 'labels': L, 'rho': rho}
+        meta = {'kind': 'label', 'beta': beta, 's': s, 'labels': L, 'rho': rho, 'seed': seed}
     np.save(f'{out}/gt.npy', gt); json.dump(meta, open(f'{out}/meta.json', 'w'), indent=1)
     log(f'{ds}/{sc}: {meta}')
 

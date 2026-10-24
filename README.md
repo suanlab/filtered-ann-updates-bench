@@ -25,12 +25,15 @@ paper Sections IV-VIII) has its own analysis and macro files:
 
 ```bash
 python3 bench/analyze_h.py > results/bench_h_analysis.txt   # results/bench_h_summary.json
+python3 bench/analyze_review.py > results/bench_r_analysis.txt   # results/bench_r_summary.json (review campaigns, cost frontier)
 python3 paper/make_eab_hnumbers.py                           # paper/eab_hnumbers.tex  (\V{h/...})
-python3 paper/make_eab_anumbers.py                           # paper/eab_anumbers.tex  (\V{a/...})
+python3 paper/make_eab_anumbers.py                           # paper/eab_anumbers.tex  (\V{a/...}; needs both summaries)
 python3 paper/make_eab_hfigures.py                           # paper/figures/eab_teaser.pdf (Fig. 1), eab_law.pdf, eab_percolation.pdf
+python3 paper/make_eab_rfigures.py                           # paper/figures/eab_frontier.pdf (total-cost frontier)
 ```
 
-`results/bench_summary.json`, `results/bench_h_summary.json`, and the three macro files as shipped are the outputs
+`analyze_review.py` stops on an incomplete campaign (a missing period, round, or IVF anchor) instead of reporting a
+partial result. `results/bench_summary.json`, `results/bench_h_summary.json`, `results/bench_r_summary.json`, and the three macro files as shipped are the outputs
 of these commands; `scripts/make_release.sh` checked that they regenerate byte-identically from this bundle alone.
 
 ## Re-run the measurements

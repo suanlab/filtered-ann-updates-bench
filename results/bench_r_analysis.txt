@@ -1,0 +1,288 @@
+== h1: crossover exponents at recall 0.95 ==
+  merged           ivf 0.49  acorn 0.64  postfilter 0.41  curator -0.05
+  pass1            ivf 0.48  acorn 0.62  postfilter 0.41  curator -0.06
+  pass2            ivf 0.48  acorn 0.64  postfilter 0.41  curator -0.05
+  scan_per_query   ivf 0.51  acorn 0.65  postfilter 0.41  curator -0.04
+  pass_range       ivf [0.47920358654193684, 0.4836510415800909]  acorn [0.6201884587043252, 0.6400086470001615]  postfilter [0.4071158496789815, 0.4094590368839415]  curator [-0.059819183349112695, -0.05225453770130497]
+== ax: crossover exponents at recall 0.95 ==
+  merged           ivf 0.52  postfilter -0.34
+  pass1            ivf 0.51  postfilter -0.35
+  pass2            ivf 0.5  postfilter -0.36
+  scan_per_query   ivf 0.52  postfilter 0.43
+  pass_range       ivf [0.4951805322434241, 0.5145838223752489]  postfilter [-0.3618903836305926, -0.35003754181470387]
+== 28-thread speed-up at n=1e7, beta=0 (QPS@0.95, 28 threads / 1 thread) ==
+  s=0.0001     |A|=    1,000  scan x1.0  IVF x1.0  scan/IVF 1.02 (sessions differ; only the ratio is comparable)
+  s=0.000316256 |A|=    3,163  scan x1.0  IVF x1.0  scan/IVF 1.02 (sessions differ; only the ratio is comparable)
+  s=0.001      |A|=   10,000  scan x1.2  IVF x1.1  scan/IVF 1.10 (sessions differ; only the ratio is comparable)
+  s=0.00316456 |A|=   31,646  scan x5.5  IVF x1.6  scan/IVF 3.44 (sessions differ; only the ratio is comparable)
+  s=0.01       |A|=  100,000  scan x10.9  IVF x3.7  scan/IVF 2.94 (sessions differ; only the ratio is comparable)
+  s=0.03125    |A|=  312,500  scan x36.2  IVF x10.2  scan/IVF 3.57 (sessions differ; only the ratio is comparable)
+== dispatch policies calibrated on DEEP-1M (scan if |A| < T, else IVF; recall 0.95), applied elsewhere ==
+  fixed |A| (DEEP-1M)                      DEEP n!=1e6: wrong 2/17, mean regret 5%, max 89%  arXiv: wrong 5/14, mean regret 57%, max 381%  DEEP unseen seeds: wrong 4/46, mean regret 3%, max 63%
+  fixed s (DEEP-1M)                        DEEP n!=1e6: wrong 2/17, mean regret 7%, max 106%  arXiv: wrong 4/14, mean regret 19%, max 173%  DEEP unseen seeds: wrong 4/46, mean regret 8%, max 136%
+  fixed s = 7% (Milvus)                    DEEP n!=1e6: wrong 5/17, mean regret 63%, max 677%  arXiv: wrong 7/14, mean regret 104%, max 638%  DEEP unseen seeds: wrong 12/46, mean regret 58%, max 788%
+  sqrt(n)-scaled (DEEP-1M)                 DEEP n!=1e6: wrong 0/17, mean regret 0%, max 0%  arXiv: wrong 5/14, mean regret 31%, max 180%  DEEP unseen seeds: wrong 0/46, mean regret 0%, max 0%
+  sqrt(n)-scaled, cost-ratio corrected     DEEP n!=1e6: wrong 0/17, mean regret 0%, max 0%  arXiv: wrong 3/14, mean regret 6%, max 62%  DEEP unseen seeds: wrong 0/46, mean regret 0%, max 0%
+  sqrt(n)-scaled, microbenchmark corrected DEEP n!=1e6: wrong 0/17, mean regret 0%, max 0%  arXiv: wrong 4/14, mean regret 5%, max 23%  DEEP unseen seeds: wrong 0/46, mean regret 0%, max 0%
+== sift500k: costs within each pass ==
+  pass1: maintenance / IVF fdiskann_rebuild 847, acorn 223, rig 38, curator 8, scan_part 2, postfilter 196; dominated by IVF: acorn=True, rig=True, curator=True, postfilter=True; FD break-even q/update @0.95 11.5-29.4 (IVF faster in 1/6), @0.99 - (IVF faster in 6/6)
+  pass2: maintenance / IVF fdiskann_rebuild 861, acorn 228, rig 38, curator 8, scan_part 2, postfilter 203; dominated by IVF: acorn=True, rig=True, curator=True, postfilter=True; FD break-even q/update @0.95 17.9-42.2 (IVF faster in 2/6), @0.99 - (IVF faster in 6/6)
+== sift500k_adv: costs within each pass ==
+  pass1: maintenance / IVF fdiskann_rebuild 919, acorn 228, rig 39, curator 9, scan_part 2, postfilter 174; dominated by IVF: acorn=True, rig=True, curator=True, postfilter=True; FD break-even q/update @0.95 1.9-72.1 (IVF faster in 0/6), @0.99 1.0-2.1 (IVF faster in 1/6)
+  pass2: maintenance / IVF fdiskann_rebuild 856, acorn 217, rig 36, curator 9, scan_part 2, postfilter 165; dominated by IVF: acorn=True, rig=True, curator=True, postfilter=True; FD break-even q/update @0.95 1.8-5.5 (IVF faster in 1/6), @0.99 0.9-2.1 (IVF faster in 1/6)
+== deep5m: costs within each pass ==
+  pass1: maintenance / IVF fdiskann_rebuild 643, acorn 110, rig 37, curator 4, scan_part 1, postfilter 123; dominated by IVF: acorn=True, rig=True, curator=True, postfilter=True; FD break-even q/update @0.95 1.3-2.9 (IVF faster in 0/3), @0.99 1.2-1.2 (IVF faster in 1/2)
+  pass2: maintenance / IVF fdiskann_rebuild 659, acorn 119, rig 39, curator 5, scan_part 1, postfilter 126; dominated by IVF: acorn=True, rig=True, curator=True, postfilter=True; FD break-even q/update @0.95 1.3-2.2 (IVF faster in 0/3), @0.99 2.4-2.4 (IVF faster in 2/3)
+  IVF dominates ACORN, post-filtering, Curator, and RIG on both terms in every stream and pass: True
+== r1 sift500k: same-session streams ==
+  bench_r1         acorn              maint 271.5 s  x_ivf 215.2  r0:1.000/1,978 r4:1.000/1,569 r8:0.998/1,217 r12:0.998/1,007 r16:0.991/805 r20:0.993/721
+  bench_r1         acorn_repair_all   maint 347.3 s  x_ivf 275.3  r0:1.000/1,854 r4:0.998/871 r8:0.996/767 r12:0.996/780 r16:0.991/692 r20:0.994/622
+  bench_r1         ivf                maint 1.3 s  x_ivf None  r0:1.000/2,337 r4:1.000/2,360 r8:1.000/2,275 r12:1.000/2,270 r16:1.000/1,973 r20:1.000/2,234
+  bench_r1         ivf_part           maint 0.9 s  x_ivf 0.7  r0:1.000/6,543 r4:1.000/7,093 r8:0.999/6,154 r12:0.999/6,268 r16:0.999/6,317 r20:0.999/6,864
+  bench_r1_pass2   acorn              maint 273.8 s  x_ivf 231.5  r0:1.000/2,003 r4:1.000/1,564 r8:0.999/1,227 r12:0.997/1,109 r16:0.995/872 r20:0.996/721
+  bench_r1_pass2   acorn_repair_all   maint 345.4 s  x_ivf 292.0  r0:1.000/1,970 r4:0.997/932 r8:0.997/785 r12:0.996/787 r16:0.992/676 r20:0.994/637
+  bench_r1_pass2   ivf                maint 1.2 s  x_ivf None  r0:1.000/2,259 r4:1.000/2,506 r8:1.000/2,453 r12:1.000/2,362 r16:1.000/2,212 r20:1.000/2,322
+  bench_r1_pass2   ivf_part           maint 0.8 s  x_ivf 0.7  r0:1.000/6,724 r4:1.000/7,178 r8:0.999/6,457 r12:0.999/6,137 r16:0.999/6,469 r20:0.999/6,922
+== r1 sift500k_adv: same-session streams ==
+  bench_r1         acorn              maint 274.4 s  x_ivf 224.8  r0:1.000/1,955 r4:0.978/583 r8:0.824/0 r12:0.776/0 r16:0.672/0 r20:0.570/0
+  bench_r1         acorn_repair_all   maint 311.8 s  x_ivf 255.5  r0:1.000/2,051 r4:0.997/836 r8:0.997/724 r12:0.994/573 r16:0.996/614 r20:0.998/621
+  bench_r1         ivf                maint 1.2 s  x_ivf None  r0:1.000/2,453 r4:1.000/2,163 r8:1.000/2,023 r12:0.999/1,781 r16:0.999/1,731 r20:0.999/1,645
+  bench_r1         ivf_part           maint 0.9 s  x_ivf 0.7  r0:1.000/6,611 r4:1.000/6,635 r8:1.000/5,974 r12:1.000/5,742 r16:1.000/5,688 r20:1.000/5,261
+  bench_r1_pass2   acorn              maint 270.8 s  x_ivf 225.4  r0:1.000/1,970 r4:0.972/510 r8:0.811/0 r12:0.702/0 r16:0.692/0 r20:0.615/0
+  bench_r1_pass2   acorn_repair_all   maint 309.9 s  x_ivf 258.0  r0:1.000/2,032 r4:0.997/850 r8:0.996/636 r12:0.994/598 r16:0.997/589 r20:0.997/582
+  bench_r1_pass2   ivf                maint 1.2 s  x_ivf None  r0:1.000/2,506 r4:1.000/2,113 r8:1.000/2,147 r12:0.999/1,803 r16:0.999/1,774 r20:0.999/1,795
+  bench_r1_pass2   ivf_part           maint 0.9 s  x_ivf 0.7  r0:1.000/6,611 r4:1.000/6,630 r8:1.000/5,938 r12:1.000/5,775 r16:1.000/5,568 r20:1.000/5,202
+== r1 deep5m: same-session streams ==
+  bench_r1         acorn              maint 1480.6 s  x_ivf 115.1  r0:0.993/466 r5:0.988/291 r10:0.980/182
+  bench_r1         acorn_repair_all   maint 1843.2 s  x_ivf 143.3  r0:0.993/461 r5:0.952/34 r10:0.943/0
+  bench_r1         ivf                maint 12.9 s  x_ivf None  r0:1.000/571 r5:1.000/537 r10:1.000/507
+  bench_r1         ivf_part           maint 5.9 s  x_ivf 0.5  r0:0.999/2,683 r5:0.999/2,450 r10:0.999/2,544
+  bench_r1_pass2   acorn              maint 1469.7 s  x_ivf 111.2  r0:0.992/436 r5:0.987/295 r10:0.983/200
+  bench_r1_pass2   acorn_repair_all   maint 1844.6 s  x_ivf 139.5  r0:0.992/413 r5:0.951/31 r10:0.939/0
+  bench_r1_pass2   ivf                maint 13.2 s  x_ivf None  r0:1.000/556 r5:1.000/565 r10:1.000/531
+  bench_r1_pass2   ivf_part           maint 5.8 s  x_ivf 0.4  r0:0.999/2,560 r5:0.999/2,450 r10:0.999/2,375
+== r4 sift500k: same-session streams ==
+  bench_r4         ema                maint 535.9 s  x_ivf 439.0  r0:0.999/1,442 r4:1.000/926 r8:0.999/855 r12:1.000/837 r16:1.000/832 r20:1.000/798
+  bench_r4         ivf                maint 1.2 s  x_ivf None  r0:1.000/2,437 r4:1.000/2,376 r8:1.000/2,294 r12:1.000/2,220 r16:1.000/1,870 r20:1.000/2,176
+  bench_r4_pass2   ema                maint 535.3 s  x_ivf 442.0  r0:0.999/1,452 r4:1.000/930 r8:0.999/867 r12:1.000/818 r16:1.000/847 r20:1.000/848
+  bench_r4_pass2   ivf                maint 1.2 s  x_ivf None  r0:1.000/2,350 r4:1.000/2,103 r8:1.000/2,309 r12:1.000/2,156 r16:1.000/1,993 r20:1.000/2,190
+== r4 sift500k_adv: same-session streams ==
+  bench_r4         ema                maint 509.4 s  x_ivf 407.7  r0:0.999/1,455 r4:0.999/555 r8:1.000/370 r12:1.000/292 r16:0.999/289 r20:1.000/272
+  bench_r4         ivf                maint 1.2 s  x_ivf None  r0:1.000/2,423 r4:1.000/2,165 r8:1.000/2,083 r12:0.999/1,767 r16:0.999/1,616 r20:0.999/1,853
+  bench_r4_pass2   ema                maint 508.4 s  x_ivf 408.7  r0:0.999/1,394 r4:0.999/550 r8:1.000/384 r12:1.000/297 r16:1.000/286 r20:1.000/268
+  bench_r4_pass2   ivf                maint 1.2 s  x_ivf None  r0:1.000/2,354 r4:1.000/2,033 r8:1.000/2,027 r12:0.999/1,604 r16:0.999/1,671 r20:0.999/1,796
+== r4 deep5m: same-session streams ==
+  bench_r4         ema                maint 2770.8 s  x_ivf 225.4  r0:0.999/159 r5:0.999/102 r10:1.000/96
+  bench_r4         ivf                maint 12.3 s  x_ivf None  r0:1.000/548 r5:1.000/542 r10:1.000/530
+  bench_r4_pass2   ema                maint 2753.5 s  x_ivf 226.7  r0:0.999/167 r5:1.000/106 r10:1.000/101
+  bench_r4_pass2   ivf                maint 12.1 s  x_ivf None  r0:1.000/556 r5:1.000/535 r10:1.000/525
+== r4 arxiv_time: same-session streams ==
+  bench_r4         ema                maint 1167.1 s  x_ivf 175.9  r0:1.000/1,038 r5:0.999/906 r10:0.999/903
+  bench_r4         ivf                maint 6.6 s  x_ivf None  r0:1.000/228 r5:1.000/196 r10:0.999/125
+  bench_r4_pass2   ema                maint 1155.4 s  x_ivf 177.1  r0:1.000/1,054 r5:1.000/885 r10:0.999/1,083
+  bench_r4_pass2   ivf                maint 6.5 s  x_ivf None  r0:1.000/231 r5:1.000/201 r10:0.999/128
+== E5 sift500k_adv @ recall 0.95: EOQ from sift500k (B=50 s, g=0.298 ms/round); fixed L=64; violations oracle/fixed: P=1:0/1, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=5.8 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.3 -> P=3; oracle: best feasible P=3, chosen violations 0, regret 0.0%; fixed: best feasible P=3, chosen violations 0, regret 0.0%
+  Q/U=1.0: P*=1.8 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 0.2%; fixed: best feasible P=2, chosen violations 0, regret 0.0%
+== E5 sift500k_adv @ recall 0.9: EOQ from sift500k (B=50 s, g=0.298 ms/round); fixed L=64; violations oracle/fixed: P=1:0/0, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=5.8 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.3 -> P=3; oracle: best feasible P=3, chosen violations 0, regret 0.0%; fixed: best feasible P=3, chosen violations 0, regret 0.0%
+  Q/U=1.0: P*=1.8 -> P=2; oracle: best feasible P=2, chosen violations 0, regret 0.0%; fixed: best feasible P=1, chosen violations 0, regret 5.5%
+== E5 sift500k @ recall 0.95: EOQ from sift500k_adv (B=50 s, g=0.231 ms/round); fixed L=64; violations oracle/fixed: P=1:0/19, P=2:0/10, P=3:0/6, P=4:0/4, P=6:0/3, P=10:0/1, P=20:0/0
+  Q/U=0.1: P*=6.6 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=20, chosen violations 3
+  Q/U=0.3: P*=3.8 -> P=4; oracle: best feasible P=3, chosen violations 0, regret 4.5%; fixed: best feasible P=20, chosen violations 4
+  Q/U=1.0: P*=2.1 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 5.7%; fixed: best feasible P=20, chosen violations 10
+== E5 sift500k @ recall 0.9: EOQ from sift500k_adv (B=50 s, g=0.231 ms/round); fixed L=64; violations oracle/fixed: P=1:0/0, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=6.6 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.8 -> P=4; oracle: best feasible P=3, chosen violations 0, regret 5.0%; fixed: best feasible P=3, chosen violations 0, regret 5.3%
+  Q/U=1.0: P*=2.1 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 2.8%; fixed: best feasible P=1, chosen violations 0, regret 7.6%
+== seeds A: IVF crossover exponent at recall 0.95 per label/training seed ==
+  seed 11: n^0.479  m* deep300k 10,910, deep1m 18,086, deep3m 30,445, deep10m 57,690
+  seed 12: n^0.442  m* deep300k 9,760, deep1m 15,149, deep3m 21,650, deep10m 47,330
+  seed 13: n^0.45  m* deep300k 9,627, deep1m 15,605, deep3m 22,496, deep10m 48,012
+  exponent over 3 seeds: mean 0.457, range 0.442-0.479
+== seeds B: DEEP-5M last round, tombstone vs all-level repair ==
+  base pass1  tombstone 0.980 (182 QPS)  repaired 0.943 (misses 0.95)  diff -0.037
+  base pass2  tombstone 0.983 (200 QPS)  repaired 0.939 (misses 0.95)  diff -0.044
+  seed2       tombstone 0.987 (258 QPS)  repaired 0.955 (37 QPS)  diff -0.032
+  seed3       tombstone 0.992 (249 QPS)  repaired 0.957 (46 QPS)  diff -0.035
+== cost frontier sift500k @ recall 0.95 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.39 0.03:0.37 0.1:0.35 0.3:0.35 1:0.35 3:0.35 10:0.35 30:0.35 100:0.35
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  fdiskann_rebuild       runs 2  0.01:109.11 0.03:40.35 0.1:13.18 0.3:5.08 1:2.21 3:1.38 10:1.10 30:1.01 100:0.98
+  fdiskann_policy_P1     runs 1  0.01:104.85 0.03:38.74 0.1:12.72 0.3:4.98 1:2.24 3:1.45 10:1.17 30:1.10 100:1.07
+  fdiskann_policy_P2     runs 1  0.01:53.76 0.03:20.65 0.1:7.62 0.3:3.74 1:2.36 3:1.97 10:1.83 30:1.79 100:1.78
+  acorn                  runs 4  0.01:30.32 0.03:12.42 0.1:5.36 0.3:3.26 1:2.51 3:2.30 10:2.23 30:2.20 100:2.20
+  curator                runs 2  0.01:3.42 0.03:3.00 0.1:2.83 0.3:2.78 1:2.76 3:2.76 10:2.76 30:2.76 100:2.76
+  scan_part              runs 2  0.01:2.71 0.03:2.75 0.1:2.77 0.3:2.77 1:2.77 3:2.78 10:2.78 30:2.78 100:2.78
+  fdiskann_policy_P3     runs 1  0.01:33.39 0.03:13.68 0.1:5.92 0.3:3.61 1:2.80 3:2.56 10:2.48 30:2.45 100:2.45
+  ema                    runs 2  0.01:53.57 0.03:20.93 0.1:8.17 0.3:4.38 1:3.04 3:2.65 10:2.52 30:2.48 100:2.47
+  fdiskann_policy_P4     runs 1  0.01:28.18 0.03:12.02 0.1:5.67 0.3:3.78 1:3.11 3:2.91 10:2.85 30:2.83 100:2.82
+  rig                    runs 2  0.01:7.63 0.03:4.84 0.1:3.73 0.3:3.40 1:3.29 3:3.25 10:3.24 30:3.24 100:3.24
+  acorn_repair_all       runs 2  0.01:37.35 0.03:15.41 0.1:6.77 0.3:4.20 1:3.29 3:3.03 10:2.94 30:2.91 100:2.90
+  fdiskann_policy_P6     runs 1  0.01:18.60 0.03:9.16 0.1:5.44 0.3:4.33 1:3.94 3:3.83 10:3.79 30:3.78 100:3.77
+  fdiskann_policy_P10    runs 1  0.01:15.39 0.03:9.04 0.1:6.54 0.3:5.80 1:5.53 3:5.46 10:5.43 30:5.42 100:5.42
+  fdiskann_policy_P20    runs 1  0.01:7.84 0.03:8.34 0.1:8.54 0.3:8.60 1:8.62 3:8.62 10:8.62 30:8.63 100:8.63
+  postfilter             runs 2  0.01:32.63 0.03:17.22 0.1:11.13 0.3:9.32 1:8.68 3:8.49 10:8.43 30:8.41 100:8.40
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {}
+== cost frontier sift500k_adv @ recall 0.95 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.37 0.03:0.34 0.1:0.33 0.3:0.33 1:0.33 3:0.33 10:0.33 30:0.33 100:0.33
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  curator                runs 2  0.01:2.48 0.03:1.97 0.1:1.77 0.3:1.72 1:1.70 3:1.69 10:1.69 30:1.69 100:1.69
+  fdiskann_rebuild       runs 2  0.01:97.41 0.03:35.43 0.1:11.37 0.3:4.24 1:1.72 3:1.00 10:0.75 30:0.67 100:0.65
+  fdiskann_policy_P1     runs 1  0.01:94.24 0.03:34.25 0.1:11.03 0.3:4.16 1:1.73 3:1.03 10:0.78 30:0.71 100:0.69
+  fdiskann_policy_P2     runs 1  0.01:48.12 0.03:18.04 0.1:6.39 0.3:2.95 1:1.73 3:1.38 10:1.26 30:1.22 100:1.21
+  fdiskann_policy_P3     runs 1  0.01:29.33 0.03:11.53 0.1:4.64 0.3:2.60 1:1.88 3:1.67 10:1.60 30:1.58 100:1.57
+  fdiskann_policy_P4     runs 1  0.01:24.99 0.03:10.18 0.1:4.45 0.3:2.75 1:2.15 3:1.98 10:1.92 30:1.90 100:1.90
+  fdiskann_policy_P6     runs 1  0.01:16.34 0.03:7.45 0.1:4.01 0.3:2.99 1:2.63 3:2.52 10:2.49 30:2.48 100:2.47
+  scan_part              runs 2  0.01:2.96 0.03:3.03 0.1:3.06 0.3:3.07 1:3.07 3:3.07 10:3.07 30:3.07 100:3.07
+  acorn_repair_all       runs 2  0.01:29.36 0.03:12.32 0.1:5.73 0.3:3.79 1:3.10 3:2.90 10:2.83 30:2.81 100:2.81
+  rig                    runs 2  0.01:6.99 0.03:4.58 0.1:3.64 0.3:3.36 1:3.27 3:3.24 10:3.23 30:3.22 100:3.22
+  fdiskann_policy_P10    runs 1  0.01:12.79 0.03:6.81 0.1:4.50 0.3:3.81 1:3.57 3:3.50 10:3.48 30:3.47 100:3.47
+  ema                    runs 2  0.01:47.40 0.03:20.34 0.1:9.88 0.3:6.78 1:5.69 3:5.38 10:5.27 30:5.24 100:5.22
+  fdiskann_policy_P20    runs 1  0.01:6.28 0.03:6.63 0.1:6.76 0.3:6.80 1:6.81 3:6.81 10:6.82 30:6.82 100:6.82
+  postfilter             runs 2  0.01:33.28 0.03:22.59 0.1:18.44 0.3:17.21 1:16.78 3:16.65 10:16.61 30:16.60 100:16.59
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'acorn': '4/4 runs miss 0.95'}
+== cost frontier deep5m @ recall 0.95 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.23 0.03:0.22 0.1:0.22 0.3:0.22 1:0.22 3:0.22 10:0.22 30:0.22 100:0.22
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  fdiskann_rebuild       runs 2  0.01:44.37 0.03:15.97 0.1:5.39 0.3:2.30 1:1.21 3:0.90 10:0.79 30:0.76 100:0.75
+  acorn                  runs 4  0.01:9.51 0.03:4.65 0.1:2.83 0.3:2.30 1:2.12 3:2.07 10:2.05 30:2.04 100:2.04
+  rig                    runs 2  0.01:5.07 0.03:3.53 0.1:2.96 0.3:2.79 1:2.73 3:2.72 10:2.71 30:2.71 100:2.71
+  ema                    runs 2  0.01:18.53 0.03:9.62 0.1:6.32 0.3:5.36 1:5.02 3:4.92 10:4.89 30:4.88 100:4.88
+  scan_part              runs 2  0.01:8.59 0.03:8.93 0.1:9.06 0.3:9.09 1:9.11 3:9.11 10:9.11 30:9.11 100:9.11
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'curator': '2/2 runs miss 0.95', 'postfilter': '2/2 runs miss 0.95', 'acorn_repair_all': '2/2 runs miss 0.95'}
+== cost frontier arxiv_time @ recall 0.95 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ema                    runs 4  0.01:21.97 0.03:8.11 0.1:2.64 0.3:1.01 1:0.43 3:0.27 10:0.21 30:0.19 100:0.19
+  acorn_repair_all       runs 4  0.01:22.16 0.03:8.21 0.1:2.69 0.3:1.04 1:0.46 3:0.29 10:0.24 30:0.22 100:0.21
+  acorn                  runs 4  0.01:20.52 0.03:7.63 0.1:2.54 0.3:1.02 1:0.49 3:0.33 10:0.27 30:0.26 100:0.25
+  ivf_part               runs 4  0.01:0.61 0.03:0.60 0.1:0.59 0.3:0.59 1:0.59 3:0.59 10:0.59 30:0.59 100:0.59
+  fdiskann_rebuild       runs 4  0.01:39.47 0.03:14.51 0.1:4.64 0.3:1.70 1:0.65 3:0.35 10:0.25 30:0.22 100:0.21
+  ivf_rt5                runs 4  0.01:1.16 0.03:0.85 0.1:0.73 0.3:0.69 1:0.68 3:0.68 10:0.67 30:0.67 100:0.67
+  postfilter             runs 2  0.01:13.08 0.03:5.42 0.1:2.39 0.3:1.49 1:1.17 3:1.08 10:1.05 30:1.04 100:1.04
+  scan_part              runs 2  0.01:6.78 0.03:7.24 0.1:7.42 0.3:7.48 1:7.50 3:7.50 10:7.50 30:7.50 100:7.50
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ema', '3': 'ema', '10': 'ema', '30': 'ema', '100': 'ema'}; infeasible: {}
+== cost frontier sift500k @ recall 0.99 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.32 0.03:0.30 0.1:0.29 0.3:0.29 1:0.29 3:0.29 10:0.29 30:0.29 100:0.29
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  scan_part              runs 2  0.01:1.42 0.03:1.38 0.1:1.37 0.3:1.36 1:1.36 3:1.36 10:1.36 30:1.36 100:1.36
+  fdiskann_rebuild       runs 2  0.01:57.95 0.03:21.02 0.1:7.28 0.3:3.27 1:1.85 3:1.45 10:1.31 30:1.27 100:1.25
+  fdiskann_policy_P1     runs 1  0.01:56.27 0.03:20.46 0.1:7.14 0.3:3.26 1:1.89 3:1.50 10:1.36 30:1.33 100:1.31
+  fdiskann_policy_P2     runs 1  0.01:29.36 0.03:11.42 0.1:4.75 0.3:2.80 1:2.12 3:1.92 10:1.85 30:1.84 100:1.83
+  fdiskann_policy_P3     runs 1  0.01:18.58 0.03:7.89 0.1:3.91 0.3:2.75 1:2.34 3:2.23 10:2.19 30:2.17 100:2.17
+  fdiskann_policy_P4     runs 1  0.01:15.83 0.03:7.06 0.1:3.80 0.3:2.85 1:2.51 3:2.42 10:2.38 30:2.37 100:2.37
+  ema                    runs 2  0.01:29.06 0.03:11.59 0.1:5.12 0.3:3.23 1:2.57 3:2.38 10:2.31 30:2.29 100:2.29
+  fdiskann_policy_P6     runs 1  0.01:10.80 0.03:5.65 0.1:3.73 0.3:3.17 1:2.97 3:2.92 10:2.90 30:2.89 100:2.89
+  rig                    runs 2  0.01:5.35 0.03:3.84 0.1:3.28 0.3:3.12 1:3.06 3:3.04 10:3.04 30:3.04 100:3.04
+  fdiskann_policy_P10    runs 1  0.01:9.03 0.03:5.51 0.1:4.21 0.3:3.82 1:3.69 3:3.65 10:3.64 30:3.63 100:3.63
+  acorn                  runs 4  0.01:18.04 0.03:8.76 0.1:5.23 0.3:4.19 1:3.82 3:3.72 10:3.68 30:3.67 100:3.67
+  fdiskann_policy_P20    runs 1  0.01:4.84 0.03:4.95 0.1:5.00 0.3:5.01 1:5.02 3:5.02 10:5.02 30:5.02 100:5.02
+  acorn_repair_all       runs 2  0.01:26.33 0.03:14.85 0.1:10.59 0.3:9.35 1:8.91 3:8.78 10:8.74 30:8.73 100:8.72
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'curator': '2/2 runs miss 0.99', 'postfilter': '2/2 runs miss 0.99'}
+== cost frontier sift500k_adv @ recall 0.99 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.30 0.03:0.29 0.1:0.28 0.3:0.28 1:0.28 3:0.28 10:0.28 30:0.28 100:0.28
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  fdiskann_rebuild       runs 2  0.01:48.66 0.03:17.24 0.1:5.68 0.3:2.33 1:1.14 3:0.81 10:0.69 30:0.65 100:0.64
+  fdiskann_policy_P1     runs 1  0.01:47.24 0.03:16.76 0.1:5.56 0.3:2.30 1:1.16 3:0.83 10:0.72 30:0.68 100:0.67
+  fdiskann_policy_P2     runs 1  0.01:24.35 0.03:9.06 0.1:3.44 0.3:1.81 1:1.23 3:1.07 10:1.01 30:1.00 100:0.99
+  fdiskann_policy_P3     runs 1  0.01:15.03 0.03:5.97 0.1:2.64 0.3:1.68 1:1.34 3:1.24 10:1.20 30:1.19 100:1.19
+  scan_part              runs 2  0.01:1.47 0.03:1.45 0.1:1.44 0.3:1.44 1:1.44 3:1.44 10:1.44 30:1.44 100:1.44
+  fdiskann_policy_P4     runs 1  0.01:12.88 0.03:5.34 0.1:2.57 0.3:1.77 1:1.48 3:1.40 10:1.37 30:1.37 100:1.36
+  fdiskann_policy_P6     runs 1  0.01:8.64 0.03:4.09 0.1:2.42 0.3:1.94 1:1.76 3:1.72 10:1.70 30:1.69 100:1.69
+  fdiskann_policy_P10    runs 1  0.01:6.88 0.03:3.80 0.1:2.67 0.3:2.34 1:2.22 3:2.19 10:2.18 30:2.17 100:2.17
+  fdiskann_policy_P20    runs 1  0.01:3.66 0.03:3.73 0.1:3.76 0.3:3.76 1:3.76 3:3.77 10:3.77 30:3.77 100:3.77
+  rig                    runs 2  0.01:5.94 0.03:4.75 0.1:4.31 0.3:4.18 1:4.14 3:4.12 10:4.12 30:4.12 100:4.12
+  ema                    runs 2  0.01:25.75 0.03:11.92 0.1:6.83 0.3:5.36 1:4.84 3:4.69 10:4.64 30:4.62 100:4.62
+  acorn_repair_all       runs 2  0.01:17.95 0.03:9.59 0.1:6.53 0.3:5.64 1:5.33 3:5.24 10:5.21 30:5.20 100:5.19
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'acorn': '4/4 runs miss 0.99', 'curator': '2/2 runs miss 0.99', 'postfilter': '2/2 runs miss 0.99'}
+== cost frontier deep5m @ recall 0.99 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.23 0.03:0.22 0.1:0.22 0.3:0.22 1:0.22 3:0.22 10:0.22 30:0.22 100:0.22
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  rig                    runs 2  0.01:3.47 0.03:2.83 0.1:2.60 0.3:2.53 1:2.51 3:2.50 10:2.50 30:2.50 100:2.50
+  scan_part              runs 2  0.01:3.50 0.03:3.54 0.1:3.56 0.3:3.56 1:3.56 3:3.56 10:3.56 30:3.56 100:3.56
+  ema                    runs 2  0.01:9.26 0.03:5.62 0.1:4.31 0.3:3.94 1:3.81 3:3.77 10:3.76 30:3.75 100:3.75
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'fdiskann_rebuild': '1/2 runs miss 0.99', 'acorn': '4/4 runs miss 0.99', 'curator': '2/2 runs miss 0.99', 'postfilter': '2/2 runs miss 0.99', 'acorn_repair_all': '2/2 runs miss 0.99'}
+== cost frontier arxiv_time @ recall 0.99 (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ema                    runs 4  0.01:10.76 0.03:3.83 0.1:1.26 0.3:0.52 1:0.25 3:0.18 10:0.15 30:0.14 100:0.14
+  fdiskann_rebuild       runs 4  0.01:19.39 0.03:6.83 0.1:2.17 0.3:0.81 1:0.33 3:0.20 10:0.15 30:0.14 100:0.13
+  acorn_repair_all       runs 4  0.01:11.00 0.03:3.98 0.1:1.38 0.3:0.62 1:0.36 3:0.28 10:0.26 30:0.25 100:0.25
+  acorn                  runs 4  0.01:10.18 0.03:3.71 0.1:1.31 0.3:0.62 1:0.37 3:0.30 10:0.27 30:0.27 100:0.26
+  ivf_part               runs 4  0.01:0.57 0.03:0.56 0.1:0.56 0.3:0.56 1:0.56 3:0.56 10:0.56 30:0.56 100:0.56
+  ivf_rt5                runs 4  0.01:0.92 0.03:0.77 0.1:0.71 0.3:0.70 1:0.69 3:0.69 10:0.69 30:0.69 100:0.69
+  postfilter             runs 2  0.01:6.60 0.03:2.72 0.1:1.29 0.3:0.87 1:0.72 3:0.68 10:0.66 30:0.66 100:0.66
+  scan_part              runs 2  0.01:3.33 0.03:3.40 0.1:3.42 0.3:3.43 1:3.43 3:3.43 10:3.44 30:3.44 100:3.44
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ema', '1': 'ema', '3': 'ema', '10': 'ema', '30': 'fdiskann_rebuild', '100': 'fdiskann_rebuild'}; infeasible: {}
+== cost frontier sift500k @ recall 0.95 incl. initial build (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.49 0.03:0.41 0.1:0.37 0.3:0.36 1:0.35 3:0.35 10:0.35 30:0.35 100:0.35
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  fdiskann_rebuild       runs 2  0.01:97.64 0.03:39.81 0.1:13.53 0.3:5.25 1:2.27 3:1.40 10:1.10 30:1.02 100:0.99
+  fdiskann_policy_P1     runs 1  0.01:94.73 0.03:38.37 0.1:13.07 0.3:5.15 1:2.29 3:1.47 10:1.18 30:1.10 100:1.07
+  fdiskann_policy_P2     runs 1  0.01:50.80 0.03:21.30 0.1:8.06 0.3:3.91 1:2.42 3:1.99 10:1.84 30:1.79 100:1.78
+  acorn                  runs 4  0.01:34.16 0.03:15.01 0.1:6.33 0.3:3.60 1:2.62 3:2.34 10:2.24 30:2.21 100:2.20
+  curator                runs 2  0.01:3.63 0.03:3.11 0.1:2.87 0.3:2.79 1:2.77 3:2.76 10:2.76 30:2.76 100:2.76
+  scan_part              runs 2  0.01:2.34 0.03:2.60 0.1:2.72 0.3:2.76 1:2.77 3:2.77 10:2.77 30:2.78 100:2.78
+  fdiskann_policy_P3     runs 1  0.01:33.22 0.03:14.70 0.1:6.39 0.3:3.79 1:2.85 3:2.58 10:2.48 30:2.46 100:2.45
+  ema                    runs 2  0.01:49.07 0.03:20.93 0.1:8.39 0.3:4.48 1:3.07 3:2.66 10:2.52 30:2.48 100:2.47
+  fdiskann_policy_P4     runs 1  0.01:28.73 0.03:13.14 0.1:6.14 0.3:3.95 1:3.16 3:2.93 10:2.85 30:2.83 100:2.82
+  rig                    runs 2  0.01:8.21 0.03:5.23 0.1:3.88 0.3:3.46 1:3.30 3:3.26 10:3.24 30:3.24 100:3.24
+  acorn_repair_all       runs 2  0.01:40.09 0.03:17.78 0.1:7.70 0.3:4.53 1:3.39 3:3.06 10:2.95 30:2.92 100:2.90
+  fdiskann_policy_P6     runs 1  0.01:20.48 0.03:10.43 0.1:5.92 0.3:4.50 1:3.99 3:3.85 10:3.80 30:3.78 100:3.78
+  fdiskann_policy_P10    runs 1  0.01:17.72 0.03:10.32 0.1:7.00 0.3:5.96 1:5.58 3:5.47 10:5.44 30:5.42 100:5.42
+  fdiskann_policy_P20    runs 1  0.01:11.55 0.03:9.79 0.1:9.00 0.3:8.75 1:8.66 3:8.64 10:8.63 30:8.63 100:8.63
+  postfilter             runs 2  0.01:29.69 0.03:16.95 0.1:11.16 0.3:9.34 1:8.68 3:8.49 10:8.43 30:8.41 100:8.40
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {}
+== cost frontier sift500k_adv @ recall 0.95 incl. initial build (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.46 0.03:0.38 0.1:0.34 0.3:0.33 1:0.33 3:0.33 10:0.33 30:0.33 100:0.33
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  curator                runs 2  0.01:2.80 0.03:2.12 0.1:1.83 0.3:1.73 1:1.70 3:1.69 10:1.69 30:1.69 100:1.69
+  fdiskann_rebuild       runs 2  0.01:88.85 0.03:35.21 0.1:11.69 0.3:4.39 1:1.77 3:1.02 10:0.75 30:0.68 100:0.65
+  fdiskann_policy_P1     runs 1  0.01:86.53 0.03:34.13 0.1:11.34 0.3:4.30 1:1.77 3:1.04 10:0.79 30:0.72 100:0.69
+  fdiskann_policy_P2     runs 1  0.01:46.11 0.03:18.70 0.1:6.78 0.3:3.10 1:1.78 3:1.40 10:1.26 30:1.22 100:1.21
+  fdiskann_policy_P3     runs 1  0.01:29.62 0.03:12.50 0.1:5.05 0.3:2.75 1:1.92 3:1.69 10:1.60 30:1.58 100:1.57
+  fdiskann_policy_P4     runs 1  0.01:25.84 0.03:11.22 0.1:4.87 0.3:2.90 1:2.20 3:2.00 10:1.93 30:1.91 100:1.90
+  fdiskann_policy_P6     runs 1  0.01:18.26 0.03:8.62 0.1:4.43 0.3:3.14 1:2.67 3:2.54 10:2.49 30:2.48 100:2.47
+  scan_part              runs 2  0.01:2.60 0.03:2.89 0.1:3.01 0.3:3.05 1:3.07 3:3.07 10:3.07 30:3.07 100:3.07
+  acorn_repair_all       runs 2  0.01:32.77 0.03:14.48 0.1:6.53 0.3:4.07 1:3.18 3:2.93 10:2.84 30:2.82 100:2.81
+  rig                    runs 2  0.01:7.58 0.03:4.93 0.1:3.77 0.3:3.41 1:3.28 3:3.24 10:3.23 30:3.23 100:3.22
+  fdiskann_policy_P10    runs 1  0.01:15.14 0.03:8.02 0.1:4.92 0.3:3.96 1:3.62 3:3.52 10:3.48 30:3.47 100:3.47
+  ema                    runs 2  0.01:44.21 0.03:20.37 0.1:10.05 0.3:6.86 1:5.71 3:5.39 10:5.27 30:5.24 100:5.23
+  fdiskann_policy_P20    runs 1  0.01:9.45 0.03:7.84 0.1:7.14 0.3:6.93 1:6.85 3:6.83 10:6.82 30:6.82 100:6.82
+  postfilter             runs 2  0.01:30.62 0.03:22.09 0.1:18.35 0.3:17.19 1:16.77 3:16.65 10:16.61 30:16.60 100:16.59
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'acorn': '4/4 runs miss 0.95'}
+== cost frontier deep5m @ recall 0.95 incl. initial build (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ivf_part               runs 2  0.01:0.28 0.03:0.24 0.1:0.23 0.3:0.22 1:0.22 3:0.22 10:0.22 30:0.22 100:0.22
+  ivf                    runs 2  0.01:1.00 0.03:1.00 0.1:1.00 0.3:1.00 1:1.00 3:1.00 10:1.00 30:1.00 100:1.00
+  fdiskann_rebuild       runs 2  0.01:43.82 0.03:16.83 0.1:5.78 0.3:2.45 1:1.26 3:0.92 10:0.80 30:0.76 100:0.75
+  acorn                  runs 4  0.01:14.24 0.03:6.59 0.1:3.46 0.3:2.52 1:2.18 3:2.09 10:2.05 30:2.04 100:2.04
+  rig                    runs 2  0.01:5.12 0.03:3.61 0.1:2.99 0.3:2.80 1:2.74 3:2.72 10:2.71 30:2.71 100:2.71
+  ema                    runs 2  0.01:18.92 0.03:10.08 0.1:6.50 0.3:5.42 1:5.04 3:4.93 10:4.89 30:4.88 100:4.88
+  scan_part              runs 2  0.01:7.74 0.03:8.60 0.1:8.95 0.3:9.06 1:9.10 3:9.11 10:9.11 30:9.11 100:9.11
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible: {'curator': '2/2 runs miss 0.95', 'postfilter': '2/2 runs miss 0.95', 'acorn_repair_all': '2/2 runs miss 0.95'}
+== cost frontier arxiv_time @ recall 0.95 incl. initial build (cost / same-session IVF cost, median over runs; feasible in every run only) ==
+  ema                    runs 4  0.01:20.39 0.03:8.44 0.1:2.87 0.3:1.10 1:0.46 3:0.28 10:0.21 30:0.19 100:0.19
+  acorn_repair_all       runs 4  0.01:22.84 0.03:9.52 0.1:3.25 0.3:1.25 1:0.52 3:0.32 10:0.24 30:0.22 100:0.21
+  acorn                  runs 4  0.01:21.70 0.03:9.05 0.1:3.12 0.3:1.23 1:0.55 3:0.35 10:0.28 30:0.26 100:0.25
+  ivf_part               runs 4  0.01:0.70 0.03:0.64 0.1:0.61 0.3:0.60 1:0.59 3:0.59 10:0.59 30:0.59 100:0.59
+  ivf_rt5                runs 4  0.01:1.13 0.03:0.86 0.1:0.73 0.3:0.69 1:0.68 3:0.68 10:0.67 30:0.67 100:0.67
+  fdiskann_rebuild       runs 4  0.01:35.67 0.03:14.79 0.1:4.97 0.3:1.83 1:0.70 3:0.37 10:0.25 30:0.22 100:0.21
+  postfilter             runs 2  0.01:12.22 0.03:5.63 0.1:2.53 0.3:1.55 1:1.19 3:1.09 10:1.05 30:1.04 100:1.04
+  scan_part              runs 2  0.01:5.62 0.03:6.73 0.1:7.25 0.3:7.42 1:7.48 3:7.50 10:7.50 30:7.50 100:7.50
+  best (excluding oracle policies): {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ema', '3': 'ema', '10': 'ema', '30': 'ema', '100': 'ema'}; infeasible: {}
+== r3 arxiv_time: same-session streams ==
+  bench_r3         acorn              maint 1184.1 s  x_ivf 180.5  r0:0.999/706 r5:0.998/707 r10:0.999/812
+  bench_r3         acorn_repair_all   maint 1157.5 s  x_ivf 176.5  r0:0.999/718 r5:1.000/813 r10:1.000/1,004
+  bench_r3         fdiskann_rebuild   maint 416.1 s  x_ivf 63.4  r0:1.000/911 r5:0.999/831 r10:0.999/879
+  bench_r3         ivf                maint 6.6 s  x_ivf None  r0:1.000/240 r5:1.000/193 r10:0.999/128
+  bench_r3         ivf_part           maint 5.0 s  x_ivf 0.8  r0:1.000/630 r5:1.000/390 r10:1.000/188
+  bench_r3         ivf_rt5            maint 28.8 s  x_ivf 4.4  r0:1.000/241 r5:0.999/267 r10:1.000/271
+  bench_r3         postfilter         maint 648.6 s  x_ivf 98.9  r0:0.998/147 r5:1.000/175 r10:1.000/168
+  bench_r3         scan_part          maint 11.9 s  x_ivf 1.8  r0:1.000/27 r5:1.000/24 r10:1.000/21
+  bench_r3_pass2   acorn              maint 1038.2 s  x_ivf 157.4  r0:0.999/728 r5:0.998/717 r10:0.999/747
+  bench_r3_pass2   acorn_repair_all   maint 1113.0 s  x_ivf 168.7  r0:0.999/732 r5:0.999/851 r10:1.000/870
+  bench_r3_pass2   fdiskann_rebuild   maint 409.5 s  x_ivf 62.1  r0:1.000/917 r5:0.999/881 r10:0.999/871
+  bench_r3_pass2   ivf                maint 6.6 s  x_ivf None  r0:1.000/236 r5:1.000/202 r10:0.999/130
+  bench_r3_pass2   ivf_part           maint 5.0 s  x_ivf 0.8  r0:1.000/639 r5:1.000/377 r10:1.000/176
+  bench_r3_pass2   ivf_rt5            maint 29.7 s  x_ivf 4.5  r0:1.000/227 r5:0.999/269 r10:1.000/270
+  bench_r3_pass2   postfilter         maint 622.5 s  x_ivf 94.4  r0:0.998/154 r5:1.000/179 r10:1.000/176
+  bench_r3_pass2   scan_part          maint 11.7 s  x_ivf 1.8  r0:1.000/28 r5:1.000/24 r10:1.000/21

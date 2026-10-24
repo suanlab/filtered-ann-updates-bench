@@ -18,6 +18,11 @@
 //             without pruning). Upper levels are left as they are. Timed and counted as maintenance (t_repair).
 //   REPAIR=2  the same consolidation on every level of a node (upper-level lists use the deleted neighbors' lists
 //             on the same level), so that routing from the entry point avoids deleted nodes as well.
+//   REPAIR=3  the REPAIR=2 consolidation on the upper levels only (level 0 untouched): isolates the entry routes.
+//   REPAIR=4  every level, but slot filling instead of re-ranking: a node's live neighbors keep their place and
+//             order, and only the slots of deleted neighbors are refilled, with the nearest live entries among
+//             the first M_beta neighbors of those deleted neighbors that are not already listed (REPAIR=1/2
+//             re-rank all candidates by distance, which can push live long-range neighbors out of the list).
 #include <faiss/IndexACORN.h>
 #include <cstdio>
 #include <cstdlib>
@@ -92,11 +97,35 @@ int main(int argc, char** argv) {
             for (long u = 0; u < nt0; ++u) {
                 if (!alive[u]) continue;
                 const int top = repair_mode >= 2 ? g.levels[u] : 1;     // levels[u] = number of levels of u
-                for (int lev = 0; lev < top; ++lev) {
+                for (int lev = (repair_mode == 3 ? 1 : 0); lev < top; ++lev) {
                 size_t b, e; g.neighbor_range(u, lev, &b, &e);
                 bool dead = false;
                 for (size_t j = b; j < e; ++j) { int v = g.neighbors[j]; if (v < 0) break; if (!alive[v]) { dead = true; break; } }
                 if (!dead) continue;
+                if (repair_mode == 4) {             // slot filling: keep live neighbors in order, refill dead slots
+                    std::vector<int> live, repl; size_t ndead = 0;
+                    for (size_t j = b; j < e; ++j) {
+                        int v = g.neighbors[j]; if (v < 0) break;
+                        if (alive[v]) { live.push_back(v); continue; }
+                        ++ndead; size_t b2, e2; g.neighbor_range(v, lev, &b2, &e2); size_t lim = std::min(e2, b2 + (size_t)Mb);
+                        for (size_t j2 = b2; j2 < lim; ++j2) { int w = g.neighbors[j2]; if (w < 0) break; if (alive[w] && w != u) repl.push_back(w); }
+                    }
+                    std::sort(repl.begin(), repl.end()); repl.erase(std::unique(repl.begin(), repl.end()), repl.end());
+                    { std::vector<int> ls = live; std::sort(ls.begin(), ls.end());
+                      repl.erase(std::remove_if(repl.begin(), repl.end(), [&](int w) { return std::binary_search(ls.begin(), ls.end(), w); }), repl.end()); }
+                    std::vector<std::pair<float, int>> dr(repl.size()); const float* xu = X.data() + (size_t)u * d;
+                    for (size_t i = 0; i < repl.size(); ++i) {
+                        const float* xv = X.data() + (size_t)repl[i] * d; float s = 0;
+                        for (int t = 0; t < d; ++t) { float df = xu[t] - xv[t]; s += df * df; }
+                        dr[i] = {s, repl[i]};
+                    }
+                    size_t add = std::min(dr.size(), ndead); std::partial_sort(dr.begin(), dr.begin() + add, dr.end());
+                    size_t j = b;
+                    for (int v : live) g.neighbors[j++] = v;
+                    for (size_t i = 0; i < add; ++i) g.neighbors[j++] = dr[i].second;
+                    for (; j < e; ++j) g.neighbors[j] = -1;
+                    ++nrep; continue;
+                }
                 std::vector<int> cand;
                 for (size_t j = b; j < e; ++j) {
                     int v = g.neighbors[j]; if (v < 0) break;

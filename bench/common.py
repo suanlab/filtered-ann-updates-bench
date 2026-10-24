@@ -55,7 +55,9 @@ def stream_stats(name):
         meta = json.load(open(f'{D}/meta.json')); sch = np.load(f'{D}/sched.npz')
         meta['updates_per_round'] = float(np.mean([len(sch[f'del{r}']) + len(sch[f'ins{r}']) for r in range(meta['R'])]))
         return meta
-    return _stats()['streams'][name]
+    cached = _stats()['streams']
+    if name not in cached: raise SystemExit(f'stream {name}: no data/ and no entry in {STATS}; regenerate the cache with bench/workload_stats.py')
+    return cached[name]
 
 def sweep(grid):
     """A method's search-knob grid. With SWEEP=dense the geometric midpoint of every consecutive pair is added

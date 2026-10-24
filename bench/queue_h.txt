@@ -361,3 +361,202 @@ BENCH_TAG=mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/ru
 # Milvus pass 1 again, after the segment-layout fix (the first pass is in results/bench_superseded/milvus_unsettled_segments)
 BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333
 BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01
+
+# Review experiment D2: arXiv temporal stream (prepared before the C3 jobs; preparation jobs are not gated)
+python3 bench/stream_prep.py arxiv_time
+# Review experiments C3 (tag r1): label-partitioned IVF and all-level-repaired ACORN in the stream cost comparison, same session as IVF and tombstone ACORN, two passes
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf_part
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r1 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf_part
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r1 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf_part
+BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r1 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf_part
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r1 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf_part
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r1 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf_part
+BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r1 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+
+# Review experiment E5 (tag r2): executed rebuild policies, Filtered-DiskANN + exact delta rebuilt every P rounds
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 1
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 2
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 3
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 4
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 6
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 10
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 20
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 1
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 2
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 3
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 4
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 6
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 10
+BENCH_TAG=r2 BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 20
+
+
+# D2 re-preparation: label mapping fixed on the initial window (no look-ahead), duplicate check (IDEA_ICDE.md)
+python3 bench/stream_prep.py arxiv_time
+# Workload-independent check/distance cost calibration (IDEA_ICDE.md idea 2)
+taskset -c 0-27,56-83 .venv-faiss/bin/python bench/microbench_cost.py
+# Review experiment D2 (tag r3): arXiv temporal stream, two passes
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time scan_part
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r3 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_main.py arxiv_time postfilter
+BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time scan_part
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r3 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_main.py arxiv_time postfilter
+BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+
+# EMA (github.com/lmccccc/EMA @ d95fb49), tag r4: EMA and IVF in the same session on the four streams, two passes
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py deep5m
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py deep5m
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+
+# E5 again (tag r2b) after the runner fix: per-label survival for the stale index's k, re-search when short, delta preparation timed
+BENCH_TAG=r2b BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=r2b BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 1
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 2
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 3
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 4
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 6
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 10
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 20
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 1
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 2
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 3
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 4
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 6
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 10
+BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 20
+
+# IDEA_ICDE.md idea 3 (tag r5): repair factors -- upper levels only (REPAIR=3) and slot filling on every level (REPAIR=4) -- on the three streams, and a fresh ACORN build on DEEP-5M's live set after round 10, two passes
+python3 bench/prep_snapshot.py deep5m 10
+BENCH_TAG=r5 BENCH_PASS=1 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r5 BENCH_PASS=1 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r5 BENCH_PASS=1 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r5 BENCH_PASS=1 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r5 BENCH_PASS=1 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r5 BENCH_PASS=1 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r5 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep5m_r10 live
+BENCH_TAG=r5 BENCH_PASS=2 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=r5 BENCH_PASS=2 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=r5 BENCH_PASS=2 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=r5 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep5m_r10 live
+
+# Seed replicates (user request 2026-10-23): (A) H1 crossover, labels and IVF training from seeds 12 and 13 (one run each; seed 11 = h1);
+# (B) DEEP-5M uniform-deletion repair failure, stream seeds 2 and 3 (tombstones vs all-level repair; seed "base" = r1)
+python3 bench/prep.py deep300k b0.0_s0.00316456_seed12 b0.0_s0.01_seed12 b0.0_s0.03125_seed12 b0.0_s0.1_seed12 b0.0_s0.333333_seed12
+python3 bench/prep.py deep1m b0.0_s0.001_seed12 b0.0_s0.00316456_seed12 b0.0_s0.01_seed12 b0.0_s0.03125_seed12 b0.0_s0.1_seed12 b0.0_s0.333333_seed12
+python3 bench/prep.py deep3m b0.0_s0.000316256_seed12 b0.0_s0.001_seed12 b0.0_s0.00316456_seed12 b0.0_s0.01_seed12 b0.0_s0.03125_seed12 b0.0_s0.1_seed12
+python3 bench/prep.py deep10m b0.0_s0.0001_seed12 b0.0_s0.000316256_seed12 b0.0_s0.001_seed12 b0.0_s0.00316456_seed12 b0.0_s0.01_seed12 b0.0_s0.03125_seed12
+python3 bench/prep.py deep300k b0.0_s0.00316456_seed13 b0.0_s0.01_seed13 b0.0_s0.03125_seed13 b0.0_s0.1_seed13 b0.0_s0.333333_seed13
+python3 bench/prep.py deep1m b0.0_s0.001_seed13 b0.0_s0.00316456_seed13 b0.0_s0.01_seed13 b0.0_s0.03125_seed13 b0.0_s0.1_seed13 b0.0_s0.333333_seed13
+python3 bench/prep.py deep3m b0.0_s0.000316256_seed13 b0.0_s0.001_seed13 b0.0_s0.00316456_seed13 b0.0_s0.01_seed13 b0.0_s0.03125_seed13 b0.0_s0.1_seed13
+python3 bench/prep.py deep10m b0.0_s0.0001_seed13 b0.0_s0.000316256_seed13 b0.0_s0.001_seed13 b0.0_s0.00316456_seed13 b0.0_s0.01_seed13 b0.0_s0.03125_seed13
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.00316456_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.01_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.03125_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.333333_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.001_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.00316456_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.01_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.1_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.333333_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.000316256_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.001_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.00316456_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.01_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.03125_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.1_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.0001_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.001_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.01_seed12 scan_part,ivf
+BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125_seed12 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.00316456_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.01_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.03125_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.333333_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.001_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.00316456_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.01_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.1_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.333333_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.000316256_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.001_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.00316456_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.01_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.03125_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.1_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.0001_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.001_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.01_seed13 scan_part,ivf
+BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125_seed13 scan_part,ivf
+python3 bench/stream_prep.py deep5m_seed2
+python3 bench/stream_prep.py deep5m_seed3
+BENCH_TAG=rs BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m_seed2
+BENCH_TAG=rs BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m_seed2
+BENCH_TAG=rs BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m_seed3
+BENCH_TAG=rs BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m_seed3
+
+# MODIFY.md P1-2 (tag r6): the methods that decide the arXiv frontier in ONE session block, two passes, order reversed in pass 2
+BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5
+BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5
+BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf

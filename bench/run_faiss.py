@@ -12,10 +12,11 @@
               insertions and deletions like IVF. A design point predicted by the inadmissible-territory cost model.
 Predicates are handed to every method precomputed (admissible set / bitmap); predicate evaluation is
 not timed for any method. Builds use 32 threads, searches 1 thread."""
-import sys, time
+import sys, os, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
 from common import load_base, load_schema, groups, admissible, admissible_ids, recall, per_query, timed_search, save, log, K, THREADS, MT_MODE, pool_map, faiss_bitmap, sweep
+FSEED = int(os.environ.get('FAISS_SEED', '0'))     # IVF training-sample seed (seed replicates; 0 elsewhere)
 
 ds, sc = sys.argv[1], sys.argv[2]
 arms = sys.argv[3].split(',') if len(sys.argv) > 3 else ['scan_part', 'scan_mask', 'ivf']
@@ -82,7 +83,7 @@ if 'scan_mask' in arms:
 if 'ivf' in arms:
     nlist = int(4 * np.sqrt(n)); faiss.omp_set_num_threads(32); t0 = time.time()
     quant = faiss.IndexFlatL2(d); ivf = faiss.IndexIVFFlat(quant, d, nlist)
-    ivf.train(X[np.random.default_rng(0).choice(n, min(n, 50 * nlist), replace=False)]); ivf.add(X)
+    ivf.train(X[np.random.default_rng(FSEED).choice(n, min(n, 50 * nlist), replace=False)]); ivf.add(X)
     build = time.time() - t0; faiss.omp_set_num_threads(THREADS); recs = []
     # cost accounting (untimed): list of every point, list sizes, admissible entries per (query, list)
     il = ivf.invlists; sizes = np.array([il.list_size(l) for l in range(nlist)], np.int64); assign = np.empty(n, np.int64)
@@ -127,7 +128,7 @@ if 'ivf_part' in arms and is_label:
     attr = pred['attr']; faiss.omp_set_num_threads(32); t0 = time.time(); parts = {}; nl_tot = 0
     for b in np.unique(attr):
         ids = np.where(attr == b)[0]; nlb = max(1, int(4 * np.sqrt(len(ids)))); qb = faiss.IndexFlatL2(d); ix = faiss.IndexIVFFlat(qb, d, nlb)
-        ix.train(X[ids[np.random.default_rng(0).choice(len(ids), min(len(ids), 50 * nlb), replace=False)]])
+        ix.train(X[ids[np.random.default_rng(FSEED).choice(len(ids), min(len(ids), 50 * nlb), replace=False)]])
         ix.add_with_ids(X[ids], ids.astype(np.int64)); parts[int(b)] = (ix, qb, nlb); nl_tot += nlb
     build = time.time() - t0; faiss.omp_set_num_threads(THREADS); recs = []
     for npb in sweep((1, 2, 4, 8, 16, 32, 64, 128, 256, 512)):

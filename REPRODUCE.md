@@ -102,6 +102,15 @@ results.
 | `h8` | dispatcher with estimated cardinalities (analysis only) | V-C | `h8_estimation.py` |
 | `pg` | PostgreSQL 16 + pgvector 0.8.1 | V-E | `run_pgvector.py` (needs `postgresql-16`, `postgresql-16-pgvector`, `psycopg`) |
 | `mv` | Milvus 2.6.18 standalone (private, own network namespace) | V-E | `run_milvus.py` (`scripts/setup_milvus.sh`: official .deb extracted without root, `.venv-milvus`) |
+| `r1` | streams, same session: IVF, label-partitioned IVF, tombstone ACORN, all-level repair | VI, VII | `stream_faiss.py ivf_part`, `stream_acorn.py` (`REPAIR=2`) |
+| `r2b` | executed rebuild policies (Filtered-DiskANN + exact delta every P rounds), IVF anchor | VII | `stream_diskann_policy.py <stream> <P>` |
+| `r3` | arXiv temporal stream (`stream_prep.py arxiv_time`), seven methods incl. retrained IVF (`ivf_rt5`) | VI, VII | stream runners |
+| `r4` | EMA (`scripts/setup_ema.sh`, commit d95fb49) with an IVF anchor, four streams | VI, VII | `stream_ema.py` |
+| `r5` | repair factors: upper levels only (`REPAIR=3`), slot filling (`REPAIR=4`); fresh build on DEEP-5M after round 10 (`prep_snapshot.py deep5m 10`) | VI | `stream_acorn.py`, `run_acorn.py deep5m_r10 live` |
+| `r6` | arXiv frontier methods in one session block, pass 2 in reverse order | VII | stream runners |
+| `s12`, `s13` | H1 replicates: label/query-label seed and IVF training seed 12, 13 (`prep.py ... b0.0_s<s>_seed<k>`, `FAISS_SEED`) | V-A | `run_faiss.py` |
+| `rs` | DEEP-5M stream replicates (`stream_prep.py deep5m_seed<k>`), tombstone vs all-level repair | VI | `stream_acorn.py` |
+| `mb` | workload-independent check/distance cost ratio; cost of the policies' untimed survival count | V-A, VII | `microbench_cost.py`, `survival_cost.py` |
 | `dense` | sqrt(2) knob steps on the key workloads | VIII | static runners with `SWEEP=dense` |
 | `ax` | arXiv abstracts, 4096-d embeddings, real categories (`prep.py arxiv*`) | V-A | static runners |
 
@@ -109,7 +118,10 @@ results.
 python3 bench/analyze_h.py > results/bench_h_analysis.txt   # results/bench_h_summary.json
 python3 paper/make_eab_hnumbers.py                           # paper/eab_hnumbers.tex (macros \V{h/...})
 python3 paper/make_eab_hfigures.py                           # paper/figures/eab_teaser.pdf (Fig. 1), eab_law.pdf, eab_percolation.pdf
+python3 bench/analyze_review.py > results/bench_r_analysis.txt   # results/bench_r_summary.json (strict: fails on any incomplete campaign, missing round, or missing IVF anchor): per-pass costs, per-query-scan
+                                                             # crossovers, 28-thread speed-ups, transfer of dispatch thresholds
 python3 paper/make_eab_anumbers.py                           # paper/eab_anumbers.tex (\V{a/...}): per-run ranges, same-run ratios
+python3 paper/make_eab_rfigures.py                           # paper/figures/eab_frontier.pdf (total-cost frontier)
 ```
 
 `h3b` passes 2 and 3 replicate the same-session tombstone / level-0 repair / all-level repair triple (audit item I31).
@@ -119,7 +131,7 @@ predicate sizes and the stream schedules of H6) and caches them in `results/benc
 `results/bench_h6/stream_*_sched.json`, so the follow-up analysis and its macros regenerate byte-identically without
 `data/` (checked by `scripts/make_release.sh`). One arXiv query asks for a category that no sampled paper carries; it
 has an empty admissible set, counts as recall 1 for every method, and `run_curator.py` answers it without calling
-Curator, which rejects unknown labels.
+Curator, which rejects unknown labels. In `stream_diskann_policy.py` the per-label survival used to size the stale index's request is computed outside the timers: `bench/survival_cost.py` replays both SIFT schedules and measures it at a median of about 20 ms per round (at most 30 ms; `results/bench_mb/survival.json`), under 0.06% of one rebuild (52 s).
 Milvus (`mv`): the brute-force switch quoted in Section V-E is Knowhere's `HnswSearchThresholds::kHnswSearchKnnBFFilterThreshold
 = 0.93` (`src/index/hnsw/impl/IndexConditionalWrapper.h`, applied per segment in `IndexConditionalWrapper.cc`, Knowhere
 v2.6.15 as bundled with Milvus 2.6.18). `run_milvus.py` compacts the flushed segments until their layout is stable before
