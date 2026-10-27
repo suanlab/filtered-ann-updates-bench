@@ -7,11 +7,13 @@ per-query predicate bitmap (alive AND label), i.e. deleted nodes stay in the gra
 Build/insert 16 threads; search 1 thread, REPS reps, ef sweep at the measured rounds.
 Environment: PERC=1 records, per measured round and label, the live admissible subgraph available to level-0 search
 (see src/acorn_stream.cpp) and the recall of that label's queries; REPAIR=1 adds a local delete consolidation of
-level-0 lists after every round (method 'acorn_repair', its time counted as maintenance)."""
+level-0 lists after every round (method 'acorn_repair', its time counted as maintenance). MECH=1 (with
+ACORN_BIN=./src/acorn_stream_mech_avx2) adds the untimed mechanism metrics of follow-up 2 (I17) per measured round,
+and FRESH=1 a new index on the final live set with the same metrics (stored under 'fresh')."""
 import sys, os, json, subprocess, tempfile
 sys.path.insert(0, 'bench')
 import numpy as np
-from common import ROOT, RES, recall, recall_vec, ci, log, REPS, K, write_fbin
+from common import ROOT, RES, recall, recall_vec, ci, log, REPS, K, write_fbin, E2E, peak_rss_mb
 
 name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
 if os.environ.get('MAX_ROUND'): R = min(R, int(os.environ['MAX_ROUND'])); meta['measure_rounds'] = [x for x in meta['measure_rounds'] if x <= R]   # smoke tests only
@@ -26,6 +28,9 @@ efs = [16, 32, 64, 128, 256, 512, 1024, 2048]
 cmd = [os.environ.get('ACORN_BIN', './src/acorn_stream_avx2'), f'{tmp}/X.fbin', f'{tmp}/Q.fbin', f'{tmp}/attr.i32', f'{tmp}/qlab.i32', f'{tmp}/sched', str(N0), str(R),
        '32', '12', '64', '16', '1', ','.join(map(str, efs)), f'{tmp}/out']
 env = {**os.environ, 'ACORN_REPS': str(REPS), 'MEASURE': ','.join(map(str, meta['measure_rounds']))}
+if os.environ.get('MECH') == '1':
+    for r in meta['measure_rounds']: np.ascontiguousarray(gt[r], np.int32).tofile(f'{tmp}/sched/gt_r{r}.i32')
+    env['GT_DIR'] = f'{tmp}/sched'
 log(name, 'acorn stream start')
 p = subprocess.run(cmd, capture_output=True, text=True, env=env)
 if p.returncode != 0: log('acorn_stream failed', p.returncode, p.stderr[-1500:]); sys.exit(1)
@@ -42,8 +47,24 @@ for line in p.stdout.splitlines():
             if row_['round'] == ev['round']: row_['perc'] = ev['labels']
         continue
     if ev['event'] == 'repair': reps_[ev['round']] = ev; continue
-    r = ev['round']; row = {k: ev[k] for k in ('round', 't_delete', 't_insert', 'cum_maint_s') if k in ev}; row['resident'] = ev['ntotal']
-    if r in reps_: row['t_repair'] = reps_[r]['t_repair']; row['repaired_nodes'] = reps_[r]['nodes']
+    if ev['event'] == 'mech':
+        if ev['fresh']: out.setdefault('fresh', {})['mech'] = ev
+        else:
+            for row_ in out['rounds']:
+                if row_['round'] == ev['round']: row_['mech'] = ev
+        continue
+    if ev['event'] == 'fresh':
+        sw = []
+        for ef in efs:
+            o = np.fromfile(f'{tmp}/out/fresh_ef{ef}.i32', np.int32).reshape(nq, K); rv = recall_vec(o, gt[ev['round']])
+            sw.append({'param': f'ef={ef}', 'recall': recall(o, gt[ev['round']]), 'qps': ci(ev[f'qps_ef{ef}']),
+                       'recall_by_label': {int(b): float(rv[qlab == b].mean()) for b in np.unique(qlab)}})
+        out.setdefault('fresh', {}).update(round=ev['round'], n=ev['n'], build_s=ev['build_s'], sweep=sw)
+        log(name, 'fresh build', [(x['param'], round(x['recall'], 4)) for x in sw]); continue
+    r = ev['round']; row = {k: ev[k] for k in ('round', 't_delete', 't_insert', 'cum_maint_s', 't_pred') if k in ev}; row['resident'] = ev['ntotal']
+    if r in reps_:
+        row['t_repair'] = reps_[r]['t_repair']; row['repaired_nodes'] = reps_[r]['nodes']
+        if 'm3' in reps_[r]: row['m3'] = reps_[r]['m3']
     if 'graph_bytes' in ev:
         row['bytes'] = int(ev['ntotal'] * X.shape[1] * 4 + ev['graph_bytes']); row['live'] = ev['live']; row['sweep'] = []
         row['bytes_has_levels'] = bool(ev.get('graph_bytes_has_levels'))
@@ -52,8 +73,10 @@ for line in p.stdout.splitlines():
             rv = recall_vec(o, gt[r])
             row['sweep'].append({'param': f'ef={ef}', 'recall': recall(o, gt[r]), 'qps': ci(ev[f'qps_ef{ef}']),
                                  'recall_by_label': {int(b): float(rv[qlab == b].mean()) for b in np.unique(qlab)}})
+            if f'lat_ef{ef}' in ev: row['sweep'][-1]['latency'] = dict(zip(('p50_ms', 'p95_ms', 'p99_ms'), ev[f'lat_ef{ef}']))
         log(name, 'acorn round', r, 'cum', row['cum_maint_s'], [(s['param'], round(s['recall'], 4), round(s['qps']['mean'], 1)) for s in row['sweep']])
     out['rounds'].append(row)
 os.makedirs(f'{RES}/stream_{name}', exist_ok=True)
+if E2E: out['e2e'] = True; out['peak_rss_mb'] = peak_rss_mb(children=True)
 json.dump(out, open(f'{RES}/stream_{name}/{method}.json', 'w'), indent=1, default=float)
 subprocess.run(['rm', '-rf', tmp]); log('DONE', name, method)

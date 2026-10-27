@@ -46,7 +46,7 @@ def crossing(ms, rs):
             return math.exp(math.log(ms[i]) + w * (math.log(ms[i + 1]) - math.log(ms[i]))), 'interp'
     return ms[-1], 'above'
 
-def h1(tag='h1', label='H1 (1 thread)', ns=NS):
+def h1(tag='h1', label='H1 (1 thread)', ns=NS, keep_boot=False):
     W = load_static(tag)
     if not W: return None
     raw, S = summarize_static(W)
@@ -97,6 +97,7 @@ def h1(tag='h1', label='H1 (1 thread)', ns=NS):
                     if len(sl) > 50:     # basic (pivotal) bootstrap interval: recentred on the point estimate
                         lo, hi = np.quantile(sl, [0.025, 0.975]); fit[meth]['exponent_ci95'] = [float(2 * a - hi), float(2 * a - lo)]
                         fit[meth]['boot_valid'] = len(sl)
+                        if keep_boot: fit[meth]['boot_slopes'] = [float(x) for x in sl]      # follow-up 2 only; not in the summary
                 ci_ = fit[meth].get('exponent_ci95'); cis = f' [95% CI {ci_[0]:.2f}, {ci_[1]:.2f}]' if ci_ else ''
                 say(f'  m* ~ n^{a:.2f}{cis} for {meth} ({len(pts)} sizes); predicate-agnostic: positive, label-indexed: <= 0')
         res['fit'][str(t)] = fit

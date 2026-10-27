@@ -8,7 +8,7 @@ query vectors and their category labels (emis_query_attributes) are kept whole."
 import sys, os, json, urllib.request, concurrent.futures as cf
 import numpy as np
 
-BASE = 'https://huggingface.co/datasets/SPCL/arxiv-for-fanns-large/resolve/main/'
+BASE = 'https://huggingface.co/datasets/SPCL/arxiv-for-fanns-large/resolve/79a4cff088965f7039b8766e6115a7769645adb2/'   # pinned: the revision 'main' pointed to when our sample was drawn (2026-10-20)
 D = 4096; ROW = 4 + 4 * D; NROWS = 44825506432 // ROW; BLOCK = 1024
 OUT = 'data/arxiv/large_sample'; os.makedirs(OUT, exist_ok=True)
 N = int(sys.argv[1]) if len(sys.argv) > 1 else 1_000_000
@@ -48,6 +48,6 @@ with open(f'{OUT}/attributes.jsonl', 'w') as f:
 q = get(BASE + 'query_vectors.fvecs', 0, 163880000 - 1); qa = np.frombuffer(q, np.int32).reshape(-1, ROW // 4)
 np.save(f'{OUT}/Q.npy', qa[:, 1:].view(np.float32).copy())
 with urllib.request.urlopen(BASE + 'emis_query_attributes.jsonl', timeout=120) as r: open(f'{OUT}/qattr_emis.jsonl', 'wb').write(r.read())
-json.dump({'source': 'SPCL/arxiv-for-fanns-large (HuggingFace), random sample of 64-row blocks, seed 19', 'n': int(len(rows)), 'd': D,
+json.dump({'source': 'SPCL/arxiv-for-fanns-large (HuggingFace), random sample of 1024-row blocks, seed 19', 'n': int(len(rows)), 'd': D,
            'rows_total': int(NROWS)}, open(f'{OUT}/meta.json', 'w'), indent=1)
 print('done', len(rows), 'rows')

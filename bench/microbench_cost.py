@@ -8,9 +8,9 @@ is used, so the ratio can calibrate a dispatch threshold before any workload is 
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
-from common import faiss_bitmap
+from common import faiss_bitmap, apply_simd
 
-faiss.omp_set_num_threads(1); out = {}
+faiss.omp_set_num_threads(1); out = {}; SIMD = apply_simd()     # FAISS_SIMD=none|avx2|avx512
 for d, n in ((96, 1_000_000), (4096, 100_000)):
     rng = np.random.default_rng(0); X = rng.standard_normal((n, d), dtype=np.float32); Qs = rng.standard_normal((50, d), dtype=np.float32)
     ix = faiss.IndexFlatL2(d); ix.add(X); keep = []
@@ -25,4 +25,7 @@ for d, n in ((96, 1_000_000), (4096, 100_000)):
     c_chk = res['none'] / n; c_dist = (res['all'] - res['none']) / n
     out[str(d)] = {'n': n, 'ns_per_check': 1e9 * c_chk, 'ns_per_distance': 1e9 * c_dist, 'chk_over_dist': c_chk / c_dist}
     print(d, out[str(d)], flush=True)
-os.makedirs('results/bench_mb', exist_ok=True); json.dump(out, open('results/bench_mb/cost.json', 'w'), indent=1)
+os.makedirs('results/bench_mb', exist_ok=True)
+if os.environ.get('FAISS_SIMD'): out['simd'] = SIMD
+suf = f"_{os.environ['FAISS_SIMD']}" if os.environ.get('FAISS_SIMD') else ''
+json.dump(out, open(f'results/bench_mb/cost{suf}.json', 'w'), indent=1)

@@ -27,8 +27,14 @@ passes `-DFAISS_OPT_LEVEL=avx2`.
 
 ```bash
 scripts/download_data.sh          # SIFT1M and DEEP (ann-benchmarks), YFCC-10M (Big-ANN'23 filtered track), BIGANN prefix
-sha256sum -c data_sha256.txt      # the YFCC and BIGANN entries; the hdf5 entries cover the ann-benchmarks files
+python3 bench/fetch_arxiv.py      # arXiv 4096-d sample (Hugging Face SPCL/arxiv-for-fanns-large, pinned revision 79a4cff)
+.venv-embed/bin/python bench/prep_amazon.py download && python3 bench/prep_amazon.py select &&
+  .venv-embed/bin/python bench/prep_amazon.py embed   # Amazon Reviews 2023, 10 categories (follow-up 2, tag amz)
+sha256sum -c data_sha256.txt      # every downloaded or sampled input file
 ```
+
+Terms of use and citations of every dataset: `release/README.md` (Data sources and terms). The arXiv sample's
+`meta.json` written on 2026-10-20 says "64-row blocks"; the code read 1024-row blocks (fixed in the code since).
 
 `data/bigann/base.1.5M.u8bin` is the first 192,000,008 bytes of `base.1B.u8bin` (header plus 1.5M vectors);
 its header still says 10^9 rows, and the stream generator reads only the first 1.5M.
@@ -111,6 +117,17 @@ results.
 | `s12`, `s13` | H1 replicates: label/query-label seed and IVF training seed 12, 13 (`prep.py ... b0.0_s<s>_seed<k>`, `FAISS_SEED`) | V-A | `run_faiss.py` |
 | `rs` | DEEP-5M stream replicates (`stream_prep.py deep5m_seed<k>`), tombstone vs all-level repair | VI | `stream_acorn.py` |
 | `mb` | workload-independent check/distance cost ratio; cost of the policies' untimed survival count | V-A, VII | `microbench_cost.py`, `survival_cost.py` |
+| `s14`–`s17` | label/IVF-training seeds 14–17 (follow-up 2, I13) | V-A, Table IV | `run_faiss.py` |
+| `rs` (seeds 4, 5) | further DEEP-5M stream replicates (I13) | Table IV | `stream_acorn.py` |
+| `r2c` | second run of every executed rebuild period (I13) | VII | `stream_diskann_policy.py` |
+| `r7a`–`r7d` | arXiv blocks: IVF anchor, the frontier methods in random order, IVF anchor (pass 2) (I07) | VII, Table IV | stream runners |
+| `r8` | repair mechanism: `MECH=1` edge lengths, retention, exact filtered descent and reachability, `FRESH=1` rebuild (I17) | VI | `stream_acorn.py` with `src/acorn_stream_mech_avx2` |
+| `e2e` | end-to-end timing, `E2E=1` (I19) | VII, Table IV | stream runners |
+| `cc` | concurrent maintenance and search (I18) | Table IV | `stream_concurrent.py`, `src/cc_ivf` |
+| `yst` | multi-label AND stream on YFCC tags (`stream_prep.py yfcc_stream`) (I18) | Table IV | `stream_multi.py` |
+| `amz` | Amazon Reviews 2023 temporal stream (`prep_amazon.py`, `stream_prep.py amz_time`) (I18) | Table IV | stream runners |
+| `simdn`, `simd2` | Faiss SIMD level generic / AVX2 (`FAISS_SIMD`) (I18) | Table IV | `run_faiss.py`, `microbench_cost.py` |
+| `rep_<tag>` | re-execution of a random 15% of all measurement jobs (`reexec_sample.py`, `reexec_compare.py`) (I27) | Table IV | as the original jobs |
 | `dense` | sqrt(2) knob steps on the key workloads | VIII | static runners with `SWEEP=dense` |
 | `ax` | arXiv abstracts, 4096-d embeddings, real categories (`prep.py arxiv*`) | V-A | static runners |
 
@@ -122,6 +139,9 @@ python3 bench/analyze_review.py > results/bench_r_analysis.txt   # results/bench
                                                              # crossovers, 28-thread speed-ups, transfer of dispatch thresholds
 python3 paper/make_eab_anumbers.py                           # paper/eab_anumbers.tex (\V{a/...}): per-run ranges, same-run ratios
 python3 paper/make_eab_rfigures.py                           # paper/figures/eab_frontier.pdf (total-cost frontier)
+python3 bench/analyze_followup2.py > results/bench_f2_analysis.txt   # results/bench_f2_summary.json (follow-up 2, decision rules of
+                                                              # paper_audit/followup2_prereg.md; runs bench/reexec_compare.py)
+python3 paper/make_eab_fnumbers.py                           # paper/eab_fnumbers.tex (\V{f/...}, Table IV)
 ```
 
 `h3b` passes 2 and 3 replicate the same-session tombstone / level-0 repair / all-level repair triple (audit item I31).
@@ -137,3 +157,20 @@ Milvus (`mv`): the brute-force switch quoted in Section V-E is Knowhere's `HnswS
 v2.6.15 as bundled with Milvus 2.6.18). `run_milvus.py` compacts the flushed segments until their layout is stable before
 building indexes (all reported runs: one segment of 10^6 rows) and asserts that layout around every sweep; a first pass
 without this step is kept in `results/bench_superseded/milvus_unsettled_segments/` with its reason.
+
+
+## 7. Follow-up 2 (pre-registered; Table IV)
+
+`paper_audit/followup2_prereg.md` fixed the designs and decision rules before the first run (commit 0ee6515);
+`paper_audit/followup2_results.md` records each outcome as its campaign finished, including the failed and rerun jobs.
+Notes:
+- `stream_acorn.py` with `MECH=1`, `FRESH=1`, `E2E=1`, or `ATTR_CSR` needs `src/acorn_stream_mech_avx2`, built from
+  the same `src/acorn_stream.cpp` as `scripts/build_acorn.sh` builds `acorn_stream_avx2`; `src/cc_ivf` likewise
+  (`g++ -O3 -march=native -fopenmp -std=c++17 -I third_party/ACORN src/cc_ivf.cpp -L third_party/ACORN/build_avx2/faiss
+  -lfaiss_avx2 ...`).
+- The multi-label EMA run calls EMA once per query and asks for fewer than k results when EMA cannot fill k. Its
+  batched API raises an error otherwise; the first run failed on that and was rerun.
+- `bench/predicate_cost.py` writes a fixed path. Its re-execution overwrote `results/bench_h5/predicate_cost.json`, so
+  that file was restored from git and the rerun copy kept as `results/bench_rep_main/h5/predicate_cost.json`.
+- In the re-execution, 28-thread jobs whose queue passed BENCH_TAG through the controller's environment are compared
+  with `results/bench_mt28` and `results/bench_mt28_pool`.

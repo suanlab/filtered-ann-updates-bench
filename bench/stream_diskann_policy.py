@@ -14,7 +14,7 @@ point. P >= R means the index built at round 0 is never rebuilt within the strea
 import sys, os, json, time, shutil
 sys.path.insert(0, 'bench')
 import numpy as np, diskannpy as dp
-from common import ROOT, RES, recall, timed_search, log, K
+from common import ROOT, RES, recall, timed_search, log, K, E2E
 
 name, P = sys.argv[1], int(sys.argv[2]); D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
 X = np.load(f'{D}/Xall.npy', mmap_mode='r'); Q = np.load(f'{D}/Q.npy'); attr = np.load(f'{D}/attr.npy'); qlab = np.load(f'{D}/qlab.npy')
@@ -43,7 +43,8 @@ for r in range(min(R, int(os.environ.get('MAX_ROUND', R))) + 1):     # MAX_ROUND
     DX = {c: np.ascontiguousarray(X[ids], np.float32) for c, ids in delta.items()}; DN = {c: (v * v).sum(1) for c, v in DX.items()}
     row['t_delta'] = time.time() - t
     # survival of the build's points per label: the stale index is asked for K / survival results of the query's label
-    surv_l = {int(c): max(float(alive[base[attr[base] == c]].mean()), 1e-3) for c in np.unique(qlab)}
+    t = time.time(); surv_l = {int(c): max(float(alive[base[attr[base] == c]].mean()), 1e-3) for c in np.unique(qlab)}
+    if E2E: row['t_delta'] += time.time() - t; row['t_survival'] = time.time() - t     # E2E: counted as maintenance
     sweep = []
     for L in (16, 32, 64, 128, 256, 512, 1024):
         kq0 = {c: min(L, int(np.ceil(K / v))) for c, v in surv_l.items()}

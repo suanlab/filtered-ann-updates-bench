@@ -16,6 +16,8 @@ import sys, os, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
 from common import load_base, load_schema, groups, admissible, admissible_ids, recall, per_query, timed_search, save, log, K, THREADS, MT_MODE, pool_map, faiss_bitmap, sweep
+from common import apply_simd
+SIMD = apply_simd() if os.environ.get('FAISS_SIMD') else None
 FSEED = int(os.environ.get('FAISS_SEED', '0'))     # IVF training-sample seed (seed replicates; 0 elsewhere)
 
 ds, sc = sys.argv[1], sys.argv[2]

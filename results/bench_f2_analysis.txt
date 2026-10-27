@@ -1,0 +1,195 @@
+== I07 arXiv blocks ==
+  r7a        ivf_part:0.51 ivf_rt5:0.59 acorn:0.66 acorn_repair_all:0.41 ema:0.37 fdiskann_rebuild:0.57  drift 0.77
+  r7b        ivf_part:0.59 ivf_rt5:0.66 acorn:0.45 acorn_repair_all:0.45 ema:0.42 fdiskann_rebuild:0.61  drift 1.02
+  r7c        ivf_part:0.57 ivf_rt5:0.67 acorn:0.47 acorn_repair_all:0.45 ema:0.41 fdiskann_rebuild:0.60  drift 0.99
+  r7d        ivf_part:0.58 ivf_rt5:0.68 acorn:0.47 acorn_repair_all:0.46 ema:0.43 fdiskann_rebuild:0.63  drift 0.99
+  r3         ivf_part:0.55 ivf_rt5:0.66 acorn:0.49 acorn_repair_all:0.46 fdiskann_rebuild:0.65
+  r3_pass2   ivf_part:0.60 ivf_rt5:0.69 acorn:0.47 acorn_repair_all:0.46 fdiskann_rebuild:0.66
+  r6         ivf_part:0.59 ivf_rt5:0.67 acorn:0.49 acorn_repair_all:0.46 ema:0.43 fdiskann_rebuild:0.64
+  r6_pass2   ivf_part:0.60 ivf_rt5:0.71 acorn:0.49 acorn_repair_all:0.47 ema:0.43 fdiskann_rebuild:0.65
+  rule A (graphs < ivf_part from Q/U=1, every new block, normalized and raw): {'1': {'blocks_holding': 4, 'blocks': 4, 'holds': True}, '3': {'blocks_holding': 4, 'blocks': 4, 'holds': True}, '10': {'blocks_holding': 4, 'blocks': 4, 'holds': True}, '30': {'blocks_holding': 4, 'blocks': 4, 'holds': True}, '100': {'blocks_holding': 4, 'blocks': 4, 'holds': True}}
+  rule B (single cheapest graph): {'1': (True, ['ema', 'ema', 'ema', 'ema', 'ema', 'ema']), '3': (True, ['ema', 'ema', 'ema', 'ema', 'ema', 'ema']), '10': (True, ['ema', 'ema', 'ema', 'ema', 'ema', 'ema']), '30': (True, ['ema', 'ema', 'ema', 'ema', 'ema', 'ema']), '100': (True, ['ema', 'ema', 'ema', 'ema', 'ema', 'ema'])}
+
+== seed 11: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:1.09e+04(i)  ivf_part:1e+03(b)  acorn:2.22e+04(i)  postfilter:3.17e+04(i)  curator:3.31e+04(i)  best:1e+03(b)
+deep1m    n= 1,000,000  ivf:1.81e+04(i)  ivf_part:1e+03(b)  acorn:3.72e+04(i)  postfilter:4.68e+04(i)  curator:3.39e+04(i)  best:1e+03(b)
+deep3m    n= 3,162,278  ivf:3.04e+04(i)  ivf_part:1e+03(b)  acorn:8.71e+04(i)  postfilter:7.41e+04(i)  curator:3.96e+04(i)  best:1e+03(b)
+deep10m   n=10,000,000  ivf:5.77e+04(i)  ivf_part:1e+03(b)  acorn:1.81e+05(i)  postfilter:1.3e+05(i)  curator:2.5e+04(i)  best:1e+03(b)
+  m* ~ n^0.48 [95% CI 0.44, 0.51] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.62 for acorn (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.41 for postfilter (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^-0.06 for curator (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 11: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.72e+04(i)  ivf_part:3.35e+03(i)  acorn:4.66e+04(i)  postfilter:3.84e+04(i)  curator:1.05e+05(a)  best:3.35e+03(i)
+deep1m    n= 1,000,000  ivf:4.38e+04(i)  ivf_part:1.46e+03(i)  acorn:7.3e+04(i)  postfilter:6.77e+04(i)  curator:3.33e+05(a)  best:1.46e+03(i)
+deep3m    n= 3,162,278  ivf:6.2e+04(i)  ivf_part:1e+03(b)  acorn:1.71e+05(i)  postfilter:1.18e+05(i)  curator:3.16e+05(a)  best:1e+03(b)
+deep10m   n=10,000,000  ivf:1.23e+05(i)  ivf_part:1.08e+03(i)  acorn:3.12e+05(a)  postfilter:1.77e+05(i)  curator:3.12e+05(a)  best:1.08e+03(i)
+  m* ~ n^0.42 [95% CI 0.36, 0.48] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^-0.30 [95% CI -0.39, -0.26] for ivf_part (3 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.56 for acorn (3 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.45 for postfilter (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^-0.30 for best (3 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 12: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:9.76e+03(i)  best:9.76e+03(i)
+deep1m    n= 1,000,000  ivf:1.51e+04(i)  best:1.51e+04(i)
+deep3m    n= 3,162,278  ivf:2.16e+04(i)  best:2.16e+04(i)
+deep10m   n=10,000,000  ivf:4.73e+04(i)  best:4.73e+04(i)
+  m* ~ n^0.44 [95% CI 0.42, 0.47] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.44 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 12: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.61e+04(i)  best:2.61e+04(i)
+deep1m    n= 1,000,000  ivf:3.39e+04(i)  best:3.39e+04(i)
+deep3m    n= 3,162,278  ivf:5.35e+04(i)  best:5.35e+04(i)
+deep10m   n=10,000,000  ivf:1.07e+05(i)  best:1.07e+05(i)
+  m* ~ n^0.41 [95% CI 0.37, 0.45] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.41 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 13: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:9.63e+03(i)  best:9.63e+03(i)
+deep1m    n= 1,000,000  ivf:1.56e+04(i)  best:1.56e+04(i)
+deep3m    n= 3,162,278  ivf:2.25e+04(i)  best:2.25e+04(i)
+deep10m   n=10,000,000  ivf:4.8e+04(i)  best:4.8e+04(i)
+  m* ~ n^0.45 [95% CI 0.42, 0.48] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.45 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 13: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.45e+04(i)  best:2.45e+04(i)
+deep1m    n= 1,000,000  ivf:4.18e+04(i)  best:4.18e+04(i)
+deep3m    n= 3,162,278  ivf:4.96e+04(i)  best:4.96e+04(i)
+deep10m   n=10,000,000  ivf:9.6e+04(i)  best:9.6e+04(i)
+  m* ~ n^0.37 [95% CI 0.33, 0.41] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.37 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 14: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:1.11e+04(i)  best:1.11e+04(i)
+deep1m    n= 1,000,000  ivf:1.56e+04(i)  best:1.56e+04(i)
+deep3m    n= 3,162,278  ivf:2.73e+04(i)  best:2.73e+04(i)
+deep10m   n=10,000,000  ivf:4.81e+04(i)  best:4.81e+04(i)
+  m* ~ n^0.43 [95% CI 0.40, 0.46] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.43 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 14: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.63e+04(i)  best:2.63e+04(i)
+deep1m    n= 1,000,000  ivf:3.38e+04(i)  best:3.38e+04(i)
+deep3m    n= 3,162,278  ivf:6.1e+04(i)  best:6.1e+04(i)
+deep10m   n=10,000,000  ivf:1.01e+05(i)  best:1.01e+05(i)
+  m* ~ n^0.40 [95% CI 0.35, 0.44] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.40 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 15: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:1.22e+04(i)  best:1.22e+04(i)
+deep1m    n= 1,000,000  ivf:1.42e+04(i)  best:1.42e+04(i)
+deep3m    n= 3,162,278  ivf:2.43e+04(i)  best:2.43e+04(i)
+deep10m   n=10,000,000  ivf:4.91e+04(i)  best:4.91e+04(i)
+  m* ~ n^0.41 [95% CI 0.38, 0.43] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.41 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 15: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.8e+04(i)  best:2.8e+04(i)
+deep1m    n= 1,000,000  ivf:3.72e+04(i)  best:3.72e+04(i)
+deep3m    n= 3,162,278  ivf:5.29e+04(i)  best:5.29e+04(i)
+deep10m   n=10,000,000  ivf:1.17e+05(i)  best:1.17e+05(i)
+  m* ~ n^0.40 [95% CI 0.35, 0.45] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.40 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 16: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:1.15e+04(i)  best:1.15e+04(i)
+deep1m    n= 1,000,000  ivf:1.56e+04(i)  best:1.56e+04(i)
+deep3m    n= 3,162,278  ivf:2.46e+04(i)  best:2.46e+04(i)
+deep10m   n=10,000,000  ivf:5.02e+04(i)  best:5.02e+04(i)
+  m* ~ n^0.42 [95% CI 0.39, 0.45] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.42 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 16: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.76e+04(i)  best:2.76e+04(i)
+deep1m    n= 1,000,000  ivf:3.84e+04(i)  best:3.84e+04(i)
+deep3m    n= 3,162,278  ivf:5.2e+04(i)  best:5.2e+04(i)
+deep10m   n=10,000,000  ivf:1.11e+05(i)  best:1.11e+05(i)
+  m* ~ n^0.39 [95% CI 0.34, 0.43] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.39 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 17: crossover admissible-set size m* at recall 0.95, beta=0 ==
+deep300k  n=   316,228  ivf:1.19e+04(i)  best:1.19e+04(i)
+deep1m    n= 1,000,000  ivf:1.5e+04(i)  best:1.5e+04(i)
+deep3m    n= 3,162,278  ivf:2.61e+04(i)  best:2.61e+04(i)
+deep10m   n=10,000,000  ivf:5.07e+04(i)  best:5.07e+04(i)
+  m* ~ n^0.43 [95% CI 0.40, 0.45] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.43 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+
+== seed 17: crossover admissible-set size m* at recall 0.99, beta=0 ==
+deep300k  n=   316,228  ivf:2.55e+04(i)  best:2.55e+04(i)
+deep1m    n= 1,000,000  ivf:3.81e+04(i)  best:3.81e+04(i)
+deep3m    n= 3,162,278  ivf:6.15e+04(i)  best:6.15e+04(i)
+deep10m   n=10,000,000  ivf:1.17e+05(i)  best:1.17e+05(i)
+  m* ~ n^0.44 [95% CI 0.39, 0.49] for ivf (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+  m* ~ n^0.44 for best (4 sizes); predicate-agnostic: positive, label-indexed: <= 0
+== I13 seeds: IVF exponent per seed [('11', 0.479), ('12', 0.442), ('13', 0.45), ('14', 0.43), ('15', 0.41), ('16', 0.424), ('17', 0.426)]; {'seeds': 7, 'mean': 0.43736028654251785, 'sd': 0.022612553426522148, 't_ci95': [0.4164464092618769, 0.4582741638231588], 'min': 0.410157238391, 'max': 0.47920358654193684, 'two_stage_ci95': [0.42131012750350416, 0.4589463349518806], 'below_half_supported': True}
+== I13 unseen-seed policy test: {'workloads': 138, 'seeds': [12, 13, 14, 15, 16, 17], 'fixed |A|': {'wrong': 8, 'chose_ivf_where_ivf_misses': 0, 'regret_max_finite': 0.7112299693935566, 'regret_mean_finite': 0.028291282427323133}, 'fixed s': {'wrong': 16, 'chose_ivf_where_ivf_misses': 0, 'regret_max_finite': 1.3663190646295456, 'regret_mean_finite': 0.07254034682915304}, 'Milvus 7%': {'wrong': 32, 'chose_ivf_where_ivf_misses': 0, 'regret_max_finite': 7.884339269759337, 'regret_mean_finite': 0.5539556807118394}, 'sqrt(n)': {'wrong': 4, 'chose_ivf_where_ivf_misses': 0, 'regret_max_finite': 0.2071501875517303, 'regret_mean_finite': 0.004463869092391374}}
+== I13 timing intervals: {'configs': 2148, 'factor_t_over_normal': 2.195408163265306, 'normal_median_pct': 0.916298445703652, 'normal_p90_pct': 4.707362365086331, 't_median_pct': 2.0116490876851096, 't_p90_pct': 10.33458176375841}
+== I13 best-of-two: {'main': {'verdicts': 104, 'changed_vs_best': {'mean': 1, 'worse': 2}}, 'h1': {'verdicts': 103, 'changed_vs_best': {'mean': 2, 'worse': 2}, 'ivf_exponent': {'best': 0.49314846718645156, 'mean': 0.4823007969027934, 'worse': 0.47021885385399304}}}
+== I13 held-out tuning: {'workloads': 71, 'verdict_changes': 0, 'recall_shortfall': {'median': -0.020000000000000018, 'share_below_target': 0.07042253521126761, 'max': 0.01079999999999992}, 'changed_examples': []}
+== E5 sift500k_adv @ recall 0.95: EOQ from sift500k (B=50 s, g=0.298 ms/round); fixed L=64; violations oracle/fixed: P=1:0/1, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=5.8 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.3 -> P=3; oracle: best feasible P=3, chosen violations 0, regret 0.0%; fixed: best feasible P=3, chosen violations 0, regret 0.0%
+  Q/U=1.0: P*=1.8 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 0.2%; fixed: best feasible P=2, chosen violations 0, regret 0.0%
+== E5 sift500k_adv @ recall 0.9: EOQ from sift500k (B=50 s, g=0.298 ms/round); fixed L=64; violations oracle/fixed: P=1:0/0, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=5.8 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.3 -> P=3; oracle: best feasible P=3, chosen violations 0, regret 0.0%; fixed: best feasible P=3, chosen violations 0, regret 0.0%
+  Q/U=1.0: P*=1.8 -> P=2; oracle: best feasible P=2, chosen violations 0, regret 0.0%; fixed: best feasible P=1, chosen violations 0, regret 5.5%
+== E5 sift500k @ recall 0.95: EOQ from sift500k_adv (B=50 s, g=0.231 ms/round); fixed L=64; violations oracle/fixed: P=1:0/19, P=2:0/10, P=3:0/6, P=4:0/4, P=6:0/3, P=10:0/1, P=20:0/0
+  Q/U=0.1: P*=6.6 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=20, chosen violations 3
+  Q/U=0.3: P*=3.8 -> P=4; oracle: best feasible P=3, chosen violations 0, regret 4.5%; fixed: best feasible P=20, chosen violations 4
+  Q/U=1.0: P*=2.1 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 5.7%; fixed: best feasible P=20, chosen violations 10
+== E5 sift500k @ recall 0.9: EOQ from sift500k_adv (B=50 s, g=0.231 ms/round); fixed L=64; violations oracle/fixed: P=1:0/0, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=6.6 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.8 -> P=4; oracle: best feasible P=3, chosen violations 0, regret 5.0%; fixed: best feasible P=3, chosen violations 0, regret 5.3%
+  Q/U=1.0: P*=2.1 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 2.8%; fixed: best feasible P=1, chosen violations 0, regret 7.6%
+== E5 sift500k_adv @ recall 0.95: EOQ from sift500k (B=50 s, g=0.298 ms/round); fixed L=64; violations oracle/fixed: P=1:0/1, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=5.8 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.3 -> P=3; oracle: best feasible P=3, chosen violations 0, regret 0.0%; fixed: best feasible P=3, chosen violations 0, regret 0.0%
+  Q/U=1.0: P*=1.8 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 0.1%; fixed: best feasible P=2, chosen violations 0, regret 0.0%
+== E5 sift500k_adv @ recall 0.9: EOQ from sift500k (B=50 s, g=0.298 ms/round); fixed L=64; violations oracle/fixed: P=1:0/0, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=5.8 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.3 -> P=3; oracle: best feasible P=3, chosen violations 0, regret 0.0%; fixed: best feasible P=3, chosen violations 0, regret 0.0%
+  Q/U=1.0: P*=1.8 -> P=2; oracle: best feasible P=2, chosen violations 0, regret 0.0%; fixed: best feasible P=1, chosen violations 0, regret 5.1%
+== E5 sift500k @ recall 0.95: EOQ from sift500k_adv (B=50 s, g=0.231 ms/round); fixed L=64; violations oracle/fixed: P=1:0/17, P=2:0/7, P=3:0/6, P=4:0/4, P=6:0/2, P=10:0/1, P=20:0/0
+  Q/U=0.1: P*=6.6 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=20, chosen violations 2
+  Q/U=0.3: P*=3.8 -> P=4; oracle: best feasible P=3, chosen violations 0, regret 6.8%; fixed: best feasible P=20, chosen violations 4
+  Q/U=1.0: P*=2.1 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 2.8%; fixed: best feasible P=20, chosen violations 7
+== E5 sift500k @ recall 0.9: EOQ from sift500k_adv (B=50 s, g=0.231 ms/round); fixed L=64; violations oracle/fixed: P=1:0/0, P=2:0/0, P=3:0/0, P=4:0/0, P=6:0/0, P=10:0/0, P=20:0/0
+  Q/U=0.1: P*=6.6 -> P=6; oracle: best feasible P=6, chosen violations 0, regret 0.0%; fixed: best feasible P=6, chosen violations 0, regret 0.0%
+  Q/U=0.3: P*=3.8 -> P=4; oracle: best feasible P=3, chosen violations 0, regret 8.0%; fixed: best feasible P=3, chosen violations 0, regret 7.5%
+  Q/U=1.0: P*=2.1 -> P=2; oracle: best feasible P=1, chosen violations 0, regret 0.0%; fixed: best feasible P=1, chosen violations 0, regret 4.7%
+== I13 E5 replicate done
+== I13 repair seeds: {'runs': {'base pass1': {'stream': 'deep5m', 'tombstone': 0.98, 'repaired': 0.9426000000000001, 'diff': -0.03739999999999988}, 'base pass2': {'stream': 'deep5m', 'tombstone': 0.9828, 'repaired': 0.9388, 'diff': -0.04400000000000004}, 'seed2': {'stream': 'deep5m_seed2', 'tombstone': 0.9866, 'repaired': 0.955, 'diff': -0.03160000000000007}, 'seed3': {'stream': 'deep5m_seed3', 'tombstone': 0.9924000000000001, 'repaired': 0.9574000000000001, 'diff': -0.03499999999999992}, 'seed4': {'stream': 'deep5m_seed4', 'tombstone': 0.9738, 'repaired': 0.9536000000000001, 'diff': -0.020199999999999885}, 'seed5': {'stream': 'deep5m_seed5', 'tombstone': 0.9892000000000001, 'repaired': 0.9574000000000001, 'diff': -0.03179999999999994}}, 'n': 6, 'streams': 5, 'all_negative': True, 'min': -0.04400000000000004, 'max': -0.020199999999999885}
+== I17 sift500k_adv: long share {'acorn': 0.073323, 'acorn_repair': 0.14255, 'acorn_repair_all': 0.11139399999999999, 'acorn_repair_upper': 0.073975, 'acorn_repair_fill': 0.071671, 'fresh': 0.109596}; reach {'acorn': 0.5682039999999999, 'acorn_repair': 0.878929, 'acorn_repair_all': 0.9920309999999999, 'acorn_repair_upper': 0.633053, 'acorn_repair_fill': 0.988355, 'fresh': 0.997358}; {'upper_below_all_in_reach': True, 'reach_recall_rho_tombstone': 0.9151515151515152, 'p': 0.0004999750012499375, 'supported': True}
+== I17 deep5m: long share {'acorn': 0.09514700000000001, 'acorn_repair': 0.045949000000000004, 'acorn_repair_all': 0.045223, 'acorn_repair_upper': 0.095496, 'acorn_repair_fill': 0.072553, 'fresh': 0.099271}; reach {'acorn': 0.994743, 'acorn_repair': 0.9221070000000001, 'acorn_repair_all': 0.9100250000000001, 'acorn_repair_upper': 0.996373, 'acorn_repair_fill': 0.990971, 'fresh': 0.9978}; {'a_rerank_below_fill_and_fresh': True, 'b_spearman_rho': 0.0303030303030303, 'b_p': 0.9474026298685065, 'labels': 10, 'supported': False}
+== frontier sift500k (['results/bench_e2e']): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible {}
+== frontier sift500k_adv (['results/bench_e2e']): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible {'acorn': 1}
+== frontier arxiv_time (['results/bench_e2e']): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ema', '3': 'ema', '10': 'ema', '30': 'ema', '100': 'ema'}; infeasible {}
+== frontier deep5m (['results/bench_e2e']): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible {}
+== I19 winners that change from kernel-only to end-to-end: {'sift500k': {}, 'sift500k_adv': {}, 'arxiv_time': {}, 'deep5m': {}}
+== frontier amz_time (['results/bench_amz']): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ema', '10': 'ema', '30': 'ema', '100': 'ema'}; infeasible {}
+== I18a Amazon: {'amz_time': 1.0, 'arxiv_time': 0.3}, prediction holds: True
+== I18b multi-label stream: {'scan': ({0: 1.0, 5: 1.0, 10: 1.0}, {0: 73.65318299972039, 5: 72.61002661023045, 10: 71.7388261896942}), 'ivf': ({0: 0.9366412698412698, 5: 0.9389555555555555, 10: 0.938818253968254}, {0: None, 5: None, 10: None}), 'postfilter': ({0: 0.7215325396825396, 5: 0.7258444444444444, 10: 0.7283523809523811}, {0: None, 5: None, 10: None}), 'ema': ({0: 0.9997999999999999, 5: 0.9992000000000001, 10: 0.9992000000000001}, {0: 5.375586035793854, 5: 2.7862425966523587, 10: 2.668197308532498}), 'acorn': ({0: 0.4750857142857143, 5: 0.4052, 10: 0.38339999999999996}, {0: None, 5: None, 10: None})}
+== I18c concurrency: {'sift500k/ivf': {'param': 'nprobe=128', 'writer_s_median': 0.4775, 'conc_p50_ms': 3.6850646138191223, 'conc_p99_ms': 8.999477960169315, 'quiet_p99_ms': 1.0130589734762907, 'conc_qps': 1679.58080050525, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.9298377028714109, 'quiet_recall_median': 0.9526000000000001, 'rounds': 20}, 'sift500k/ivf_part': {'param': 'nprobe=64', 'writer_s_median': 0.2915, 'conc_p50_ms': 0.2449946478009224, 'conc_p99_ms': 0.5606389325112103, 'quiet_p99_ms': 0.4471194464713334, 'conc_qps': 30201.101618705037, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.9514272944191862, 'quiet_recall_median': 0.9749000000000001, 'rounds': 20}, 'sift500k/postfilter': {'param': '1600', 'writer_s_median': 19.295312132686377, 'conc_p50_ms': 9.0692900121212, 'conc_p99_ms': 12.802857756614682, 'quiet_p99_ms': 11.904575088992713, 'conc_qps': 882.8030819591279, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.9235746424213709, 'quiet_recall_median': 0.9489, 'rounds': 20}, 'sift500k/ema': {'param': '32', 'writer_s_median': 98.84396903123707, 'conc_p50_ms': 1.0935338214039803, 'conc_p99_ms': 54.358385540545015, 'quiet_p99_ms': 20.246212761849126, 'conc_qps': 473.8832538459246, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.9614609552353611, 'quiet_recall_median': 0.9874, 'rounds': 20}, 'sift500k_adv/ivf': {'param': 'nprobe=128', 'writer_s_median': 0.5265, 'conc_p50_ms': 5.118606146425009, 'conc_p99_ms': 9.93012269027531, 'quiet_p99_ms': 1.5713524166494603, 'conc_qps': 1520.325144560831, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.8446875, 'quiet_recall_median': 0.9236, 'rounds': 20}, 'sift500k_adv/ivf_part': {'param': 'nprobe=64', 'writer_s_median': 0.2735, 'conc_p50_ms': 0.20491238683462143, 'conc_p99_ms': 0.7962860912084582, 'quiet_p99_ms': 0.5690882820636032, 'conc_qps': 31147.299002746775, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.8753343810381122, 'quiet_recall_median': 0.9634, 'rounds': 20}, 'sift500k_adv/postfilter': {'param': '1600', 'writer_s_median': 25.63751615770161, 'conc_p50_ms': 9.232724085450172, 'conc_p99_ms': 29.98511540703482, 'quiet_p99_ms': 29.55720278434455, 'conc_qps': 749.533210601543, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.8176647882341237, 'quiet_recall_median': 0.8913, 'rounds': 20}, 'sift500k_adv/ema': {'param': '32', 'writer_s_median': 93.33929363172501, 'conc_p50_ms': 1.3378607109189034, 'conc_p99_ms': 1516.7756294738506, 'quiet_p99_ms': 72.80100785195825, 'conc_qps': 219.31929664727284, 'stale_max': 0.0, 'inadmissible_max': 0.0, 'recall_best_median': 0.883484430868, 'quiet_recall_median': 0.9881, 'rounds': 20}}
+== I18d SIMD levels: {'none': {'chk_over_dist': 0.04066580663289567, 'correction': 0.8932750506588948, 'ivf_exponent': 0.5041524794839539, 'm_star': {'deep300k': 8285.137163181433, 'deep1m': 10646.240032190144, 'deep3m': 21439.65077033148, 'deep10m': 45416.44864454747}, 'sqrt(n), uncorrected': {'wrong': 0, 'workloads': 23, 'regret_max': 0.0}, 'sqrt(n), microbenchmark corrected': {'wrong': 0, 'workloads': 23, 'regret_max': 0.0}, 'Milvus 7%': {'wrong': 6, 'workloads': 23, 'regret_max': 8.062355666033875}}, 'avx2': {'chk_over_dist': 0.05088435623979109, 'correction': 0.9992235264468932, 'ivf_exponent': 0.4496558920046794, 'm_star': {'deep300k': 9972.47359575397, 'deep1m': 14964.96310767239, 'deep3m': 23380.41386699176, 'deep10m': 48265.52710333885}, 'sqrt(n), uncorrected': {'wrong': 1, 'workloads': 23, 'regret_max': 0.006337684503897378}, 'sqrt(n), microbenchmark corrected': {'wrong': 1, 'workloads': 23, 'regret_max': 0.006337684503897378}, 'Milvus 7%': {'wrong': 5, 'workloads': 23, 'regret_max': 7.85972908491326}}}
+files 347: recall within tolerance 332 (deterministic [111, 111], other [221, 236]); QPS rerun/original median 1.0140288934900576; verdicts agree 238/254; unmatched 2
+  recall outside tolerance: h3_pass2 stream_sift500k_adv/acorn.json 0.0896 tol 0.036799999999999944
+  recall outside tolerance: h3b stream_sift500k_adv/acorn_repair_all.json 0.0276 tol 0.01
+  recall outside tolerance: h3b_pass2 stream_sift500k_adv/acorn_repair_all.json 0.0226 tol 0.01
+  recall outside tolerance: h3b_pass3 stream_sift500k_adv/acorn_repair.json 0.0836 tol 0.01
+  recall outside tolerance: h7mt28_pass2 deep10m/b0.0_s0.00316456/acorn.json 0.0372 tol 0.036799999999999944
+  recall outside tolerance: main deep1m/b0.9_s0.01/fdiskann.json 0.0152 tol 0.012199999999999989
+  recall outside tolerance: pg deep1m/b0.0_s0.03125/pgvector_ivfflat.json 0.019 tol 0.01
+  recall outside tolerance: pg deep1m/b0.0_s0.00316456/pgvector_ivfflat.json 0.0136 tol 0.01
+  recall outside tolerance: pg deep1m/b0.0_s0.1/pgvector_ivfflat.json 0.0132 tol 0.01
+  recall outside tolerance: pg deep1m/b0.0_s0.01/pgvector_ivfflat.json 0.0116 tol 0.01
+  recall outside tolerance: pg_pass2 deep1m/b0.0_s0.333333/pgvector_ivfflat.json 0.0144 tol 0.01
+  recall outside tolerance: r5 stream_sift500k_adv/acorn_repair_upper.json 0.016 tol 0.01
+  recall outside tolerance: r5 stream_deep5m/acorn_repair_fill.json 0.012 tol 0.01
+  recall outside tolerance: r5_pass2 stream_sift500k_adv/acorn_repair_fill.json 0.0188 tol 0.01
+  recall outside tolerance: rs stream_deep5m_seed3/acorn_repair_all.json 0.0134 tol 0.01

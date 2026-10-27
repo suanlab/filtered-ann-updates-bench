@@ -1508,6 +1508,22 @@
   ]
  },
  "streams": {
+  "amz_time": {
+   "name": "amz_time",
+   "N0": 200000,
+   "R": 10,
+   "n_rows": 600000,
+   "d": 384,
+   "nq": 500,
+   "labels": "review category (10)",
+   "order": "review timestamp",
+   "measure_rounds": [
+    0,
+    5,
+    10
+   ],
+   "updates_per_round": 80000.0
+  },
   "arxiv_time": {
    "name": "arxiv_time",
    "N0": 200000,
@@ -1572,6 +1588,38 @@
    ],
    "updates_per_round": 998651.1
   },
+  "deep5m_seed4": {
+   "name": "deep5m_seed4",
+   "N0": 5000000,
+   "R": 10,
+   "n_rows": 9990000,
+   "d": 96,
+   "nq": 500,
+   "beta": 0.9,
+   "s": 0.1,
+   "measure_rounds": [
+    0,
+    5,
+    10
+   ],
+   "updates_per_round": 998651.1
+  },
+  "deep5m_seed5": {
+   "name": "deep5m_seed5",
+   "N0": 5000000,
+   "R": 10,
+   "n_rows": 9990000,
+   "d": 96,
+   "nq": 500,
+   "beta": 0.9,
+   "s": 0.1,
+   "measure_rounds": [
+    0,
+    5,
+    10
+   ],
+   "updates_per_round": 998651.1
+  },
   "sift500k": {
    "name": "sift500k",
    "N0": 500000,
@@ -1609,6 +1657,22 @@
     20
    ],
    "updates_per_round": 100000.0
+  },
+  "yfcc_stream": {
+   "name": "yfcc_stream",
+   "N0": 1000000,
+   "R": 10,
+   "n_rows": 2000000,
+   "d": 192,
+   "nq": 500,
+   "kind": "csr",
+   "predicates": "AND of 1-2 YFCC tags",
+   "measure_rounds": [
+    0,
+    5,
+    10
+   ],
+   "updates_per_round": 200000.0
   }
  }
 }

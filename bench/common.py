@@ -80,6 +80,37 @@ def read_u8bin(path, n=None):
         n0, d = np.fromfile(f, np.int32, 2); n = int(n0) if n is None else n
         return np.fromfile(f, np.uint8, n * int(d)).reshape(n, int(d))
 
+# E2E=1 (follow-up 2, I19): end-to-end timing. Per-label predicate state is maintained incrementally and timed as
+# maintenance (t_pred); a query's timer covers the binding call, predicate lookup, result filtering, and id mapping;
+# runs record per-query latency percentiles where queries are single calls, and peak RSS.
+E2E = os.environ.get('E2E') == '1'
+
+def latency_pct(per_query_s):
+    """p50/p95/p99 per-query latency in milliseconds."""
+    a = np.asarray(per_query_s, float) * 1e3
+    return {'p50_ms': float(np.percentile(a, 50)), 'p95_ms': float(np.percentile(a, 95)), 'p99_ms': float(np.percentile(a, 99))}
+
+def peak_rss_mb(children=False):
+    import resource
+    r = resource.getrusage(resource.RUSAGE_CHILDREN if children else resource.RUSAGE_SELF).ru_maxrss
+    return r / 1024.0
+
+def bitmap_set(bits, ids, value):
+    """Set (value=True) or clear the bits of ids in a little-endian packed bitmap in place (incremental update)."""
+    ids = np.asarray(ids, np.int64)
+    if not len(ids): return
+    byte, bit = ids >> 3, (1 << (ids & 7)).astype(np.uint8)
+    if value: np.bitwise_or.at(bits, byte, bit)
+    else: np.bitwise_and.at(bits, byte, np.invert(bit))
+
+def apply_simd():
+    """FAISS_SIMD=none|avx2|avx512 (follow-up 2, I18): set Faiss's runtime SIMD level (dynamic-dispatch build); returns
+    the level in use. Unset: Faiss's own detection (AVX-512 on the study machine)."""
+    import faiss
+    lv = os.environ.get('FAISS_SIMD')
+    if lv: faiss.SIMDConfig.set_level({'none': faiss.SIMDLevel_NONE, 'avx2': faiss.SIMDLevel_AVX2, 'avx512': faiss.SIMDLevel_AVX512}[lv])
+    return faiss.SIMDConfig.get_level_name()
+
 def faiss_bitmap(mask, keep):
     """faiss IDSelectorBitmap over a boolean mask. The selector only points at the packed bits, so they are
     appended to `keep`, which the caller holds for as long as the selector is in use."""

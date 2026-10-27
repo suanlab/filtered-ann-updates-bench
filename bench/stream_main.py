@@ -9,7 +9,7 @@ Output results/bench/stream_<name>/<method>.json."""
 import sys, os, json, time
 sys.path.insert(0, 'experiments'); sys.path.insert(0, 'bench')
 import numpy as np
-from common import ROOT, RES, recall, timed_search, log, K
+from common import ROOT, RES, recall, timed_search, log, K, E2E, peak_rss_mb
 
 name, method = sys.argv[1], sys.argv[2]; D = f'{ROOT}/stream_{name}'
 meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
@@ -26,6 +26,7 @@ else:
     NI = len(sch['ins0'])
     h = hnswlib.Index(space='l2', dim=d); h.init_index(max_elements=N0 + NI, ef_construction=200, M=32, allow_replace_deleted=True)
     h.set_num_threads(TH); h.add_items(X[:N0], np.arange(N0)); alive = np.zeros(n, bool); alive[:N0] = True
+if E2E and method != 'rig': MK = {b: alive & (attr == b) for b, _ in G}; out['e2e'] = True
 out['build_s'] = time.time() - t0; cum = 0.0; log(name, method, 'built', round(out['build_s'], 1))
 for r in range(R + 1):
     row = {'round': r, 't_delete': 0.0, 't_insert': 0.0, 't_compact': 0.0}
@@ -41,10 +42,14 @@ for r in range(R + 1):
             row['t_delete'] = time.time() - t; alive[de] = False
             t = time.time(); h.set_num_threads(TH); h.add_items(X[ins], ins, replace_deleted=True); row['t_insert'] = time.time() - t
             alive[ins] = True
+            if E2E:     # per-label masks kept current by the updates
+                t = time.time()
+                for b, _ in G: MK[b][de[attr[de] == b]] = False; MK[b][ins[attr[ins] == b]] = True
+                row['t_pred'] = time.time() - t; cum += row['t_pred']
         cum += row['t_delete'] + row['t_insert'] + row['t_compact']
     row['cum_maint_s'] = cum
     if r in meta['measure_rounds']:
-        masks = {b: alive & (attr == b) for b, _ in G}; sweep = []
+        masks = MK if (E2E and method != 'rig') else {b: alive & (attr == b) for b, _ in G}; sweep = []
         if method == 'rig':
             E = dr.live_entries(0.01); row['bytes'] = idx.nbytes(int(alive.sum())); row['resident'] = int(alive.sum())
             row['ghost_pivots'] = int(dr.ghost_pivots())
@@ -80,9 +85,11 @@ for r in range(R + 1):
                 def run():
                     o = np.full((nq, K), -1, np.int32); tot = 0.0; short[0] = 0
                     for b, qi in G:
-                        t = time.perf_counter(); I = knn(Q[qi], kp); tot += time.perf_counter() - t
+                        t = time.perf_counter(); I = knn(Q[qi], kp); t2 = time.perf_counter()
+                        if not E2E: tot += t2 - t
                         for j, i in enumerate(qi):
                             keep = I[j][masks[b][I[j]]][:K]; o[i, :len(keep)] = keep
+                        if E2E: tot += time.perf_counter() - t          # the post-filter step is part of the query
                     return o, tot
                 o, q = timed_search(run, nq)
                 sweep.append({'param': f"k'={kp}", 'recall': recall(o, gt[r]), 'qps': q, 'short_queries': short[0]})
@@ -90,4 +97,5 @@ for r in range(R + 1):
         log(name, method, 'round', r, 'cum', round(cum, 1), [(s['param'], round(s['recall'], 4), round(s['qps']['mean'], 1)) for s in sweep])
     out['rounds'].append(row)
 os.makedirs(f'{RES}/stream_{name}', exist_ok=True)
+if E2E: out['peak_rss_mb'] = peak_rss_mb()
 json.dump(out, open(f'{RES}/stream_{name}/{method}.json', 'w'), indent=1, default=float); log('DONE', name, method)

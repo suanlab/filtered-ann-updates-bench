@@ -1,0 +1,1103 @@
+{
+ "cutoff": "2026-10-24T22:21:42",
+ "campaigns": {
+  "main/pass1": 130,
+  "main/pass2": 103,
+  "mt1ref/pass1": 10,
+  "mt1ref/pass2": 10,
+  "h1/pass1": 44,
+  "h4/pass1": 16,
+  "h1/pass2": 44,
+  "h4/pass2": 16,
+  "h7mt28/pass1": 8,
+  "h7mt28/pass2": 8,
+  "h3/pass1": 6,
+  "h3/pass2": 4,
+  "h3b/pass1": 3,
+  "h6/pass1": 6,
+  "h6/pass2": 5,
+  "h2c/pass1": 3,
+  "dense/pass1": 45,
+  "pg/pass1": 2,
+  "pg/pass2": 2,
+  "ax/pass1": 27,
+  "h3b/pass2": 3,
+  "h3b/pass3": 3,
+  "ax/pass2": 27,
+  "dense/pass2": 45,
+  "mv/pass1": 2,
+  "mv/pass2": 2,
+  "r1/pass1": 12,
+  "r1/pass2": 12,
+  "r3/pass1": 8,
+  "r3/pass2": 8,
+  "r4/pass1": 8,
+  "r4/pass2": 8,
+  "r2b/pass1": 16,
+  "r5/pass1": 7,
+  "r5/pass2": 7,
+  "s12/pass1": 23,
+  "s13/pass1": 23,
+  "rs/pass1": 4,
+  "r6/pass1": 7,
+  "r6/pass2": 7
+ },
+ "jobs": [
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b1.0_s0.1",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b1.0_s0.1",
+   "log": "queue",
+   "n": 5,
+   "started": "2026-10-03T08:39:17"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.1",
+   "log": "queue",
+   "n": 20,
+   "started": "2026-10-03T09:23:40"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.9_s0.1",
+   "log": "queue",
+   "n": 22,
+   "started": "2026-10-03T09:30:09"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.1",
+   "log": "queue",
+   "n": 23,
+   "started": "2026-10-03T09:31:46"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01",
+   "log": "queue",
+   "n": 31,
+   "started": "2026-10-03T10:24:20"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m scan_part",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m scan_part",
+   "log": "queue",
+   "n": 54,
+   "started": "2026-10-05T03:43:24"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 python3 bench/stream_main.py deep5m rig",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 python3 bench/stream_main.py deep5m rig",
+   "log": "queue",
+   "n": 55,
+   "started": "2026-10-05T03:45:27"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.1",
+   "log": "queue",
+   "n": 72,
+   "started": "2026-10-05T07:21:42"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 python3 bench/run_acorn.py deep1m b0.9_s0.1+b0.9_s0.01 gamma=1 M=32 Mb=32",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 python3 bench/run_acorn.py deep1m b0.9_s0.1+b0.9_s0.01 gamma=1 M=32 Mb=32",
+   "log": "round3",
+   "n": 8,
+   "started": "2026-10-05T16:55:41"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.9_s0.01",
+   "log": "round3",
+   "n": 14,
+   "started": "2026-10-05T18:05:26"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.003125",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.003125",
+   "log": "round3",
+   "n": 17,
+   "started": "2026-10-05T18:13:51"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_main taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.01",
+   "log": "round3",
+   "n": 21,
+   "started": "2026-10-05T18:37:21"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_main SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.1 scan_part,ivf",
+   "log": "round3",
+   "n": 107,
+   "started": "2026-10-06T09:29:51"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 python3 bench/run_main.py sift1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_main SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 python3 bench/run_main.py sift1m b0.9_s0.1",
+   "log": "round3",
+   "n": 112,
+   "started": "2026-10-06T10:09:17"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_main SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.1",
+   "log": "round3",
+   "n": 114,
+   "started": "2026-10-06T10:46:39"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 rig",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py deep10m b0.0_s0.1+b0.9_s0.1 rig",
+   "log": "medium",
+   "n": 15,
+   "started": "2026-10-16T17:08:23"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=1 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig",
+   "log": "medium",
+   "n": 16,
+   "started": "2026-10-16T17:13:26"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags gamma=1 M=32 Mb=32",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags gamma=1 M=32 Mb=32",
+   "log": "medium",
+   "n": 36,
+   "started": "2026-10-16T21:32:14"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.9_s0.1+b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.9_s0.1+b0.9_s0.01",
+   "log": "medium",
+   "n": 81,
+   "started": "2026-10-17T04:31:17"
+  },
+  {
+   "campaign": "main/pass1",
+   "original": "taskset -c 16 python3 bench/predicate_cost.py",
+   "rerun": "BENCH_TAG=rep_main taskset -c 16 python3 bench/predicate_cost.py",
+   "log": "h",
+   "n": 69,
+   "started": "2026-10-20T03:14:34"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1",
+   "log": "round3",
+   "n": 53,
+   "started": "2026-10-05T21:56:41"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01",
+   "log": "round3",
+   "n": 58,
+   "started": "2026-10-05T23:11:35"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.1+b0.9_s0.03125+b0.9_s0.003125",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.1+b0.9_s0.03125+b0.9_s0.003125",
+   "log": "round3",
+   "n": 66,
+   "started": "2026-10-06T01:19:17"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep3m b0.9_s0.03125",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep3m b0.9_s0.03125",
+   "log": "round3",
+   "n": 78,
+   "started": "2026-10-06T04:34:25"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.001",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.001",
+   "log": "round3",
+   "n": 81,
+   "started": "2026-10-06T04:44:20"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.9_s0.001",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.9_s0.001",
+   "log": "round3",
+   "n": 82,
+   "started": "2026-10-06T04:46:59"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.9_s0.001",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.9_s0.001",
+   "log": "round3",
+   "n": 85,
+   "started": "2026-10-06T05:13:33"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf",
+   "log": "round3",
+   "n": 86,
+   "started": "2026-10-06T05:27:04"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_main.py sift500k rig",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_main.py sift500k rig",
+   "log": "round3",
+   "n": 88,
+   "started": "2026-10-06T05:28:34"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "round3",
+   "n": 96,
+   "started": "2026-10-06T06:18:12"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py sift500k_adv",
+   "log": "round3",
+   "n": 97,
+   "started": "2026-10-06T06:28:41"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 MT_MODE=pool SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=1 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1 rig",
+   "log": "medium",
+   "n": 31,
+   "started": "2026-10-16T19:20:57"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.9_s0.1+b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.9_s0.1+b0.9_s0.01",
+   "log": "medium",
+   "n": 92,
+   "started": "2026-10-17T05:18:02"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.1+b0.9_s0.03125+b0.9_s0.003125",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.1+b0.9_s0.03125+b0.9_s0.003125",
+   "log": "medium",
+   "n": 93,
+   "started": "2026-10-17T05:19:03"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py deep5m",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/stream_curator.py deep5m",
+   "log": "medium",
+   "n": 101,
+   "started": "2026-10-17T05:58:13"
+  },
+  {
+   "campaign": "main/pass2",
+   "original": "BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags",
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py yfcc10m tags",
+   "log": "curator_yfcc",
+   "n": 4,
+   "started": "2026-10-17T06:40:33"
+  },
+  {
+   "campaign": "mt1ref/pass1",
+   "original": "BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_mt1ref BENCH_PASS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.1 scan_part,ivf",
+   "log": "medium",
+   "n": 59,
+   "started": "2026-10-17T00:23:11"
+  },
+  {
+   "campaign": "mt1ref/pass1",
+   "original": "BENCH_PASS=1 BENCH_TAG=mt1ref taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_mt1ref BENCH_PASS=1 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.1 scan_part,ivf",
+   "log": "medium",
+   "n": 63,
+   "started": "2026-10-17T01:28:23"
+  },
+  {
+   "campaign": "mt1ref/pass2",
+   "original": "BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_mt1ref BENCH_PASS=2 taskset -c 0-27 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1",
+   "log": "medium",
+   "n": 74,
+   "started": "2026-10-17T03:26:15"
+  },
+  {
+   "campaign": "mt1ref/pass2",
+   "original": "BENCH_PASS=2 BENCH_TAG=mt1ref taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_mt1ref BENCH_PASS=2 taskset -c 0-27 python3 bench/run_main.py sift1m b0.9_s0.1",
+   "log": "medium",
+   "n": 76,
+   "started": "2026-10-17T03:46:56"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep300k b0.0_s0.333333",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep300k b0.0_s0.333333",
+   "log": "h",
+   "n": 16,
+   "started": "2026-10-19T22:09:02"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333 postfilter",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333 postfilter",
+   "log": "h",
+   "n": 29,
+   "started": "2026-10-19T22:54:53"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "log": "h",
+   "n": 31,
+   "started": "2026-10-19T23:07:38"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep3m b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1 postfilter",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep3m b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1 postfilter",
+   "log": "h",
+   "n": 40,
+   "started": "2026-10-19T23:33:34"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1",
+   "log": "h",
+   "n": 42,
+   "started": "2026-10-20T00:00:00"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep10m b0.0_s0.0001+b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep10m b0.0_s0.0001+b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125",
+   "log": "h",
+   "n": 51,
+   "started": "2026-10-20T01:21:58"
+  },
+  {
+   "campaign": "h1/pass1",
+   "original": "BENCH_TAG=h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep300k b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333 postfilter",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep300k b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333 postfilter",
+   "log": "h",
+   "n": 176,
+   "started": "2026-10-20T14:34:53"
+  },
+  {
+   "campaign": "h4/pass1",
+   "original": "BENCH_TAG=h4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.1_r0.5 scan_part,ivf,ivf_part,scan_mask",
+   "rerun": "BENCH_TAG=rep_h4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.1_r0.5 scan_part,ivf,ivf_part,scan_mask",
+   "log": "h",
+   "n": 55,
+   "started": "2026-10-20T02:32:33"
+  },
+  {
+   "campaign": "h4/pass1",
+   "original": "BENCH_TAG=h4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.0_s0.1+b0.0_s0.1_r0.5+b0.0_s0.1_r1.0+b0.9_s0.1+b0.9_s0.1_r0.5+b0.9_s0.1_r1.0",
+   "rerun": "BENCH_TAG=rep_h4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.0_s0.1+b0.0_s0.1_r0.5+b0.0_s0.1_r1.0+b0.9_s0.1+b0.9_s0.1_r0.5+b0.9_s0.1_r1.0",
+   "log": "h",
+   "n": 66,
+   "started": "2026-10-20T02:51:53"
+  },
+  {
+   "campaign": "h4/pass1",
+   "original": "BENCH_TAG=h4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.0_s0.1_r1.0",
+   "rerun": "BENCH_TAG=rep_h4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.0_s0.1_r1.0",
+   "log": "h",
+   "n": 349,
+   "started": "2026-10-22T02:42:09"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 75,
+   "started": "2026-10-20T03:16:07"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep300k b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep300k b0.0_s0.1",
+   "log": "h",
+   "n": 76,
+   "started": "2026-10-20T03:16:21"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.0_s0.1",
+   "log": "h",
+   "n": 88,
+   "started": "2026-10-20T03:27:59"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1",
+   "log": "h",
+   "n": 103,
+   "started": "2026-10-20T04:07:55"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 106,
+   "started": "2026-10-20T04:31:01"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 108,
+   "started": "2026-10-20T04:36:46"
+  },
+  {
+   "campaign": "h1/pass2",
+   "original": "BENCH_TAG=h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 110,
+   "started": "2026-10-20T04:42:41"
+  },
+  {
+   "campaign": "h4/pass2",
+   "original": "BENCH_TAG=h4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_h4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.0_s0.1",
+   "log": "h",
+   "n": 116,
+   "started": "2026-10-20T06:27:38"
+  },
+  {
+   "campaign": "h4/pass2",
+   "original": "BENCH_TAG=h4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_h4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b0.9_s0.1",
+   "log": "h",
+   "n": 122,
+   "started": "2026-10-20T06:35:51"
+  },
+  {
+   "campaign": "h4/pass2",
+   "original": "BENCH_TAG=h4 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.0_s0.1+b0.0_s0.1_r0.5+b0.0_s0.1_r1.0+b0.9_s0.1+b0.9_s0.1_r0.5+b0.9_s0.1_r1.0",
+   "rerun": "BENCH_TAG=rep_h4 BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.0_s0.1+b0.0_s0.1_r0.5+b0.0_s0.1_r1.0+b0.9_s0.1+b0.9_s0.1_r0.5+b0.9_s0.1_r1.0",
+   "log": "h",
+   "n": 128,
+   "started": "2026-10-20T06:46:02"
+  },
+  {
+   "campaign": "h7mt28/pass1",
+   "original": "BENCH_TAG=h7mt28 BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h7mt28 BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 133,
+   "started": "2026-10-20T07:13:17"
+  },
+  {
+   "campaign": "h7mt28/pass1",
+   "original": "BENCH_TAG=h7mt28 BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h7mt28 BENCH_PASS=1 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 135,
+   "started": "2026-10-20T07:20:13"
+  },
+  {
+   "campaign": "h7mt28/pass2",
+   "original": "BENCH_TAG=h7mt28 BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.0001 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_h7mt28 BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.0001 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 140,
+   "started": "2026-10-20T08:09:22"
+  },
+  {
+   "campaign": "h7mt28/pass2",
+   "original": "BENCH_TAG=h7mt28 BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_acorn.py deep10m b0.0_s0.0001+b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125",
+   "rerun": "BENCH_TAG=rep_h7mt28 BENCH_PASS=2 MT_MODE=batch SEARCH_THREADS=28 OPENBLAS_NUM_THREADS=28 taskset -c 0-27 python3 bench/run_acorn.py deep10m b0.0_s0.0001+b0.0_s0.000316256+b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125",
+   "log": "h",
+   "n": 147,
+   "started": "2026-10-20T08:37:32"
+  },
+  {
+   "campaign": "h3/pass1",
+   "original": "BENCH_TAG=h3 BENCH_PASS=1 PERC=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k",
+   "rerun": "BENCH_TAG=rep_h3 BENCH_PASS=1 PERC=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k",
+   "log": "h",
+   "n": 152,
+   "started": "2026-10-20T09:35:38"
+  },
+  {
+   "campaign": "h3/pass2",
+   "original": "BENCH_TAG=h3 BENCH_PASS=2 PERC=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_h3 BENCH_PASS=2 PERC=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "h",
+   "n": 154,
+   "started": "2026-10-20T10:00:57"
+  },
+  {
+   "campaign": "h3b/pass1",
+   "original": "BENCH_TAG=h3b BENCH_PASS=1 PERC=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_h3b BENCH_PASS=1 PERC=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "h",
+   "n": 163,
+   "started": "2026-10-20T13:06:50"
+  },
+  {
+   "campaign": "h6/pass1",
+   "original": "BENCH_TAG=h6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_delta.py sift500k 0,1,2,3,4,6,8",
+   "rerun": "BENCH_TAG=rep_h6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_delta.py sift500k 0,1,2,3,4,6,8",
+   "log": "h",
+   "n": 164,
+   "started": "2026-10-20T13:01:05"
+  },
+  {
+   "campaign": "h6/pass2",
+   "original": "BENCH_TAG=h6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf",
+   "rerun": "BENCH_TAG=rep_h6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf",
+   "log": "h",
+   "n": 174,
+   "started": "2026-10-20T13:44:52"
+  },
+  {
+   "campaign": "h2c/pass1",
+   "original": "BENCH_TAG=h2c ACORN_BIN=./src/acorn_driver_count taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_h2c ACORN_BIN=./src/acorn_driver_count taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01",
+   "log": "h",
+   "n": 185,
+   "started": "2026-10-20T15:13:25"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.9_s0.1 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.9_s0.1 scan_part,ivf",
+   "log": "h",
+   "n": 187,
+   "started": "2026-10-20T15:21:32"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep3m b0.9_s0.03125",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep3m b0.9_s0.03125",
+   "log": "h",
+   "n": 194,
+   "started": "2026-10-20T15:35:01"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.003125 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.003125 scan_part,ivf",
+   "log": "h",
+   "n": 195,
+   "started": "2026-10-20T15:40:37"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.9_s0.1+b0.9_s0.01+b0.9_s0.001+b0.0_s0.1+b0.0_s0.01",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.9_s0.1+b0.9_s0.01+b0.9_s0.001+b0.0_s0.1+b0.0_s0.01",
+   "log": "h",
+   "n": 278,
+   "started": "2026-10-21T21:34:18"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b1.0_s0.1 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b1.0_s0.1 scan_part,ivf",
+   "log": "h",
+   "n": 285,
+   "started": "2026-10-21T22:04:14"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift500k_r20 live",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift500k_r20 live",
+   "log": "h",
+   "n": 296,
+   "started": "2026-10-21T22:35:18"
+  },
+  {
+   "campaign": "dense/pass1",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py sift500k_adv_r20 live postfilter",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py sift500k_adv_r20 live postfilter",
+   "log": "h",
+   "n": 299,
+   "started": "2026-10-21T22:37:20"
+  },
+  {
+   "campaign": "pg/pass1",
+   "original": "BENCH_TAG=pg BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_pgvector.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "rerun": "BENCH_TAG=rep_pg BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_pgvector.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "log": "h",
+   "n": 187,
+   "started": "2026-10-20T21:10:08"
+  },
+  {
+   "campaign": "pg/pass2",
+   "original": "BENCH_TAG=pg BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_pgvector.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "rerun": "BENCH_TAG=rep_pg BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_pgvector.py deep1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "log": "h",
+   "n": 189,
+   "started": "2026-10-21T00:40:25"
+  },
+  {
+   "campaign": "ax/pass1",
+   "original": "BENCH_TAG=ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv300k b0.0_s0.03125 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv300k b0.0_s0.03125 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 204,
+   "started": "2026-10-21T05:10:24"
+  },
+  {
+   "campaign": "ax/pass1",
+   "original": "BENCH_TAG=ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv300k b0.0_s0.1 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv300k b0.0_s0.1 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 205,
+   "started": "2026-10-21T05:14:00"
+  },
+  {
+   "campaign": "ax/pass1",
+   "original": "BENCH_TAG=ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv300k b0.0_s0.333333 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv300k b0.0_s0.333333 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 206,
+   "started": "2026-10-21T05:19:49"
+  },
+  {
+   "campaign": "ax/pass1",
+   "original": "BENCH_TAG=ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv1m b0.0_s0.00316456 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv1m b0.0_s0.00316456 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 211,
+   "started": "2026-10-21T06:23:02"
+  },
+  {
+   "campaign": "ax/pass1",
+   "original": "BENCH_TAG=ax BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py arxiv1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1 postfilter",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py arxiv1m b0.0_s0.001+b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1 postfilter",
+   "log": "h",
+   "n": 215,
+   "started": "2026-10-21T07:05:40"
+  },
+  {
+   "campaign": "h3b/pass2",
+   "original": "BENCH_TAG=h3b BENCH_PASS=2 PERC=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_h3b BENCH_PASS=2 PERC=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "h",
+   "n": 194,
+   "started": "2026-10-21T09:40:27"
+  },
+  {
+   "campaign": "h3b/pass3",
+   "original": "BENCH_TAG=h3b BENCH_PASS=3 PERC=1 REPAIR=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_h3b BENCH_PASS=3 PERC=1 REPAIR=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "h",
+   "n": 196,
+   "started": "2026-10-21T10:06:15"
+  },
+  {
+   "campaign": "ax/pass2",
+   "original": "BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv100k b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv100k b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "log": "h",
+   "n": 235,
+   "started": "2026-10-21T14:14:13"
+  },
+  {
+   "campaign": "ax/pass2",
+   "original": "BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py arxiv300k b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333 postfilter",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_main.py arxiv300k b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333 postfilter",
+   "log": "h",
+   "n": 241,
+   "started": "2026-10-21T14:46:26"
+  },
+  {
+   "campaign": "ax/pass2",
+   "original": "BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv300k b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv300k b0.0_s0.00316456+b0.0_s0.01+b0.0_s0.03125+b0.0_s0.1+b0.0_s0.333333",
+   "log": "h",
+   "n": 243,
+   "started": "2026-10-21T15:16:15"
+  },
+  {
+   "campaign": "ax/pass2",
+   "original": "BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv1m b0.0_s0.001 scan_part,ivf,ivf_part",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py arxiv1m b0.0_s0.001 scan_part,ivf,ivf_part",
+   "log": "h",
+   "n": 244,
+   "started": "2026-10-21T15:27:23"
+  },
+  {
+   "campaign": "ax/pass2",
+   "original": "BENCH_TAG=ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv1m cat",
+   "rerun": "BENCH_TAG=rep_ax BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py arxiv1m cat",
+   "log": "h",
+   "n": 354,
+   "started": "2026-10-22T07:14:53"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.9_s0.1",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep1m b0.9_s0.1",
+   "log": "h",
+   "n": 303,
+   "started": "2026-10-21T22:42:24"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.03125+b0.9_s0.003125",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.03125+b0.9_s0.003125",
+   "log": "h",
+   "n": 313,
+   "started": "2026-10-21T23:17:39"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.001 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.001 scan_part,ivf",
+   "log": "h",
+   "n": 317,
+   "started": "2026-10-21T23:51:41"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py deep10m b0.0_s0.1",
+   "log": "h",
+   "n": 319,
+   "started": "2026-10-21T23:59:53"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b1.0_s0.1",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/run_diskann.py sift1m b1.0_s0.1",
+   "log": "h",
+   "n": 331,
+   "started": "2026-10-22T01:52:13"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.01 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.01 scan_part,ivf",
+   "log": "h",
+   "n": 332,
+   "started": "2026-10-22T01:54:02"
+  },
+  {
+   "campaign": "dense/pass2",
+   "original": "SWEEP=dense BENCH_TAG=dense BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift500k_r20 live",
+   "rerun": "BENCH_TAG=rep_dense SWEEP=dense BENCH_PASS=2 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift500k_r20 live",
+   "log": "h",
+   "n": 340,
+   "started": "2026-10-22T02:18:59"
+  },
+  {
+   "campaign": "mv/pass1",
+   "original": "BENCH_TAG=mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_mv BENCH_PASS=1 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01",
+   "log": "h",
+   "n": 363,
+   "started": "2026-10-22T16:13:10"
+  },
+  {
+   "campaign": "mv/pass2",
+   "original": "BENCH_TAG=mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01",
+   "rerun": "BENCH_TAG=rep_mv BENCH_PASS=2 taskset -c 0-27,56-83 .venv-milvus/bin/python bench/run_milvus.py sift1m b0.0_s0.1+b0.9_s0.1+b0.0_s0.01+b0.9_s0.01",
+   "log": "h",
+   "n": 360,
+   "started": "2026-10-22T15:25:36"
+  },
+  {
+   "campaign": "r1/pass1",
+   "original": "BENCH_TAG=r1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "rerun": "BENCH_TAG=rep_r1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "log": "h",
+   "n": 378,
+   "started": "2026-10-23T02:44:49"
+  },
+  {
+   "campaign": "r1/pass1",
+   "original": "BENCH_TAG=r1 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "rerun": "BENCH_TAG=rep_r1 BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "log": "h",
+   "n": 379,
+   "started": "2026-10-23T03:34:26"
+  },
+  {
+   "campaign": "r1/pass2",
+   "original": "BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf",
+   "rerun": "BENCH_TAG=rep_r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf",
+   "log": "h",
+   "n": 388,
+   "started": "2026-10-23T05:25:20"
+  },
+  {
+   "campaign": "r1/pass2",
+   "original": "BENCH_TAG=r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf_part",
+   "rerun": "BENCH_TAG=rep_r1 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py deep5m ivf_part",
+   "log": "h",
+   "n": 389,
+   "started": "2026-10-23T05:29:51"
+  },
+  {
+   "campaign": "r3/pass1",
+   "original": "BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5",
+   "rerun": "BENCH_TAG=rep_r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5",
+   "log": "h",
+   "n": 416,
+   "started": "2026-10-23T11:49:42"
+  },
+  {
+   "campaign": "r3/pass1",
+   "original": "BENCH_TAG=r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part",
+   "rerun": "BENCH_TAG=rep_r3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part",
+   "log": "h",
+   "n": 417,
+   "started": "2026-10-23T11:58:29"
+  },
+  {
+   "campaign": "r3/pass2",
+   "original": "BENCH_TAG=r3 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time",
+   "rerun": "BENCH_TAG=rep_r3 BENCH_PASS=2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time",
+   "log": "h",
+   "n": 428,
+   "started": "2026-10-23T14:39:40"
+  },
+  {
+   "campaign": "r3/pass2",
+   "original": "BENCH_TAG=r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time",
+   "rerun": "BENCH_TAG=rep_r3 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time",
+   "log": "h",
+   "n": 430,
+   "started": "2026-10-23T15:28:27"
+  },
+  {
+   "campaign": "r4/pass1",
+   "original": "BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf",
+   "rerun": "BENCH_TAG=rep_r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf",
+   "log": "h",
+   "n": 433,
+   "started": "2026-10-23T15:40:01"
+  },
+  {
+   "campaign": "r4/pass1",
+   "original": "BENCH_TAG=r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_r4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv",
+   "log": "h",
+   "n": 436,
+   "started": "2026-10-23T15:54:48"
+  },
+  {
+   "campaign": "r4/pass2",
+   "original": "BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k",
+   "rerun": "BENCH_TAG=rep_r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k",
+   "log": "h",
+   "n": 442,
+   "started": "2026-10-23T17:53:51"
+  },
+  {
+   "campaign": "r4/pass2",
+   "original": "BENCH_TAG=r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf",
+   "rerun": "BENCH_TAG=rep_r4 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf",
+   "log": "h",
+   "n": 443,
+   "started": "2026-10-23T18:06:21"
+  },
+  {
+   "campaign": "r2b/pass1",
+   "original": "BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 1",
+   "rerun": "BENCH_TAG=rep_r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 1",
+   "log": "h",
+   "n": 453,
+   "started": "2026-10-23T20:09:31"
+  },
+  {
+   "campaign": "r2b/pass1",
+   "original": "BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 6",
+   "rerun": "BENCH_TAG=rep_r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k_adv 6",
+   "log": "h",
+   "n": 457,
+   "started": "2026-10-23T21:17:43"
+  },
+  {
+   "campaign": "r2b/pass1",
+   "original": "BENCH_TAG=r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 20",
+   "rerun": "BENCH_TAG=rep_r2b BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann_policy.py sift500k 20",
+   "log": "h",
+   "n": 466,
+   "started": "2026-10-24T00:02:04"
+  },
+  {
+   "campaign": "r5/pass1",
+   "original": "BENCH_TAG=r5 BENCH_PASS=1 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_r5 BENCH_PASS=1 REPAIR=3 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "h",
+   "n": 472,
+   "started": "2026-10-24T00:51:05"
+  },
+  {
+   "campaign": "r5/pass1",
+   "original": "BENCH_TAG=r5 BENCH_PASS=1 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "rerun": "BENCH_TAG=rep_r5 BENCH_PASS=1 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "log": "h",
+   "n": 475,
+   "started": "2026-10-24T02:22:47"
+  },
+  {
+   "campaign": "r5/pass2",
+   "original": "BENCH_TAG=r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "rerun": "BENCH_TAG=rep_r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv",
+   "log": "h",
+   "n": 480,
+   "started": "2026-10-24T04:14:03"
+  },
+  {
+   "campaign": "r5/pass2",
+   "original": "BENCH_TAG=r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "rerun": "BENCH_TAG=rep_r5 BENCH_PASS=2 REPAIR=4 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m",
+   "log": "h",
+   "n": 482,
+   "started": "2026-10-24T05:15:13"
+  },
+  {
+   "campaign": "s12/pass1",
+   "original": "BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.333333_seed12 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.333333_seed12 scan_part,ivf",
+   "log": "h",
+   "n": 499,
+   "started": "2026-10-24T06:34:14"
+  },
+  {
+   "campaign": "s12/pass1",
+   "original": "BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125_seed12 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125_seed12 scan_part,ivf",
+   "log": "h",
+   "n": 503,
+   "started": "2026-10-24T06:35:29"
+  },
+  {
+   "campaign": "s12/pass1",
+   "original": "BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.001_seed12 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.001_seed12 scan_part,ivf",
+   "log": "h",
+   "n": 514,
+   "started": "2026-10-24T06:47:29"
+  },
+  {
+   "campaign": "s12/pass1",
+   "original": "BENCH_TAG=s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125_seed12 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s12 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125_seed12 scan_part,ivf",
+   "log": "h",
+   "n": 517,
+   "started": "2026-10-24T06:54:33"
+  },
+  {
+   "campaign": "s13/pass1",
+   "original": "BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.01_seed13 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.01_seed13 scan_part,ivf",
+   "log": "h",
+   "n": 525,
+   "started": "2026-10-24T06:59:03"
+  },
+  {
+   "campaign": "s13/pass1",
+   "original": "BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125_seed13 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125_seed13 scan_part,ivf",
+   "log": "h",
+   "n": 526,
+   "started": "2026-10-24T06:59:21"
+  },
+  {
+   "campaign": "s13/pass1",
+   "original": "BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.000316256_seed13 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.000316256_seed13 scan_part,ivf",
+   "log": "h",
+   "n": 529,
+   "started": "2026-10-24T07:01:24"
+  },
+  {
+   "campaign": "s13/pass1",
+   "original": "BENCH_TAG=s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.00316456_seed13 scan_part,ivf",
+   "rerun": "BENCH_TAG=rep_s13 BENCH_PASS=1 FAISS_SEED=13 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.00316456_seed13 scan_part,ivf",
+   "log": "h",
+   "n": 531,
+   "started": "2026-10-24T07:02:50"
+  },
+  {
+   "campaign": "rs/pass1",
+   "original": "BENCH_TAG=rs BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m_seed3",
+   "rerun": "BENCH_TAG=rep_rs BENCH_PASS=1 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py deep5m_seed3",
+   "log": "h",
+   "n": 546,
+   "started": "2026-10-24T10:00:12"
+  },
+  {
+   "campaign": "r6/pass1",
+   "original": "BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time",
+   "rerun": "BENCH_TAG=rep_r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time",
+   "log": "h",
+   "n": 554,
+   "started": "2026-10-24T12:20:43"
+  },
+  {
+   "campaign": "r6/pass1",
+   "original": "BENCH_TAG=r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time",
+   "rerun": "BENCH_TAG=rep_r6 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time",
+   "log": "h",
+   "n": 555,
+   "started": "2026-10-24T12:42:39"
+  },
+  {
+   "campaign": "r6/pass2",
+   "original": "BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time",
+   "rerun": "BENCH_TAG=rep_r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time",
+   "log": "h",
+   "n": 556,
+   "started": "2026-10-24T12:53:31"
+  },
+  {
+   "campaign": "r6/pass2",
+   "original": "BENCH_TAG=r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5",
+   "rerun": "BENCH_TAG=rep_r6 BENCH_PASS=2 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5",
+   "log": "h",
+   "n": 560,
+   "started": "2026-10-24T14:22:10"
+  }
+ ]
+}
