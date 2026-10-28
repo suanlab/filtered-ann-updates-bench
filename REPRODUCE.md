@@ -174,3 +174,14 @@ Notes:
   that file was restored from git and the rerun copy kept as `results/bench_rep_main/h5/predicate_cost.json`.
 - In the re-execution, 28-thread jobs whose queue passed BENCH_TAG through the controller's environment are compared
   with `results/bench_mt28` and `results/bench_mt28_pool`.
+
+## 8. Follow-up 3: a second machine (pre-registered; Table IV, Section V-A)
+
+`paper_audit/followup3_prereg.md` (commit a77ad28) fixed the design and the decision rules before the runs. The H1 grid
+(scan and IVF, seed-11 labels, two passes) and `bench/microbench_cost.py` ran on an AMD EPYC 7513 with the same harness
+and packages (`results/bench_epyc_log/` holds the queue log, the job list, `lscpu`, and `pip freeze`). The jobs were
+pinned to cores 48-55, with the probe on core 47 and a gate at 85% of the quiet probe median.
+```bash
+python3 bench/analyze_followup3.py > results/bench_f3_analysis.txt   # results/bench_f3_summary.json
+python3 paper/make_eab_ffigures.py                                   # paper/figures/eab_reach.pdf (follow-up 2, tag r8)
+```

@@ -227,3 +227,29 @@ SIFT-500K, 8 readers and 1 writer (batches of 1000), parameter fixed at round 0 
   is near 1. The largest flip is pgvector HNSW vs IVFFlat at s = 0.031 (1.33 → 0.93).
 - `predicate_cost.py` writes a fixed path; its rerun overwrote the original. The original was restored and the rerun
   copy kept under `results/bench_rep_main/h5`; means agree within 5%.
+
+## Follow-up 3: second machine (pre-registered in followup3_prereg.md; done 2026-10-29 01:43)
+
+AMD EPYC 7513 (Zen 3, AVX2), shared server. Gate at 85% of the quiet probe median (527 of 620). 7 jobs were re-run after
+a post-probe below the gate.
+
+| | Xeon 6258R | EPYC 7513 |
+|---|---|---|
+| c_chk/c_dist (d = 96, microbenchmark) | 0.051 | 0.103 |
+| IVF m\* at DEEP-1M, recall 0.95 | 16,375 | 26,924 |
+| IVF exponent (300K–10M) | 0.48 | 0.39 |
+
+Rules on the EPYC's 23 workloads:
+
+| rule | wrong | max regret |
+|---|---|---|
+| P1 own DEEP-1M m\*, sqrt(n) (17 workloads off DEEP-1M) | 0 | 0% |
+| P2 Xeon m\*, sqrt(n), microbenchmark-corrected | 0 | 0% |
+| P3 Xeon m\*, sqrt(n), uncorrected | 2 | 49% |
+| P4 fixed 7% | 4 | 512% |
+| P5 Xeon fixed size | 2 | 147% |
+
+Decisions (pre-registered):
+- The crossover grows with n on both machines: holds.
+- sqrt(n) scaling transfers across sizes: holds.
+- The microbenchmark correction transfers across hardware: holds.

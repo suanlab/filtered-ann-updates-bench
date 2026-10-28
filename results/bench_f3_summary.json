@@ -1,0 +1,59 @@
+{
+ "machine": "AMD EPYC 7513",
+ "m_star": {
+  "deep300k": 16142.619619936098,
+  "deep1m": 26923.67976116011,
+  "deep3m": 41086.117275942976,
+  "deep10m": 62351.862493076456
+ },
+ "censor": {
+  "deep300k": "interp",
+  "deep1m": "interp",
+  "deep3m": "interp",
+  "deep10m": "interp"
+ },
+ "ivf_exponent": 0.3888374558896966,
+ "xeon_m_star_deep1m": 16375.343987656133,
+ "chk_over_dist": {
+  "xeon": 0.05096346908518432,
+  "epyc": 0.10272509171107773
+ },
+ "workloads": 23,
+ "rules": {
+  "P1 EPYC DEEP-1M, sqrt(n)": {
+   "workloads": 17,
+   "wrong": 0,
+   "regret_max": 0.0,
+   "regret_mean": 0.0
+  },
+  "P2 Xeon DEEP-1M, sqrt(n), microbenchmark corrected": {
+   "workloads": 23,
+   "wrong": 0,
+   "regret_max": 0.0,
+   "regret_mean": 0.0
+  },
+  "P3 Xeon DEEP-1M, sqrt(n), uncorrected": {
+   "workloads": 23,
+   "wrong": 2,
+   "regret_max": 0.49323967950244807,
+   "regret_mean": 0.03937225200809198
+  },
+  "P4 fixed selectivity 7%": {
+   "workloads": 23,
+   "wrong": 4,
+   "regret_max": 5.124774966550244,
+   "regret_mean": 0.3617807399847275
+  },
+  "P5 Xeon fixed size": {
+   "workloads": 23,
+   "wrong": 2,
+   "regret_max": 1.474563968907015,
+   "regret_mean": 0.08203852546046445
+  }
+ },
+ "decisions": {
+  "crossover_grows_on_both": true,
+  "sqrtn_transfers_across_sizes": true,
+  "microbenchmark_correction_transfers": true
+ }
+}

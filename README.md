@@ -31,7 +31,9 @@ python3 paper/make_eab_anumbers.py                           # paper/eab_anumber
 python3 paper/make_eab_hfigures.py                           # paper/figures/eab_teaser.pdf (Fig. 1), eab_law.pdf, eab_percolation.pdf
 python3 paper/make_eab_rfigures.py                           # paper/figures/eab_frontier.pdf (total-cost frontier)
 python3 bench/analyze_followup2.py > results/bench_f2_analysis.txt   # results/bench_f2_summary.json (pre-registered follow-up 2)
+python3 bench/analyze_followup3.py > results/bench_f3_analysis.txt   # results/bench_f3_summary.json (second machine)
 python3 paper/make_eab_fnumbers.py                           # paper/eab_fnumbers.tex  (\V{f/...}, Table IV)
+python3 paper/make_eab_ffigures.py                           # paper/figures/eab_reach.pdf (reachability figure)
 ```
 
 `analyze_review.py` stops on an incomplete campaign (a missing period, round, or IVF anchor) instead of reporting a

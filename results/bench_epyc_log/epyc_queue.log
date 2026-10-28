@@ -1,0 +1,698 @@
+=== [1.1] 2026-10-29 00:17:11 taskset -c 47 venv/bin/python bench/microbench_cost.py
+96 {'n': 1000000, 'ns_per_check': 2.032468728721142, 'ns_per_distance': 20.485438853502274, 'chk_over_dist': 0.09921528863774685}
+4096 {'n': 100000, 'ns_per_check': 2.0680729299783707, 'ns_per_distance': 867.8695544600487, 'chk_over_dist': 0.002382930613650847}
+--- [1.1] exit=0 post=525
+contended [1.1] post=525
+=== [1.2] 2026-10-29 00:17:48 taskset -c 47 venv/bin/python bench/microbench_cost.py
+96 {'n': 1000000, 'ns_per_check': 2.0222659781575203, 'ns_per_distance': 19.654440917074684, 'chk_over_dist': 0.1028910456771471}
+4096 {'n': 100000, 'ns_per_check': 2.071336656808853, 'ns_per_distance': 854.4716354459523, 'chk_over_dist': 0.00242411400318492}
+--- [1.2] exit=0 post=455
+contended [1.2] post=455
+=== [1.3] 2026-10-29 00:19:25 taskset -c 47 venv/bin/python bench/microbench_cost.py
+96 {'n': 1000000, 'ns_per_check': 2.01857153326273, 'ns_per_distance': 19.650228582322598, 'chk_over_dist': 0.10272509171107773}
+4096 {'n': 100000, 'ns_per_check': 2.065891772508621, 'ns_per_distance': 872.6399540901185, 'chk_over_dist': 0.0023674045209890475}
+--- [1.3] exit=0 post=620
+=== [2.1] 2026-10-29 00:20:01 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.00316456 scan_part,ivf
+[00:20:04] deep300k b0.0_s0.00316456 scan_part batched 1.0 46450.5
+[00:20:04] deep300k b0.0_s0.00316456 scan_part per_query 1.0 45193.9
+[00:20:06] deep300k b0.0_s0.00316456 ivf 8 0.238 21633.8 entries 1356 admissible 4
+[00:20:06] deep300k b0.0_s0.00316456 ivf 16 0.3948 19721.2 entries 2628 admissible 8
+[00:20:07] deep300k b0.0_s0.00316456 ivf 32 0.571 17201.4 entries 5059 admissible 15
+[00:20:07] deep300k b0.0_s0.00316456 ivf 64 0.7328 12234.3 entries 9626 admissible 30
+[00:20:07] deep300k b0.0_s0.00316456 ivf 128 0.8654 8237.6 entries 18207 admissible 57
+[00:20:08] deep300k b0.0_s0.00316456 ivf 256 0.9412 4872.2 entries 34752 admissible 110
+[00:20:08] deep300k b0.0_s0.00316456 ivf 512 0.9822 3114.8 entries 66631 admissible 209
+[00:20:10] deep300k b0.0_s0.00316456 ivf 1024 0.9972 1749.6 entries 130100 admissible 410
+[00:20:10] DONE deep300k b0.0_s0.00316456
+--- [2.1] exit=0 post=603
+=== [3.1] 2026-10-29 00:20:12 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.01 scan_part,ivf
+[00:20:13] deep300k b0.0_s0.01 scan_part batched 1.0 25277.3
+[00:20:13] deep300k b0.0_s0.01 scan_part per_query 1.0 22445.7
+[00:20:15] deep300k b0.0_s0.01 ivf 8 0.4246 22979.2 entries 1356 admissible 13
+[00:20:15] deep300k b0.0_s0.01 ivf 16 0.5872 19144.7 entries 2628 admissible 25
+[00:20:15] deep300k b0.0_s0.01 ivf 32 0.7394 15317.4 entries 5059 admissible 50
+[00:20:16] deep300k b0.0_s0.01 ivf 64 0.8536 11125.4 entries 9626 admissible 95
+[00:20:16] deep300k b0.0_s0.01 ivf 128 0.9376 7421.5 entries 18207 admissible 181
+[00:20:16] deep300k b0.0_s0.01 ivf 256 0.9732 4290.9 entries 34752 admissible 347
+[00:20:17] deep300k b0.0_s0.01 ivf 512 0.9932 2651.1 entries 66631 admissible 664
+[00:20:19] deep300k b0.0_s0.01 ivf 1024 0.9996 1569.0 entries 130100 admissible 1299
+[00:20:19] DONE deep300k b0.0_s0.01
+--- [3.1] exit=0 post=639
+=== [4.1] 2026-10-29 00:22:24 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.03125 scan_part,ivf
+[00:22:25] deep300k b0.0_s0.03125 scan_part batched 1.0 7702.0
+[00:22:25] deep300k b0.0_s0.03125 scan_part per_query 1.0 9418.7
+[00:22:27] deep300k b0.0_s0.03125 ivf 8 0.5648 24608.3 entries 1356 admissible 41
+[00:22:27] deep300k b0.0_s0.03125 ivf 16 0.7124 15900.5 entries 2628 admissible 81
+[00:22:27] deep300k b0.0_s0.03125 ivf 32 0.8348 13652.5 entries 5059 admissible 157
+[00:22:28] deep300k b0.0_s0.03125 ivf 64 0.9164 8993.6 entries 9626 admissible 300
+[00:22:28] deep300k b0.0_s0.03125 ivf 128 0.9716 5691.6 entries 18207 admissible 567
+[00:22:29] deep300k b0.0_s0.03125 ivf 256 0.9914 3278.1 entries 34752 admissible 1085
+[00:22:30] deep300k b0.0_s0.03125 ivf 512 0.9978 2073.5 entries 66631 admissible 2079
+[00:22:31] deep300k b0.0_s0.03125 ivf 1024 0.9998 1105.1 entries 130100 admissible 4061
+[00:22:31] DONE deep300k b0.0_s0.03125
+--- [4.1] exit=0 post=581
+=== [5.1] 2026-10-29 00:29:43 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part,ivf
+[00:29:44] deep300k b0.0_s0.1 scan_part batched 1.0 3582.6
+[00:29:45] deep300k b0.0_s0.1 scan_part per_query 1.0 3276.5
+[00:29:47] deep300k b0.0_s0.1 ivf 8 0.678 16469.1 entries 1356 admissible 134
+[00:29:47] deep300k b0.0_s0.1 ivf 16 0.8082 14034.4 entries 2628 admissible 261
+[00:29:47] deep300k b0.0_s0.1 ivf 32 0.8956 9158.5 entries 5059 admissible 504
+[00:29:48] deep300k b0.0_s0.1 ivf 64 0.953 5840.7 entries 9626 admissible 960
+[00:29:48] deep300k b0.0_s0.1 ivf 128 0.9838 3975.4 entries 18207 admissible 1816
+[00:29:49] deep300k b0.0_s0.1 ivf 256 0.9946 1959.0 entries 34752 admissible 3472
+[00:29:51] deep300k b0.0_s0.1 ivf 512 0.9996 1316.1 entries 66631 admissible 6656
+[00:29:51] DONE deep300k b0.0_s0.1
+--- [5.1] exit=0 post=625
+=== [6.1] 2026-10-29 00:29:53 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.333333 scan_part,ivf
+[00:29:57] deep300k b0.0_s0.333333 scan_part batched 1.0 568.4
+[00:30:01] deep300k b0.0_s0.333333 scan_part per_query 1.0 516.3
+[00:30:03] deep300k b0.0_s0.333333 ivf 8 0.7404 14354.2 entries 1356 admissible 452
+[00:30:04] deep300k b0.0_s0.333333 ivf 16 0.851 9972.2 entries 2628 admissible 876
+[00:30:04] deep300k b0.0_s0.333333 ivf 32 0.9236 6053.2 entries 5059 admissible 1685
+[00:30:05] deep300k b0.0_s0.333333 ivf 64 0.966 3425.2 entries 9626 admissible 3206
+[00:30:06] deep300k b0.0_s0.333333 ivf 128 0.9904 1811.4 entries 18207 admissible 6065
+[00:30:08] deep300k b0.0_s0.333333 ivf 256 0.998 943.3 entries 34752 admissible 11585
+[00:30:12] deep300k b0.0_s0.333333 ivf 512 0.9998 514.2 entries 66631 admissible 22211
+[00:30:12] DONE deep300k b0.0_s0.333333
+--- [6.1] exit=0 post=433
+contended [6.1] post=433
+=== [6.2] 2026-10-29 00:31:16 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.333333 scan_part,ivf
+[00:31:21] deep300k b0.0_s0.333333 scan_part batched 1.0 424.9
+[00:31:26] deep300k b0.0_s0.333333 scan_part per_query 1.0 456.8
+[00:31:28] deep300k b0.0_s0.333333 ivf 8 0.7404 12280.5 entries 1356 admissible 452
+[00:31:29] deep300k b0.0_s0.333333 ivf 16 0.851 9902.3 entries 2628 admissible 876
+[00:31:29] deep300k b0.0_s0.333333 ivf 32 0.9236 6297.7 entries 5059 admissible 1685
+[00:31:30] deep300k b0.0_s0.333333 ivf 64 0.966 3226.0 entries 9626 admissible 3206
+[00:31:31] deep300k b0.0_s0.333333 ivf 128 0.9904 1803.5 entries 18207 admissible 6065
+[00:31:33] deep300k b0.0_s0.333333 ivf 256 0.998 886.4 entries 34752 admissible 11585
+[00:31:38] deep300k b0.0_s0.333333 ivf 512 0.9998 436.8 entries 66631 admissible 22211
+[00:31:38] DONE deep300k b0.0_s0.333333
+--- [6.2] exit=0 post=545
+=== [7.1] 2026-10-29 00:31:40 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.001 scan_part,ivf
+[00:31:56] deep1m b0.0_s0.001 scan_part batched 1.0 37662.8
+[00:31:56] deep1m b0.0_s0.001 scan_part per_query 1.0 32388.9
+[00:32:03] deep1m b0.0_s0.001 ivf 8 0.1722 13818.8 entries 2475 admissible 2
+[00:32:04] deep1m b0.0_s0.001 ivf 16 0.2914 10859.4 entries 4826 admissible 4
+[00:32:04] deep1m b0.0_s0.001 ivf 32 0.4406 8590.6 entries 9275 admissible 9
+[00:32:04] deep1m b0.0_s0.001 ivf 64 0.6318 6639.4 entries 17778 admissible 18
+[00:32:05] deep1m b0.0_s0.001 ivf 128 0.7844 4590.7 entries 33785 admissible 34
+[00:32:06] deep1m b0.0_s0.001 ivf 256 0.8934 3079.8 entries 63984 admissible 64
+[00:32:07] deep1m b0.0_s0.001 ivf 512 0.9658 1760.2 entries 121585 admissible 121
+[00:32:09] deep1m b0.0_s0.001 ivf 1024 0.9896 1064.2 entries 233779 admissible 233
+[00:32:09] DONE deep1m b0.0_s0.001
+--- [7.1] exit=0 post=589
+=== [8.1] 2026-10-29 00:32:12 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.00316456 scan_part,ivf
+[00:32:12] deep1m b0.0_s0.00316456 scan_part batched 1.0 15591.7
+[00:32:12] deep1m b0.0_s0.00316456 scan_part per_query 1.0 19076.8
+[00:32:20] deep1m b0.0_s0.00316456 ivf 8 0.3136 13450.7 entries 2475 admissible 7
+[00:32:20] deep1m b0.0_s0.00316456 ivf 16 0.4588 12532.2 entries 4826 admissible 15
+[00:32:20] deep1m b0.0_s0.00316456 ivf 32 0.6302 8932.1 entries 9275 admissible 29
+[00:32:21] deep1m b0.0_s0.00316456 ivf 64 0.779 6790.6 entries 17778 admissible 56
+[00:32:21] deep1m b0.0_s0.00316456 ivf 128 0.8848 4084.6 entries 33785 admissible 107
+[00:32:22] deep1m b0.0_s0.00316456 ivf 256 0.9476 3013.4 entries 63984 admissible 203
+[00:32:24] deep1m b0.0_s0.00316456 ivf 512 0.9854 1657.6 entries 121585 admissible 385
+[00:32:26] deep1m b0.0_s0.00316456 ivf 1024 0.9978 933.9 entries 233779 admissible 740
+[00:32:26] DONE deep1m b0.0_s0.00316456
+--- [8.1] exit=0 post=504
+contended [8.1] post=504
+=== [8.2] 2026-10-29 00:33:30 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.00316456 scan_part,ivf
+[00:33:31] deep1m b0.0_s0.00316456 scan_part batched 1.0 18102.6
+[00:33:31] deep1m b0.0_s0.00316456 scan_part per_query 1.0 17856.7
+[00:33:39] deep1m b0.0_s0.00316456 ivf 8 0.3136 12320.4 entries 2475 admissible 7
+[00:33:39] deep1m b0.0_s0.00316456 ivf 16 0.4588 10481.6 entries 4826 admissible 15
+[00:33:39] deep1m b0.0_s0.00316456 ivf 32 0.6302 8364.3 entries 9275 admissible 29
+[00:33:40] deep1m b0.0_s0.00316456 ivf 64 0.779 7259.2 entries 17778 admissible 56
+[00:33:40] deep1m b0.0_s0.00316456 ivf 128 0.8848 4360.5 entries 33785 admissible 107
+[00:33:41] deep1m b0.0_s0.00316456 ivf 256 0.9476 2578.5 entries 63984 admissible 203
+[00:33:43] deep1m b0.0_s0.00316456 ivf 512 0.9854 1580.0 entries 121585 admissible 385
+[00:33:45] deep1m b0.0_s0.00316456 ivf 1024 0.9978 907.8 entries 233779 admissible 740
+[00:33:45] DONE deep1m b0.0_s0.00316456
+--- [8.2] exit=0 post=528
+=== [9.1] 2026-10-29 00:33:48 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.01 scan_part,ivf
+[00:33:48] deep1m b0.0_s0.01 scan_part batched 1.0 8264.9
+[00:33:49] deep1m b0.0_s0.01 scan_part per_query 1.0 7842.2
+[00:33:56] deep1m b0.0_s0.01 ivf 8 0.4714 16482.4 entries 2475 admissible 25
+[00:33:56] deep1m b0.0_s0.01 ivf 16 0.6264 11663.4 entries 4826 admissible 48
+[00:33:57] deep1m b0.0_s0.01 ivf 32 0.7634 9022.2 entries 9275 admissible 93
+[00:33:57] deep1m b0.0_s0.01 ivf 64 0.8716 6748.4 entries 17778 admissible 178
+[00:33:58] deep1m b0.0_s0.01 ivf 128 0.941 3581.1 entries 33785 admissible 338
+[00:33:59] deep1m b0.0_s0.01 ivf 256 0.9802 2423.9 entries 63984 admissible 640
+[00:34:00] deep1m b0.0_s0.01 ivf 512 0.995 1423.4 entries 121585 admissible 1215
+[00:34:03] deep1m b0.0_s0.01 ivf 1024 0.9994 797.2 entries 233779 admissible 2339
+[00:34:03] DONE deep1m b0.0_s0.01
+--- [9.1] exit=0 post=559
+=== [10.1] 2026-10-29 00:34:05 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part,ivf
+[00:34:07] deep1m b0.0_s0.03125 scan_part batched 1.0 3019.3
+[00:34:08] deep1m b0.0_s0.03125 scan_part per_query 1.0 2815.5
+[00:34:15] deep1m b0.0_s0.03125 ivf 8 0.5818 14912.2 entries 2475 admissible 77
+[00:34:15] deep1m b0.0_s0.03125 ivf 16 0.7298 11289.5 entries 4826 admissible 151
+[00:34:15] deep1m b0.0_s0.03125 ivf 32 0.8356 7735.8 entries 9275 admissible 290
+[00:34:16] deep1m b0.0_s0.03125 ivf 64 0.916 4632.1 entries 17778 admissible 557
+[00:34:17] deep1m b0.0_s0.03125 ivf 128 0.9642 2874.3 entries 33785 admissible 1058
+[00:34:18] deep1m b0.0_s0.03125 ivf 256 0.9886 1579.8 entries 63984 admissible 2003
+[00:34:20] deep1m b0.0_s0.03125 ivf 512 0.9974 962.5 entries 121585 admissible 3801
+[00:34:24] deep1m b0.0_s0.03125 ivf 1024 0.9998 511.9 entries 233779 admissible 7309
+[00:34:24] DONE deep1m b0.0_s0.03125
+--- [10.1] exit=0 post=398
+contended [10.1] post=398
+=== [10.2] 2026-10-29 00:34:27 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part,ivf
+[00:34:28] deep1m b0.0_s0.03125 scan_part batched 1.0 2903.3
+[00:34:29] deep1m b0.0_s0.03125 scan_part per_query 1.0 2867.6
+[00:34:36] deep1m b0.0_s0.03125 ivf 8 0.5818 12874.2 entries 2475 admissible 77
+[00:34:36] deep1m b0.0_s0.03125 ivf 16 0.7298 10106.3 entries 4826 admissible 151
+[00:34:37] deep1m b0.0_s0.03125 ivf 32 0.8356 7451.9 entries 9275 admissible 290
+[00:34:37] deep1m b0.0_s0.03125 ivf 64 0.916 5175.7 entries 17778 admissible 557
+[00:34:38] deep1m b0.0_s0.03125 ivf 128 0.9642 2997.4 entries 33785 admissible 1058
+[00:34:39] deep1m b0.0_s0.03125 ivf 256 0.9886 1625.1 entries 63984 admissible 2003
+[00:34:42] deep1m b0.0_s0.03125 ivf 512 0.9974 977.6 entries 121585 admissible 3801
+[00:34:45] deep1m b0.0_s0.03125 ivf 1024 0.9998 552.4 entries 233779 admissible 7309
+[00:34:45] DONE deep1m b0.0_s0.03125
+--- [10.2] exit=0 post=546
+=== [11.1] 2026-10-29 00:34:48 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.1 scan_part,ivf
+[00:34:53] deep1m b0.0_s0.1 scan_part batched 1.0 516.4
+[00:34:57] deep1m b0.0_s0.1 scan_part per_query 1.0 518.2
+[00:35:04] deep1m b0.0_s0.1 ivf 8 0.6768 11462.8 entries 2475 admissible 248
+[00:35:04] deep1m b0.0_s0.1 ivf 16 0.8032 7862.7 entries 4826 admissible 482
+[00:35:04] deep1m b0.0_s0.1 ivf 32 0.8874 5211.3 entries 9275 admissible 928
+[00:35:05] deep1m b0.0_s0.1 ivf 64 0.9452 2950.0 entries 17778 admissible 1778
+[00:35:06] deep1m b0.0_s0.1 ivf 128 0.9788 1780.7 entries 33785 admissible 3380
+[00:35:09] deep1m b0.0_s0.1 ivf 256 0.9944 932.8 entries 63984 admissible 6400
+[00:35:13] deep1m b0.0_s0.1 ivf 512 0.9986 491.5 entries 121585 admissible 12156
+[00:35:21] deep1m b0.0_s0.1 ivf 1024 1.0 251.3 entries 233779 admissible 23374
+[00:35:21] DONE deep1m b0.0_s0.1
+--- [11.1] exit=0 post=559
+=== [12.1] 2026-10-29 00:35:24 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part,ivf
+[00:35:40] deep1m b0.0_s0.333333 scan_part batched 1.0 139.2
+[00:35:54] deep1m b0.0_s0.333333 scan_part per_query 1.0 142.1
+[00:36:01] deep1m b0.0_s0.333333 ivf 8 0.743 8374.0 entries 2475 admissible 823
+[00:36:02] deep1m b0.0_s0.333333 ivf 16 0.854 4585.2 entries 4826 admissible 1606
+[00:36:03] deep1m b0.0_s0.333333 ivf 32 0.9242 3210.3 entries 9275 admissible 3090
+[00:36:04] deep1m b0.0_s0.333333 ivf 64 0.9662 1680.0 entries 17778 admissible 5923
+[00:36:06] deep1m b0.0_s0.333333 ivf 128 0.9862 940.8 entries 33785 admissible 11260
+[00:36:10] deep1m b0.0_s0.333333 ivf 256 0.9972 478.0 entries 63984 admissible 21327
+[00:36:18] deep1m b0.0_s0.333333 ivf 512 0.9992 252.5 entries 121585 admissible 40528
+[00:36:18] DONE deep1m b0.0_s0.333333
+--- [12.1] exit=0 post=370
+contended [12.1] post=370
+=== [12.2] 2026-10-29 00:46:35 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part,ivf
+[00:46:52] deep1m b0.0_s0.333333 scan_part batched 1.0 138.1
+[00:47:08] deep1m b0.0_s0.333333 scan_part per_query 1.0 121.6
+[00:47:16] deep1m b0.0_s0.333333 ivf 8 0.743 7763.6 entries 2475 admissible 823
+[00:47:16] deep1m b0.0_s0.333333 ivf 16 0.854 4702.2 entries 4826 admissible 1606
+[00:47:17] deep1m b0.0_s0.333333 ivf 32 0.9242 3202.7 entries 9275 admissible 3090
+[00:47:18] deep1m b0.0_s0.333333 ivf 64 0.9662 1671.9 entries 17778 admissible 5923
+[00:47:20] deep1m b0.0_s0.333333 ivf 128 0.9862 931.0 entries 33785 admissible 11260
+[00:47:25] deep1m b0.0_s0.333333 ivf 256 0.9972 487.6 entries 63984 admissible 21327
+[00:47:33] deep1m b0.0_s0.333333 ivf 512 0.9992 252.1 entries 121585 admissible 40528
+[00:47:33] DONE deep1m b0.0_s0.333333
+--- [12.2] exit=0 post=563
+=== [13.1] 2026-10-29 00:47:35 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.000316256 scan_part,ivf
+[00:48:19] deep3m b0.0_s0.000316256 scan_part batched 1.0 33897.0
+[00:48:19] deep3m b0.0_s0.000316256 scan_part per_query 1.0 36070.7
+[00:48:47] deep3m b0.0_s0.000316256 ivf 8 0.1122 6894.3 entries 4419 admissible 1
+[00:48:48] deep3m b0.0_s0.000316256 ivf 16 0.1924 5108.3 entries 8662 admissible 2
+[00:48:48] deep3m b0.0_s0.000316256 ivf 32 0.3102 4106.3 entries 16810 admissible 5
+[00:48:49] deep3m b0.0_s0.000316256 ivf 64 0.4704 3064.2 entries 32376 admissible 10
+[00:48:51] deep3m b0.0_s0.000316256 ivf 128 0.6532 2386.2 entries 62048 admissible 19
+[00:48:52] deep3m b0.0_s0.000316256 ivf 256 0.8082 1519.2 entries 117934 admissible 37
+[00:48:55] deep3m b0.0_s0.000316256 ivf 512 0.9126 949.9 entries 223638 admissible 70
+[00:48:59] deep3m b0.0_s0.000316256 ivf 1024 0.9688 579.7 entries 427149 admissible 134
+[00:49:06] deep3m b0.0_s0.000316256 ivf 2048 0.9956 311.6 entries 824195 admissible 260
+[00:49:06] DONE deep3m b0.0_s0.000316256
+--- [13.1] exit=0 post=613
+=== [14.1] 2026-10-29 00:49:09 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.001 scan_part,ivf
+[00:49:10] deep3m b0.0_s0.001 scan_part batched 1.0 15248.6
+[00:49:10] deep3m b0.0_s0.001 scan_part per_query 1.0 15841.2
+[00:49:37] deep3m b0.0_s0.001 ivf 8 0.2328 7705.8 entries 4419 admissible 4
+[00:49:37] deep3m b0.0_s0.001 ivf 16 0.3666 5022.9 entries 8662 admissible 8
+[00:49:38] deep3m b0.0_s0.001 ivf 32 0.5166 4144.8 entries 16810 admissible 16
+[00:49:39] deep3m b0.0_s0.001 ivf 64 0.6772 3105.9 entries 32376 admissible 32
+[00:49:41] deep3m b0.0_s0.001 ivf 128 0.8086 2325.2 entries 62048 admissible 61
+[00:49:42] deep3m b0.0_s0.001 ivf 256 0.9036 1592.2 entries 117934 admissible 118
+[00:49:45] deep3m b0.0_s0.001 ivf 512 0.9584 958.7 entries 223638 admissible 223
+[00:49:49] deep3m b0.0_s0.001 ivf 1024 0.988 512.5 entries 427149 admissible 427
+[00:49:56] deep3m b0.0_s0.001 ivf 2048 0.999 296.3 entries 824195 admissible 823
+[00:49:56] DONE deep3m b0.0_s0.001
+--- [14.1] exit=0 post=500
+contended [14.1] post=500
+=== [14.2] 2026-10-29 00:49:59 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.001 scan_part,ivf
+[00:50:00] deep3m b0.0_s0.001 scan_part batched 1.0 14730.5
+[00:50:01] deep3m b0.0_s0.001 scan_part per_query 1.0 15477.1
+[00:50:28] deep3m b0.0_s0.001 ivf 8 0.2328 7595.9 entries 4419 admissible 4
+[00:50:28] deep3m b0.0_s0.001 ivf 16 0.3666 5695.0 entries 8662 admissible 8
+[00:50:29] deep3m b0.0_s0.001 ivf 32 0.5166 4334.4 entries 16810 admissible 16
+[00:50:30] deep3m b0.0_s0.001 ivf 64 0.6772 3292.6 entries 32376 admissible 32
+[00:50:31] deep3m b0.0_s0.001 ivf 128 0.8086 2250.8 entries 62048 admissible 61
+[00:50:33] deep3m b0.0_s0.001 ivf 256 0.9036 1579.1 entries 117934 admissible 118
+[00:50:36] deep3m b0.0_s0.001 ivf 512 0.9584 977.4 entries 223638 admissible 223
+[00:50:40] deep3m b0.0_s0.001 ivf 1024 0.988 549.3 entries 427149 admissible 427
+[00:50:46] deep3m b0.0_s0.001 ivf 2048 0.999 312.5 entries 824195 admissible 823
+[00:50:47] DONE deep3m b0.0_s0.001
+--- [14.2] exit=0 post=606
+=== [15.1] 2026-10-29 00:50:49 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.00316456 scan_part,ivf
+[00:50:51] deep3m b0.0_s0.00316456 scan_part batched 1.0 6319.7
+[00:50:51] deep3m b0.0_s0.00316456 scan_part per_query 1.0 6048.1
+[00:51:17] deep3m b0.0_s0.00316456 ivf 8 0.378 7533.4 entries 4419 admissible 14
+[00:51:18] deep3m b0.0_s0.00316456 ivf 16 0.5366 5938.3 entries 8662 admissible 27
+[00:51:18] deep3m b0.0_s0.00316456 ivf 32 0.6806 4111.6 entries 16810 admissible 53
+[00:51:19] deep3m b0.0_s0.00316456 ivf 64 0.8074 3465.7 entries 32376 admissible 102
+[00:51:20] deep3m b0.0_s0.00316456 ivf 128 0.8954 2334.3 entries 62048 admissible 196
+[00:51:22] deep3m b0.0_s0.00316456 ivf 256 0.9582 1485.4 entries 117934 admissible 374
+[00:51:25] deep3m b0.0_s0.00316456 ivf 512 0.984 911.2 entries 223638 admissible 710
+[00:51:29] deep3m b0.0_s0.00316456 ivf 1024 0.996 516.5 entries 427149 admissible 1354
+[00:51:37] deep3m b0.0_s0.00316456 ivf 2048 1.0 272.5 entries 824195 admissible 2610
+[00:51:37] DONE deep3m b0.0_s0.00316456
+--- [15.1] exit=0 post=600
+=== [16.1] 2026-10-29 00:51:40 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.01 scan_part,ivf
+[00:51:42] deep3m b0.0_s0.01 scan_part batched 1.0 2393.1
+[00:51:43] deep3m b0.0_s0.01 scan_part per_query 1.0 2482.9
+[00:52:07] deep3m b0.0_s0.01 ivf 8 0.4938 8475.2 entries 4419 admissible 44
+[00:52:08] deep3m b0.0_s0.01 ivf 16 0.6488 6842.9 entries 8662 admissible 87
+[00:52:08] deep3m b0.0_s0.01 ivf 32 0.7814 5167.5 entries 16810 admissible 168
+[00:52:09] deep3m b0.0_s0.01 ivf 64 0.8712 3501.2 entries 32376 admissible 324
+[00:52:10] deep3m b0.0_s0.01 ivf 128 0.9332 2262.9 entries 62048 admissible 620
+[00:52:12] deep3m b0.0_s0.01 ivf 256 0.9732 1346.7 entries 117934 admissible 1179
+[00:52:15] deep3m b0.0_s0.01 ivf 512 0.9914 763.0 entries 223638 admissible 2239
+[00:52:20] deep3m b0.0_s0.01 ivf 1024 0.9994 415.4 entries 427149 admissible 4274
+[00:52:20] DONE deep3m b0.0_s0.01
+--- [16.1] exit=0 post=613
+=== [17.1] 2026-10-29 00:52:22 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.03125 scan_part,ivf
+[00:52:28] deep3m b0.0_s0.03125 scan_part batched 1.0 567.5
+[00:52:31] deep3m b0.0_s0.03125 scan_part per_query 1.0 552.9
+[00:52:56] deep3m b0.0_s0.03125 ivf 8 0.5908 8408.0 entries 4419 admissible 139
+[00:52:56] deep3m b0.0_s0.03125 ivf 16 0.735 6410.2 entries 8662 admissible 272
+[00:52:57] deep3m b0.0_s0.03125 ivf 32 0.8444 4275.6 entries 16810 admissible 527
+[00:52:58] deep3m b0.0_s0.03125 ivf 64 0.9208 2745.8 entries 32376 admissible 1013
+[00:52:59] deep3m b0.0_s0.03125 ivf 128 0.9618 1647.5 entries 62048 admissible 1938
+[00:53:01] deep3m b0.0_s0.03125 ivf 256 0.9878 923.9 entries 117934 admissible 3687
+[00:53:06] deep3m b0.0_s0.03125 ivf 512 0.9952 511.8 entries 223638 admissible 6994
+[00:53:13] deep3m b0.0_s0.03125 ivf 1024 0.9986 269.5 entries 427149 admissible 13356
+[00:53:28] deep3m b0.0_s0.03125 ivf 2048 1.0 134.9 entries 824195 admissible 25767
+[00:53:28] DONE deep3m b0.0_s0.03125
+--- [17.1] exit=0 post=644
+=== [18.1] 2026-10-29 00:53:31 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.1 scan_part,ivf
+[00:53:45] deep3m b0.0_s0.1 scan_part batched 1.0 164.8
+[00:53:57] deep3m b0.0_s0.1 scan_part per_query 1.0 162.2
+[00:54:22] deep3m b0.0_s0.1 ivf 8 0.6558 6854.0 entries 4419 admissible 442
+[00:54:22] deep3m b0.0_s0.1 ivf 16 0.7914 4755.2 entries 8662 admissible 866
+[00:54:23] deep3m b0.0_s0.1 ivf 32 0.8826 2967.0 entries 16810 admissible 1683
+[00:54:24] deep3m b0.0_s0.1 ivf 64 0.9436 1709.6 entries 32376 admissible 3242
+[00:54:27] deep3m b0.0_s0.1 ivf 128 0.975 930.2 entries 62048 admissible 6206
+[00:54:31] deep3m b0.0_s0.1 ivf 256 0.9892 501.7 entries 117934 admissible 11794
+[00:54:38] deep3m b0.0_s0.1 ivf 512 0.9956 265.7 entries 223638 admissible 22374
+[00:54:53] deep3m b0.0_s0.1 ivf 1024 0.9988 140.2 entries 427149 admissible 42729
+[00:55:21] deep3m b0.0_s0.1 ivf 2048 0.9998 73.2 entries 824195 admissible 82437
+[00:55:21] DONE deep3m b0.0_s0.1
+--- [18.1] exit=0 post=604
+=== [19.1] 2026-10-29 00:55:23 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.0001 scan_part,ivf
+[01:01:02] deep10m b0.0_s0.0001 scan_part batched 1.0 36433.8
+[01:01:02] deep10m b0.0_s0.0001 scan_part per_query 1.0 38906.5
+[01:02:50] deep10m b0.0_s0.0001 ivf 8 0.0698 4458.3 entries 8071 admissible 0
+[01:02:53] deep10m b0.0_s0.0001 ivf 16 0.1184 2429.8 entries 15783 admissible 1
+[01:02:56] deep10m b0.0_s0.0001 ivf 32 0.2112 1527.6 entries 30684 admissible 3
+[01:03:00] deep10m b0.0_s0.0001 ivf 64 0.3466 1025.5 entries 59549 admissible 5
+[01:03:06] deep10m b0.0_s0.0001 ivf 128 0.525 543.9 entries 114874 admissible 11
+[01:03:13] deep10m b0.0_s0.0001 ivf 256 0.7014 421.6 entries 218951 admissible 21
+[01:03:19] deep10m b0.0_s0.0001 ivf 512 0.8396 497.4 entries 414508 admissible 41
+[01:03:27] deep10m b0.0_s0.0001 ivf 1024 0.9398 290.5 entries 784866 admissible 78
+[01:03:41] deep10m b0.0_s0.0001 ivf 2048 0.9812 167.7 entries 1498107 admissible 149
+[01:03:41] DONE deep10m b0.0_s0.0001
+--- [19.1] exit=0 post=612
+=== [20.1] 2026-10-29 01:03:44 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256 scan_part,ivf
+[01:03:47] deep10m b0.0_s0.000316256 scan_part batched 1.0 15210.8
+[01:03:48] deep10m b0.0_s0.000316256 scan_part per_query 1.0 15217.0
+[01:05:33] deep10m b0.0_s0.000316256 ivf 8 0.1496 4296.4 entries 8071 admissible 2
+[01:05:35] deep10m b0.0_s0.000316256 ivf 16 0.2552 2985.2 entries 15783 admissible 4
+[01:05:37] deep10m b0.0_s0.000316256 ivf 32 0.3918 1893.2 entries 30684 admissible 9
+[01:05:40] deep10m b0.0_s0.000316256 ivf 64 0.557 1354.8 entries 59549 admissible 18
+[01:05:44] deep10m b0.0_s0.000316256 ivf 128 0.733 1047.4 entries 114874 admissible 36
+[01:05:48] deep10m b0.0_s0.000316256 ivf 256 0.8502 762.7 entries 218951 admissible 69
+[01:05:53] deep10m b0.0_s0.000316256 ivf 512 0.9314 496.8 entries 414508 admissible 131
+[01:06:02] deep10m b0.0_s0.000316256 ivf 1024 0.9766 295.0 entries 784866 admissible 248
+[01:06:15] deep10m b0.0_s0.000316256 ivf 2048 0.9934 169.9 entries 1498107 admissible 475
+[01:06:16] DONE deep10m b0.0_s0.000316256
+--- [20.1] exit=0 post=701
+=== [21.1] 2026-10-29 01:06:18 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.001 scan_part,ivf
+[01:06:22] deep10m b0.0_s0.001 scan_part batched 1.0 5881.0
+[01:06:22] deep10m b0.0_s0.001 scan_part per_query 1.0 5839.8
+[01:08:08] deep10m b0.0_s0.001 ivf 8 0.287 4300.4 entries 8071 admissible 8
+[01:08:10] deep10m b0.0_s0.001 ivf 16 0.4334 2987.4 entries 15783 admissible 16
+[01:08:12] deep10m b0.0_s0.001 ivf 32 0.5858 2102.4 entries 30684 admissible 31
+[01:08:15] deep10m b0.0_s0.001 ivf 64 0.7314 1452.2 entries 59549 admissible 60
+[01:08:18] deep10m b0.0_s0.001 ivf 128 0.8462 1113.1 entries 114874 admissible 115
+[01:08:22] deep10m b0.0_s0.001 ivf 256 0.9248 773.7 entries 218951 admissible 220
+[01:08:27] deep10m b0.0_s0.001 ivf 512 0.9668 499.7 entries 414508 admissible 415
+[01:08:36] deep10m b0.0_s0.001 ivf 1024 0.9902 294.2 entries 784866 admissible 786
+[01:08:49] deep10m b0.0_s0.001 ivf 2048 0.998 164.7 entries 1498107 admissible 1499
+[01:08:49] DONE deep10m b0.0_s0.001
+--- [21.1] exit=0 post=675
+=== [22.1] 2026-10-29 01:08:52 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456 scan_part,ivf
+[01:08:58] deep10m b0.0_s0.00316456 scan_part batched 1.0 2004.3
+[01:08:59] deep10m b0.0_s0.00316456 scan_part per_query 1.0 1950.4
+[01:10:45] deep10m b0.0_s0.00316456 ivf 8 0.4058 4230.9 entries 8071 admissible 25
+[01:10:47] deep10m b0.0_s0.00316456 ivf 16 0.5586 2802.6 entries 15783 admissible 50
+[01:10:49] deep10m b0.0_s0.00316456 ivf 32 0.7006 2303.7 entries 30684 admissible 97
+[01:10:51] deep10m b0.0_s0.00316456 ivf 64 0.8198 1579.3 entries 59549 admissible 188
+[01:10:54] deep10m b0.0_s0.00316456 ivf 128 0.9018 1197.1 entries 114874 admissible 364
+[01:10:57] deep10m b0.0_s0.00316456 ivf 256 0.9536 762.8 entries 218951 admissible 694
+[01:11:03] deep10m b0.0_s0.00316456 ivf 512 0.9806 455.6 entries 414508 admissible 1312
+[01:11:12] deep10m b0.0_s0.00316456 ivf 1024 0.9942 264.3 entries 784866 admissible 2485
+[01:11:27] deep10m b0.0_s0.00316456 ivf 2048 0.999 142.4 entries 1498107 admissible 4742
+[01:11:27] DONE deep10m b0.0_s0.00316456
+--- [22.1] exit=0 post=669
+=== [23.1] 2026-10-29 01:11:31 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.01 scan_part,ivf
+[01:11:40] deep10m b0.0_s0.01 scan_part batched 1.0 555.5
+[01:11:43] deep10m b0.0_s0.01 scan_part per_query 1.0 547.0
+[01:13:30] deep10m b0.0_s0.01 ivf 8 0.53 4468.6 entries 8071 admissible 81
+[01:13:31] deep10m b0.0_s0.01 ivf 16 0.6678 3568.3 entries 15783 admissible 158
+[01:13:33] deep10m b0.0_s0.01 ivf 32 0.7964 2702.7 entries 30684 admissible 307
+[01:13:34] deep10m b0.0_s0.01 ivf 64 0.8876 1792.5 entries 59549 admissible 595
+[01:13:37] deep10m b0.0_s0.01 ivf 128 0.9436 1157.5 entries 114874 admissible 1149
+[01:13:40] deep10m b0.0_s0.01 ivf 256 0.9746 686.4 entries 218951 admissible 2190
+[01:13:46] deep10m b0.0_s0.01 ivf 512 0.9904 380.2 entries 414508 admissible 4144
+[01:13:57] deep10m b0.0_s0.01 ivf 1024 0.9972 209.5 entries 784866 admissible 7846
+[01:14:16] deep10m b0.0_s0.01 ivf 2048 1.0 108.9 entries 1498107 admissible 14980
+[01:14:16] DONE deep10m b0.0_s0.01
+--- [23.1] exit=0 post=656
+=== [24.1] 2026-10-29 01:14:19 BENCH_TAG=epyc BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part,ivf
+[01:14:36] deep10m b0.0_s0.03125 scan_part batched 1.0 169.4
+[01:14:48] deep10m b0.0_s0.03125 scan_part per_query 1.0 167.1
+[01:16:30] deep10m b0.0_s0.03125 ivf 8 0.611 4824.8 entries 8071 admissible 252
+[01:16:31] deep10m b0.0_s0.03125 ivf 16 0.7454 3650.3 entries 15783 admissible 493
+[01:16:32] deep10m b0.0_s0.03125 ivf 32 0.8484 2456.1 entries 30684 admissible 957
+[01:16:33] deep10m b0.0_s0.03125 ivf 64 0.92 1510.8 entries 59549 admissible 1860
+[01:16:36] deep10m b0.0_s0.03125 ivf 128 0.9636 846.2 entries 114874 admissible 3587
+[01:16:41] deep10m b0.0_s0.03125 ivf 256 0.9854 470.3 entries 218951 admissible 6836
+[01:16:49] deep10m b0.0_s0.03125 ivf 512 0.9956 250.9 entries 414508 admissible 12953
+[01:17:05] deep10m b0.0_s0.03125 ivf 1024 0.9986 134.9 entries 784866 admissible 24526
+[01:17:33] deep10m b0.0_s0.03125 ivf 2048 0.9996 72.7 entries 1498107 admissible 46820
+[01:17:33] DONE deep10m b0.0_s0.03125
+--- [24.1] exit=0 post=645
+=== [25.1] 2026-10-29 01:17:36 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.00316456 scan_part,ivf
+[01:17:37] deep300k b0.0_s0.00316456 scan_part batched 1.0 50772.7
+[01:17:37] deep300k b0.0_s0.00316456 scan_part per_query 1.0 33380.9
+[01:17:39] deep300k b0.0_s0.00316456 ivf 8 0.238 22184.9 entries 1356 admissible 4
+[01:17:39] deep300k b0.0_s0.00316456 ivf 16 0.3948 22148.4 entries 2628 admissible 8
+[01:17:40] deep300k b0.0_s0.00316456 ivf 32 0.571 17075.8 entries 5059 admissible 15
+[01:17:40] deep300k b0.0_s0.00316456 ivf 64 0.7328 11581.5 entries 9626 admissible 30
+[01:17:40] deep300k b0.0_s0.00316456 ivf 128 0.8654 8529.9 entries 18207 admissible 57
+[01:17:41] deep300k b0.0_s0.00316456 ivf 256 0.9412 4825.9 entries 34752 admissible 110
+[01:17:41] deep300k b0.0_s0.00316456 ivf 512 0.9822 3098.8 entries 66631 admissible 209
+[01:17:43] deep300k b0.0_s0.00316456 ivf 1024 0.9972 1746.4 entries 130100 admissible 410
+[01:17:43] DONE deep300k b0.0_s0.00316456
+--- [25.1] exit=0 post=654
+=== [26.1] 2026-10-29 01:17:45 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.01 scan_part,ivf
+[01:17:45] deep300k b0.0_s0.01 scan_part batched 1.0 25993.3
+[01:17:45] deep300k b0.0_s0.01 scan_part per_query 1.0 23819.1
+[01:17:47] deep300k b0.0_s0.01 ivf 8 0.4246 23626.8 entries 1356 admissible 13
+[01:17:48] deep300k b0.0_s0.01 ivf 16 0.5872 23443.4 entries 2628 admissible 25
+[01:17:48] deep300k b0.0_s0.01 ivf 32 0.7394 17093.6 entries 5059 admissible 50
+[01:17:48] deep300k b0.0_s0.01 ivf 64 0.8536 11637.7 entries 9626 admissible 95
+[01:17:48] deep300k b0.0_s0.01 ivf 128 0.9376 7183.2 entries 18207 admissible 181
+[01:17:49] deep300k b0.0_s0.01 ivf 256 0.9732 4583.1 entries 34752 admissible 347
+[01:17:50] deep300k b0.0_s0.01 ivf 512 0.9932 2631.0 entries 66631 admissible 664
+[01:17:51] deep300k b0.0_s0.01 ivf 1024 0.9996 1572.1 entries 130100 admissible 1299
+[01:17:51] DONE deep300k b0.0_s0.01
+--- [26.1] exit=0 post=687
+=== [27.1] 2026-10-29 01:17:53 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.03125 scan_part,ivf
+[01:17:54] deep300k b0.0_s0.03125 scan_part batched 1.0 9181.9
+[01:17:54] deep300k b0.0_s0.03125 scan_part per_query 1.0 10165.2
+[01:17:56] deep300k b0.0_s0.03125 ivf 8 0.5648 26263.4 entries 1356 admissible 41
+[01:17:56] deep300k b0.0_s0.03125 ivf 16 0.7124 20289.5 entries 2628 admissible 81
+[01:17:56] deep300k b0.0_s0.03125 ivf 32 0.8348 14116.9 entries 5059 admissible 157
+[01:17:57] deep300k b0.0_s0.03125 ivf 64 0.9164 8972.4 entries 9626 admissible 300
+[01:17:57] deep300k b0.0_s0.03125 ivf 128 0.9716 5613.9 entries 18207 admissible 567
+[01:17:58] deep300k b0.0_s0.03125 ivf 256 0.9914 3721.0 entries 34752 admissible 1085
+[01:17:59] deep300k b0.0_s0.03125 ivf 512 0.9978 2191.2 entries 66631 admissible 2079
+[01:18:00] deep300k b0.0_s0.03125 ivf 1024 0.9998 1311.6 entries 130100 admissible 4061
+[01:18:00] DONE deep300k b0.0_s0.03125
+--- [27.1] exit=0 post=671
+=== [28.1] 2026-10-29 01:18:03 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part,ivf
+[01:18:03] deep300k b0.0_s0.1 scan_part batched 1.0 3565.7
+[01:18:04] deep300k b0.0_s0.1 scan_part per_query 1.0 3433.9
+[01:18:06] deep300k b0.0_s0.1 ivf 8 0.678 18024.2 entries 1356 admissible 134
+[01:18:06] deep300k b0.0_s0.1 ivf 16 0.8082 14802.1 entries 2628 admissible 261
+[01:18:07] deep300k b0.0_s0.1 ivf 32 0.8956 10030.4 entries 5059 admissible 504
+[01:18:07] deep300k b0.0_s0.1 ivf 64 0.953 6043.6 entries 9626 admissible 960
+[01:18:07] deep300k b0.0_s0.1 ivf 128 0.9838 4155.9 entries 18207 admissible 1816
+[01:18:08] deep300k b0.0_s0.1 ivf 256 0.9946 2418.6 entries 34752 admissible 3472
+[01:18:10] deep300k b0.0_s0.1 ivf 512 0.9996 1321.8 entries 66631 admissible 6656
+[01:18:10] DONE deep300k b0.0_s0.1
+--- [28.1] exit=0 post=688
+=== [29.1] 2026-10-29 01:18:12 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep300k b0.0_s0.333333 scan_part,ivf
+[01:18:16] deep300k b0.0_s0.333333 scan_part batched 1.0 569.4
+[01:18:19] deep300k b0.0_s0.333333 scan_part per_query 1.0 545.9
+[01:18:22] deep300k b0.0_s0.333333 ivf 8 0.7404 15419.3 entries 1356 admissible 452
+[01:18:22] deep300k b0.0_s0.333333 ivf 16 0.851 10144.4 entries 2628 admissible 876
+[01:18:22] deep300k b0.0_s0.333333 ivf 32 0.9236 6409.1 entries 5059 admissible 1685
+[01:18:23] deep300k b0.0_s0.333333 ivf 64 0.966 3473.8 entries 9626 admissible 3206
+[01:18:24] deep300k b0.0_s0.333333 ivf 128 0.9904 2067.7 entries 18207 admissible 6065
+[01:18:26] deep300k b0.0_s0.333333 ivf 256 0.998 1068.8 entries 34752 admissible 11585
+[01:18:30] deep300k b0.0_s0.333333 ivf 512 0.9998 556.6 entries 66631 admissible 22211
+[01:18:30] DONE deep300k b0.0_s0.333333
+--- [29.1] exit=0 post=710
+=== [30.1] 2026-10-29 01:18:32 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.001 scan_part,ivf
+[01:18:32] deep1m b0.0_s0.001 scan_part batched 1.0 41493.5
+[01:18:32] deep1m b0.0_s0.001 scan_part per_query 1.0 39151.7
+[01:18:39] deep1m b0.0_s0.001 ivf 8 0.1722 13262.4 entries 2475 admissible 2
+[01:18:39] deep1m b0.0_s0.001 ivf 16 0.2914 10156.5 entries 4826 admissible 4
+[01:18:40] deep1m b0.0_s0.001 ivf 32 0.4406 9325.7 entries 9275 admissible 9
+[01:18:40] deep1m b0.0_s0.001 ivf 64 0.6318 7362.1 entries 17778 admissible 18
+[01:18:41] deep1m b0.0_s0.001 ivf 128 0.7844 4970.6 entries 33785 admissible 34
+[01:18:41] deep1m b0.0_s0.001 ivf 256 0.8934 3231.5 entries 63984 admissible 64
+[01:18:43] deep1m b0.0_s0.001 ivf 512 0.9658 2011.7 entries 121585 admissible 121
+[01:18:45] deep1m b0.0_s0.001 ivf 1024 0.9896 1172.4 entries 233779 admissible 233
+[01:18:45] DONE deep1m b0.0_s0.001
+--- [30.1] exit=0 post=694
+=== [31.1] 2026-10-29 01:18:47 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.00316456 scan_part,ivf
+[01:18:47] deep1m b0.0_s0.00316456 scan_part batched 1.0 20589.1
+[01:18:48] deep1m b0.0_s0.00316456 scan_part per_query 1.0 18579.8
+[01:18:55] deep1m b0.0_s0.00316456 ivf 8 0.3136 15974.8 entries 2475 admissible 7
+[01:18:55] deep1m b0.0_s0.00316456 ivf 16 0.4588 12795.5 entries 4826 admissible 15
+[01:18:55] deep1m b0.0_s0.00316456 ivf 32 0.6302 10198.2 entries 9275 admissible 29
+[01:18:56] deep1m b0.0_s0.00316456 ivf 64 0.779 7559.0 entries 17778 admissible 56
+[01:18:56] deep1m b0.0_s0.00316456 ivf 128 0.8848 4611.4 entries 33785 admissible 107
+[01:18:57] deep1m b0.0_s0.00316456 ivf 256 0.9476 3024.1 entries 63984 admissible 203
+[01:18:58] deep1m b0.0_s0.00316456 ivf 512 0.9854 1860.8 entries 121585 admissible 385
+[01:19:00] deep1m b0.0_s0.00316456 ivf 1024 0.9978 1075.6 entries 233779 admissible 740
+[01:19:00] DONE deep1m b0.0_s0.00316456
+--- [31.1] exit=0 post=647
+=== [32.1] 2026-10-29 01:19:03 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.01 scan_part,ivf
+[01:19:03] deep1m b0.0_s0.01 scan_part batched 1.0 8764.1
+[01:19:04] deep1m b0.0_s0.01 scan_part per_query 1.0 8515.9
+[01:19:10] deep1m b0.0_s0.01 ivf 8 0.4714 17090.1 entries 2475 admissible 25
+[01:19:10] deep1m b0.0_s0.01 ivf 16 0.6264 12494.0 entries 4826 admissible 48
+[01:19:11] deep1m b0.0_s0.01 ivf 32 0.7634 10082.5 entries 9275 admissible 93
+[01:19:11] deep1m b0.0_s0.01 ivf 64 0.8716 6866.4 entries 17778 admissible 178
+[01:19:12] deep1m b0.0_s0.01 ivf 128 0.941 4178.5 entries 33785 admissible 338
+[01:19:13] deep1m b0.0_s0.01 ivf 256 0.9802 2695.9 entries 63984 admissible 640
+[01:19:14] deep1m b0.0_s0.01 ivf 512 0.995 1483.2 entries 121585 admissible 1215
+[01:19:17] deep1m b0.0_s0.01 ivf 1024 0.9994 808.2 entries 233779 admissible 2339
+[01:19:17] DONE deep1m b0.0_s0.01
+--- [32.1] exit=0 post=661
+=== [33.1] 2026-10-29 01:19:19 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part,ivf
+[01:19:20] deep1m b0.0_s0.03125 scan_part batched 1.0 3192.7
+[01:19:21] deep1m b0.0_s0.03125 scan_part per_query 1.0 3224.0
+[01:19:27] deep1m b0.0_s0.03125 ivf 8 0.5818 15482.9 entries 2475 admissible 77
+[01:19:27] deep1m b0.0_s0.03125 ivf 16 0.7298 11538.9 entries 4826 admissible 151
+[01:19:28] deep1m b0.0_s0.03125 ivf 32 0.8356 8153.5 entries 9275 admissible 290
+[01:19:28] deep1m b0.0_s0.03125 ivf 64 0.916 5351.9 entries 17778 admissible 557
+[01:19:29] deep1m b0.0_s0.03125 ivf 128 0.9642 3121.8 entries 33785 admissible 1058
+[01:19:30] deep1m b0.0_s0.03125 ivf 256 0.9886 2013.7 entries 63984 admissible 2003
+[01:19:32] deep1m b0.0_s0.03125 ivf 512 0.9974 1118.3 entries 121585 admissible 3801
+[01:19:35] deep1m b0.0_s0.03125 ivf 1024 0.9998 634.9 entries 233779 admissible 7309
+[01:19:35] DONE deep1m b0.0_s0.03125
+--- [33.1] exit=0 post=662
+=== [34.1] 2026-10-29 01:19:37 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.1 scan_part,ivf
+[01:19:41] deep1m b0.0_s0.1 scan_part batched 1.0 611.5
+[01:19:45] deep1m b0.0_s0.1 scan_part per_query 1.0 607.6
+[01:19:51] deep1m b0.0_s0.1 ivf 8 0.6768 12145.9 entries 2475 admissible 248
+[01:19:51] deep1m b0.0_s0.1 ivf 16 0.8032 8599.4 entries 4826 admissible 482
+[01:19:52] deep1m b0.0_s0.1 ivf 32 0.8874 5540.6 entries 9275 admissible 928
+[01:19:53] deep1m b0.0_s0.1 ivf 64 0.9452 3315.5 entries 17778 admissible 1778
+[01:19:54] deep1m b0.0_s0.1 ivf 128 0.9788 1901.2 entries 33785 admissible 3380
+[01:19:56] deep1m b0.0_s0.1 ivf 256 0.9944 1049.9 entries 63984 admissible 6400
+[01:19:59] deep1m b0.0_s0.1 ivf 512 0.9986 560.6 entries 121585 admissible 12156
+[01:20:07] deep1m b0.0_s0.1 ivf 1024 1.0 282.3 entries 233779 admissible 23374
+[01:20:07] DONE deep1m b0.0_s0.1
+--- [34.1] exit=0 post=706
+=== [35.1] 2026-10-29 01:20:09 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part,ivf
+[01:20:22] deep1m b0.0_s0.333333 scan_part batched 1.0 161.5
+[01:20:34] deep1m b0.0_s0.333333 scan_part per_query 1.0 162.0
+[01:20:41] deep1m b0.0_s0.333333 ivf 8 0.743 8598.0 entries 2475 admissible 823
+[01:20:41] deep1m b0.0_s0.333333 ivf 16 0.854 5592.1 entries 4826 admissible 1606
+[01:20:42] deep1m b0.0_s0.333333 ivf 32 0.9242 3320.3 entries 9275 admissible 3090
+[01:20:43] deep1m b0.0_s0.333333 ivf 64 0.9662 1811.9 entries 17778 admissible 5923
+[01:20:45] deep1m b0.0_s0.333333 ivf 128 0.9862 997.9 entries 33785 admissible 11260
+[01:20:49] deep1m b0.0_s0.333333 ivf 256 0.9972 538.8 entries 63984 admissible 21327
+[01:20:57] deep1m b0.0_s0.333333 ivf 512 0.9992 255.8 entries 121585 admissible 40528
+[01:20:57] DONE deep1m b0.0_s0.333333
+--- [35.1] exit=0 post=572
+=== [36.1] 2026-10-29 01:20:59 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.000316256 scan_part,ivf
+[01:21:00] deep3m b0.0_s0.000316256 scan_part batched 1.0 34213.0
+[01:21:00] deep3m b0.0_s0.000316256 scan_part per_query 1.0 35050.1
+[01:21:26] deep3m b0.0_s0.000316256 ivf 8 0.1122 7514.3 entries 4419 admissible 1
+[01:21:27] deep3m b0.0_s0.000316256 ivf 16 0.1924 5568.1 entries 8662 admissible 2
+[01:21:28] deep3m b0.0_s0.000316256 ivf 32 0.3102 4050.0 entries 16810 admissible 5
+[01:21:29] deep3m b0.0_s0.000316256 ivf 64 0.4704 2978.2 entries 32376 admissible 10
+[01:21:30] deep3m b0.0_s0.000316256 ivf 128 0.6532 2353.6 entries 62048 admissible 19
+[01:21:32] deep3m b0.0_s0.000316256 ivf 256 0.8082 1562.6 entries 117934 admissible 37
+[01:21:34] deep3m b0.0_s0.000316256 ivf 512 0.9126 1030.2 entries 223638 admissible 70
+[01:21:38] deep3m b0.0_s0.000316256 ivf 1024 0.9688 601.8 entries 427149 admissible 134
+[01:21:45] deep3m b0.0_s0.000316256 ivf 2048 0.9956 333.3 entries 824195 admissible 260
+[01:21:45] DONE deep3m b0.0_s0.000316256
+--- [36.1] exit=0 post=685
+=== [37.1] 2026-10-29 01:21:47 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.001 scan_part,ivf
+[01:21:48] deep3m b0.0_s0.001 scan_part batched 1.0 15997.5
+[01:21:48] deep3m b0.0_s0.001 scan_part per_query 1.0 15274.1
+[01:22:13] deep3m b0.0_s0.001 ivf 8 0.2328 7845.9 entries 4419 admissible 4
+[01:22:14] deep3m b0.0_s0.001 ivf 16 0.3666 5748.4 entries 8662 admissible 8
+[01:22:15] deep3m b0.0_s0.001 ivf 32 0.5166 4326.4 entries 16810 admissible 16
+[01:22:16] deep3m b0.0_s0.001 ivf 64 0.6772 3394.9 entries 32376 admissible 32
+[01:22:17] deep3m b0.0_s0.001 ivf 128 0.8086 2410.5 entries 62048 admissible 61
+[01:22:18] deep3m b0.0_s0.001 ivf 256 0.9036 1644.1 entries 117934 admissible 118
+[01:22:21] deep3m b0.0_s0.001 ivf 512 0.9584 1017.7 entries 223638 admissible 223
+[01:22:25] deep3m b0.0_s0.001 ivf 1024 0.988 598.0 entries 427149 admissible 427
+[01:22:31] deep3m b0.0_s0.001 ivf 2048 0.999 337.8 entries 824195 admissible 823
+[01:22:31] DONE deep3m b0.0_s0.001
+--- [37.1] exit=0 post=636
+=== [38.1] 2026-10-29 01:22:33 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.00316456 scan_part,ivf
+[01:22:35] deep3m b0.0_s0.00316456 scan_part batched 1.0 6348.0
+[01:22:36] deep3m b0.0_s0.00316456 scan_part per_query 1.0 6130.8
+[01:23:00] deep3m b0.0_s0.00316456 ivf 8 0.378 7678.8 entries 4419 admissible 14
+[01:23:01] deep3m b0.0_s0.00316456 ivf 16 0.5366 5922.5 entries 8662 admissible 27
+[01:23:02] deep3m b0.0_s0.00316456 ivf 32 0.6806 4724.7 entries 16810 admissible 53
+[01:23:02] deep3m b0.0_s0.00316456 ivf 64 0.8074 3536.2 entries 32376 admissible 102
+[01:23:04] deep3m b0.0_s0.00316456 ivf 128 0.8954 2484.1 entries 62048 admissible 196
+[01:23:05] deep3m b0.0_s0.00316456 ivf 256 0.9582 1525.0 entries 117934 admissible 374
+[01:23:08] deep3m b0.0_s0.00316456 ivf 512 0.984 923.3 entries 223638 admissible 710
+[01:23:12] deep3m b0.0_s0.00316456 ivf 1024 0.996 534.7 entries 427149 admissible 1354
+[01:23:19] deep3m b0.0_s0.00316456 ivf 2048 1.0 288.7 entries 824195 admissible 2610
+[01:23:19] DONE deep3m b0.0_s0.00316456
+--- [38.1] exit=0 post=675
+=== [39.1] 2026-10-29 01:23:22 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.01 scan_part,ivf
+[01:23:24] deep3m b0.0_s0.01 scan_part batched 1.0 2456.6
+[01:23:25] deep3m b0.0_s0.01 scan_part per_query 1.0 2589.1
+[01:23:49] deep3m b0.0_s0.01 ivf 8 0.4938 8088.1 entries 4419 admissible 44
+[01:23:50] deep3m b0.0_s0.01 ivf 16 0.6488 6533.8 entries 8662 admissible 87
+[01:23:50] deep3m b0.0_s0.01 ivf 32 0.7814 5241.1 entries 16810 admissible 168
+[01:23:51] deep3m b0.0_s0.01 ivf 64 0.8712 3544.7 entries 32376 admissible 324
+[01:23:52] deep3m b0.0_s0.01 ivf 128 0.9332 2291.9 entries 62048 admissible 620
+[01:23:54] deep3m b0.0_s0.01 ivf 256 0.9732 1341.7 entries 117934 admissible 1179
+[01:23:57] deep3m b0.0_s0.01 ivf 512 0.9914 762.7 entries 223638 admissible 2239
+[01:24:02] deep3m b0.0_s0.01 ivf 1024 0.9994 422.2 entries 427149 admissible 4274
+[01:24:02] DONE deep3m b0.0_s0.01
+--- [39.1] exit=0 post=651
+=== [40.1] 2026-10-29 01:24:04 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.03125 scan_part,ivf
+[01:24:09] deep3m b0.0_s0.03125 scan_part batched 1.0 599.8
+[01:24:13] deep3m b0.0_s0.03125 scan_part per_query 1.0 582.9
+[01:24:37] deep3m b0.0_s0.03125 ivf 8 0.5908 8598.8 entries 4419 admissible 139
+[01:24:38] deep3m b0.0_s0.03125 ivf 16 0.735 6467.4 entries 8662 admissible 272
+[01:24:38] deep3m b0.0_s0.03125 ivf 32 0.8444 4286.8 entries 16810 admissible 527
+[01:24:39] deep3m b0.0_s0.03125 ivf 64 0.9208 2744.0 entries 32376 admissible 1013
+[01:24:41] deep3m b0.0_s0.03125 ivf 128 0.9618 1608.5 entries 62048 admissible 1938
+[01:24:43] deep3m b0.0_s0.03125 ivf 256 0.9878 899.1 entries 117934 admissible 3687
+[01:24:47] deep3m b0.0_s0.03125 ivf 512 0.9952 497.8 entries 223638 admissible 6994
+[01:24:55] deep3m b0.0_s0.03125 ivf 1024 0.9986 272.0 entries 427149 admissible 13356
+[01:25:10] deep3m b0.0_s0.03125 ivf 2048 1.0 136.8 entries 824195 admissible 25767
+[01:25:10] DONE deep3m b0.0_s0.03125
+--- [40.1] exit=0 post=671
+=== [41.1] 2026-10-29 01:25:12 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep3m b0.0_s0.1 scan_part,ivf
+[01:25:26] deep3m b0.0_s0.1 scan_part batched 1.0 167.1
+[01:25:38] deep3m b0.0_s0.1 scan_part per_query 1.0 163.0
+[01:26:03] deep3m b0.0_s0.1 ivf 8 0.6558 6866.4 entries 4419 admissible 442
+[01:26:03] deep3m b0.0_s0.1 ivf 16 0.7914 4735.7 entries 8662 admissible 866
+[01:26:04] deep3m b0.0_s0.1 ivf 32 0.8826 2910.9 entries 16810 admissible 1683
+[01:26:05] deep3m b0.0_s0.1 ivf 64 0.9436 1685.9 entries 32376 admissible 3242
+[01:26:08] deep3m b0.0_s0.1 ivf 128 0.975 926.9 entries 62048 admissible 6206
+[01:26:12] deep3m b0.0_s0.1 ivf 256 0.9892 490.8 entries 117934 admissible 11794
+[01:26:20] deep3m b0.0_s0.1 ivf 512 0.9956 264.6 entries 223638 admissible 22374
+[01:26:34] deep3m b0.0_s0.1 ivf 1024 0.9988 141.0 entries 427149 admissible 42729
+[01:27:02] deep3m b0.0_s0.1 ivf 2048 0.9998 73.0 entries 824195 admissible 82437
+[01:27:02] DONE deep3m b0.0_s0.1
+--- [41.1] exit=0 post=639
+=== [42.1] 2026-10-29 01:27:04 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.0001 scan_part,ivf
+[01:27:06] deep10m b0.0_s0.0001 scan_part batched 1.0 36253.6
+[01:27:06] deep10m b0.0_s0.0001 scan_part per_query 1.0 37010.4
+[01:28:52] deep10m b0.0_s0.0001 ivf 8 0.0698 4467.3 entries 8071 admissible 0
+[01:28:54] deep10m b0.0_s0.0001 ivf 16 0.1184 3029.3 entries 15783 admissible 1
+[01:28:57] deep10m b0.0_s0.0001 ivf 32 0.2112 2006.7 entries 30684 admissible 3
+[01:29:00] deep10m b0.0_s0.0001 ivf 64 0.3466 1367.0 entries 59549 admissible 5
+[01:29:03] deep10m b0.0_s0.0001 ivf 128 0.525 999.5 entries 114874 admissible 11
+[01:29:08] deep10m b0.0_s0.0001 ivf 256 0.7014 754.3 entries 218951 admissible 21
+[01:29:13] deep10m b0.0_s0.0001 ivf 512 0.8396 503.3 entries 414508 admissible 41
+[01:29:21] deep10m b0.0_s0.0001 ivf 1024 0.9398 305.5 entries 784866 admissible 78
+[01:29:35] deep10m b0.0_s0.0001 ivf 2048 0.9812 173.8 entries 1498107 admissible 149
+[01:29:35] DONE deep10m b0.0_s0.0001
+--- [42.1] exit=0 post=650
+=== [43.1] 2026-10-29 01:29:38 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.000316256 scan_part,ivf
+[01:29:40] deep10m b0.0_s0.000316256 scan_part batched 1.0 15382.4
+[01:29:41] deep10m b0.0_s0.000316256 scan_part per_query 1.0 15161.7
+[01:31:26] deep10m b0.0_s0.000316256 ivf 8 0.1496 4378.3 entries 8071 admissible 2
+[01:31:28] deep10m b0.0_s0.000316256 ivf 16 0.2552 2624.2 entries 15783 admissible 4
+[01:31:31] deep10m b0.0_s0.000316256 ivf 32 0.3918 1874.2 entries 30684 admissible 9
+[01:31:34] deep10m b0.0_s0.000316256 ivf 64 0.557 1384.9 entries 59549 admissible 18
+[01:31:37] deep10m b0.0_s0.000316256 ivf 128 0.733 1065.6 entries 114874 admissible 36
+[01:31:41] deep10m b0.0_s0.000316256 ivf 256 0.8502 760.9 entries 218951 admissible 69
+[01:31:47] deep10m b0.0_s0.000316256 ivf 512 0.9314 497.4 entries 414508 admissible 131
+[01:31:55] deep10m b0.0_s0.000316256 ivf 1024 0.9766 295.7 entries 784866 admissible 248
+[01:32:09] deep10m b0.0_s0.000316256 ivf 2048 0.9934 170.8 entries 1498107 admissible 475
+[01:32:09] DONE deep10m b0.0_s0.000316256
+--- [43.1] exit=0 post=686
+=== [44.1] 2026-10-29 01:32:12 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.001 scan_part,ivf
+[01:32:15] deep10m b0.0_s0.001 scan_part batched 1.0 5950.3
+[01:32:15] deep10m b0.0_s0.001 scan_part per_query 1.0 5764.7
+[01:33:59] deep10m b0.0_s0.001 ivf 8 0.287 4221.4 entries 8071 admissible 8
+[01:34:01] deep10m b0.0_s0.001 ivf 16 0.4334 3035.1 entries 15783 admissible 16
+[01:34:04] deep10m b0.0_s0.001 ivf 32 0.5858 2085.6 entries 30684 admissible 31
+[01:34:06] deep10m b0.0_s0.001 ivf 64 0.7314 1505.4 entries 59549 admissible 60
+[01:34:09] deep10m b0.0_s0.001 ivf 128 0.8462 1102.5 entries 114874 admissible 115
+[01:34:14] deep10m b0.0_s0.001 ivf 256 0.9248 768.3 entries 218951 admissible 220
+[01:34:19] deep10m b0.0_s0.001 ivf 512 0.9668 483.4 entries 414508 admissible 415
+[01:34:28] deep10m b0.0_s0.001 ivf 1024 0.9902 286.5 entries 784866 admissible 786
+[01:34:41] deep10m b0.0_s0.001 ivf 2048 0.998 163.8 entries 1498107 admissible 1499
+[01:34:41] DONE deep10m b0.0_s0.001
+--- [44.1] exit=0 post=686
+=== [45.1] 2026-10-29 01:34:45 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.00316456 scan_part,ivf
+[01:34:51] deep10m b0.0_s0.00316456 scan_part batched 1.0 1950.8
+[01:34:52] deep10m b0.0_s0.00316456 scan_part per_query 1.0 1971.4
+[01:36:37] deep10m b0.0_s0.00316456 ivf 8 0.4058 4331.7 entries 8071 admissible 25
+[01:36:39] deep10m b0.0_s0.00316456 ivf 16 0.5586 3152.5 entries 15783 admissible 50
+[01:36:41] deep10m b0.0_s0.00316456 ivf 32 0.7006 2130.8 entries 30684 admissible 97
+[01:36:43] deep10m b0.0_s0.00316456 ivf 64 0.8198 1671.7 entries 59549 admissible 188
+[01:36:45] deep10m b0.0_s0.00316456 ivf 128 0.9018 1207.2 entries 114874 admissible 364
+[01:36:49] deep10m b0.0_s0.00316456 ivf 256 0.9536 786.2 entries 218951 admissible 694
+[01:36:55] deep10m b0.0_s0.00316456 ivf 512 0.9806 464.3 entries 414508 admissible 1312
+[01:37:03] deep10m b0.0_s0.00316456 ivf 1024 0.9942 261.9 entries 784866 admissible 2485
+[01:37:19] deep10m b0.0_s0.00316456 ivf 2048 0.999 143.0 entries 1498107 admissible 4742
+[01:37:19] DONE deep10m b0.0_s0.00316456
+--- [45.1] exit=0 post=693
+=== [46.1] 2026-10-29 01:37:22 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.01 scan_part,ivf
+[01:37:30] deep10m b0.0_s0.01 scan_part batched 1.0 572.9
+[01:37:33] deep10m b0.0_s0.01 scan_part per_query 1.0 567.1
+[01:39:20] deep10m b0.0_s0.01 ivf 8 0.53 4547.2 entries 8071 admissible 81
+[01:39:21] deep10m b0.0_s0.01 ivf 16 0.6678 3605.5 entries 15783 admissible 158
+[01:39:22] deep10m b0.0_s0.01 ivf 32 0.7964 2716.3 entries 30684 admissible 307
+[01:39:24] deep10m b0.0_s0.01 ivf 64 0.8876 1899.4 entries 59549 admissible 595
+[01:39:26] deep10m b0.0_s0.01 ivf 128 0.9436 1200.4 entries 114874 admissible 1149
+[01:39:29] deep10m b0.0_s0.01 ivf 256 0.9746 709.6 entries 218951 admissible 2190
+[01:39:35] deep10m b0.0_s0.01 ivf 512 0.9904 390.8 entries 414508 admissible 4144
+[01:39:45] deep10m b0.0_s0.01 ivf 1024 0.9972 211.4 entries 784866 admissible 7846
+[01:40:04] deep10m b0.0_s0.01 ivf 2048 1.0 112.5 entries 1498107 admissible 14980
+[01:40:04] DONE deep10m b0.0_s0.01
+--- [46.1] exit=0 post=646
+=== [47.1] 2026-10-29 01:40:07 BENCH_TAG=epyc BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 taskset -c 48-55 venv/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part,ivf
+[01:40:23] deep10m b0.0_s0.03125 scan_part batched 1.0 161.4
+[01:40:36] deep10m b0.0_s0.03125 scan_part per_query 1.0 164.1
+[01:42:19] deep10m b0.0_s0.03125 ivf 8 0.611 4874.6 entries 8071 admissible 252
+[01:42:20] deep10m b0.0_s0.03125 ivf 16 0.7454 3685.8 entries 15783 admissible 493
+[01:42:21] deep10m b0.0_s0.03125 ivf 32 0.8484 2453.0 entries 30684 admissible 957
+[01:42:23] deep10m b0.0_s0.03125 ivf 64 0.92 1505.7 entries 59549 admissible 1860
+[01:42:25] deep10m b0.0_s0.03125 ivf 128 0.9636 875.1 entries 114874 admissible 3587
+[01:42:30] deep10m b0.0_s0.03125 ivf 256 0.9854 472.3 entries 218951 admissible 6836
+[01:42:38] deep10m b0.0_s0.03125 ivf 512 0.9956 257.4 entries 414508 admissible 12953
+[01:42:53] deep10m b0.0_s0.03125 ivf 1024 0.9986 137.7 entries 784866 admissible 24526
+[01:43:21] deep10m b0.0_s0.03125 ivf 2048 0.9996 72.8 entries 1498107 admissible 46820
+[01:43:21] DONE deep10m b0.0_s0.03125
+--- [47.1] exit=0 post=651
+QUEUE_EMPTY 01:43:23

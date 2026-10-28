@@ -1,0 +1,8 @@
+== follow-up 3 on AMD EPYC 7513: m* {'deep300k': 16143, 'deep1m': 26924, 'deep3m': 41086, 'deep10m': 62352}, IVF exponent 0.3888374558896966
+   c_chk/c_dist at d=96: Xeon 0.0510, EPYC 0.1027; Xeon DEEP-1M m* 16375, EPYC 26923.67976116011
+   P1 EPYC DEEP-1M, sqrt(n)                                wrong 0/17, regret max 0.0
+   P2 Xeon DEEP-1M, sqrt(n), microbenchmark corrected      wrong 0/23, regret max 0.0
+   P3 Xeon DEEP-1M, sqrt(n), uncorrected                   wrong 2/23, regret max 0.49323967950244807
+   P4 fixed selectivity 7%                                 wrong 4/23, regret max 5.124774966550244
+   P5 Xeon fixed size                                      wrong 2/23, regret max 1.474563968907015
+   decisions: {'crossover_grows_on_both': True, 'sqrtn_transfers_across_sizes': True, 'microbenchmark_correction_transfers': True}

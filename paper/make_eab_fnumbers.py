@@ -121,6 +121,15 @@ if R27:
                 'f/rx/oth_ok': str(R27['recall_ok_other'][0]), 'f/rx/oth_n': str(R27['recall_ok_other'][1]), 'f/rx/qps_med': f2(R27['qps_ratio_all']['median']),
                 'f/rx/qps_p10': f2(R27['qps_ratio_all']['p10_p90'][0]), 'f/rx/qps_p90': f2(R27['qps_ratio_all']['p10_p90'][1]),
                 'f/rx/ver_agree': str(R27['verdicts']['agree']), 'f/rx/ver_n': str(R27['verdicts']['pairs']), 'f/rx/jobs': '132'})
+if os.path.exists('results/bench_f3_summary.json'):     # follow-up 3: second machine (paper_audit/followup3_prereg.md)
+    H3 = json.load(open('results/bench_f3_summary.json')); rl = H3['rules']
+    out.update({'f/hw/exp': f2(H3['ivf_exponent']), 'f/hw/mstar1m': f"{H3['m_star']['deep1m']:,.0f}", 'f/hw/mstar1m_xeon': f"{H3['xeon_m_star_deep1m']:,.0f}",
+                'f/hw/ratio': f3(H3['chk_over_dist']['epyc']), 'f/hw/ratio_xeon': f3(H3['chk_over_dist']['xeon']),
+                'f/hw/mstar_x': f"{H3['m_star']['deep1m'] / H3['xeon_m_star_deep1m']:.1f}", 'f/hw/n': str(H3['workloads'])})
+    for k, key in (('P1 EPYC DEEP-1M, sqrt(n)', 'own'), ('P2 Xeon DEEP-1M, sqrt(n), microbenchmark corrected', 'corr'), ('P3 Xeon DEEP-1M, sqrt(n), uncorrected', 'uncorr'),
+                   ('P4 fixed selectivity 7%', 'milvus'), ('P5 Xeon fixed size', 'fixA')):
+        out[f'f/hw/{key}/wrong'] = str(rl[k]['wrong']); out[f'f/hw/{key}/n'] = str(rl[k]['workloads'])
+        if rl[k]['regret_max'] is not None: out[f'f/hw/{key}/max'] = pct(rl[k]['regret_max'])
 DISP = {'ivf_part': 'label-partitioned IVF', 'ema': 'EMA', 'acorn_repair_all': 'repaired ACORN', 'acorn': 'ACORN', 'fdiskann_rebuild': 'rebuilt Filtered-DiskANN', 'ivf': 'IVF'}
 for k in ('f/amz/best1', 'f/amz/best100'):
     if k in out: out[k] = DISP.get(out[k], out[k])
