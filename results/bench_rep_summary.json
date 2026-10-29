@@ -1,4 +1,19 @@
 {
+ "jobs": 132,
+ "jobs_ok": 132,
+ "jobs_retried": [
+  {
+   "rerun": "BENCH_TAG=rep_main BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags gamma=1 M=32 Mb=32",
+   "exit_codes": [
+    1
+   ],
+   "retry": "BENCH_TAG=rep_main BENCH_PASS=1 REGEN=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py yfcc10m_test tags gamma=1 M=32 Mb=32",
+   "retry_exit_codes": [
+    0
+   ],
+   "reason": "the float copy of YFCC-10M's vectors had been deleted for disk space; REGEN=1 rebuilds it from the u8bin file"
+  }
+ ],
  "files": 347,
  "unmatched_files": [
   "stream_sift500k/fdiskann_delta.json",
@@ -192,28 +207,17 @@
  },
  "verdicts": {
   "pairs": 254,
-  "agree": 238,
+  "agree": 239,
   "disagree": [
    {
-    "workload": "main/deep1m/b0.9_s0.1",
+    "workload": "main/deep10m/b0.9_s0.01",
     "pair": [
-     "curator",
-     "rig"
+     "ivf",
+     "scan_part"
     ],
     "round": null,
-    "orig_ratio": 0.9476462976181204,
-    "rerun_ratio": 1.0141098569077824,
-    "agree": false
-   },
-   {
-    "workload": "main_pass2/stream_sift500k_adv",
-    "pair": [
-     "acorn",
-     "fdiskann_rebuild"
-    ],
-    "round": "0",
-    "orig_ratio": 0.8528568056244351,
-    "rerun_ratio": 1.0124926055144772,
+    "orig_ratio": 0.9776558827082094,
+    "rerun_ratio": 1.0768873422715841,
     "agree": false
    },
    {
@@ -223,8 +227,8 @@
      "scan_part"
     ],
     "round": null,
-    "orig_ratio": 1.0952825805764217,
-    "rerun_ratio": 0.9664359430635917,
+    "orig_ratio": 1.0622020872928466,
+    "rerun_ratio": 0.9345553436501798,
     "agree": false
    },
    {
@@ -267,8 +271,8 @@
      "pgvector_ivfflat"
     ],
     "round": null,
-    "orig_ratio": 1.3310043935257068,
-    "rerun_ratio": 0.9314518945274068,
+    "orig_ratio": 1.376800985731307,
+    "rerun_ratio": 0.964433511354612,
     "agree": false
    },
    {
@@ -289,8 +293,8 @@
      "pgvector_ivfflat"
     ],
     "round": null,
-    "orig_ratio": 0.9095904140835179,
-    "rerun_ratio": 1.186311806881022,
+    "orig_ratio": 0.92626268963308,
+    "rerun_ratio": 1.218951762040491,
     "agree": false
    },
    {
@@ -300,8 +304,8 @@
      "acorn_repair_all"
     ],
     "round": "0",
-    "orig_ratio": 1.0098008911931553,
-    "rerun_ratio": 0.9580798570046931,
+    "orig_ratio": 1.0103291925801785,
+    "rerun_ratio": 0.956162636280278,
     "agree": false
    },
    {
@@ -311,8 +315,8 @@
      "fdiskann_policy_P6"
     ],
     "round": "0",
-    "orig_ratio": 1.116626472278083,
-    "rerun_ratio": 0.9969805778736156,
+    "orig_ratio": 1.1205061326187433,
+    "rerun_ratio": 0.9996140867379153,
     "agree": false
    },
    {
@@ -322,8 +326,8 @@
      "fdiskann_policy_P6"
     ],
     "round": "12",
-    "orig_ratio": 1.0414285751643997,
-    "rerun_ratio": 0.9571521848397132,
+    "orig_ratio": 1.0348413002934724,
+    "rerun_ratio": 0.9502911579041523,
     "agree": false
    },
    {
@@ -333,8 +337,8 @@
      "fdiskann_policy_P6"
     ],
     "round": "6",
-    "orig_ratio": 1.0258614769135332,
-    "rerun_ratio": 0.8205767384949737,
+    "orig_ratio": 1.0243871171847647,
+    "rerun_ratio": 0.8210222367690682,
     "agree": false
    },
    {
@@ -355,8 +359,8 @@
      "fdiskann_rebuild"
     ],
     "round": "5",
-    "orig_ratio": 0.9726158074224913,
-    "rerun_ratio": 1.0276043094207528,
+    "orig_ratio": 0.9660252393070942,
+    "rerun_ratio": 1.0239495656588644,
     "agree": false
    },
    {

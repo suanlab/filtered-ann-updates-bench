@@ -10,14 +10,17 @@
 // (each batch under the write lock(s) it touches), while <readers> threads issue the 500 queries in a fixed shuffled
 // cycle until the writer is done; then every reader runs the queries once more with no writer (quiet phase).
 // Output (<dir>/out): per round, cc_r<r>.bin with one record per query execution
-//   {int32 qid, int32 phase (0 concurrent, 1 quiet), double t_start, double t_end, int32 ids[10]},
-// and del_time_r<r>.bin with (int32 id, double t) for every deleted id (time its batch's lock was released).
+//   {int32 qid, int32 phase (0 concurrent, 1 quiet), double t_request, double t_lock_granted, double t_end, int32 ids[10]},
+// del_time_r<r>.bin with (int32 id, double t) for every deleted id (time its batch's lock was released), and
+// ins_time_r<r>.bin with (int32 id, double t) for every inserted id (time its batch's lock was requested).
 // Prints one JSON line per round with nprobe, writer seconds, and counts.
 #include <faiss/IndexFlat.h>
 #include <faiss/IndexIVFFlat.h>
 #include <faiss/impl/IDSelector.h>
 #include <omp.h>
 #include <atomic>
+#include <condition_variable>
+#include <map>
 #include <chrono>
 #include <cmath>
 #include <cstdio>
@@ -43,14 +46,29 @@ static std::vector<int32_t> read_i32(const std::string& p) {
     std::vector<int32_t> v(sz / 4); if (std::fread(v.data(), 4, v.size(), f) != v.size()) std::exit(1); std::fclose(f); return v;
 }
 static double now() { return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count(); }
-struct Rec { int32_t q, phase; double t0, t1; int32_t ids[10]; };
-// fair reader-writer lock (turnstile): a waiting writer blocks new readers, so writers do not starve
+struct Rec { int32_t q, phase; double t0, ta, t1; int32_t ids[10]; };
+// Phase-fair reader-writer lock, the same policy as FairRW in bench/cc_stats.py: a reader that arrives while a writer
+// holds or waits for the lock enters only after that writer's release; a writer enters only when no reader is active
+// and every reader that was waiting at the previous write release has entered. (The first runs used a turnstile over
+// std::shared_mutex.)
 struct FairRW {
-    std::mutex turn; std::shared_mutex rw;
-    void lock_shared() { { std::lock_guard<std::mutex> t(turn); } rw.lock_shared(); }
-    void unlock_shared() { rw.unlock_shared(); }
-    void lock() { turn.lock(); rw.lock(); turn.unlock(); }
-    void unlock() { rw.unlock(); }
+    std::mutex m; std::condition_variable cv; int readers = 0, wwait = 0; bool writer = false; long gen = 0;
+    std::map<long, int> waiting;
+    void lock_shared() {
+        std::unique_lock<std::mutex> g(m); const long a = gen;
+        if (writer || wwait) {
+            ++waiting[a]; cv.wait(g, [&] { return !writer && !(wwait && gen == a); });
+            if (--waiting[a] == 0) waiting.erase(a); cv.notify_all();
+        }
+        ++readers;
+    }
+    void unlock_shared() { std::lock_guard<std::mutex> g(m); if (--readers == 0) cv.notify_all(); }
+    void lock() {
+        std::unique_lock<std::mutex> g(m); ++wwait;
+        cv.wait(g, [&] { return !writer && !readers && (waiting.empty() || waiting.begin()->first >= gen); });
+        --wwait; writer = true;
+    }
+    void unlock() { std::lock_guard<std::mutex> g(m); writer = false; ++gen; cv.notify_all(); }
 };
 
 int main(int argc, char** argv) {
@@ -82,10 +100,10 @@ int main(int argc, char** argv) {
            for (int i = 0; i < N0; ++i) bits[attr[i]][i >> 3] |= (uint8_t)(1 << (i & 7));
            for (int l = 0; l < L; ++l) sels.emplace_back(new faiss::IDSelectorBitmap(N, bits[l].data())); }
     std::printf("{\"event\":\"build\",\"build_s\":%.2f}\n", now() - tb); std::fflush(stdout);
-    auto search = [&](int q, int nprobe, faiss::idx_t* I, float* D) {
+    auto search = [&](int q, int nprobe, faiss::idx_t* I, float* D, double* ta = nullptr) {
         const int l = qlab[q];
-        if (part) { std::shared_lock<FairRW> g(locks[l]); faiss::SearchParametersIVF p; p.nprobe = std::min(nprobe, (int)ivfs[l]->nlist); ivfs[l]->search(1, &Q[(size_t)q * d], k, D, I, &p); }
-        else { std::shared_lock<FairRW> g(locks[0]); faiss::SearchParametersIVF p; p.nprobe = nprobe; p.sel = sels[l].get(); ivfs[0]->search(1, &Q[(size_t)q * d], k, D, I, &p); }
+        if (part) { std::shared_lock<FairRW> g(locks[l]); if (ta) *ta = now(); faiss::SearchParametersIVF p; p.nprobe = std::min(nprobe, (int)ivfs[l]->nlist); ivfs[l]->search(1, &Q[(size_t)q * d], k, D, I, &p); }
+        else { std::shared_lock<FairRW> g(locks[0]); if (ta) *ta = now(); faiss::SearchParametersIVF p; p.nprobe = nprobe; p.sel = sels[l].get(); ivfs[0]->search(1, &Q[(size_t)q * d], k, D, I, &p); }
     };
     // ---- round 0: choose nprobe on the quiet index
     omp_set_num_threads(1); int nprobe = 1024;
@@ -101,14 +119,14 @@ int main(int argc, char** argv) {
     std::system(("mkdir -p " + dir + "/out").c_str());
     for (int r = 1; r <= R; ++r) {
         std::vector<int32_t> del = read_i32(dir + "/del" + std::to_string(r - 1) + ".i32"), ins = read_i32(dir + "/ins" + std::to_string(r - 1) + ".i32");
-        std::vector<std::pair<int32_t, double>> dtime; dtime.reserve(del.size());
+        std::vector<std::pair<int32_t, double>> dtime, itime; dtime.reserve(del.size()); itime.reserve(ins.size());
         std::atomic<bool> done(false); std::atomic<long> next(0); std::vector<std::vector<Rec>> recs(NR);
         auto reader = [&](int t, int phase, long limit) {
             omp_set_num_threads(1); std::vector<faiss::idx_t> I(k); std::vector<float> D(k);
             for (;;) {
                 if (phase == 0 && done.load()) break;
                 long c = next.fetch_add(1); if (phase == 1 && c >= limit) break;
-                int q = cycle[c % nq]; Rec rc; rc.q = q; rc.phase = phase; rc.t0 = now(); search(q, nprobe, I.data(), D.data()); rc.t1 = now();
+                int q = cycle[c % nq]; Rec rc; rc.q = q; rc.phase = phase; rc.t0 = now(); search(q, nprobe, I.data(), D.data(), &rc.ta); rc.t1 = now();
                 for (int j = 0; j < k; ++j) rc.ids[j] = (int32_t)I[j]; recs[t].push_back(rc);
             }
         };
@@ -129,6 +147,7 @@ int main(int argc, char** argv) {
                 }
                 if (ii < ins.size()) {           // a batch of insertions
                     size_t e = std::min(ins.size(), ii + BATCH); std::vector<faiss::idx_t> b(ins.begin() + ii, ins.begin() + e);
+                    double ti = now(); for (auto x : b) itime.push_back({(int32_t)x, ti});
                     if (part) {
                         for (int l = 0; l < L; ++l) { std::vector<faiss::idx_t> bl; for (auto x : b) if (attr[x] == l) bl.push_back(x); if (bl.empty()) continue;
                             std::vector<float> xb(bl.size() * d); for (size_t i = 0; i < bl.size(); ++i) std::memcpy(&xb[i * d], &X[(size_t)bl[i] * d], d * 4);
@@ -150,6 +169,8 @@ int main(int argc, char** argv) {
         for (auto& v : recs) { std::fwrite(v.data(), sizeof(Rec), v.size(), f); nrec += v.size(); } std::fclose(f);
         p = dir + "/out/del_time_r" + std::to_string(r) + ".bin"; f = std::fopen(p.c_str(), "wb");
         for (auto& pr : dtime) { std::fwrite(&pr.first, 4, 1, f); std::fwrite(&pr.second, 8, 1, f); } std::fclose(f);
+        p = dir + "/out/ins_time_r" + std::to_string(r) + ".bin"; f = std::fopen(p.c_str(), "wb");
+        for (auto& pr : itime) { std::fwrite(&pr.first, 4, 1, f); std::fwrite(&pr.second, 8, 1, f); } std::fclose(f);
         std::printf("{\"event\":\"round\",\"round\":%d,\"nprobe\":%d,\"writer_s\":%.3f,\"concurrent_queries\":%ld,\"records\":%ld,\"t_writer_start\":%.6f}\n", r, nprobe, twall, nconc, nrec, tw0);
         std::fflush(stdout);
     }

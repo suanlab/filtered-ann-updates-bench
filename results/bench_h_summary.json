@@ -2439,7 +2439,7 @@
      0.999962638436482
     ]
    ],
-   "spearman_deg_recall": 0.603839228835698
+   "spearman_deg_recall": 0.6389430947272777
   },
   "acorn_repair": {
    "by_degree": [
@@ -2465,7 +2465,7 @@
      0.9999751948051948
     ]
    ],
-   "spearman_deg_recall": 0.23365824028760637
+   "spearman_deg_recall": 0.25035081314546476
   },
   "acorn_repair_all": {
    "by_degree": [
@@ -2484,7 +2484,7 @@
      0.9999048603351953
     ]
    ],
-   "spearman_deg_recall": 0.1773449797833266
+   "spearman_deg_recall": 0.1573550585646897
   },
   "streams": {
    "sift500k_adv": {

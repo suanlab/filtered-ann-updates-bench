@@ -11,13 +11,19 @@ set -euo pipefail; cd "$(dirname "$0")/.."
 MKL_LIB=${MKL_LIB:-$HOME/.local/lib/libmkl_rt.so}
 A=third_party/ACORN
 if [ ! -d $A ]; then git clone https://github.com/stanford-futuredata/ACORN.git $A; git -C $A checkout c259f11; git -C $A apply ../../patches/acorn_c259f11_cmake_and_add_link.patch; git -C $A apply ../../patches/acorn_c259f11_count_checks.patch; fi
-cmake -S $A -B $A/build_avx2 -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON \
+[ "${BUILD_ONLY_DRIVERS:-0}" = 1 ] || cmake -S $A -B $A/build_avx2 -DFAISS_ENABLE_GPU=OFF -DFAISS_ENABLE_PYTHON=OFF -DBUILD_TESTING=OFF -DBUILD_SHARED_LIBS=ON \
       -DCMAKE_BUILD_TYPE=Release -DFAISS_OPT_LEVEL=avx2 -DBLA_VENDOR=Intel10_64_dyn -DMKL_LIBRARIES=$MKL_LIB
-make -C $A/build_avx2 -j"$(nproc)" faiss_avx2
-for b in acorn_driver acorn_stream; do
-  g++ -O3 -march=native -fopenmp -std=c++17 -I$A src/$b.cpp -o src/${b}_avx2 -L$A/build_avx2/faiss -lfaiss_avx2 \
-      -L"$(dirname $MKL_LIB)" -lmkl_rt -Wl,-rpath,$PWD/$A/build_avx2/faiss -Wl,-rpath,"$(dirname $MKL_LIB)"
-done
+[ "${BUILD_ONLY_DRIVERS:-0}" = 1 ] || make -C $A/build_avx2 -j"$(nproc)" faiss_avx2
+link() { g++ -O3 -march=native -fopenmp -std=c++17 -I$A "src/$1.cpp" -o "src/$2" -L$A/build_avx2/faiss -lfaiss_avx2 \
+             -L"$(dirname $MKL_LIB)" -lmkl_rt -Wl,-rpath,$PWD/$A/build_avx2/faiss -Wl,-rpath,"$(dirname $MKL_LIB)"; }
+link acorn_driver acorn_driver_avx2
+link acorn_stream acorn_stream_avx2
+# Follow-up 2 and 4: the same acorn_stream.cpp under a second name (the instrumented modes MECH, FRESH, E2E, ATTR_CSR
+# are environment switches, off by default; the first campaigns ran a binary built before they were added, so the
+# follow-up runs use a separate file), and the concurrency driver.
+link acorn_stream acorn_stream_mech_avx2
+link cc_ivf cc_ivf
+[ "${BUILD_ONLY_DRIVERS:-0}" = 1 ] && exit 0
 # Counting build (cost accounting only, H2): the same source compiled with -DACORN_COUNT_CHECKS, which enables
 # per-thread counters of level-0 hops and predicate checks (patches/acorn_c259f11_count_checks.patch; without the
 # define the patch compiles to nothing, so the measured build above is unaffected).

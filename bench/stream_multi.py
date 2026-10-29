@@ -16,6 +16,7 @@ import sys, os, json, time, subprocess, tempfile
 sys.path.insert(0, 'bench')
 os.environ.setdefault('OPENBLAS_NUM_THREADS', '1')
 import numpy as np
+if os.environ.get('E2E') == '1': raise SystemExit(f'E2E=1 is not supported by {sys.argv[0]}')   # CHECK.md B05: never ignored silently
 from common import ROOT, RES, recall, recall_vec, timed_search, log, K, REPS, ci, write_fbin
 
 name, method = sys.argv[1], sys.argv[2]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']

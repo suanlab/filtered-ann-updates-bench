@@ -29,7 +29,8 @@ if B:
     e = B['h1']['ivf_exponent']; out['f/bo2/exp_best'] = f2(e['best']); out['f/bo2/exp_mean'] = f2(e['mean']); out['f/bo2/exp_worse'] = f2(e['worse'])
 H = F.get('I13_heldout')
 if H:
-    out['f/ho/workloads'] = str(H['workloads']); out['f/ho/changes'] = str(H['verdict_changes'])
+    out['f/ho/workloads'] = str(H['workloads']); out['f/ho/lat_changes'] = str(H['latency_changes'])
+    out['f/ho/infeasible'] = str(H['feasibility_losses']); out['f/ho/dec_changes'] = str(H['decision_changes'])
     rs = H['recall_shortfall']; out['f/ho/below_pct'] = pct(rs['share_below_target']); out['f/ho/short_max'] = f3(max(0.0, rs['max']))
 RS = F.get('I13_repair_seeds')
 if RS: out.update({'f/rep/n': str(RS['n']), 'f/rep/streams': str(RS['streams']), 'f/rep/lo': f'{RS["min"]:+.3f}', 'f/rep/hi': f'{RS["max"]:+.3f}'})
@@ -48,6 +49,10 @@ if I7:
     pr = I7['paired_log_ratio']
     for q in ('1', '100'):
         a = pr[f'acorn_repair_all/ema@{q}']; out[f'f/blk/rep_over_ema_lo/{q}'] = pct(math.exp(a['min']) - 1); out[f'f/blk/rep_over_ema_hi/{q}'] = pct(math.exp(a['max']) - 1)
+    # EMA's saving relative to repaired ACORN, 1 - EMA/repaired, over the blocks and Q/U in 1..100 (CHECK.md B13: the
+    # first text quoted repaired/EMA - 1, the repaired index's extra cost, as EMA's saving)
+    sv = [1 - math.exp(-pr[f'acorn_repair_all/ema@{q}'][k]) for q in ('1', '10', '100') for k in ('min', 'max')]
+    out['f/blk/ema_saves_lo'] = pct(min(sv)); out['f/blk/ema_saves_hi'] = pct(max(sv))
     out['f/blk/ema_lo'] = f2(min(r['norm']['ema']['1'] for r in new)); out['f/blk/ema_hi'] = f2(max(r['norm']['ema']['1'] for r in new))
     out['f/blk/acorn_lo'] = f2(min(r['norm']['acorn']['1'] for r in new)); out['f/blk/acorn_hi'] = f2(max(r['norm']['acorn']['1'] for r in new))
     out['f/blk/drift_max'] = pct(max(abs(r['anchor_drift']['1'] - 1) for r in new))
@@ -84,14 +89,17 @@ if I19:
         xs = [x for mm, x in lat if mm == m]
         if xs: out[f'f/e2e/p99/{m}_lo'] = f'{min(xs):.1f}'; out[f'f/e2e/p99/{m}_hi'] = f'{max(xs):.1f}'
 # I18
-C = F.get('I18_cc')
+C = F.get('I18_cc')      # follow-up 4, cc4: one phase-fair reader-writer lock for every method
 if C:
     for k, v in C.items():
+        if k.startswith('_'): continue
         nm, m = k.split('/'); key = 'adv' if nm == 'sift500k_adv' else 'sift'
         out[f'f/cc/{key}/{m}/p99'] = f'{v["conc_p99_ms"]:.1f}' if v['conc_p99_ms'] < 100 else f'{v["conc_p99_ms"]:,.0f}'
         out[f'f/cc/{key}/{m}/quiet'] = f'{v["quiet_p99_ms"]:.1f}'; out[f'f/cc/{key}/{m}/x'] = f'{v["conc_p99_ms"] / v["quiet_p99_ms"]:.1f}'
-        out[f'f/cc/{key}/{m}/writer'] = f'{v["writer_s_median"]:.1f}'
-    out['f/cc/stale_max'] = f'{max(v["stale_max"] for v in C.values()):.3f}'
+        out[f'f/cc/{key}/{m}/writer'] = f'{v["writer_s_median"]:.1f}'; out[f'f/cc/{key}/{m}/wait'] = f'{v["lock_wait_p99_ms"]:.1f}' if v['lock_wait_p99_ms'] < 100 else f'{v["lock_wait_p99_ms"]:,.0f}'
+        out[f'f/cc/{key}/{m}/qps'] = f'{v["conc_qps"]:,.0f}'
+    if '_totals' in C:
+        out['f/cc/invalid'] = str(sum(C['_totals'].values())); out['f/cc/clean'] = 'yes' if C['_no_invalid_result'] else 'no'
 SD = F.get('I18_simd')
 if SD:
     for lv, v in SD.items():
@@ -101,7 +109,9 @@ M = F.get('I18_multi')
 if M:
     if 'ema' in M and 'scan' in M:
         qe = [x for x in M['ema']['qps095'].values() if x]; qs = [x for x in M['scan']['qps095'].values() if x]
-        if qe and qs: out['f/multi/ema/slower_lo'] = f'{min(qs) / max(qe):.0f}'; out['f/multi/ema/slower_hi'] = f'{max(qs) / min(qe):.0f}'
+        # paired by round (CHECK.md B13: the first text combined extremes of different rounds)
+        pr_ = [M['scan']['qps095'][r] / v for r, v in M['ema']['qps095'].items() if v and M['scan']['qps095'].get(r)]
+        if pr_: out['f/multi/ema/slower_lo'] = f'{min(pr_):.0f}'; out['f/multi/ema/slower_hi'] = f'{max(pr_):.0f}'; out['f/multi/ema/rounds'] = str(len(pr_))
         out['f/multi/ema/maint_h'] = f"{M['ema']['maint'] / 3600:.1f}"; out['f/multi/ema/invalid'] = str(M['ema']['invalid'])
     for m, v in M.items():
         mr = list(v['maxr'].values()); out[f'f/multi/{m}/maxr_lo'] = f2(min(mr)); out[f'f/multi/{m}/maxr_hi'] = f2(max(mr))
@@ -115,12 +125,20 @@ if A:
     qs = sorted(b, key=float); first = next((q for q in qs if b[q] != 'ivf_part'), None)
     if first: out['f/amz/graph_from'] = f'{float(first):g}'
     rel = A['frontier']['amz_time']['relative_to_ivf']; out['f/amz/part'] = f"{rel['ivf_part']['1']:.2f}"; out['f/amz/best_val100'] = f"{rel[b['100']]['100']:.2f}"
+FX = F.get('F4_rebuild')  # follow-up 4, fdx: Filtered-DiskANN rebuilt at every round against the estimate
+if FX:
+    # the estimate R x mean rebuild against the executed total of the same run; across sessions the rebuild time itself
+    # differs (the earlier sessions' estimates are 5-25% higher), which the session-relative costs absorb
+    out['f/fdx/err_max'] = f"{100 * max(abs(v['estimate_same_run_err']) for v in FX.values()):.1f}"
+    er = [e for v in FX.values() for e in v['estimate_paper_err']]
+    if er: out['f/fdx/session_lo'] = f'{100 * min(er):.0f}'; out['f/fdx/session_hi'] = f'{100 * max(er):.0f}'
+    out['f/fdx/streams'] = str(len(FX))
 R27 = F.get('I27')
 if R27:
     out.update({'f/rx/files': str(R27['files']), 'f/rx/rec_ok': str(R27['recall_ok']), 'f/rx/det_ok': str(R27['recall_ok_deterministic'][0]), 'f/rx/det_n': str(R27['recall_ok_deterministic'][1]),
                 'f/rx/oth_ok': str(R27['recall_ok_other'][0]), 'f/rx/oth_n': str(R27['recall_ok_other'][1]), 'f/rx/qps_med': f2(R27['qps_ratio_all']['median']),
                 'f/rx/qps_p10': f2(R27['qps_ratio_all']['p10_p90'][0]), 'f/rx/qps_p90': f2(R27['qps_ratio_all']['p10_p90'][1]),
-                'f/rx/ver_agree': str(R27['verdicts']['agree']), 'f/rx/ver_n': str(R27['verdicts']['pairs']), 'f/rx/jobs': '132'})
+                'f/rx/ver_agree': str(R27['verdicts']['agree']), 'f/rx/ver_n': str(R27['verdicts']['pairs']), 'f/rx/jobs': str(R27['jobs'])})
 if os.path.exists('results/bench_f3_summary.json'):     # follow-up 3: second machine (paper_audit/followup3_prereg.md)
     H3 = json.load(open('results/bench_f3_summary.json')); rl = H3['rules']
     out.update({'f/hw/exp': f2(H3['ivf_exponent']), 'f/hw/mstar1m': f"{H3['m_star']['deep1m']:,.0f}", 'f/hw/mstar1m_xeon': f"{H3['xeon_m_star_deep1m']:,.0f}",
@@ -129,7 +147,8 @@ if os.path.exists('results/bench_f3_summary.json'):     # follow-up 3: second ma
     for k, key in (('P1 EPYC DEEP-1M, sqrt(n)', 'own'), ('P2 Xeon DEEP-1M, sqrt(n), microbenchmark corrected', 'corr'), ('P3 Xeon DEEP-1M, sqrt(n), uncorrected', 'uncorr'),
                    ('P4 fixed selectivity 7%', 'milvus'), ('P5 Xeon fixed size', 'fixA')):
         out[f'f/hw/{key}/wrong'] = str(rl[k]['wrong']); out[f'f/hw/{key}/n'] = str(rl[k]['workloads'])
-        if rl[k]['regret_max'] is not None: out[f'f/hw/{key}/max'] = pct(rl[k]['regret_max'])
+        if rl[k]['regret_max'] is not None: out[f'f/hw/{key}/max'] = r'$\infty$' if rl[k]['regret_max'] == 'inf' else pct(rl[k]['regret_max'])
+        out[f'f/hw/{key}/infeasible'] = str(rl[k]['infeasible_choices'])
 DISP = {'ivf_part': 'label-partitioned IVF', 'ema': 'EMA', 'acorn_repair_all': 'repaired ACORN', 'acorn': 'ACORN', 'fdiskann_rebuild': 'rebuilt Filtered-DiskANN', 'ivf': 'IVF'}
 for k in ('f/amz/best1', 'f/amz/best100'):
     if k in out: out[k] = DISP.get(out[k], out[k])

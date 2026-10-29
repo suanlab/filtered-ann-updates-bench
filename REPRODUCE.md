@@ -14,7 +14,8 @@ regenerates the paper's numbers.
 ```bash
 scripts/setup_envs.sh      # main env (requirements.txt), .venv-faiss (faiss-cpu 1.15.1), .venv-diskann (diskannpy 0.7.0)
 scripts/build_kernels.sh   # src/librig.so, src/libcarve.so (the RIG design point)
-scripts/build_acorn.sh     # ACORN c259f11 + patches/acorn_c259f11_cmake_and_add_link.patch, AVX2 build, src/acorn_*_avx2
+scripts/build_acorn.sh     # ACORN c259f11 + patches, AVX2 build: src/acorn_driver_avx2, acorn_stream_avx2, acorn_stream_mech_avx2,
+                           # src/cc_ivf, src/acorn_driver_count (BUILD_ONLY_DRIVERS=1 relinks the drivers only)
 scripts/build_curator.sh   # Curator (hatsu3/curator-v2 c185042), its Faiss fork with Python bindings, in .venv-curator
 ```
 
@@ -28,8 +29,10 @@ passes `-DFAISS_OPT_LEVEL=avx2`.
 ```bash
 scripts/download_data.sh          # SIFT1M and DEEP (ann-benchmarks), YFCC-10M (Big-ANN'23 filtered track), BIGANN prefix
 python3 bench/fetch_arxiv.py      # arXiv 4096-d sample (Hugging Face SPCL/arxiv-for-fanns-large, pinned revision 79a4cff)
+python3 -m venv .venv-embed && .venv-embed/bin/pip install -r bench/requirements-embed.txt   # CPU torch: see the file
 .venv-embed/bin/python bench/prep_amazon.py download && python3 bench/prep_amazon.py select &&
   .venv-embed/bin/python bench/prep_amazon.py embed   # Amazon Reviews 2023, 10 categories (follow-up 2, tag amz)
+# all-MiniLM-L6-v2 at revision 1110a243 (pinned in prep_amazon.py); the run's X.f16.npy has sha256 c9aa62fc...8d385
 sha256sum -c data_sha256.txt      # every downloaded or sampled input file
 ```
 
@@ -123,7 +126,10 @@ results.
 | `r7a`–`r7d` | arXiv blocks: IVF anchor, the frontier methods in random order, IVF anchor (pass 2) (I07) | VII, Table IV | stream runners |
 | `r8` | repair mechanism: `MECH=1` edge lengths, retention, exact filtered descent and reachability, `FRESH=1` rebuild (I17) | VI | `stream_acorn.py` with `src/acorn_stream_mech_avx2` |
 | `e2e` | end-to-end timing, `E2E=1` (I19) | VII, Table IV | stream runners |
-| `cc` | concurrent maintenance and search (I18) | Table IV | `stream_concurrent.py`, `src/cc_ivf` |
+| `cc` | concurrent maintenance and search (I18); superseded by `cc4` (`results/bench_superseded/cc_unsynchronized/`) | - | `stream_concurrent.py`, `src/cc_ivf` |
+| `cc4` | concurrency under one phase-fair reader-writer lock for every method (follow-up 4, B1) | Table IV | `stream_concurrent.py`, `src/cc_ivf` |
+| `e2e4` | EMA end to end (`E2E=1`, one call per query) with an IVF anchor (follow-up 4, B2) | VII, Table IV | `stream_ema.py`, `stream_faiss.py ivf` |
+| `fdx` | Filtered-DiskANN rebuilt at every round (`REBUILD_ALL=1`) against the estimate (follow-up 4, B3) | VI, Table IV | `stream_diskann.py` |
 | `yst` | multi-label AND stream on YFCC tags (`stream_prep.py yfcc_stream`) (I18) | Table IV | `stream_multi.py` |
 | `amz` | Amazon Reviews 2023 temporal stream (`prep_amazon.py`, `stream_prep.py amz_time`) (I18) | Table IV | stream runners |
 | `simdn`, `simd2` | Faiss SIMD level generic / AVX2 (`FAISS_SIMD`) (I18) | Table IV | `run_faiss.py`, `microbench_cost.py` |
@@ -164,10 +170,9 @@ without this step is kept in `results/bench_superseded/milvus_unsettled_segments
 `paper_audit/followup2_prereg.md` fixed the designs and decision rules before the first run (commit 0ee6515);
 `paper_audit/followup2_results.md` records each outcome as its campaign finished, including the failed and rerun jobs.
 Notes:
-- `stream_acorn.py` with `MECH=1`, `FRESH=1`, `E2E=1`, or `ATTR_CSR` needs `src/acorn_stream_mech_avx2`, built from
-  the same `src/acorn_stream.cpp` as `scripts/build_acorn.sh` builds `acorn_stream_avx2`; `src/cc_ivf` likewise
-  (`g++ -O3 -march=native -fopenmp -std=c++17 -I third_party/ACORN src/cc_ivf.cpp -L third_party/ACORN/build_avx2/faiss
-  -lfaiss_avx2 ...`).
+- `stream_acorn.py` with `MECH=1`, `FRESH=1`, `E2E=1`, or `ATTR_CSR` needs `src/acorn_stream_mech_avx2`, and
+  `stream_concurrent.py` needs `src/cc_ivf`; `scripts/build_acorn.sh` builds both (the first from the same
+  `src/acorn_stream.cpp` as `acorn_stream_avx2`, with the instrumented modes off unless their environment switch is set).
 - The multi-label EMA run calls EMA once per query and asks for fewer than k results when EMA cannot fill k. Its
   batched API raises an error otherwise; the first run failed on that and was rerun.
 - `bench/predicate_cost.py` writes a fixed path. Its re-execution overwrote `results/bench_h5/predicate_cost.json`, so
@@ -185,3 +190,76 @@ pinned to cores 48-55, with the probe on core 47 and a gate at 85% of the quiet 
 python3 bench/analyze_followup3.py > results/bench_f3_analysis.txt   # results/bench_f3_summary.json
 python3 paper/make_eab_ffigures.py                                   # paper/figures/eab_reach.pdf (follow-up 2, tag r8)
 ```
+
+## 9. Follow-up 4: corrections from the pre-submission audit (pre-registered; Table IV)
+
+`CHECK.md` is an independent audit of commit 141ecce. Its evidence is in `paper_audit/check_20261029_000421/`.
+`paper_audit/followup4_prereg.md` (commit eff1255) fixed the corrections and three new runs before the runs. The
+analysis corrections make the code do what the earlier pre-registrations said:
+- held-out verdicts with recall feasibility;
+- tie-aware Spearman;
+- the paper's operating-point function in the re-execution comparison, with job accounting;
+- infeasible choices and completeness in follow-up 3;
+- completeness gates in every cost frontier.
+
+Tests: `tests/test_cc_stats.py`, `tests/test_analysis_gates.py`.
+```bash
+QUEUE_FILE=bench/queue_f4.txt DONE_FILE=results/bench/f4.done LOG_FILE=results/bench/f4.log \
+  PROBE_LOG=results/bench/probe_f4.log bench/queue2.sh          # cc4, e2e4, fdx
+python3 bench/analyze_followup2.py > results/bench_f2_analysis.txt  # now also reads cc4, e2e4, fdx
+python3 bench/analyze_followup3.py > results/bench_f3_analysis.txt
+python3 paper/make_eab_fnumbers.py
+```
+
+**Concurrency contract (cc4).**
+- Every method uses one phase-fair reader-writer lock per structure: `bench/cc_stats.py:FairRW` for the Python
+  readers and `src/cc_ivf.cpp:FairRW` for IVF. The structure is one index, or one label's index for the
+  label-partitioned IVF.
+- A write batch of 1000 points is atomic for searches.
+- A reader that arrives while a writer holds or waits for the lock enters after that writer's release.
+- Latency runs from the request to the end, so it includes the lock wait; the wait is also reported on its own.
+- `bench/cc_stats.py:Tracker` checks every returned id against the whole stream's history:
+  - deleted before the request (stale);
+  - deleted while the query ran;
+  - inserted after the query ended (unborn);
+  - out of range;
+  - inadmissible.
+
+**Timing stages of the end-to-end mode (`E2E=1`).** Predicate state that the updates keep current is timed as
+maintenance (`t_pred`).
+
+| method (runner) | calls | predicate state | inside the query timer |
+|---|---|---|---|
+| IVF, retrained IVF (`stream_faiss.py`) | one per query | per-label bitmap, flipped by the updates | building the search parameters and selector, the call |
+| label-partitioned IVF, per-label scan (`stream_faiss.py`) | one per query | the partition | looking up the label's index, the call |
+| post-filtering (`stream_main.py`) | one per label | per-label mask, kept current | the call, filtering by the mask, truncation to k |
+| ACORN, repaired ACORN (`acorn_stream.cpp`) | one per query | per-label map, kept current | the call |
+| Filtered-DiskANN (`stream_diskann.py`) | one per query | label string | the call, mapping ids, dropping padding, checking the label |
+| EMA (`stream_ema.py`, e2e4) | one per query | the DNF predicate, built per query | building the predicate, the call, converting and validating the result |
+
+- ACORN's and IVF's results are live and admissible by construction (the map or bitmap excludes deleted and
+  inadmissible ids), so they are not re-checked.
+- The other runners refuse `E2E=1`: Curator's stream, the delta and multi-label streams, and the concurrency runner.
+- The first e2e campaign's EMA files were timed as one batched call. They are kept in
+  `results/bench_superseded/e2e_ema_batched/`.
+
+**Memory columns.** `bytes` is computed differently by each runner, so the values are not the same physical quantity:
+- Faiss and ACORN: vectors + ids (+ centroids, + graph lists);
+- Filtered-DiskANN: index files;
+- Curator: process RSS growth during the build;
+- RIG: its own `nbytes()`.
+
+The end-to-end runs also record peak RSS (`peak_rss_mb`).
+
+**Curator on YFCC.** Curator's label ids are 16-bit, so `run_curator.py` indexes the tags that occur in the query set,
+remapped to dense ids. This is a workload-informed build. Every query behaves as with all tags indexed.
+
+**Queue lineage.**
+- A done file records one line per job: content key, exit code, start, end, line number. Only exit code 0 is a
+  success, and 99 marks a contended run that was re-queued.
+- `bench/reexec_compare.py` checks the re-execution sample against `results/bench/h.done`. One job was retried
+  with a changed line, `REGEN=1` (listed in the script).
+- `bench/queue_h.txt` is the executed queue, including lines appended during the campaign. `make_queue.py hplan`
+  generates only its first part.
+- `bench/predicate_cost.py` and `bench/microbench_cost.py` ignore `BENCH_TAG` and write fixed paths. The
+  re-execution copy of the first is kept under `results/bench_rep_main/` (section 7); the second was not re-executed.

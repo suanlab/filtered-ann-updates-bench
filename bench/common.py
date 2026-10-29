@@ -85,6 +85,26 @@ def read_u8bin(path, n=None):
 # runs record per-query latency percentiles where queries are single calls, and peak RSS.
 E2E = os.environ.get('E2E') == '1'
 
+def avg_ranks(v):
+    """ranks 0..n-1 with tied values given their average rank (scipy.stats.rankdata(method='average') - 1)."""
+    v = np.asarray(v, float)
+    if not np.all(np.isfinite(v)): raise ValueError('ranks of non-finite values')
+    o = np.argsort(v, kind='stable'); sv = v[o]; out = np.empty(len(v))
+    starts = np.r_[0, np.flatnonzero(np.diff(sv)) + 1]; ends = np.r_[starts[1:], len(v)]
+    for a, b in zip(starts, ends): out[o[a:b]] = (a + b - 1) / 2
+    return out
+
+def spearman(x, y, perms=20000, seed=2027):
+    """Spearman rho (Pearson correlation of average ranks, so ties are handled) and a two-sided permutation p-value.
+    Returns (None, None) if either input is constant. The analysis environments have numpy only."""
+    a, b = avg_ranks(x), avg_ranks(y)
+    if len(a) != len(b): raise ValueError('inputs of different lengths')
+    if np.ptp(a) == 0 or np.ptp(b) == 0: return None, None
+    a = a - a.mean(); b = b - b.mean(); den = np.linalg.norm(a) * np.linalg.norm(b); r = float(a @ b / den)
+    if perms <= 0: return r, None
+    rng = np.random.default_rng(seed); null = np.array([a @ rng.permutation(b) / den for _ in range(perms)])
+    return r, float((np.sum(np.abs(null) >= abs(r) - 1e-12) + 1) / (perms + 1))
+
 def latency_pct(per_query_s):
     """p50/p95/p99 per-query latency in milliseconds."""
     a = np.asarray(per_query_s, float) * 1e3

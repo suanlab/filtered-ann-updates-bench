@@ -1,23 +1,33 @@
 #!/usr/bin/env python3
-"""Concurrent maintenance and search (follow-up 2, I18c; paper_audit/followup2_prereg.md).
+"""Concurrent maintenance and search (follow-up 2, I18c; rerun under one contract in follow-up 4,
+paper_audit/followup4_prereg.md).
   taskset -c <cores> <python> bench/stream_concurrent.py <name> <ivf|ivf_part|postfilter|ema>
 Every round's deletions and insertions are applied by one writer in alternating batches of BATCH points while READERS
 threads issue the stream's 500 queries in a fixed shuffled cycle until the writer is done; then each query runs once
 more with no writer (quiet phase). The search parameter is fixed at round 0 on the quiet index: the smallest grid value
 with recall >= 0.95.
-  ivf, ivf_part  src/cc_ivf (C++; Faiss 1.7 of the ACORN fork): one reader-writer lock, or one per label
-  postfilter     hnswlib (M=32, efC=200) with its own concurrency (add_items and mark_deleted during knn_query; no slot
-                 reuse), k' = ef, result filtered by label
-  ema            EMA (hashannlib) with no lock, as its library exposes no concurrency control; tested for crashes and for
-                 dead or inadmissible results
-Per round: writer seconds; concurrent query count and throughput; latency p50/p95/p99 (concurrent and quiet); the share
-of returned ids deleted before the query started (stale) or while it ran; recall against the ground truth at round start
-and at round end (concurrent), and at round end (quiet). Python readers (postfilter, ema) rely on the bindings releasing
-the GIL during search (checked: 4 threads take the time of 1)."""
+Visibility contract, the same for every method: each writer batch holds an exclusive lock on the structure it changes;
+searches hold it shared (a fair reader-writer lock: a waiting writer blocks new readers). A batch is therefore visible
+to a search either completely or not at all, and no search overlaps a mutation, which neither hnswlib nor EMA permits.
+  ivf, ivf_part  src/cc_ivf (C++; Faiss 1.7 of the ACORN fork): one lock, or one per label
+  postfilter     hnswlib (M=32, efC=200), one lock; k' = ef, result filtered by label; no slot reuse
+  ema            EMA (hashannlib), one lock; its attribute indexes are regenerated after the writer (as in stream_ema.py)
+LOCK=none reproduces the first, unsynchronized runs of postfilter and ema (outside both libraries' contracts; kept only
+for provenance, results/bench_superseded/cc_unsynchronized).
+Per query execution the record holds the request time, the time the shared lock was granted, and the end time; latency
+is request to end (lock wait included), and the lock wait is reported separately.
+Per round: writer seconds; concurrent query count, duration, and throughput; latency p50/p95/p99 (concurrent and quiet)
+and lock-wait p50/p99; the share of returned ids whose deletion (in this or any earlier round) completed before the
+query was requested (stale) or while it ran; ids that were not yet inserted when the query ended (unborn), out of range,
+or inadmissible; recall against the ground truth at round start and at round end (concurrent), and at round end
+(quiet). Python readers (postfilter, ema) rely on the bindings releasing the GIL during search (checked: 4 threads take
+the time of 1)."""
 import sys, os, json, time, threading, subprocess, tempfile
 sys.path.insert(0, 'bench')
 import numpy as np
+if os.environ.get('E2E') == '1': raise SystemExit(f'E2E=1 is not supported by {sys.argv[0]}')   # CHECK.md B05: never ignored silently
 from common import ROOT, RES, log, K, write_fbin, recall_vec
+from cc_stats import Tracker, FairRW, NoLock
 
 name, method = sys.argv[1], sys.argv[2]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
 R = min(R, int(os.environ.get('MAX_ROUND', R)))        # smoke tests only
@@ -25,32 +35,14 @@ READERS, WT, BATCH = int(os.environ.get('READERS', 8)), int(os.environ.get('WRIT
 X = np.load(f'{D}/Xall.npy', mmap_mode='r'); Q = np.ascontiguousarray(np.load(f'{D}/Q.npy'), np.float32)
 attr = np.load(f'{D}/attr.npy').astype(np.int64); qlab = np.load(f'{D}/qlab.npy').astype(np.int64); gt = np.load(f'{D}/gt.npy'); sch = np.load(f'{D}/sched.npz')
 nq = len(Q); n = len(X)
-REC = np.dtype([('q', '<i4'), ('phase', '<i4'), ('t0', '<f8'), ('t1', '<f8'), ('ids', '<i4', (K,))])
+REC = np.dtype([('q', '<i4'), ('phase', '<i4'), ('t0', '<f8'), ('ta', '<f8'), ('t1', '<f8'), ('ids', '<i4', (K,))])
 DT = np.dtype([('id', '<i4'), ('t', '<f8')])
 
-def stats(recs, dtime, r, writer_s):
-    """recs: REC array of one round; dtime: DT array (deleted id, time its deletion became visible)."""
-    dt = np.full(n, np.inf); dt[dtime['id']] = dtime['t']
-    out = {'round': r, 'writer_s': writer_s}
-    for ph, lab in ((0, 'concurrent'), (1, 'quiet')):
-        x = recs[recs['phase'] == ph]
-        if not len(x): out[lab] = {'queries': 0}; continue
-        lat = (x['t1'] - x['t0']) * 1e3; ids = x['ids']; valid = ids >= 0
-        tdel = np.where(valid, dt[np.where(valid, ids, 0)], np.inf)
-        stale = (tdel < x['t0'][:, None]) & valid; during = (tdel >= x['t0'][:, None]) & (tdel < x['t1'][:, None]) & valid
-        inadm = valid & (attr[np.where(valid, ids, 0)] != qlab[x['q']][:, None])
-        o = {'queries': int(len(x)), 'p50_ms': float(np.percentile(lat, 50)), 'p95_ms': float(np.percentile(lat, 95)), 'p99_ms': float(np.percentile(lat, 99)),
-             'stale_share': float(stale.sum() / max(1, valid.sum())), 'deleted_during_share': float(during.sum() / max(1, valid.sum())),
-             'inadmissible_share': float(inadm.sum() / max(1, valid.sum())),
-             'recall_end': float(recall_vec(ids, gt[r][x['q']]).mean())}
-        if ph == 0:
-            rs_, re_ = recall_vec(ids, gt[r - 1][x['q']]), recall_vec(ids, gt[r][x['q']])
-            o['recall_start'] = float(rs_.mean()); o['recall_best'] = float(np.maximum(rs_, re_).mean())   # mid-round, neither endpoint is exact
-            o['qps'] = float(len(x) / writer_s) if writer_s > 0 else None
-        out[lab] = o
-    return out
+LOCK = os.environ.get('LOCK', 'rw')
+tracker = Tracker(n, N0, attr, qlab, gt, LOCK)
 
-res = {'method': method, 'readers': READERS, 'writer_threads': WT, 'batch': BATCH, 'rounds': []}
+res = {'method': method, 'readers': READERS, 'writer_threads': WT, 'batch': BATCH, 'lock': LOCK, 'rounds': []}
+if LOCK not in ('rw', 'none') or (LOCK == 'none' and method in ('ivf', 'ivf_part')): raise SystemExit(f'LOCK={LOCK} is not supported for {method}')
 if method in ('ivf', 'ivf_part'):
     tmp = tempfile.mkdtemp(dir=ROOT); write_fbin(f'{tmp}/X.fbin', X); write_fbin(f'{tmp}/Q.fbin', Q)
     attr.astype(np.int32).tofile(f'{tmp}/attr.i32'); qlab.astype(np.int32).tofile(f'{tmp}/qlab.i32'); np.ascontiguousarray(gt[0], np.int32).tofile(f'{tmp}/gt0.i32')
@@ -62,8 +54,9 @@ if method in ('ivf', 'ivf_part'):
         if ev['event'] == 'build': res['build_s'] = ev['build_s']
         elif ev['event'] == 'calibrate': res['param'] = f"nprobe={ev['nprobe']}"
         elif ev['event'] == 'round':
-            r = ev['round']; recs = np.fromfile(f'{tmp}/out/cc_r{r}.bin', REC); dtime = np.fromfile(f'{tmp}/out/del_time_r{r}.bin', DT)
-            res['rounds'].append(stats(recs, dtime, r, ev['writer_s'])); log(name, method, 'round', r, res['rounds'][-1]['concurrent'])
+            r = ev['round']; recs = np.fromfile(f'{tmp}/out/cc_r{r}.bin', REC)
+            tracker.record_updates(np.fromfile(f'{tmp}/out/del_time_r{r}.bin', DT), np.fromfile(f'{tmp}/out/ins_time_r{r}.bin', DT))
+            res['rounds'].append(tracker.stats(recs, r, ev['writer_s'])); log(name, method, 'round', r, res['rounds'][-1]['concurrent'])
     subprocess.run(['rm', '-rf', tmp])
 else:
     if method == 'postfilter':
@@ -100,11 +93,15 @@ else:
         def apply_delete(b): h.delete_items(np.asarray(b, np.uint64), num_threads=WT)
         def apply_insert(b): h.add_items(np.ascontiguousarray(X[b], np.float32), rec(b), np.asarray(b, np.uint64), num_threads=WT, levels=np.zeros(len(b), np.int32), replace_deleted=False)
         def round_end(): configure()      # attribute indexes regenerated as in stream_ema.py, after the writer, before the quiet phase
+    rw = FairRW() if LOCK == 'rw' else NoLock()
     def run_queries(qs, prm):
         out = np.zeros(len(qs), REC)
         for j, q in enumerate(qs):
-            t0 = time.perf_counter(); ids = do_search(q, prm); t1 = time.perf_counter()
-            out[j]['q'] = q; out[j]['t0'] = t0; out[j]['t1'] = t1; row = np.full(K, -1, np.int32); row[:len(ids)] = ids[:K]; out[j]['ids'] = row
+            t0 = time.perf_counter(); rw.acquire_read(); ta = time.perf_counter()
+            try: ids = do_search(q, prm)
+            finally: rw.release_read()
+            t1 = time.perf_counter()
+            out[j]['q'] = q; out[j]['t0'] = t0; out[j]['ta'] = ta; out[j]['t1'] = t1; row = np.full(K, -1, np.int32); row[:len(ids)] = ids[:K]; out[j]['ids'] = row
         return out
     prm = grid[-1]
     for g in grid:
@@ -112,7 +109,7 @@ else:
         if recall_vec(o['ids'], gt[0]).mean() >= 0.95: prm = g; break
     set_param(prm); res['param'] = str(prm); cycle = np.random.default_rng(7).permutation(nq)
     for r in range(1, R + 1):
-        de, ins = sch[f'del{r-1}'].astype(np.int64), sch[f'ins{r-1}'].astype(np.int64); dtl = []; done = threading.Event(); counter = [0]; lock = threading.Lock(); recs = []
+        de, ins = sch[f'del{r-1}'].astype(np.int64), sch[f'ins{r-1}'].astype(np.int64); dtl = []; itl = []; done = threading.Event(); counter = [0]; lock = threading.Lock(); recs = []
         def reader():
             mine = []
             while not done.is_set():
@@ -122,8 +119,16 @@ else:
         def writer():
             di = ii = 0
             while di < len(de) or ii < len(ins):
-                if di < len(de): b = de[di:di + BATCH]; apply_delete(b); t = time.perf_counter(); dtl.extend((int(x), t) for x in b); di += BATCH
-                if ii < len(ins): apply_insert(ins[ii:ii + BATCH]); ii += BATCH
+                if di < len(de):
+                    b = de[di:di + BATCH]; rw.acquire_write()
+                    try: apply_delete(b)
+                    finally: rw.release_write()
+                    t = time.perf_counter(); dtl.extend((int(x), t) for x in b); di += BATCH
+                if ii < len(ins):
+                    b = ins[ii:ii + BATCH]; t = time.perf_counter(); rw.acquire_write()
+                    try: apply_insert(b)
+                    finally: rw.release_write()
+                    itl.extend((int(x), t) for x in b); ii += BATCH
         th = [threading.Thread(target=reader) for _ in range(READERS)]; tw = time.perf_counter()
         for t_ in th: t_.start()
         writer(); ws = time.perf_counter() - tw; done.set()
@@ -137,7 +142,7 @@ else:
         for t_ in th: t_.join()
         allr = np.concatenate([np.concatenate(recs) if recs else np.zeros(0, REC)] + outs)
         allr['phase'][len(allr) - nq:] = 1
-        dtime = np.array(dtl, DT) if dtl else np.zeros(0, DT)
-        res['rounds'].append(stats(allr, dtime, r, ws)); log(name, method, 'round', r, res['rounds'][-1]['concurrent'])
+        tracker.record_updates(np.array(dtl, DT) if dtl else np.zeros(0, DT), np.array(itl, DT) if itl else np.zeros(0, DT))
+        res['rounds'].append(tracker.stats(allr, r, ws)); log(name, method, 'round', r, res['rounds'][-1]['concurrent'])
 os.makedirs(f'{RES}/stream_{name}', exist_ok=True)
 json.dump(res, open(f'{RES}/stream_{name}/cc_{method}.json', 'w'), indent=1, default=float); log('DONE', name, 'cc', method)

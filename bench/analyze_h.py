@@ -7,7 +7,7 @@ import sys, os, json, glob, math
 sys.path.insert(0, 'bench')
 import numpy as np
 from analyze import load_static, summarize_static, frontier, qps_at, summarize_streams, merge_stream_passes, passes
-from common import ROOT
+from common import ROOT, spearman
 
 OUT = {}
 def say(*a): print(*a, flush=True)
@@ -214,7 +214,7 @@ def h3():
         for lo, hi in zip(bins[:-1], bins[1:]):
             m = (deg >= lo) & (deg < hi)
             if m.any(): tab.append((lo, hi, int(m.sum()), float(rec[m].mean()), float(lcc[m].mean())))
-        res[meth] = {'by_degree': tab, 'spearman_deg_recall': float(np.corrcoef(np.argsort(np.argsort(deg)), np.argsort(np.argsort(rec)))[0, 1])}
+        res[meth] = {'by_degree': tab, 'spearman_deg_recall': spearman(deg, rec, perms=0)[0]}
         say(f'{meth}: label-rounds={len(R_)}; recall by mean effective degree: ' + '; '.join(f'[{lo},{hi}) n={c} rec={r_:.3f} lcc={l_:.2f}' for lo, hi, c, r_, l_ in tab))
     S = summarize_streams('h3')
     for nm, ms in summarize_streams('h3b').items():

@@ -368,21 +368,31 @@ def seeds():
 # ------------------------------------------------------------------------------------------------ idea 1: feasible cost frontier
 def run_costs(d, R, t, include_build=False):
     """One stream run: total maintenance (rebuilds and delta preparation included) and per-query time at recall t for
-    rounds 1..R, interpolated linearly between measured rounds; None if t is missed at any measured round."""
-    rows = [r for r in d['rounds'] if 'sweep' in r]; pts = {}
+    rounds 1..R, interpolated linearly between measured rounds; None if t is missed at any measured round.
+    Completeness (CHECK.md B06): the run must hold every round 0..R, and its measured rounds must include round 0 and
+    round R, so the interpolation never extrapolates; otherwise this raises. The one exception is the snapshot-rebuild
+    Filtered-DiskANN run, which rebuilds only at the measured rounds: its fresh-every-round maintenance is estimated as
+    the mean rebuild time x R (maintenance_source 'estimated') unless the run rebuilt at every round ('measured')."""
+    rounds = [r['round'] for r in d['rounds']]; rows = [r for r in d['rounds'] if 'sweep' in r]; pts = {}
+    sparse = d['method'] == 'fdiskann_rebuild' and d.get('maintenance_source', 'estimated') == 'estimated'
+    if not sparse and rounds != list(range(R + 1)): raise ValueError(f"{d['method']}: rounds {rounds[:3]}..{rounds[-3:]} are not 0..{R}")
+    if not rows or rows[0]['round'] != 0 or rows[-1]['round'] != R:
+        raise ValueError(f"{d['method']}: measured rounds {[r['round'] for r in rows]} do not span 0..{R}")
     for r in rows:
         fr = frontier([(x['recall'], x['qps']['mean']) for x in r['sweep']]); q = qps_at(fr, t)
         if q is None: return None
         pts[r['round']] = 1 / q
     A = sorted(pts); tq = [float(np.interp(k, A, [pts[a] for a in A])) for k in range(1, R + 1)]
-    last = d['rounds'][-1]; maint = last.get('cum_maint_s')
+    last = d['rounds'][-1]; maint = last.get('cum_maint_s'); source = 'measured'
     if maint is None: maint = float(sum((r.get('rebuild_s') or 0) + (r.get('t_delta') or 0) for r in d['rounds'][1:]))
-    if d['method'] == 'fdiskann_rebuild': maint = float(np.mean([r['rebuild_s'] for r in d['rounds'] if r.get('rebuild_s')])) * R
+    if d['method'] == 'fdiskann_rebuild':
+        if sparse: maint = float(np.mean([r['rebuild_s'] for r in d['rounds'] if r.get('rebuild_s')])) * R; source = 'estimated'
+        else: maint = float(sum(r['rebuild_s'] for r in d['rounds'] if r['round'] >= 1))
     if include_build:      # the initial build (for the rebuild-every-round design, its round-0 build)
         b0 = d.get('build_s')
         if b0 is None: b0 = next((r['rebuild_s'] for r in d['rounds'] if r.get('rebuild_s')), 0.0)
         maint += float(b0)
-    return {'maint': float(maint), 't_query': tq}
+    return {'maint': float(maint), 't_query': tq, 'maintenance_source': source, 'measured_rounds': A}
 
 def cost_frontier(t=0.95, qpus=(0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30, 100), include_build=False):
     """Total cost (maintenance after the initial build, plus Q x per-query time at recall t interpolated between measured

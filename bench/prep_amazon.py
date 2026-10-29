@@ -16,6 +16,8 @@ CATS = ['All_Beauty', 'Appliances', 'Digital_Music', 'Gift_Cards', 'Handmade_Pro
 URL = 'https://huggingface.co/datasets/McAuley-Lab/Amazon-Reviews-2023/resolve/main/raw/review_categories/{}.jsonl'
 D = 'data/amazon'; T0, T1 = 1451606400000, 1672531200000        # 2016-01-01, 2023-01-01 (ms, UTC)
 N_KEEP = 700_000
+MODEL_REV = '1110a243fdf4706b3f48f1d95db1a4f5529b4d41'   # sentence-transformers/all-MiniLM-L6-v2
+# sha256 of the run's data/amazon/X.f16.npy: c9aa62fcf6bc9534322575e84d051dd107ded5761c416ae6d3ca895f2ce8d385
 step = sys.argv[1]
 if step == 'download':
     os.makedirs(f'{D}/raw', exist_ok=True)
@@ -54,7 +56,8 @@ elif step == 'embed':
         f = fh[CATS[S['cat'][i]]]; f.seek(int(S['off'][i])); o = json.loads(f.readline())
         texts[i] = (o.get('title') or '').strip() + '. ' + (o.get('text') or '').strip()
         ids.append(hashlib.sha1(f"{o.get('user_id')}|{o.get('parent_asin')}|{o.get('timestamp')}".encode()).hexdigest())
-    m = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2', device='cpu'); m.max_seq_length = 256
+    # the model revision of the run (the only snapshot in its cache); environment: bench/requirements-embed.txt
+    m = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2', device='cpu', revision=MODEL_REV); m.max_seq_length = 256
     X = np.zeros((n, 384), np.float16); B = 20_000
     for s in range(0, n, B):
         X[s:s + B] = m.encode(texts[s:s + B], batch_size=256, normalize_embeddings=True, show_progress_bar=False).astype(np.float16)

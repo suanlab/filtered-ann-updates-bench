@@ -5,6 +5,8 @@ __pycache__/
 .pytest_cache/
 src/*.so
 src/acorn_*_avx2
+src/acorn_driver_count
+src/cc_ivf
 paper/*.aux
 paper/*.log
 paper/*.out

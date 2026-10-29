@@ -9,11 +9,15 @@ plan follows their construction: the nearest initial row to each of 4 sqrt(N0) k
 inserted rows are level 0 (a deleted entry point is replaced by a live one inside EMA). The predicate is the label,
 as a one-clause DNF. Build, deletion, and insertion use 16 threads (all counted as maintenance after the build,
 including regenerating the attribute indexes before each measurement); search is one call for all 500 queries with
-num_threads=1, ef swept, REPS reps."""
+num_threads=1, ef swept, REPS reps.
+E2E=1 (follow-up 4; the first E2E campaign ran this runner without such a mode, CHECK.md B05): one call per query, and
+the query's timer covers building its DNF predicate, the binding call, converting the result, and validating it
+(dropping dead or inadmissible ids, which are also counted and must be zero); per-query latency percentiles and peak
+RSS are recorded."""
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss, hashannlib
-from common import ROOT, RES, recall, timed_search, log, K
+from common import ROOT, RES, recall, timed_search, log, K, E2E, latency_pct, peak_rss_mb
 
 name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
 X = np.load(f'{D}/Xall.npy', mmap_mode='r'); Q = np.ascontiguousarray(np.load(f'{D}/Q.npy'), np.float32)
@@ -62,12 +66,22 @@ for r in range(MAXR + 1):
             def run():
                 t = time.perf_counter(); lab, _ = idx.hybrid_knn_query_dnf(Q, preds, k=K, num_threads=1); tot = time.perf_counter() - t
                 return np.asarray(lab).astype(np.int64), tot
-            o, q = timed_search(run, nq)
-            assert alive[o[o >= 0]].all() and all((attr[o[i][o[i] >= 0]] == qlab[i]).all() for i in range(nq)), 'EMA returned a dead or inadmissible id'
+            dropped = [0]
+            def run_e2e():
+                o = np.full((nq, K), -1, np.int64); per = np.zeros(nq); bad = 0
+                for i in range(nq):
+                    t = time.perf_counter(); lab, _ = idx.hybrid_knn_query_dnf(Q[i:i + 1], [[[[], [int(qlab[i])]]]], k=K, num_threads=1)
+                    ids = np.asarray(lab[0]).astype(np.int64); ids = ids[(ids >= 0) & (ids < n)]; ok = alive[ids] & (attr[ids] == qlab[i])
+                    bad += int((~ok).sum()); ids = ids[ok]; o[i, :len(ids)] = ids; per[i] = time.perf_counter() - t
+                dropped[0] = max(dropped[0], bad); return o, float(per.sum()), per
+            res_ = timed_search(run_e2e if E2E else run, nq); o, q = res_[0], res_[1]
+            assert dropped[0] == 0 and alive[o[o >= 0]].all() and all((attr[o[i][o[i] >= 0]] == qlab[i]).all() for i in range(nq)), 'EMA returned a dead or inadmissible id'
             sweep.append({'param': f'ef={ef}', 'recall': recall(o, gt[r]), 'qps': q})
+            if E2E: sweep[-1]['latency'] = latency_pct(res_[2])
             if sweep[-1]['recall'] > 0.999: break
         row['sweep'] = sweep
         log(name, 'ema round', r, 'cum', round(cum, 1), [(s['param'], round(s['recall'], 4), round(s['qps']['mean'], 1)) for s in sweep])
     out['rounds'].append(row)
 os.makedirs(f'{RES}/stream_{name}', exist_ok=True)
+if E2E: out['e2e'] = True; out['peak_rss_mb'] = peak_rss_mb()
 json.dump(out, open(f'{RES}/stream_{name}/ema.json', 'w'), indent=1, default=float); log('DONE', name, 'ema')

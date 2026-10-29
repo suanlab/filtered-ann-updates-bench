@@ -1,0 +1,8 @@
+# .venv-embed: the Amazon embedding step of bench/prep_amazon.py (CPU only), as installed for the run
+numpy==2.2.6
+torch==2.5.1+cpu    # pip install torch==2.5.1 --index-url https://download.pytorch.org/whl/cpu
+transformers==4.57.6
+tokenizers==0.22.2
+huggingface_hub==0.36.2
+sentence-transformers==3.3.1
+# model: sentence-transformers/all-MiniLM-L6-v2 at revision 1110a243fdf4706b3f48f1d95db1a4f5529b4d41 (pinned in the script)

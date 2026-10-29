@@ -2,23 +2,18 @@
 """Analyses of follow-up 2 (paper_audit/followup2_prereg.md), written before the runs finished; decision rules as
 pre-registered. Missing campaigns are an error unless F2_PARTIAL=1 (drafting only).
   python3 bench/analyze_followup2.py > results/bench_f2_analysis.txt      -> results/bench_f2_summary.json"""
-import sys, os, json, glob, math, subprocess
+import sys, os, collections, json, glob, math, subprocess
 sys.path.insert(0, 'bench')
 import numpy as np
 from analyze import summarize_static, frontier, qps_at
 from analyze_h import h1, crossing, L_of, NS
 from analyze_review import load_roots, crossovers, run_costs, executed_policies
-from common import stream_stats
+from common import stream_stats, spearman
 
 PARTIAL = os.environ.get('F2_PARTIAL') == '1'
 OUT = {}; QPUS = (0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30, 100); GRAPH = ('acorn', 'acorn_repair_all', 'ema', 'fdiskann_rebuild')
 def say(*a): print(*a, flush=True)
 T975 = {1: 12.706, 2: 4.303, 3: 3.182, 4: 2.776, 5: 2.571, 6: 2.447, 7: 2.365, 8: 2.306, 9: 2.262, 10: 2.228}     # Student t, 0.975 quantile
-def spearman(x, y, perms=20000, seed=2027):
-    """Spearman rho and a two-sided permutation p-value (the analysis environments have numpy only)."""
-    rk = lambda v: np.argsort(np.argsort(np.asarray(v, float))).astype(float)
-    a, b = rk(x), rk(y); r = float(np.corrcoef(a, b)[0, 1]); rng = np.random.default_rng(seed)
-    null = np.array([np.corrcoef(a, rng.permutation(b))[0, 1] for _ in range(perms)]); return r, float((np.sum(np.abs(null) >= abs(r)) + 1) / (perms + 1))
 def need(ok, what):
     if ok: return True
     if PARTIAL: say(f'PARTIAL: {what} missing, skipped'); return False
@@ -180,8 +175,13 @@ def i13_best_of_two():
     say(f'== I13 best-of-two: {res}'); return res
 
 def i13_heldout(seed=2027, t=0.95):
-    """operating point chosen on one half of the queries (per-query recall and time), evaluated on the other half"""
-    rng = np.random.default_rng(seed); res = {'workloads': 0, 'verdict_changes': 0, 'recall_shortfall': []}; examples = []
+    """operating point chosen on one half of the queries (per-query recall and time), evaluated on the other half.
+    A verdict at the target is three-state: the chosen point misses the target on the held-out half (infeasible), or
+    it reaches it and is faster or slower than the scan. The first version compared times only (CHECK.md B03); both
+    counts are reported: latency_changes (time ordering only), feasibility_losses, and decision_changes (the index's
+    recall-feasible win on all queries differs from its recall-feasible win on the held-out half)."""
+    rng = np.random.default_rng(seed); res = {'workloads': 0, 'latency_changes': 0, 'feasibility_losses': 0, 'decision_changes': 0, 'recall_shortfall': [],
+                                              'comparisons': [], 'methods': collections.Counter()}
     for root in ('results/bench', 'results/bench_h1'):
         for d in sorted(glob.glob(f'{root}/*/*')):
             if '/stream_' in d: continue
@@ -196,18 +196,28 @@ def i13_heldout(seed=2027, t=0.95):
                 return min(ok, key=lambda x: x[0])[1] if ok else None
             sA = pick(recs['scan_part'], A); sF = pick(recs['scan_part'], np.arange(nq))
             if sA is None or sF is None: continue
-            for m, rs in recs.items():
+            if not np.mean(np.asarray(sA['rq'])[B]) >= t: raise SystemExit(f'{d}: the scan misses the target on the held-out half')
+            for m, rs in sorted(recs.items()):
                 if m == 'scan_part': continue
                 full = pick(rs, np.arange(nq)); tuned = pick(rs, A)
                 if full is None or tuned is None: continue
                 rB = float(np.mean(np.asarray(tuned['rq'])[B])); tB = float(np.sum(np.asarray(tuned['tq'])[B])); tsB = float(np.sum(np.asarray(sA['tq'])[B]))
                 v_full = float(np.sum(full['tq'])) < float(np.sum(sF['tq']))     # as reported: both tuned and evaluated on all queries
-                v_half = tB < tsB                                                # both tuned on half A, evaluated on half B
-                res['workloads'] += 1; res['recall_shortfall'].append(t - rB)
-                if bool(v_full) != bool(v_half): res['verdict_changes'] += 1; examples.append((d, m, rB))
+                faster = tB < tsB; feasible = rB >= t                           # both tuned on half A, evaluated on half B
+                state = 'infeasible' if not feasible else ('feasible_faster' if faster else 'feasible_slower')
+                res['workloads'] += 1; res['recall_shortfall'].append(t - rB); res['methods'][m] += 1
+                res['latency_changes'] += bool(v_full) != bool(faster); res['feasibility_losses'] += not feasible
+                res['decision_changes'] += bool(v_full) != (state == 'feasible_faster')
+                res['comparisons'].append({'workload': d, 'method': m, 'param_full': str(full.get('param')), 'param_half': str(tuned.get('param')),
+                                           'recall_half_B': rB, 'full_wins': bool(v_full), 'half_state': state})
     sf = np.array(res['recall_shortfall']); res['recall_shortfall'] = {'median': float(np.median(sf)) if len(sf) else None, 'share_below_target': float(np.mean(sf > 0)) if len(sf) else None,
                                                                          'max': float(sf.max()) if len(sf) else None}
-    res['changed_examples'] = examples[:20]; say(f'== I13 held-out tuning: {res}'); return res
+    res['methods'] = dict(res['methods']); res['split'] = {'seed': seed, 'rule': 'numpy default_rng(seed).permutation(nq) per workload in sorted order; A = first half'}
+    say(f"== I13 held-out tuning: {res['workloads']} comparisons, latency changes {res['latency_changes']}, below target {res['feasibility_losses']}, "
+        f"recall-feasible decision changes {res['decision_changes']}")
+    for c in res['comparisons']:
+        if c['half_state'] == 'infeasible': say(f"   below target on the held-out half: {c}")
+    return res
 
 def i13_e5_replicate():
     if not need(os.path.isdir('results/bench_r2c'), 'I13 E5 replicate (results/bench_r2c)'): return None
@@ -272,10 +282,19 @@ def i17():
     return res
 
 # ------------------------------------------------------------------------------------------------ frontiers (I19, I18a)
-def frontier_for(streams, roots, t=0.95):
+E2E_METHODS = {nm: {'ivf', 'ivf_part', 'acorn', 'acorn_repair_all', 'ema', 'fdiskann_rebuild', 'postfilter', 'scan_part'} for nm in ('sift500k', 'sift500k_adv')}
+E2E_METHODS['arxiv_time'] = E2E_METHODS['sift500k'] | {'ivf_rt5'}; E2E_METHODS['deep5m'] = {'ivf', 'ivf_part', 'acorn', 'fdiskann_rebuild'}   # followup2_prereg.md, I19
+AMZ_METHODS = {'amz_time': E2E_METHODS['arxiv_time']}                                                                                    # the arXiv set (I18a)
+
+def frontier_for(streams, roots, t=0.95, expected=None):
+    """Cost frontier relative to IVF of the same root. expected: {stream: set of methods}; every root must hold exactly
+    these runs (CHECK.md B06), and run_costs() rejects runs with missing rounds."""
     res = {}
     for nm in streams:
         if not need(all(os.path.exists(f'{r}/stream_{nm}/ivf.json') for r in roots), f'frontier {nm} in {roots}'): continue
+        for root in roots:
+            got = {json.load(open(f))['method'] for f in glob.glob(f'{root}/stream_{nm}/*.json') if not os.path.basename(f).startswith('cc_')}
+            if expected is not None and got != expected[nm]: raise SystemExit(f'{root}/stream_{nm}: methods {sorted(got)} differ from the expected {sorted(expected[nm])}')
         st = stream_stats(nm); R, U = st['R'], st['updates_per_round']; rel = {}; fails = {}; runs_n = {}; lat = {}
         for root in roots:
             base = run_costs(runfile(root, nm, 'ivf'), R, t)
@@ -294,16 +313,46 @@ def frontier_for(streams, roots, t=0.95):
         say(f'== frontier {nm} ({roots}): best {best}; infeasible {fails}')
     return res
 
+E2E4_STREAMS = ('sift500k', 'sift500k_adv', 'arxiv_time')
 def i19():
-    e2e = frontier_for(('sift500k', 'sift500k_adv', 'arxiv_time', 'deep5m'), ['results/bench_e2e'])
+    """End-to-end frontier. EMA's end-to-end cost relative to IVF comes from the e2e4 session (follow-up 4, B2: the e2e
+    campaign timed EMA as one batched call, its runner having no E2E mode); the other methods' from e2e."""
+    exp = {nm: v - {'ema'} for nm, v in E2E_METHODS.items()}
+    e2e = frontier_for(('sift500k', 'sift500k_adv', 'arxiv_time', 'deep5m'), ['results/bench_e2e'], expected=exp)
+    ema = frontier_for(E2E4_STREAMS, ['results/bench_e2e4'], expected={nm: {'ivf', 'ema'} for nm in E2E4_STREAMS})
+    for nm, F in ema.items():
+        if nm not in e2e: continue
+        G = e2e[nm]; G['source'] = {'ema': 'results/bench_e2e4', 'others': 'results/bench_e2e'}
+        G['runs']['ema'] = F['runs'].get('ema', 0)
+        if 'ema' in F['relative_to_ivf']: G['relative_to_ivf']['ema'] = F['relative_to_ivf']['ema']
+        if F['infeasible'].get('ema'): G['infeasible']['ema'] = F['infeasible']['ema']
+        if 'ema' in F['latency_rss']: G['latency_rss']['ema'] = F['latency_rss']['ema']
+        T = G['relative_to_ivf']; G['best'] = {str(q): min(T, key=lambda m: T[m][str(q)]) for q in QPUS}
+        say(f"== frontier {nm} with EMA end to end: best {G['best']}")
     kern = json.load(open('results/bench_r_summary.json'))['FRONTIER']['0.95']; changed = {}
     for nm, F in e2e.items():
         if nm in kern: changed[nm] = {q: [kern[nm]['best'].get(q), F['best'].get(q)] for q in F['best'] if kern[nm]['best'].get(q) != F['best'].get(q)}
     say(f'== I19 winners that change from kernel-only to end-to-end: {changed}'); return {'frontier': e2e, 'changed_vs_kernel': changed}
 
+def f4_rebuild():
+    """Follow-up 4, B3: Filtered-DiskANN rebuilt at every round (tag fdx) against the estimate mean rebuild x R."""
+    res = {}
+    for nm, others in (('sift500k', ('results/bench', 'results/bench_pass2')), ('sift500k_adv', ('results/bench', 'results/bench_pass2')),
+                       ('arxiv_time', ('results/bench_r3', 'results/bench_r3_pass2'))):
+        d = runfile('results/bench_fdx', nm, 'fdiskann_rebuild')
+        if not need(d is not None, f'F4 fdx {nm}'): continue
+        R = stream_stats(nm)['R']; rr = [r['round'] for r in d['rounds']]
+        if d.get('maintenance_source') != 'measured' or rr != list(range(R + 1)): raise SystemExit(f'fdx {nm}: rounds {rr} incomplete')
+        executed = float(sum(r['rebuild_s'] for r in d['rounds'] if r['round'] >= 1))
+        same = float(np.mean([r['rebuild_s'] for r in d['rounds'] if 'sweep' in r])) * R
+        paper = [float(np.mean([r['rebuild_s'] for r in o['rounds'] if r.get('rebuild_s')])) * R for o in (runfile(x, nm, 'fdiskann_rebuild') for x in others) if o]
+        res[nm] = {'R': R, 'executed_s': executed, 'estimate_same_run_s': same, 'estimate_same_run_err': same / executed - 1,
+                   'estimate_paper_s': paper, 'estimate_paper_err': [x / executed - 1 for x in paper]}
+    say(f'== F4 executed rebuilds vs the estimate: {res}'); return res
+
 # ------------------------------------------------------------------------------------------------ I18
 def i18_amz():
-    F = frontier_for(('amz_time',), ['results/bench_amz'])
+    F = frontier_for(('amz_time',), ['results/bench_amz'], expected=AMZ_METHODS)
     if not F: return None
     ax = json.load(open('results/bench_r_summary.json'))['FRONTIER']['0.95']['arxiv_time']['best']
     part_up_to = lambda best: max([float(q) for q, m in best.items() if m == 'ivf_part'] or [0])
@@ -324,17 +373,26 @@ def i18_multi(t=0.95):
     say(f'== I18b multi-label stream: { {m: (v["maxr"], v["qps095"]) for m, v in res.items()} }'); return res
 
 def i18_cc():
-    res = {}
+    """Follow-up 4, B1 (tag cc4): every method under one phase-fair reader-writer lock; the visibility checks cover the
+    whole stream. (The first runs, tag cc, are superseded: results/bench_superseded/cc_unsynchronized.)"""
+    res = {}; bad = collections.Counter()
     for nm in ('sift500k', 'sift500k_adv'):
         for m in ('ivf', 'ivf_part', 'postfilter', 'ema'):
-            f = f'results/bench_cc/stream_{nm}/cc_{m}.json'
-            if not need(os.path.exists(f), f'I18c {nm} {m}'): continue
-            d = json.load(open(f)); C = [r['concurrent'] for r in d['rounds']]; Qt = [r['quiet'] for r in d['rounds']]
+            f = f'results/bench_cc4/stream_{nm}/cc_{m}.json'
+            if not need(os.path.exists(f), f'F4 cc4 {nm} {m}'): continue
+            d = json.load(open(f)); R = stream_stats(nm)['R']
+            if d.get('lock') != 'rw' or [r['round'] for r in d['rounds']] != list(range(1, R + 1)): raise SystemExit(f'{f}: lock {d.get("lock")} or rounds incomplete')
+            C = [r['concurrent'] for r in d['rounds']]; Qt = [r['quiet'] for r in d['rounds']]
             med = lambda xs, k: float(np.median([x[k] for x in xs if x.get(k) is not None]))
+            for k in ('stale_ids', 'unborn_ids', 'out_of_range_ids'): bad[k] += sum(x[k] for x in C + Qt)
+            bad['inadmissible_ids'] += int(round(sum(x['inadmissible_share'] * x['returned_ids'] for x in C + Qt)))
             res[f'{nm}/{m}'] = {'param': d.get('param'), 'writer_s_median': float(np.median([r['writer_s'] for r in d['rounds']])), 'conc_p50_ms': med(C, 'p50_ms'), 'conc_p99_ms': med(C, 'p99_ms'),
-                                'quiet_p99_ms': med(Qt, 'p99_ms'), 'conc_qps': med(C, 'qps'), 'stale_max': max(x['stale_share'] for x in C), 'inadmissible_max': max(x['inadmissible_share'] for x in C),
+                                'quiet_p99_ms': med(Qt, 'p99_ms'), 'p99_ratio_median': float(np.median([c['p99_ms'] / q['p99_ms'] for c, q in zip(C, Qt)])),
+                                'lock_wait_p99_ms': med(C, 'lock_wait_p99_ms'), 'conc_qps': med(C, 'qps'), 'conc_queries_median': med(C, 'queries'),
+                                'stale_ids': sum(x['stale_ids'] for x in C + Qt), 'unborn_ids': sum(x['unborn_ids'] for x in C + Qt),
                                 'recall_best_median': med(C, 'recall_best'), 'quiet_recall_median': med(Qt, 'recall_end'), 'rounds': len(d['rounds'])}
-    say(f'== I18c concurrency: {res}'); return res
+    res['_totals'] = dict(bad); res['_no_invalid_result'] = bool(res and not any(bad.values()))
+    say(f'== F4 concurrency (cc4): {res}'); return res
 
 def i18_simd():
     """sqrt(n) rule calibrated at the default level (AVX-512), corrected by the microbenchmark ratio of each level"""
@@ -368,6 +426,6 @@ def i27():
 if __name__ == '__main__':
     for key, fn in (('I07', i07), ('I13_seeds', i13_seeds), ('I13_policy', i13_policy_unseen), ('I13_timing', i13_timing_t), ('I13_best_of_two', i13_best_of_two),
                     ('I13_heldout', i13_heldout), ('I13_e5', i13_e5_replicate), ('I13_repair_seeds', i13_repair_seeds), ('I17', i17), ('I19', i19),
-                    ('I18_amz', i18_amz), ('I18_multi', i18_multi), ('I18_cc', i18_cc), ('I18_simd', i18_simd), ('I27', i27)):
+                    ('I18_amz', i18_amz), ('I18_multi', i18_multi), ('I18_cc', i18_cc), ('I18_simd', i18_simd), ('I27', i27), ('F4_rebuild', f4_rebuild)):
         OUT[key] = fn()
     json.dump(OUT, open('results/bench_f2_summary.json' if not PARTIAL else 'results/bench_f2_summary_partial.json', 'w'), indent=1, default=float)

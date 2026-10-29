@@ -10,6 +10,7 @@ and compares the best P with P* = sqrt(2B / (Q c s u)) (economic order quantity)
 import sys, os, json, time, shutil
 sys.path.insert(0, 'bench')
 import numpy as np, diskannpy as dp
+if os.environ.get('E2E') == '1': raise SystemExit(f'E2E=1 is not supported by {sys.argv[0]}')   # CHECK.md B05: never ignored silently
 from common import ROOT, RES, recall, timed_search, log, K
 
 name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']

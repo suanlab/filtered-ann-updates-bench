@@ -1,0 +1,21 @@
+# follow-up 4 (paper_audit/followup4_prereg.md)
+# B1 concurrency under one visibility contract
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_concurrent.py sift500k ivf
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_concurrent.py sift500k ivf_part
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_concurrent.py sift500k postfilter
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_concurrent.py sift500k ema
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_concurrent.py sift500k_adv ivf
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_concurrent.py sift500k_adv ivf_part
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/stream_concurrent.py sift500k_adv postfilter
+BENCH_TAG=cc4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_concurrent.py sift500k_adv ema
+# B2 EMA end to end, with a same-session IVF anchor
+BENCH_TAG=e2e4 BENCH_PASS=1 E2E=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k ivf
+BENCH_TAG=e2e4 BENCH_PASS=1 E2E=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k
+BENCH_TAG=e2e4 BENCH_PASS=1 E2E=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=e2e4 BENCH_PASS=1 E2E=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv
+BENCH_TAG=e2e4 BENCH_PASS=1 E2E=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=e2e4 BENCH_PASS=1 E2E=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+# B3 Filtered-DiskANN rebuilt at every round
+BENCH_TAG=fdx BENCH_PASS=1 REBUILD_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py sift500k
+BENCH_TAG=fdx BENCH_PASS=1 REBUILD_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py sift500k_adv
+BENCH_TAG=fdx BENCH_PASS=1 REBUILD_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time

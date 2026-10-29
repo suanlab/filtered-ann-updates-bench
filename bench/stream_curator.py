@@ -7,6 +7,7 @@ return it). Maintenance is timed every round (the update calls are single-thread
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
+if os.environ.get('E2E') == '1': raise SystemExit(f'E2E=1 is not supported by {sys.argv[0]}')   # CHECK.md B05: never ignored silently
 from common import ROOT, RES, recall, timed_search, log, K
 
 name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']

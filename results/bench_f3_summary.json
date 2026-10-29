@@ -23,31 +23,41 @@
   "P1 EPYC DEEP-1M, sqrt(n)": {
    "workloads": 17,
    "wrong": 0,
+   "infeasible_choices": 0,
    "regret_max": 0.0,
+   "regret_max_finite": 0.0,
    "regret_mean": 0.0
   },
   "P2 Xeon DEEP-1M, sqrt(n), microbenchmark corrected": {
    "workloads": 23,
    "wrong": 0,
+   "infeasible_choices": 0,
    "regret_max": 0.0,
+   "regret_max_finite": 0.0,
    "regret_mean": 0.0
   },
   "P3 Xeon DEEP-1M, sqrt(n), uncorrected": {
    "workloads": 23,
    "wrong": 2,
+   "infeasible_choices": 0,
    "regret_max": 0.49323967950244807,
+   "regret_max_finite": 0.49323967950244807,
    "regret_mean": 0.03937225200809198
   },
   "P4 fixed selectivity 7%": {
    "workloads": 23,
    "wrong": 4,
+   "infeasible_choices": 0,
    "regret_max": 5.124774966550244,
+   "regret_max_finite": 5.124774966550244,
    "regret_mean": 0.3617807399847275
   },
   "P5 Xeon fixed size": {
    "workloads": 23,
    "wrong": 2,
+   "infeasible_choices": 0,
    "regret_max": 1.474563968907015,
+   "regret_max_finite": 1.474563968907015,
    "regret_mean": 0.08203852546046445
   }
  },
