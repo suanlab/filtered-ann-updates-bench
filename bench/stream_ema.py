@@ -17,9 +17,9 @@ RSS are recorded."""
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss, hashannlib
-from common import ROOT, RES, recall, timed_search, log, K, E2E, latency_pct, peak_rss_mb
+from common import ROOT, RES, recall, timed_search, log, K, E2E, latency_pct, peak_rss_mb, measure_rounds, rss_now
 
-name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
+name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']; meta['measure_rounds'] = measure_rounds(meta)
 X = np.load(f'{D}/Xall.npy', mmap_mode='r'); Q = np.ascontiguousarray(np.load(f'{D}/Q.npy'), np.float32)
 attr = np.load(f'{D}/attr.npy').astype(np.int64); qlab = np.load(f'{D}/qlab.npy').astype(np.int64)
 gt = np.load(f'{D}/gt.npy'); sch = np.load(f'{D}/sched.npz'); n, d = X.shape; nq = len(Q); L = int(attr.max()) + 1
@@ -60,7 +60,7 @@ for r in range(MAXR + 1):
         cum += row['t_delete'] + row['t_insert'] + row['t_configure']
     row['cum_maint_s'] = cum
     if r in meta['measure_rounds']:
-        sweep = []; row['resident'] = int(alive.sum())
+        sweep = []; row['resident'] = int(alive.sum()); row.update(rss_now())
         for ef in (16, 32, 64, 128, 256, 512, 1024, 2048):
             idx.set_ef(ef)
             def run():
@@ -78,7 +78,7 @@ for r in range(MAXR + 1):
             assert dropped[0] == 0 and alive[o[o >= 0]].all() and all((attr[o[i][o[i] >= 0]] == qlab[i]).all() for i in range(nq)), 'EMA returned a dead or inadmissible id'
             sweep.append({'param': f'ef={ef}', 'recall': recall(o, gt[r]), 'qps': q})
             if E2E: sweep[-1]['latency'] = latency_pct(res_[2])
-            if sweep[-1]['recall'] > 0.999: break
+            if sweep[-1]['recall'] > 0.999 and os.environ.get('MEASURE_ALL') != '1': break      # MEASURE_ALL: the full grid at every round
         row['sweep'] = sweep
         log(name, 'ema round', r, 'cum', round(cum, 1), [(s['param'], round(s['recall'], 4), round(s['qps']['mean'], 1)) for s in sweep])
     out['rounds'].append(row)

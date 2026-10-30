@@ -66,6 +66,15 @@ static std::vector<int32_t> read_i32(const std::string& p) {
     std::vector<int32_t> v(sz / 4); if (std::fread(v.data(), 4, v.size(), f) != v.size()) std::exit(1);
     std::fclose(f); return v;
 }
+// current resident memory (MB): anonymous (heap: data copy and index) and total, from /proc/self/status
+static void rss_mb(double& anon, double& total) {
+    FILE* f = std::fopen("/proc/self/status", "r"); char line[256]; if (!f) return;
+    while (std::fgets(line, sizeof line, f)) {
+        if (!std::strncmp(line, "RssAnon:", 8)) anon = std::atof(line + 8) / 1024.0;
+        else if (!std::strncmp(line, "VmRSS:", 6)) total = std::atof(line + 6) / 1024.0;
+    }
+    std::fclose(f);
+}
 static double now() { return std::chrono::duration<double>(std::chrono::steady_clock::now().time_since_epoch()).count(); }
 
 // ---------------------------------------------------------------- MECH=1 instrumentation (untimed)
@@ -330,6 +339,7 @@ int main(int argc, char** argv) {
             std::printf("{\"event\":\"round\",\"round\":%d,\"ntotal\":%zu,\"t_delete\":%.3f,\"t_insert\":%.3f,\"cum_maint_s\":%.3f}\n", r, nt, t_del, t_ins, cum);
             std::fflush(stdout); continue;
         }
+        double rss_anon = 0, vm_rss = 0; rss_mb(rss_anon, vm_rss);     // before the per-query filter maps of the sweep are allocated
         std::vector<char> fmap(e2e ? 0 : (size_t)nq * nt);
         omp_set_num_threads(bth);
         if (!e2e) {
@@ -340,8 +350,8 @@ int main(int argc, char** argv) {
         long live = 0; for (size_t x = 0; x < nt; ++x) live += alive[x];
         size_t gbytes = index.acorn.neighbors.size() * sizeof(index.acorn.neighbors[0]) + index.acorn.offsets.size() * sizeof(size_t)
                         + index.acorn.levels.size() * sizeof(int);   // as acorn_driver.cpp
-        std::printf("{\"event\":\"round\",\"round\":%d,\"ntotal\":%zu,\"live\":%ld,\"t_delete\":%.3f,\"t_insert\":%.3f,\"cum_maint_s\":%.3f,\"graph_bytes\":%zu,\"graph_bytes_has_levels\":1",
-                    r, nt, live, t_del, t_ins, cum, gbytes);
+        std::printf("{\"event\":\"round\",\"round\":%d,\"ntotal\":%zu,\"live\":%ld,\"t_delete\":%.3f,\"t_insert\":%.3f,\"cum_maint_s\":%.3f,\"graph_bytes\":%zu,\"graph_bytes_has_levels\":1,\"rss_anon_mb\":%.1f,\"vm_rss_mb\":%.1f",
+                    r, nt, live, t_del, t_ins, cum, gbytes, rss_anon, vm_rss);
         omp_set_num_threads(sth);
         for (int ef : efs) {
             index.acorn.efSearch = ef;

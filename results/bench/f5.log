@@ -1,0 +1,3159 @@
+=== [2 9d4f160adba91aa4.1] 2026-10-30 01:49:44 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+[01:49:57] sift500k_adv ivf round 0 cum 0.0 [('nprobe=8', 0.5266, 10764.4), ('nprobe=16', 0.6706, 8313.3), ('nprobe=32', 0.8, 5791.0), ('nprobe=64', 0.8988, 3359.7), ('nprobe=128', 0.9632, 2212.8), ('nprobe=256', 0.989, 1338.4), ('nprobe=512', 0.998, 785.9), ('nprobe=1024', 0.9996, 432.8)]
+[01:50:08] sift500k_adv ivf round 1 cum 0.09 [('nprobe=8', 0.5204, 10724.5), ('nprobe=16', 0.6656, 8343.3), ('nprobe=32', 0.797, 5501.5), ('nprobe=64', 0.8974, 3692.8), ('nprobe=128', 0.9608, 2222.2), ('nprobe=256', 0.987, 1423.2), ('nprobe=512', 0.9982, 816.7), ('nprobe=1024', 0.9998, 431.0)]
+[01:50:19] sift500k_adv ivf round 2 cum 0.18 [('nprobe=8', 0.5086, 10699.8), ('nprobe=16', 0.6498, 8303.7), ('nprobe=32', 0.7856, 5802.2), ('nprobe=64', 0.8904, 3469.0), ('nprobe=128', 0.9546, 2341.7), ('nprobe=256', 0.9846, 1381.4), ('nprobe=512', 0.9966, 813.0), ('nprobe=1024', 0.9996, 435.5)]
+[01:50:30] sift500k_adv ivf round 3 cum 0.24 [('nprobe=8', 0.5046, 10853.8), ('nprobe=16', 0.6494, 8343.2), ('nprobe=32', 0.78, 5882.5), ('nprobe=64', 0.8822, 3490.0), ('nprobe=128', 0.9504, 2320.1), ('nprobe=256', 0.9816, 1407.7), ('nprobe=512', 0.9958, 801.0), ('nprobe=1024', 0.9996, 432.8)]
+[01:50:41] sift500k_adv ivf round 4 cum 0.33 [('nprobe=8', 0.497, 10831.2), ('nprobe=16', 0.6368, 8452.1), ('nprobe=32', 0.7646, 5981.6), ('nprobe=64', 0.8718, 3725.7), ('nprobe=128', 0.9446, 2335.2), ('nprobe=256', 0.98, 1406.8), ('nprobe=512', 0.9946, 793.2), ('nprobe=1024', 0.9996, 423.9)]
+[01:50:52] sift500k_adv ivf round 5 cum 0.4 [('nprobe=8', 0.4906, 10581.6), ('nprobe=16', 0.6294, 8349.1), ('nprobe=32', 0.7578, 5908.6), ('nprobe=64', 0.8664, 3765.5), ('nprobe=128', 0.9442, 2355.1), ('nprobe=256', 0.98, 1406.4), ('nprobe=512', 0.9942, 789.9), ('nprobe=1024', 1.0, 419.2)]
+[01:51:03] sift500k_adv ivf round 6 cum 0.46 [('nprobe=8', 0.4854, 10889.2), ('nprobe=16', 0.6214, 8520.4), ('nprobe=32', 0.7556, 5953.8), ('nprobe=64', 0.8612, 3804.5), ('nprobe=128', 0.935, 2361.9), ('nprobe=256', 0.9746, 1417.9), ('nprobe=512', 0.9926, 803.3), ('nprobe=1024', 0.9998, 423.8)]
+[01:51:14] sift500k_adv ivf round 7 cum 0.52 [('nprobe=8', 0.4732, 10905.8), ('nprobe=16', 0.6152, 8568.9), ('nprobe=32', 0.7446, 5961.5), ('nprobe=64', 0.857, 3804.7), ('nprobe=128', 0.9376, 2385.3), ('nprobe=256', 0.978, 1416.1), ('nprobe=512', 0.9934, 800.9), ('nprobe=1024', 0.9996, 421.7)]
+[01:51:25] sift500k_adv ivf round 8 cum 0.62 [('nprobe=8', 0.4762, 11050.1), ('nprobe=16', 0.6166, 8610.7), ('nprobe=32', 0.7438, 6025.2), ('nprobe=64', 0.8562, 3843.4), ('nprobe=128', 0.9394, 2396.8), ('nprobe=256', 0.9788, 1432.5), ('nprobe=512', 0.995, 799.9), ('nprobe=1024', 0.9996, 422.3)]
+[01:51:35] sift500k_adv ivf round 9 cum 0.68 [('nprobe=8', 0.466, 11032.5), ('nprobe=16', 0.6074, 8593.1), ('nprobe=32', 0.7344, 6070.2), ('nprobe=64', 0.8506, 3828.6), ('nprobe=128', 0.9322, 2402.6), ('nprobe=256', 0.9754, 1436.1), ('nprobe=512', 0.993, 803.7), ('nprobe=1024', 0.9984, 426.3)]
+[01:51:46] sift500k_adv ivf round 10 cum 0.74 [('nprobe=8', 0.4712, 11011.8), ('nprobe=16', 0.6108, 8519.4), ('nprobe=32', 0.7366, 5961.8), ('nprobe=64', 0.852, 3878.6), ('nprobe=128', 0.9278, 2423.3), ('nprobe=256', 0.9738, 1441.7), ('nprobe=512', 0.9926, 806.9), ('nprobe=1024', 0.9986, 428.0)]
+[01:51:57] sift500k_adv ivf round 11 cum 0.81 [('nprobe=8', 0.4662, 11095.7), ('nprobe=16', 0.6086, 8735.4), ('nprobe=32', 0.7314, 6190.3), ('nprobe=64', 0.8494, 3735.8), ('nprobe=128', 0.925, 2452.2), ('nprobe=256', 0.9714, 1460.7), ('nprobe=512', 0.9914, 819.4), ('nprobe=1024', 0.9984, 427.1)]
+[01:52:08] sift500k_adv ivf round 12 cum 0.89 [('nprobe=8', 0.462, 11074.2), ('nprobe=16', 0.6026, 8724.0), ('nprobe=32', 0.7196, 6087.1), ('nprobe=64', 0.8414, 3914.4), ('nprobe=128', 0.9204, 2434.2), ('nprobe=256', 0.969, 1442.8), ('nprobe=512', 0.9908, 817.8), ('nprobe=1024', 0.9988, 427.4)]
+[01:52:18] sift500k_adv ivf round 13 cum 0.95 [('nprobe=8', 0.4508, 11186.9), ('nprobe=16', 0.5924, 8702.5), ('nprobe=32', 0.7216, 6106.0), ('nprobe=64', 0.841, 3937.1), ('nprobe=128', 0.9232, 2448.4), ('nprobe=256', 0.9732, 1450.7), ('nprobe=512', 0.9924, 819.4), ('nprobe=1024', 0.9994, 430.0)]
+[01:52:29] sift500k_adv ivf round 14 cum 1.01 [('nprobe=8', 0.4468, 11086.5), ('nprobe=16', 0.5926, 8788.7), ('nprobe=32', 0.7206, 6216.2), ('nprobe=64', 0.846, 3974.7), ('nprobe=128', 0.9222, 2465.5), ('nprobe=256', 0.9714, 1443.1), ('nprobe=512', 0.9914, 805.5), ('nprobe=1024', 0.9994, 429.4)]
+[01:52:40] sift500k_adv ivf round 15 cum 1.1 [('nprobe=8', 0.4478, 11136.4), ('nprobe=16', 0.591, 8821.1), ('nprobe=32', 0.7158, 6171.1), ('nprobe=64', 0.8354, 3985.4), ('nprobe=128', 0.9204, 2346.3), ('nprobe=256', 0.9692, 1464.9), ('nprobe=512', 0.993, 818.7), ('nprobe=1024', 0.9994, 429.9)]
+[01:52:50] sift500k_adv ivf round 16 cum 1.16 [('nprobe=8', 0.4384, 11266.7), ('nprobe=16', 0.5816, 8811.5), ('nprobe=32', 0.71, 6230.5), ('nprobe=64', 0.8324, 3882.5), ('nprobe=128', 0.9144, 2469.9), ('nprobe=256', 0.9656, 1467.2), ('nprobe=512', 0.9908, 822.6), ('nprobe=1024', 0.9992, 433.5)]
+[01:53:01] sift500k_adv ivf round 17 cum 1.23 [('nprobe=8', 0.443, 11274.1), ('nprobe=16', 0.5862, 8784.9), ('nprobe=32', 0.7194, 6053.6), ('nprobe=64', 0.8402, 3978.2), ('nprobe=128', 0.922, 2476.3), ('nprobe=256', 0.9674, 1467.6), ('nprobe=512', 0.9894, 822.5), ('nprobe=1024', 0.9986, 432.0)]
+[01:53:12] sift500k_adv ivf round 18 cum 1.29 [('nprobe=8', 0.4284, 11249.7), ('nprobe=16', 0.5742, 8813.1), ('nprobe=32', 0.7042, 6227.5), ('nprobe=64', 0.8232, 3767.1), ('nprobe=128', 0.9152, 2487.0), ('nprobe=256', 0.9664, 1475.9), ('nprobe=512', 0.9918, 829.1), ('nprobe=1024', 0.999, 437.5)]
+[01:53:22] sift500k_adv ivf round 19 cum 1.37 [('nprobe=8', 0.4374, 11413.4), ('nprobe=16', 0.582, 8908.5), ('nprobe=32', 0.7162, 5726.5), ('nprobe=64', 0.8306, 4027.2), ('nprobe=128', 0.9158, 2494.7), ('nprobe=256', 0.9714, 1483.9), ('nprobe=512', 0.9922, 830.4), ('nprobe=1024', 0.9988, 438.3)]
+[01:53:33] sift500k_adv ivf round 20 cum 1.44 [('nprobe=8', 0.4362, 11305.9), ('nprobe=16', 0.5834, 8524.0), ('nprobe=32', 0.7244, 6259.6), ('nprobe=64', 0.8424, 4001.5), ('nprobe=128', 0.9218, 2505.3), ('nprobe=256', 0.9702, 1490.7), ('nprobe=512', 0.992, 827.1), ('nprobe=1024', 0.9988, 435.5)]
+[01:53:33] DONE sift500k_adv ivf
+--- [2] exit=0
+=== [3 8b37b572c5dccc4d.1] 2026-10-30 01:53:36 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py sift500k_adv
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 48.5093s
+Index built with degree: max:64  avg:62.8729  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.554416s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127745812, _max_observed_degree: 64, _start: 89028, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r0/ann...done. Index has 500000 nodes and 31436447 out-edges, _start is set to 89028
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 89028 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:54:47] sift500k_adv fdiskann round 0 rebuild 51.2 [('L=16', 0.7904, 5480.0), ('L=32', 0.889, 3859.8), ('L=64', 0.953, 2457.8), ('L=128', 0.9852, 1451.1), ('L=256', 0.996, 807.6), ('L=512', 0.9982, 419.9), ('L=1024', 0.9992, 231.6)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 48.0744s
+Index built with degree: max:64  avg:62.9163  min:9  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.547479s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127832668, _max_observed_degree: 64, _start: 80167, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r1/ann...done. Index has 500000 nodes and 31458161 out-edges, _start is set to 80167
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 80167 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:55:57] sift500k_adv fdiskann round 1 rebuild 50.6 [('L=16', 0.7812, 5663.9), ('L=32', 0.8844, 3964.7), ('L=64', 0.95, 2498.3), ('L=128', 0.9814, 1474.9), ('L=256', 0.994, 820.1), ('L=512', 0.9974, 434.4), ('L=1024', 0.9992, 234.2)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 48.6787s
+Index built with degree: max:64  avg:62.9007  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.552185s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127801492, _max_observed_degree: 64, _start: 72860, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r2/ann...done. Index has 500000 nodes and 31450367 out-edges, _start is set to 72860
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 72860 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:57:07] sift500k_adv fdiskann round 2 rebuild 51.2 [('L=16', 0.7976, 5752.0), ('L=32', 0.895, 4079.8), ('L=64', 0.9542, 2586.8), ('L=128', 0.9856, 1488.1), ('L=256', 0.9958, 836.1), ('L=512', 0.9976, 450.0), ('L=1024', 0.9996, 236.7)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 48.6487s
+Index built with degree: max:64  avg:62.8765  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.546528s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127753120, _max_observed_degree: 64, _start: 66825, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r3/ann...done. Index has 500000 nodes and 31438274 out-edges, _start is set to 66825
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 66825 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:58:17] sift500k_adv fdiskann round 3 rebuild 51.2 [('L=16', 0.7912, 5696.2), ('L=32', 0.8948, 3901.6), ('L=64', 0.9548, 2589.5), ('L=128', 0.986, 1504.1), ('L=256', 0.996, 846.4), ('L=512', 0.9986, 456.9), ('L=1024', 0.9994, 241.0)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 49.0512s
+Index built with degree: max:64  avg:62.9003  min:12  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.55096s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127800692, _max_observed_degree: 64, _start: 61657, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r4/ann...done. Index has 500000 nodes and 31450167 out-edges, _start is set to 61657
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 61657 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:59:28] sift500k_adv fdiskann round 4 rebuild 51.6 [('L=16', 0.7958, 5792.6), ('L=32', 0.901, 4005.7), ('L=64', 0.9604, 2570.6), ('L=128', 0.987, 1522.7), ('L=256', 0.9972, 842.6), ('L=512', 0.9986, 457.1), ('L=1024', 0.9994, 242.7)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 49.5079s
+Index built with degree: max:64  avg:62.891  min:9  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.553866s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127782020, _max_observed_degree: 64, _start: 57199, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r5/ann...done. Index has 500000 nodes and 31445499 out-edges, _start is set to 57199
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 57199 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:00:39] sift500k_adv fdiskann round 5 rebuild 52.1 [('L=16', 0.809, 5743.4), ('L=32', 0.902, 3966.9), ('L=64', 0.9622, 2547.4), ('L=128', 0.9854, 1517.9), ('L=256', 0.9962, 843.1), ('L=512', 0.9992, 457.9), ('L=1024', 1.0, 243.3)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 50.0528s
+Index built with degree: max:64  avg:62.862  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.557062s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127724096, _max_observed_degree: 64, _start: 469066, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r6/ann...done. Index has 500000 nodes and 31431018 out-edges, _start is set to 469066
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 469066 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:01:50] sift500k_adv fdiskann round 6 rebuild 52.6 [('L=16', 0.8064, 5675.0), ('L=32', 0.9014, 3997.4), ('L=64', 0.9594, 2542.0), ('L=128', 0.986, 1502.1), ('L=256', 0.996, 835.7), ('L=512', 0.9986, 456.1), ('L=1024', 0.9994, 242.6)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 50.8631s
+Index built with degree: max:64  avg:62.8495  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.551475s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127699048, _max_observed_degree: 64, _start: 432955, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r7/ann...done. Index has 500000 nodes and 31424756 out-edges, _start is set to 432955
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 432955 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:03:02] sift500k_adv fdiskann round 7 rebuild 53.4 [('L=16', 0.8034, 5661.6), ('L=32', 0.9056, 4081.1), ('L=64', 0.9644, 2615.4), ('L=128', 0.9892, 1530.4), ('L=256', 0.9964, 851.3), ('L=512', 0.9994, 465.2), ('L=1024', 1.0, 248.0)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 50.5222s
+Index built with degree: max:64  avg:62.8538  min:9  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.543522s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127707588, _max_observed_degree: 64, _start: 407242, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r8/ann...done. Index has 500000 nodes and 31426891 out-edges, _start is set to 407242
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 407242 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:04:14] sift500k_adv fdiskann round 8 rebuild 53.0 [('L=16', 0.8248, 5795.3), ('L=32', 0.9112, 4141.6), ('L=64', 0.9658, 2650.6), ('L=128', 0.9902, 1539.8), ('L=256', 0.9968, 854.0), ('L=512', 0.9988, 467.5), ('L=1024', 0.9996, 249.2)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 51.3953s
+Index built with degree: max:64  avg:62.8479  min:12  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.545466s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127695808, _max_observed_degree: 64, _start: 384615, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r9/ann...done. Index has 500000 nodes and 31423946 out-edges, _start is set to 384615
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 384615 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:05:26] sift500k_adv fdiskann round 9 rebuild 54.0 [('L=16', 0.8238, 5830.4), ('L=32', 0.9082, 4100.7), ('L=64', 0.963, 2563.2), ('L=128', 0.9892, 1525.5), ('L=256', 0.996, 863.7), ('L=512', 0.9986, 466.9), ('L=1024', 0.9992, 247.0)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 51.5562s
+Index built with degree: max:64  avg:62.8018  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.545637s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127603708, _max_observed_degree: 64, _start: 364471, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r10/ann...done. Index has 500000 nodes and 31400921 out-edges, _start is set to 364471
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 364471 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:06:39] sift500k_adv fdiskann round 10 rebuild 54.1 [('L=16', 0.8294, 5882.7), ('L=32', 0.9118, 4141.9), ('L=64', 0.9656, 2632.6), ('L=128', 0.9892, 1537.4), ('L=256', 0.9964, 866.3), ('L=512', 0.9998, 466.8), ('L=1024', 0.9998, 247.4)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 51.8367s
+Index built with degree: max:64  avg:62.7845  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.54663s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127568996, _max_observed_degree: 64, _start: 346049, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r11/ann...done. Index has 500000 nodes and 31392243 out-edges, _start is set to 346049
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 346049 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:07:51] sift500k_adv fdiskann round 11 rebuild 54.4 [('L=16', 0.8322, 5826.5), ('L=32', 0.917, 4170.3), ('L=64', 0.9692, 2652.7), ('L=128', 0.9904, 1535.7), ('L=256', 0.9976, 861.2), ('L=512', 0.9992, 467.5), ('L=1024', 0.9994, 247.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 51.8555s
+Index built with degree: max:64  avg:62.7445  min:12  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.54849s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127489104, _max_observed_degree: 64, _start: 329745, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r12/ann...done. Index has 500000 nodes and 31372270 out-edges, _start is set to 329745
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 329745 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:09:04] sift500k_adv fdiskann round 12 rebuild 54.4 [('L=16', 0.8438, 6013.7), ('L=32', 0.925, 4215.3), ('L=64', 0.9694, 2639.9), ('L=128', 0.9904, 1549.9), ('L=256', 0.9982, 863.7), ('L=512', 0.9996, 457.7), ('L=1024', 0.9998, 247.8)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 51.851s
+Index built with degree: max:64  avg:62.5387  min:5  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.546374s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127077452, _max_observed_degree: 64, _start: 314488, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r13/ann...done. Index has 500000 nodes and 31269357 out-edges, _start is set to 314488
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 314488 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:10:17] sift500k_adv fdiskann round 13 rebuild 54.4 [('L=16', 0.8484, 5772.4), ('L=32', 0.9262, 4187.3), ('L=64', 0.968, 2658.0), ('L=128', 0.9876, 1557.2), ('L=256', 0.9968, 877.6), ('L=512', 0.9994, 478.9), ('L=1024', 0.9996, 252.6)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.7496s
+Index built with degree: max:64  avg:62.6582  min:10  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.552096s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127316436, _max_observed_degree: 64, _start: 301836, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r14/ann...done. Index has 500000 nodes and 31329103 out-edges, _start is set to 301836
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 301836 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:11:30] sift500k_adv fdiskann round 14 rebuild 55.3 [('L=16', 0.8516, 5892.7), ('L=32', 0.9296, 4182.4), ('L=64', 0.9738, 2615.8), ('L=128', 0.9896, 1549.9), ('L=256', 0.998, 859.1), ('L=512', 0.9992, 458.8), ('L=1024', 0.9992, 246.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.9085s
+Index built with degree: max:64  avg:62.6429  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.545571s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127285804, _max_observed_degree: 64, _start: 289360, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r15/ann...done. Index has 500000 nodes and 31321445 out-edges, _start is set to 289360
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 289360 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:12:44] sift500k_adv fdiskann round 15 rebuild 55.5 [('L=16', 0.8432, 6065.3), ('L=32', 0.9322, 4201.7), ('L=64', 0.9766, 2647.9), ('L=128', 0.992, 1553.0), ('L=256', 0.999, 865.6), ('L=512', 0.9998, 469.6), ('L=1024', 0.9998, 249.3)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.9828s
+Index built with degree: max:64  avg:62.5915  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.55071s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127183080, _max_observed_degree: 64, _start: 277853, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r16/ann...done. Index has 500000 nodes and 31295764 out-edges, _start is set to 277853
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 277853 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:13:58] sift500k_adv fdiskann round 16 rebuild 55.5 [('L=16', 0.8526, 6127.1), ('L=32', 0.9364, 4164.3), ('L=64', 0.9766, 2612.8), ('L=128', 0.993, 1548.5), ('L=256', 0.999, 865.1), ('L=512', 0.9998, 467.7), ('L=1024', 0.9998, 248.4)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.2954s
+Index built with degree: max:64  avg:62.5832  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.547757s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127166476, _max_observed_degree: 64, _start: 267228, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r17/ann...done. Index has 500000 nodes and 31291613 out-edges, _start is set to 267228
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 267228 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:15:12] sift500k_adv fdiskann round 17 rebuild 55.8 [('L=16', 0.8486, 6062.1), ('L=32', 0.9332, 4192.3), ('L=64', 0.9776, 2626.3), ('L=128', 0.9918, 1551.7), ('L=256', 0.9984, 859.1), ('L=512', 0.9996, 466.5), ('L=1024', 0.9996, 247.0)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.2562s
+Index built with degree: max:64  avg:62.4118  min:8  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.545673s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 126823576, _max_observed_degree: 64, _start: 257696, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r18/ann...done. Index has 500000 nodes and 31205888 out-edges, _start is set to 257696
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 257696 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:16:26] sift500k_adv fdiskann round 18 rebuild 55.8 [('L=16', 0.8582, 6034.1), ('L=32', 0.94, 4179.3), ('L=64', 0.9776, 2632.2), ('L=128', 0.9936, 1544.1), ('L=256', 0.9986, 875.1), ('L=512', 1.0, 473.7), ('L=1024', 1.0, 251.1)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.7251s
+Index built with degree: max:64  avg:62.4544  min:5  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.54473s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 126908808, _max_observed_degree: 64, _start: 248102, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r19/ann...done. Index has 500000 nodes and 31227196 out-edges, _start is set to 248102
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 248102 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:17:41] sift500k_adv fdiskann round 19 rebuild 56.2 [('L=16', 0.8624, 6020.0), ('L=32', 0.9422, 4247.3), ('L=64', 0.978, 2661.1), ('L=128', 0.9942, 1552.8), ('L=256', 0.9986, 872.1), ('L=512', 0.9996, 472.1), ('L=1024', 0.9998, 250.3)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.7129s
+Index built with degree: max:64  avg:62.4151  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 0.547862s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 126830144, _max_observed_degree: 64, _start: 239645, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k_adv/fd_r20/ann...done. Index has 500000 nodes and 31207530 out-edges, _start is set to 239645
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 239645 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:18:55] sift500k_adv fdiskann round 20 rebuild 56.2 [('L=16', 0.87, 6004.0), ('L=32', 0.9438, 4222.7), ('L=64', 0.9796, 2669.4), ('L=128', 0.9942, 1566.6), ('L=256', 0.998, 865.2), ('L=512', 0.9996, 473.5), ('L=1024', 0.9996, 250.3)]
+[02:18:55] DONE sift500k_adv fdiskann
+--- [3] exit=0
+=== [4 ee1a6917dcae77c0.1] 2026-10-30 02:18:58 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf_part
+[02:19:04] sift500k_adv ivf_part round 0 cum 0.0 [('nprobe=1', 0.2874, 52007.7), ('nprobe=2', 0.4236, 47661.3), ('nprobe=4', 0.581, 35550.8), ('nprobe=8', 0.7332, 23156.0), ('nprobe=16', 0.8588, 13459.9), ('nprobe=32', 0.9354, 7108.4), ('nprobe=64', 0.9826, 5418.7), ('nprobe=128', 0.996, 3568.7), ('nprobe=256', 1.0, 2083.0), ('nprobe=512', 1.0, 1179.4)]
+[02:19:09] sift500k_adv ivf_part round 1 cum 0.07 [('nprobe=1', 0.281, 50194.4), ('nprobe=2', 0.4162, 47600.7), ('nprobe=4', 0.5674, 35908.5), ('nprobe=8', 0.723, 20971.0), ('nprobe=16', 0.8512, 13661.8), ('nprobe=32', 0.932, 8430.6), ('nprobe=64', 0.9806, 5431.1), ('nprobe=128', 0.9948, 3595.2), ('nprobe=256', 0.9998, 2159.5), ('nprobe=512', 1.0, 1193.2)]
+[02:19:13] sift500k_adv ivf_part round 2 cum 0.12 [('nprobe=1', 0.2792, 50497.0), ('nprobe=2', 0.409, 47840.8), ('nprobe=4', 0.5622, 35395.8), ('nprobe=8', 0.717, 22978.0), ('nprobe=16', 0.8428, 13635.1), ('nprobe=32', 0.9286, 8468.5), ('nprobe=64', 0.9802, 5161.2), ('nprobe=128', 0.995, 3594.3), ('nprobe=256', 0.9996, 2098.8), ('nprobe=512', 1.0, 1206.5)]
+[02:19:17] sift500k_adv ivf_part round 3 cum 0.17 [('nprobe=1', 0.2654, 51541.0), ('nprobe=2', 0.393, 47963.1), ('nprobe=4', 0.5456, 36002.3), ('nprobe=8', 0.702, 23275.6), ('nprobe=16', 0.8316, 13538.5), ('nprobe=32', 0.92, 8541.9), ('nprobe=64', 0.974, 5485.4), ('nprobe=128', 0.9936, 3317.6), ('nprobe=256', 0.9994, 2162.9), ('nprobe=512', 1.0, 1166.6)]
+[02:19:22] sift500k_adv ivf_part round 4 cum 0.23 [('nprobe=1', 0.2644, 50232.9), ('nprobe=2', 0.392, 46407.6), ('nprobe=4', 0.5396, 34586.6), ('nprobe=8', 0.6978, 23023.8), ('nprobe=16', 0.8266, 13572.5), ('nprobe=32', 0.917, 8520.6), ('nprobe=64', 0.9714, 5477.2), ('nprobe=128', 0.9926, 3548.1), ('nprobe=256', 0.9988, 2119.2), ('nprobe=512', 1.0, 1155.4)]
+[02:19:26] sift500k_adv ivf_part round 5 cum 0.26 [('nprobe=1', 0.2634, 50435.7), ('nprobe=2', 0.3878, 47189.7), ('nprobe=4', 0.5338, 35211.8), ('nprobe=8', 0.6884, 22743.3), ('nprobe=16', 0.8222, 13682.0), ('nprobe=32', 0.915, 8587.1), ('nprobe=64', 0.9682, 5486.3), ('nprobe=128', 0.9922, 3538.7), ('nprobe=256', 0.9988, 2100.1), ('nprobe=512', 0.9998, 1132.5)]
+[02:19:30] sift500k_adv ivf_part round 6 cum 0.3 [('nprobe=1', 0.2556, 51491.5), ('nprobe=2', 0.3758, 45104.9), ('nprobe=4', 0.5248, 34904.1), ('nprobe=8', 0.682, 23251.0), ('nprobe=16', 0.8108, 13698.3), ('nprobe=32', 0.9056, 8618.9), ('nprobe=64', 0.9658, 5463.5), ('nprobe=128', 0.9916, 3529.2), ('nprobe=256', 0.9986, 2075.4), ('nprobe=512', 1.0, 1118.3)]
+[02:19:35] sift500k_adv ivf_part round 7 cum 0.34 [('nprobe=1', 0.2478, 50852.2), ('nprobe=2', 0.369, 47635.4), ('nprobe=4', 0.5226, 35850.7), ('nprobe=8', 0.6762, 23350.2), ('nprobe=16', 0.8088, 13974.2), ('nprobe=32', 0.9056, 8657.9), ('nprobe=64', 0.9656, 5502.2), ('nprobe=128', 0.9896, 3473.1), ('nprobe=256', 0.9984, 2057.3), ('nprobe=512', 0.9998, 1093.9)]
+[02:19:39] sift500k_adv ivf_part round 8 cum 0.38 [('nprobe=1', 0.2446, 52293.7), ('nprobe=2', 0.3674, 46710.1), ('nprobe=4', 0.5196, 35970.3), ('nprobe=8', 0.6692, 23097.8), ('nprobe=16', 0.8014, 13899.9), ('nprobe=32', 0.894, 8739.6), ('nprobe=64', 0.9612, 5508.8), ('nprobe=128', 0.9884, 3474.2), ('nprobe=256', 0.998, 1940.8), ('nprobe=512', 1.0, 1050.3)]
+[02:19:44] sift500k_adv ivf_part round 9 cum 0.43 [('nprobe=1', 0.2436, 53447.4), ('nprobe=2', 0.3662, 49694.7), ('nprobe=4', 0.5098, 37025.6), ('nprobe=8', 0.6602, 24102.9), ('nprobe=16', 0.7984, 14080.2), ('nprobe=32', 0.8982, 8804.3), ('nprobe=64', 0.963, 5295.8), ('nprobe=128', 0.9906, 3476.7), ('nprobe=256', 0.9986, 1992.6), ('nprobe=512', 0.9998, 1061.0)]
+[02:19:49] sift500k_adv ivf_part round 10 cum 0.47 [('nprobe=1', 0.2406, 54203.7), ('nprobe=2', 0.3664, 49636.1), ('nprobe=4', 0.512, 37012.1), ('nprobe=8', 0.6618, 23998.5), ('nprobe=16', 0.7948, 14083.0), ('nprobe=32', 0.8932, 8875.1), ('nprobe=64', 0.9594, 5576.8), ('nprobe=128', 0.988, 3459.4), ('nprobe=256', 0.9976, 1980.4), ('nprobe=512', 1.0, 1043.1)]
+[02:19:53] sift500k_adv ivf_part round 11 cum 0.53 [('nprobe=1', 0.2424, 52053.9), ('nprobe=2', 0.367, 47616.4), ('nprobe=4', 0.514, 35493.3), ('nprobe=8', 0.6596, 23311.1), ('nprobe=16', 0.7958, 11964.0), ('nprobe=32', 0.8964, 8877.5), ('nprobe=64', 0.9612, 5508.0), ('nprobe=128', 0.9894, 3440.6), ('nprobe=256', 0.9978, 1945.4), ('nprobe=512', 0.9998, 1032.2)]
+[02:19:58] sift500k_adv ivf_part round 12 cum 0.56 [('nprobe=1', 0.236, 51355.6), ('nprobe=2', 0.3584, 48459.7), ('nprobe=4', 0.5, 36128.2), ('nprobe=8', 0.6468, 23831.1), ('nprobe=16', 0.7788, 13901.1), ('nprobe=32', 0.8794, 8817.7), ('nprobe=64', 0.956, 5543.3), ('nprobe=128', 0.9888, 3429.0), ('nprobe=256', 0.9988, 1950.8), ('nprobe=512', 1.0, 1015.6)]
+[02:20:03] sift500k_adv ivf_part round 13 cum 0.61 [('nprobe=1', 0.2288, 52968.3), ('nprobe=2', 0.3488, 46724.9), ('nprobe=4', 0.4896, 36160.9), ('nprobe=8', 0.643, 23792.0), ('nprobe=16', 0.7786, 14210.1), ('nprobe=32', 0.8856, 8801.1), ('nprobe=64', 0.9572, 5462.2), ('nprobe=128', 0.99, 3396.1), ('nprobe=256', 0.9994, 1918.6), ('nprobe=512', 1.0, 1000.6)]
+[02:20:07] sift500k_adv ivf_part round 14 cum 0.65 [('nprobe=1', 0.2326, 53063.9), ('nprobe=2', 0.3522, 48841.0), ('nprobe=4', 0.4892, 35915.5), ('nprobe=8', 0.6348, 23676.4), ('nprobe=16', 0.7798, 14188.2), ('nprobe=32', 0.8838, 8934.5), ('nprobe=64', 0.9552, 5474.4), ('nprobe=128', 0.9886, 3385.2), ('nprobe=256', 0.9982, 1911.4), ('nprobe=512', 0.9998, 990.2)]
+[02:20:12] sift500k_adv ivf_part round 15 cum 0.68 [('nprobe=1', 0.2352, 52199.9), ('nprobe=2', 0.3506, 47275.7), ('nprobe=4', 0.4894, 36756.7), ('nprobe=8', 0.6398, 23942.8), ('nprobe=16', 0.7792, 14317.3), ('nprobe=32', 0.8808, 8895.2), ('nprobe=64', 0.9538, 5555.1), ('nprobe=128', 0.9842, 3347.7), ('nprobe=256', 0.998, 1889.5), ('nprobe=512', 0.9998, 985.2)]
+[02:20:17] sift500k_adv ivf_part round 16 cum 0.72 [('nprobe=1', 0.2356, 52115.3), ('nprobe=2', 0.3518, 49244.5), ('nprobe=4', 0.4944, 36724.9), ('nprobe=8', 0.6394, 24200.4), ('nprobe=16', 0.7732, 14299.4), ('nprobe=32', 0.8822, 8988.9), ('nprobe=64', 0.9524, 5528.4), ('nprobe=128', 0.9862, 3363.7), ('nprobe=256', 0.999, 1886.5), ('nprobe=512', 1.0, 978.8)]
+[02:20:22] sift500k_adv ivf_part round 17 cum 0.76 [('nprobe=1', 0.2208, 51699.7), ('nprobe=2', 0.3336, 48357.7), ('nprobe=4', 0.4828, 36422.1), ('nprobe=8', 0.6322, 24044.9), ('nprobe=16', 0.7744, 14499.5), ('nprobe=32', 0.8778, 8876.5), ('nprobe=64', 0.9526, 5483.7), ('nprobe=128', 0.9894, 3337.3), ('nprobe=256', 0.9992, 1871.3), ('nprobe=512', 1.0, 969.1)]
+[02:20:26] sift500k_adv ivf_part round 18 cum 0.8 [('nprobe=1', 0.219, 51539.5), ('nprobe=2', 0.3322, 47598.4), ('nprobe=4', 0.475, 35905.3), ('nprobe=8', 0.6242, 23584.6), ('nprobe=16', 0.7602, 14235.7), ('nprobe=32', 0.8696, 9039.5), ('nprobe=64', 0.9492, 5524.3), ('nprobe=128', 0.9832, 3313.5), ('nprobe=256', 0.9974, 1860.2), ('nprobe=512', 1.0, 958.6)]
+[02:20:31] sift500k_adv ivf_part round 19 cum 0.84 [('nprobe=1', 0.2196, 51209.8), ('nprobe=2', 0.335, 41317.3), ('nprobe=4', 0.48, 36220.4), ('nprobe=8', 0.6284, 24042.0), ('nprobe=16', 0.7642, 14334.7), ('nprobe=32', 0.8758, 8966.3), ('nprobe=64', 0.9578, 5503.7), ('nprobe=128', 0.9864, 3301.4), ('nprobe=256', 0.9982, 1846.8), ('nprobe=512', 0.9998, 951.4)]
+[02:20:36] sift500k_adv ivf_part round 20 cum 0.9 [('nprobe=1', 0.2256, 52085.0), ('nprobe=2', 0.331, 48935.3), ('nprobe=4', 0.4784, 35921.2), ('nprobe=8', 0.6346, 23893.7), ('nprobe=16', 0.7766, 14548.7), ('nprobe=32', 0.885, 8917.0), ('nprobe=64', 0.955, 5133.4), ('nprobe=128', 0.9884, 3323.9), ('nprobe=256', 0.9988, 1833.5), ('nprobe=512', 1.0, 949.2)]
+[02:20:36] DONE sift500k_adv ivf_part
+--- [4] exit=0
+=== [5 cf4e7826ef581f2b.1] 2026-10-30 02:20:39 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+[02:20:39] sift500k_adv acorn stream start
+[02:41:41] sift500k_adv acorn round 0 cum 0.0 [('ef=16', 0.8142, 4595.0), ('ef=32', 0.9246, 2676.7), ('ef=64', 0.97, 1541.6), ('ef=128', 0.9892, 885.7), ('ef=256', 0.9936, 498.4), ('ef=512', 0.9972, 272.2), ('ef=1024', 0.9978, 139.8), ('ef=2048', 0.9978, 64.2)]
+[02:41:41] sift500k_adv acorn round 1 cum 12.201 [('ef=16', 0.8048, 4445.9), ('ef=32', 0.9132, 2603.7), ('ef=64', 0.97, 1494.3), ('ef=128', 0.9876, 862.5), ('ef=256', 0.9962, 486.2), ('ef=512', 0.9986, 265.9), ('ef=1024', 0.9996, 136.0), ('ef=2048', 1.0, 62.5)]
+[02:41:41] sift500k_adv acorn round 2 cum 24.56 [('ef=16', 0.7756, 4440.6), ('ef=32', 0.896, 2587.7), ('ef=64', 0.9518, 1496.4), ('ef=128', 0.9792, 852.2), ('ef=256', 0.9892, 484.7), ('ef=512', 0.9946, 265.1), ('ef=1024', 0.9962, 135.6), ('ef=2048', 0.997, 62.5)]
+[02:41:41] sift500k_adv acorn round 3 cum 36.816 [('ef=16', 0.7544, 4521.7), ('ef=32', 0.8694, 2651.2), ('ef=64', 0.9356, 1517.3), ('ef=128', 0.9658, 866.1), ('ef=256', 0.9824, 490.7), ('ef=512', 0.9884, 266.6), ('ef=1024', 0.9918, 137.1), ('ef=2048', 0.9926, 63.1)]
+[02:41:41] sift500k_adv acorn round 4 cum 49.601 [('ef=16', 0.7058, 4633.6), ('ef=32', 0.819, 2714.4), ('ef=64', 0.88, 1544.5), ('ef=128', 0.9182, 886.4), ('ef=256', 0.936, 501.3), ('ef=512', 0.9484, 273.2), ('ef=1024', 0.9536, 140.2), ('ef=2048', 0.9552, 64.6)]
+[02:41:41] sift500k_adv acorn round 5 cum 62.588 [('ef=16', 0.671, 4614.6), ('ef=32', 0.7946, 2687.6), ('ef=64', 0.8688, 1528.4), ('ef=128', 0.9154, 874.6), ('ef=256', 0.9446, 493.9), ('ef=512', 0.9586, 270.5), ('ef=1024', 0.9646, 139.1), ('ef=2048', 0.9676, 64.2)]
+[02:41:41] sift500k_adv acorn round 6 cum 75.536 [('ef=16', 0.6264, 4802.0), ('ef=32', 0.7454, 2780.3), ('ef=64', 0.8174, 1585.3), ('ef=128', 0.8628, 904.1), ('ef=256', 0.8918, 512.4), ('ef=512', 0.9054, 280.4), ('ef=1024', 0.9122, 144.6), ('ef=2048', 0.9146, 66.6)]
+[02:41:41] sift500k_adv acorn round 7 cum 88.954 [('ef=16', 0.6148, 4757.4), ('ef=32', 0.7394, 2784.4), ('ef=64', 0.813, 1569.1), ('ef=128', 0.8598, 901.8), ('ef=256', 0.8882, 509.1), ('ef=512', 0.9004, 277.5), ('ef=1024', 0.9072, 142.4), ('ef=2048', 0.9114, 66.3)]
+[02:41:41] sift500k_adv acorn round 8 cum 102.245 [('ef=16', 0.5668, 5014.8), ('ef=32', 0.6744, 2959.4), ('ef=64', 0.7402, 1678.9), ('ef=128', 0.775, 956.3), ('ef=256', 0.7944, 544.3), ('ef=512', 0.8014, 298.4), ('ef=1024', 0.8056, 154.2), ('ef=2048', 0.8086, 72.3)]
+[02:41:41] sift500k_adv acorn round 9 cum 115.969 [('ef=16', 0.5536, 4860.1), ('ef=32', 0.6626, 2894.4), ('ef=64', 0.7364, 1652.1), ('ef=128', 0.7818, 939.1), ('ef=256', 0.8074, 531.4), ('ef=512', 0.8262, 290.9), ('ef=1024', 0.8324, 150.4), ('ef=2048', 0.8346, 70.3)]
+[02:41:41] sift500k_adv acorn round 10 cum 129.132 [('ef=16', 0.5336, 5009.0), ('ef=32', 0.623, 2994.0), ('ef=64', 0.6876, 1707.7), ('ef=128', 0.7236, 975.2), ('ef=256', 0.7426, 555.1), ('ef=512', 0.7516, 305.7), ('ef=1024', 0.7558, 157.4), ('ef=2048', 0.759, 74.2)]
+[02:41:41] sift500k_adv acorn round 11 cum 143.374 [('ef=16', 0.5122, 4970.5), ('ef=32', 0.6226, 2948.2), ('ef=64', 0.704, 1667.2), ('ef=128', 0.753, 935.2), ('ef=256', 0.785, 528.3), ('ef=512', 0.809, 290.3), ('ef=1024', 0.8184, 150.7), ('ef=2048', 0.8256, 70.4)]
+[02:41:41] sift500k_adv acorn round 12 cum 157.043 [('ef=16', 0.4702, 5219.8), ('ef=32', 0.5686, 3124.4), ('ef=64', 0.6298, 1783.1), ('ef=128', 0.6666, 1014.0), ('ef=256', 0.6858, 575.9), ('ef=512', 0.6956, 314.6), ('ef=1024', 0.7008, 165.3), ('ef=2048', 0.703, 78.1)]
+[02:41:41] sift500k_adv acorn round 13 cum 170.203 [('ef=16', 0.4532, 5322.1), ('ef=32', 0.5436, 3166.4), ('ef=64', 0.6106, 1788.5), ('ef=128', 0.6472, 1011.3), ('ef=256', 0.6758, 566.8), ('ef=512', 0.699, 308.7), ('ef=1024', 0.72, 160.7), ('ef=2048', 0.7294, 75.3)]
+[02:41:41] sift500k_adv acorn round 14 cum 184.046 [('ef=16', 0.4472, 5280.9), ('ef=32', 0.5506, 3145.6), ('ef=64', 0.6208, 1752.0), ('ef=128', 0.6744, 988.1), ('ef=256', 0.7104, 553.1), ('ef=512', 0.7274, 304.1), ('ef=1024', 0.738, 158.4), ('ef=2048', 0.7424, 74.7)]
+[02:41:41] sift500k_adv acorn round 15 cum 198.167 [('ef=16', 0.416, 5527.7), ('ef=32', 0.5118, 3315.3), ('ef=64', 0.5682, 1905.1), ('ef=128', 0.6026, 1083.9), ('ef=256', 0.62, 603.6), ('ef=512', 0.6302, 341.2), ('ef=1024', 0.637, 177.5), ('ef=2048', 0.6384, 85.3)]
+[02:41:41] sift500k_adv acorn round 16 cum 212.187 [('ef=16', 0.4146, 5694.5), ('ef=32', 0.4986, 3394.4), ('ef=64', 0.5578, 1900.9), ('ef=128', 0.595, 1080.1), ('ef=256', 0.6184, 609.9), ('ef=512', 0.6332, 337.0), ('ef=1024', 0.6418, 176.6), ('ef=2048', 0.6446, 83.1)]
+[02:41:41] sift500k_adv acorn round 17 cum 226.56 [('ef=16', 0.4188, 5309.5), ('ef=32', 0.5168, 3132.3), ('ef=64', 0.578, 1763.1), ('ef=128', 0.617, 986.5), ('ef=256', 0.6502, 545.6), ('ef=512', 0.6744, 301.4), ('ef=1024', 0.691, 159.5), ('ef=2048', 0.698, 76.8)]
+[02:41:41] sift500k_adv acorn round 18 cum 240.356 [('ef=16', 0.3834, 5754.5), ('ef=32', 0.4724, 3487.0), ('ef=64', 0.5302, 1989.9), ('ef=128', 0.5592, 1130.8), ('ef=256', 0.5768, 639.5), ('ef=512', 0.5844, 352.0), ('ef=1024', 0.5866, 185.8), ('ef=2048', 0.589, 88.5)]
+[02:41:42] sift500k_adv acorn round 19 cum 254.424 [('ef=16', 0.369, 5765.2), ('ef=32', 0.4522, 3505.4), ('ef=64', 0.5116, 1955.6), ('ef=128', 0.545, 1110.0), ('ef=256', 0.5608, 642.0), ('ef=512', 0.5692, 352.3), ('ef=1024', 0.5736, 185.3), ('ef=2048', 0.575, 89.7)]
+[02:41:42] sift500k_adv acorn round 20 cum 268.982 [('ef=16', 0.365, 5563.6), ('ef=32', 0.4472, 3350.4), ('ef=64', 0.5036, 1891.1), ('ef=128', 0.539, 1051.1), ('ef=256', 0.5606, 586.3), ('ef=512', 0.5788, 322.3), ('ef=1024', 0.5842, 172.8), ('ef=2048', 0.5866, 87.6)]
+[02:41:42] DONE sift500k_adv acorn
+--- [5] exit=0
+=== [6 04818ae773b7dc21.1] 2026-10-30 02:41:44 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv
+max_cate_size_:10, cate_int_byte_: 1
+num-attribute split positions: 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+label distribution to 128 buckets: 
+label=0, bucket=3, count=95055; 
+label=1, bucket=6, count=94970; 
+label=2, bucket=1, count=95243; 
+label=3, bucket=5, count=95015; 
+label=4, bucket=0, count=95354; 
+label=5, bucket=2, count=95078; 
+label=6, bucket=4, count=95032; 
+label=7, bucket=9, count=94697; 
+label=8, bucket=7, count=94852; 
+label=9, bucket=8, count=94824; 
+
+Adding 100000 items with dimension 128
+Adding point id: 1000
+Adding point id: 2000
+Adding point id: 3000
+Adding point id: 4000
+Adding point id: 5000
+Adding point id: 6000
+Adding point id: 7000
+Adding point id: 8000
+Adding point id: 9000
+Adding point id: 10000
+Adding point id: 11000
+Adding point id: 12000
+Adding point id: 13000
+Adding point id: 14000
+Adding point id: 15000
+Adding point id: 16000
+Adding point id: 17000
+Adding point id: 18000
+Adding point id: 19000
+Adding point id: 20000
+Adding point id: 21000
+Adding point id: 22000
+Adding point id: 23000
+Adding point id: 24000
+Adding point id: 25000
+Adding point id: 26000
+Adding point id: 27000
+Adding point id: 28000
+Adding point id: 29000
+Adding point id: 30000
+Adding point id: 31000
+Adding point id: 32000
+Adding point id: 33000
+Adding point id: 34000
+Adding point id: 35000
+Adding point id: 36000
+Adding point id: 37000
+Adding point id: 38000
+Adding point id: 39000
+Adding point id: 40000
+Adding point id: 41000
+Adding point id: 42000
+Adding point id: 43000
+Adding point id: 44000
+Adding point id: 45000
+Adding point id: 46000
+Adding point id: 47000
+Adding point id: 48000
+Adding point id: 49000
+Adding point id: 50000
+Adding point id: 51000
+Adding point id: 52000
+Adding point id: 53000
+Adding point id: 54000
+Adding point id: 55000
+Adding point id: 56000
+Adding point id: 57000
+Adding point id: 58000
+Adding point id: 59000
+Adding point id: 60000
+Adding point id: 61000
+Adding point id: 62000
+Adding point id: 63000
+Adding point id: 64000
+Adding point id: 65000
+Adding point id: 66000
+Adding point id: 67000
+Adding point id: 68000
+Adding point id: 69000
+Adding point id: 70000
+Adding point id: 71000
+Adding point id: 72000
+Adding point id: 73000
+Adding point id: 74000
+Adding point id: 75000
+Adding point id: 76000
+Adding point id: 77000
+Adding point id: 78000
+Adding point id: 79000
+Adding point id: 80000
+Adding point id: 81000
+Adding point id: 82000
+Adding point id: 83000
+Adding point id: 84000
+Adding point id: 85000
+Adding point id: 86000
+Adding point id: 87000
+Adding point id: 88000
+Adding point id: 89000
+Adding point id: 90000
+Adding point id: 91000
+Adding point id: 92000
+Adding point id: 93000
+Adding point id: 94000
+Adding point id: 95000
+Adding point id: 96000
+Adding point id: 97000
+Adding point id: 98000
+Adding point id: 99000
+Adding 100000 items with dimension 128
+Adding point id: 100000
+Adding point id: 101000
+Adding point id: 102000
+Adding point id: 103000
+Adding point id: 104000
+Adding point id: 105000
+Adding point id: 106000
+Adding point id: 107000
+Adding point id: 108000
+Adding point id: 109000
+Adding point id: 110000
+Adding point id: 111000
+Adding point id: 112000
+Adding point id: 113000
+Adding point id: 114000
+Adding point id: 115000
+Adding point id: 116000
+Adding point id: 117000
+Adding point id: 118000
+Adding point id: 119000
+Adding point id: 120000
+Adding point id: 121000
+Adding point id: 122000
+Adding point id: 123000
+Adding point id: 124000
+Adding point id: 125000
+Adding point id: 126000
+Adding point id: 127000
+Adding point id: 128000
+Adding point id: 129000
+Adding point id: 130000
+Adding point id: 131000
+Adding point id: 132000
+Adding point id: 133000
+Adding point id: 134000
+Adding point id: 135000
+Adding point id: 136000
+Adding point id: 137000
+Adding point id: 138000
+Adding point id: 139000
+Adding point id: 140000
+Adding point id: 141000
+Adding point id: 142000
+Adding point id: 143000
+Adding point id: 144000
+Adding point id: 145000
+Adding point id: 146000
+Adding point id: 147000
+Adding point id: 148000
+Adding point id: 149000
+Adding point id: 150000
+Adding point id: 151000
+Adding point id: 152000
+Adding point id: 153000
+Adding point id: 154000
+Adding point id: 155000
+Adding point id: 156000
+Adding point id: 157000
+Adding point id: 158000
+Adding point id: 159000
+Adding point id: 160000
+Adding point id: 161000
+Adding point id: 162000
+Adding point id: 163000
+Adding point id: 164000
+Adding point id: 165000
+Adding point id: 166000
+Adding point id: 167000
+Adding point id: 168000
+Adding point id: 169000
+Adding point id: 170000
+Adding point id: 171000
+Adding point id: 172000
+Adding point id: 173000
+Adding point id: 174000
+Adding point id: 175000
+Adding point id: 176000
+Adding point id: 177000
+Adding point id: 178000
+Adding point id: 179000
+Adding point id: 180000
+Adding point id: 181000
+Adding point id: 182000
+Adding point id: 183000
+Adding point id: 184000
+Adding point id: 185000
+Adding point id: 186000
+Adding point id: 187000
+Adding point id: 188000
+Adding point id: 189000
+Adding point id: 190000
+Adding point id: 191000
+Adding point id: 192000
+Adding point id: 193000
+Adding point id: 194000
+Adding point id: 195000
+Adding point id: 196000
+Adding point id: 197000
+Adding point id: 198000
+Adding point id: 199000
+Adding 100000 items with dimension 128
+Adding point id: 200000
+Adding point id: 201000
+Adding point id: 202000
+Adding point id: 203000
+Adding point id: 204000
+Adding point id: 205000
+Adding point id: 206000
+Adding point id: 207000
+Adding point id: 208000
+Adding point id: 209000
+Adding point id: 210000
+Adding point id: 211000
+Adding point id: 212000
+Adding point id: 213000
+Adding point id: 214000
+Adding point id: 215000
+Adding point id: 216000
+Adding point id: 217000
+Adding point id: 218000
+Adding point id: 219000
+Adding point id: 220000
+Adding point id: 221000
+Adding point id: 222000
+Adding point id: 223000
+Adding point id: 224000
+Adding point id: 225000
+Adding point id: 226000
+Adding point id: 227000
+Adding point id: 228000
+Adding point id: 229000
+Adding point id: 230000
+Adding point id: 231000
+Adding point id: 232000
+Adding point id: 233000
+Adding point id: 234000
+Adding point id: 235000
+Adding point id: 236000
+Adding point id: 237000
+Adding point id: 238000
+Adding point id: 239000
+Adding point id: 240000
+Adding point id: 241000
+Adding point id: 242000
+Adding point id: 243000
+Adding point id: 244000
+Adding point id: 245000
+Adding point id: 246000
+Adding point id: 247000
+Adding point id: 248000
+Adding point id: 249000
+Adding point id: 250000
+Adding point id: 251000
+Adding point id: 252000
+Adding point id: 253000
+Adding point id: 254000
+Adding point id: 255000
+Adding point id: 256000
+Adding point id: 257000
+Adding point id: 258000
+Adding point id: 259000
+Adding point id: 260000
+Adding point id: 261000
+Adding point id: 262000
+Adding point id: 263000
+Adding point id: 264000
+Adding point id: 265000
+Adding point id: 266000
+Adding point id: 267000
+Adding point id: 268000
+Adding point id: 269000
+Adding point id: 270000
+Adding point id: 271000
+Adding point id: 272000
+Adding point id: 273000
+Adding point id: 274000
+Adding point id: 275000
+Adding point id: 276000
+Adding point id: 277000
+Adding point id: 278000
+Adding point id: 279000
+Adding point id: 280000
+Adding point id: 281000
+Adding point id: 282000
+Adding point id: 283000
+Adding point id: 284000
+Adding point id: 285000
+Adding point id: 286000
+Adding point id: 287000
+Adding point id: 288000
+Adding point id: 289000
+Adding point id: 290000
+Adding point id: 291000
+Adding point id: 292000
+Adding point id: 293000
+Adding point id: 294000
+Adding point id: 295000
+Adding point id: 296000
+Adding point id: 297000
+Adding point id: 298000
+Adding point id: 299000
+Adding 100000 items with dimension 128
+Adding point id: 300000
+Adding point id: 301000
+Adding point id: 302000
+Adding point id: 303000
+Adding point id: 304000
+Adding point id: 305000
+Adding point id: 306000
+Adding point id: 307000
+Adding point id: 308000
+Adding point id: 309000
+Adding point id: 310000
+Adding point id: 311000
+Adding point id: 312000
+Adding point id: 313000
+Adding point id: 314000
+Adding point id: 315000
+Adding point id: 316000
+Adding point id: 317000
+Adding point id: 318000
+Adding point id: 319000
+Adding point id: 320000
+Adding point id: 321000
+Adding point id: 322000
+Adding point id: 323000
+Adding point id: 324000
+Adding point id: 325000
+Adding point id: 326000
+Adding point id: 327000
+Adding point id: 328000
+Adding point id: 329000
+Adding point id: 330000
+Adding point id: 331000
+Adding point id: 332000
+Adding point id: 333000
+Adding point id: 334000
+Adding point id: 335000
+Adding point id: 336000
+Adding point id: 337000
+Adding point id: 338000
+Adding point id: 339000
+Adding point id: 340000
+Adding point id: 341000
+Adding point id: 342000
+Adding point id: 343000
+Adding point id: 344000
+Adding point id: 345000
+Adding point id: 346000
+Adding point id: 347000
+Adding point id: 348000
+Adding point id: 349000
+Adding point id: 350000
+Adding point id: 351000
+Adding point id: 352000
+Adding point id: 353000
+Adding point id: 354000
+Adding point id: 355000
+Adding point id: 356000
+Adding point id: 357000
+Adding point id: 358000
+Adding point id: 359000
+Adding point id: 360000
+Adding point id: 361000
+Adding point id: 362000
+Adding point id: 363000
+Adding point id: 364000
+Adding point id: 365000
+Adding point id: 366000
+Adding point id: 367000
+Adding point id: 368000
+Adding point id: 369000
+Adding point id: 370000
+Adding point id: 371000
+Adding point id: 372000
+Adding point id: 373000
+Adding point id: 374000
+Adding point id: 375000
+Adding point id: 376000
+Adding point id: 377000
+Adding point id: 378000
+Adding point id: 379000
+Adding point id: 380000
+Adding point id: 381000
+Adding point id: 382000
+Adding point id: 383000
+Adding point id: 384000
+Adding point id: 385000
+Adding point id: 386000
+Adding point id: 387000
+Adding point id: 388000
+Adding point id: 389000
+Adding point id: 390000
+Adding point id: 391000
+Adding point id: 392000
+Adding point id: 393000
+Adding point id: 394000
+Adding point id: 395000
+Adding point id: 396000
+Adding point id: 397000
+Adding point id: 398000
+Adding point id: 399000
+Adding 100000 items with dimension 128
+Adding point id: 400000
+Adding point id: 401000
+Adding point id: 402000
+Adding point id: 403000
+Adding point id: 404000
+Adding point id: 405000
+Adding point id: 406000
+Adding point id: 407000
+Adding point id: 408000
+Adding point id: 409000
+Adding point id: 410000
+Adding point id: 411000
+Adding point id: 412000
+Adding point id: 413000
+Adding point id: 414000
+Adding point id: 415000
+Adding point id: 416000
+Adding point id: 417000
+Adding point id: 418000
+Adding point id: 419000
+Adding point id: 420000
+Adding point id: 421000
+Adding point id: 422000
+Adding point id: 423000
+Adding point id: 424000
+Adding point id: 425000
+Adding point id: 426000
+Adding point id: 427000
+Adding point id: 428000
+Adding point id: 429000
+Adding point id: 430000
+Adding point id: 431000
+Adding point id: 432000
+Adding point id: 433000
+Adding point id: 434000
+Adding point id: 435000
+Adding point id: 436000
+Adding point id: 437000
+Adding point id: 438000
+Adding point id: 439000
+Adding point id: 440000
+Adding point id: 441000
+Adding point id: 442000
+Adding point id: 443000
+Adding point id: 444000
+Adding point id: 445000
+Adding point id: 446000
+Adding point id: 447000
+Adding point id: 448000
+Adding point id: 449000
+Adding point id: 450000
+Adding point id: 451000
+Adding point id: 452000
+Adding point id: 453000
+Adding point id: 454000
+Adding point id: 455000
+Adding point id: 456000
+Adding point id: 457000
+Adding point id: 458000
+Adding point id: 459000
+Adding point id: 460000
+Adding point id: 461000
+Adding point id: 462000
+Adding point id: 463000
+Adding point id: 464000
+Adding point id: 465000
+Adding point id: 466000
+Adding point id: 467000
+Adding point id: 468000
+Adding point id: 469000
+Adding point id: 470000
+Adding point id: 471000
+Adding point id: 472000
+Adding point id: 473000
+Adding point id: 474000
+Adding point id: 475000
+Adding point id: 476000
+Adding point id: 477000
+Adding point id: 478000
+Adding point id: 479000
+Adding point id: 480000
+Adding point id: 481000
+Adding point id: 482000
+Adding point id: 483000
+Adding point id: 484000
+Adding point id: 485000
+Adding point id: 486000
+Adding point id: 487000
+Adding point id: 488000
+Adding point id: 489000
+Adding point id: 490000
+Adding point id: 491000
+Adding point id: 492000
+Adding point id: 493000
+Adding point id: 494000
+Adding point id: 495000
+Adding point id: 496000
+Adding point id: 497000
+Adding point id: 498000
+Adding point id: 499000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[02:44:12] sift500k_adv ema round 0 cum 0.0 [('ef=16', 0.9022, 2328.1), ('ef=32', 0.9622, 1350.1), ('ef=64', 0.9898, 759.1), ('ef=128', 0.9992, 424.7), ('ef=256', 1.0, 236.2), ('ef=512', 1.0, 130.0), ('ef=1024', 1.0, 70.9), ('ef=2048', 0.9998, 38.0)]
+Adding 50000 items with dimension 128
+Adding point id: 500000
+Adding point id: 501000
+Adding point id: 502000
+Adding point id: 503000
+Adding point id: 504000
+Adding point id: 505000
+Adding point id: 506000
+Adding point id: 507000
+Adding point id: 508000
+Adding point id: 509000
+Adding point id: 510000
+Adding point id: 511000
+Adding point id: 512000
+Adding point id: 513000
+Adding point id: 514000
+Adding point id: 515000
+Adding point id: 516000
+Adding point id: 517000
+Adding point id: 518000
+Adding point id: 519000
+Adding point id: 520000
+Adding point id: 521000
+Adding point id: 522000
+Adding point id: 523000
+Adding point id: 524000
+Adding point id: 525000
+Adding point id: 526000
+Adding point id: 527000
+Adding point id: 528000
+Adding point id: 529000
+Adding point id: 530000
+Adding point id: 531000
+Adding point id: 532000
+Adding point id: 533000
+Adding point id: 534000
+Adding point id: 535000
+Adding point id: 536000
+Adding point id: 537000
+Adding point id: 538000
+Adding point id: 539000
+Adding point id: 540000
+Adding point id: 541000
+Adding point id: 542000
+Adding point id: 543000
+Adding point id: 544000
+Adding point id: 545000
+Adding point id: 546000
+Adding point id: 547000
+Adding point id: 548000
+Adding point id: 549000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[02:47:33] sift500k_adv ema round 1 cum 26.1 [('ef=16', 0.9258, 1373.3), ('ef=32', 0.9718, 815.0), ('ef=64', 0.9942, 470.7), ('ef=128', 0.9994, 268.3), ('ef=256', 0.9998, 151.3), ('ef=512', 1.0, 84.7), ('ef=1024', 1.0, 46.6), ('ef=2048', 1.0, 25.2)]
+Adding 50000 items with dimension 128
+Adding point id: 550000
+Adding point id: 551000
+Adding point id: 552000
+Adding point id: 553000
+Adding point id: 554000
+Adding point id: 555000
+Adding point id: 556000
+Adding point id: 557000
+Adding point id: 558000
+Adding point id: 559000
+Adding point id: 560000
+Adding point id: 561000
+Adding point id: 562000
+Adding point id: 563000
+Adding point id: 564000
+Adding point id: 565000
+Adding point id: 566000
+Adding point id: 567000
+Adding point id: 568000
+Adding point id: 569000
+Adding point id: 570000
+Adding point id: 571000
+Adding point id: 572000
+Adding point id: 573000
+Adding point id: 574000
+Adding point id: 575000
+Adding point id: 576000
+Adding point id: 577000
+Adding point id: 578000
+Adding point id: 579000
+Adding point id: 580000
+Adding point id: 581000
+Adding point id: 582000
+Adding point id: 583000
+Adding point id: 584000
+Adding point id: 585000
+Adding point id: 586000
+Adding point id: 587000
+Adding point id: 588000
+Adding point id: 589000
+Adding point id: 590000
+Adding point id: 591000
+Adding point id: 592000
+Adding point id: 593000
+Adding point id: 594000
+Adding point id: 595000
+Adding point id: 596000
+Adding point id: 597000
+Adding point id: 598000
+Adding point id: 599000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[02:52:00] sift500k_adv ema round 2 cum 51.2 [('ef=16', 0.9388, 928.8), ('ef=32', 0.9794, 555.1), ('ef=64', 0.9946, 327.8), ('ef=128', 0.999, 190.1), ('ef=256', 0.9996, 108.0), ('ef=512', 0.9998, 60.6), ('ef=1024', 1.0, 33.7), ('ef=2048', 1.0, 18.5)]
+Adding 50000 items with dimension 128
+Adding point id: 600000
+Adding point id: 601000
+Adding point id: 602000
+Adding point id: 603000
+Adding point id: 604000
+Adding point id: 605000
+Adding point id: 606000
+Adding point id: 607000
+Adding point id: 608000
+Adding point id: 609000
+Adding point id: 610000
+Adding point id: 611000
+Adding point id: 612000
+Adding point id: 613000
+Adding point id: 614000
+Adding point id: 615000
+Adding point id: 616000
+Adding point id: 617000
+Adding point id: 618000
+Adding point id: 619000
+Adding point id: 620000
+Adding point id: 621000
+Adding point id: 622000
+Adding point id: 623000
+Adding point id: 624000
+Adding point id: 625000
+Adding point id: 626000
+Adding point id: 627000
+Adding point id: 628000
+Adding point id: 629000
+Adding point id: 630000
+Adding point id: 631000
+Adding point id: 632000
+Adding point id: 633000
+Adding point id: 634000
+Adding point id: 635000
+Adding point id: 636000
+Adding point id: 637000
+Adding point id: 638000
+Adding point id: 639000
+Adding point id: 640000
+Adding point id: 641000
+Adding point id: 642000
+Adding point id: 643000
+Adding point id: 644000
+Adding point id: 645000
+Adding point id: 646000
+Adding point id: 647000
+Adding point id: 648000
+Adding point id: 649000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[02:57:27] sift500k_adv ema round 3 cum 76.6 [('ef=16', 0.9474, 722.3), ('ef=32', 0.9844, 437.2), ('ef=64', 0.9964, 261.0), ('ef=128', 0.999, 151.3), ('ef=256', 0.9996, 86.7), ('ef=512', 0.9998, 48.6), ('ef=1024', 0.9998, 26.8), ('ef=2048', 0.9998, 14.8)]
+Adding 50000 items with dimension 128
+Adding point id: 650000
+Adding point id: 651000
+Adding point id: 652000
+Adding point id: 653000
+Adding point id: 654000
+Adding point id: 655000
+Adding point id: 656000
+Adding point id: 657000
+Adding point id: 658000
+Adding point id: 659000
+Adding point id: 660000
+Adding point id: 661000
+Adding point id: 662000
+Adding point id: 663000
+Adding point id: 664000
+Adding point id: 665000
+Adding point id: 666000
+Adding point id: 667000
+Adding point id: 668000
+Adding point id: 669000
+Adding point id: 670000
+Adding point id: 671000
+Adding point id: 672000
+Adding point id: 673000
+Adding point id: 674000
+Adding point id: 675000
+Adding point id: 676000
+Adding point id: 677000
+Adding point id: 678000
+Adding point id: 679000
+Adding point id: 680000
+Adding point id: 681000
+Adding point id: 682000
+Adding point id: 683000
+Adding point id: 684000
+Adding point id: 685000
+Adding point id: 686000
+Adding point id: 687000
+Adding point id: 688000
+Adding point id: 689000
+Adding point id: 690000
+Adding point id: 691000
+Adding point id: 692000
+Adding point id: 693000
+Adding point id: 694000
+Adding point id: 695000
+Adding point id: 696000
+Adding point id: 697000
+Adding point id: 698000
+Adding point id: 699000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:03:47] sift500k_adv ema round 4 cum 101.6 [('ef=16', 0.9518, 576.4), ('ef=32', 0.988, 356.5), ('ef=64', 0.9968, 213.8), ('ef=128', 0.9994, 125.9), ('ef=256', 0.9996, 72.4), ('ef=512', 0.9996, 41.1), ('ef=1024', 0.9996, 23.0), ('ef=2048', 0.9996, 12.7)]
+Adding 50000 items with dimension 128
+Adding point id: 700000
+Adding point id: 701000
+Adding point id: 702000
+Adding point id: 703000
+Adding point id: 704000
+Adding point id: 705000
+Adding point id: 706000
+Adding point id: 707000
+Adding point id: 708000
+Adding point id: 709000
+Adding point id: 710000
+Adding point id: 711000
+Adding point id: 712000
+Adding point id: 713000
+Adding point id: 714000
+Adding point id: 715000
+Adding point id: 716000
+Adding point id: 717000
+Adding point id: 718000
+Adding point id: 719000
+Adding point id: 720000
+Adding point id: 721000
+Adding point id: 722000
+Adding point id: 723000
+Adding point id: 724000
+Adding point id: 725000
+Adding point id: 726000
+Adding point id: 727000
+Adding point id: 728000
+Adding point id: 729000
+Adding point id: 730000
+Adding point id: 731000
+Adding point id: 732000
+Adding point id: 733000
+Adding point id: 734000
+Adding point id: 735000
+Adding point id: 736000
+Adding point id: 737000
+Adding point id: 738000
+Adding point id: 739000
+Adding point id: 740000
+Adding point id: 741000
+Adding point id: 742000
+Adding point id: 743000
+Adding point id: 744000
+Adding point id: 745000
+Adding point id: 746000
+Adding point id: 747000
+Adding point id: 748000
+Adding point id: 749000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:11:02] sift500k_adv ema round 5 cum 127.0 [('ef=16', 0.9528, 510.5), ('ef=32', 0.9872, 310.6), ('ef=64', 0.9972, 182.7), ('ef=128', 0.9994, 108.4), ('ef=256', 0.9996, 62.7), ('ef=512', 1.0, 35.7), ('ef=1024', 1.0, 19.9), ('ef=2048', 1.0, 11.0)]
+Adding 50000 items with dimension 128
+Adding point id: 750000
+Adding point id: 751000
+Adding point id: 752000
+Adding point id: 753000
+Adding point id: 754000
+Adding point id: 755000
+Adding point id: 756000
+Adding point id: 757000
+Adding point id: 758000
+Adding point id: 759000
+Adding point id: 760000
+Adding point id: 761000
+Adding point id: 762000
+Adding point id: 763000
+Adding point id: 764000
+Adding point id: 765000
+Adding point id: 766000
+Adding point id: 767000
+Adding point id: 768000
+Adding point id: 769000
+Adding point id: 770000
+Adding point id: 771000
+Adding point id: 772000
+Adding point id: 773000
+Adding point id: 774000
+Adding point id: 775000
+Adding point id: 776000
+Adding point id: 777000
+Adding point id: 778000
+Adding point id: 779000
+Adding point id: 780000
+Adding point id: 781000
+Adding point id: 782000
+Adding point id: 783000
+Adding point id: 784000
+Adding point id: 785000
+Adding point id: 786000
+Adding point id: 787000
+Adding point id: 788000
+Adding point id: 789000
+Adding point id: 790000
+Adding point id: 791000
+Adding point id: 792000
+Adding point id: 793000
+Adding point id: 794000
+Adding point id: 795000
+Adding point id: 796000
+Adding point id: 797000
+Adding point id: 798000
+Adding point id: 799000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:18:55] sift500k_adv ema round 6 cum 152.4 [('ef=16', 0.9518, 454.6), ('ef=32', 0.9856, 279.3), ('ef=64', 0.997, 169.5), ('ef=128', 0.9996, 99.9), ('ef=256', 0.9998, 58.1), ('ef=512', 1.0, 33.0), ('ef=1024', 1.0, 18.2), ('ef=2048', 1.0, 10.0)]
+Adding 50000 items with dimension 128
+Adding point id: 800000
+Adding point id: 801000
+Adding point id: 802000
+Adding point id: 803000
+Adding point id: 804000
+Adding point id: 805000
+Adding point id: 806000
+Adding point id: 807000
+Adding point id: 808000
+Adding point id: 809000
+Adding point id: 810000
+Adding point id: 811000
+Adding point id: 812000
+Adding point id: 813000
+Adding point id: 814000
+Adding point id: 815000
+Adding point id: 816000
+Adding point id: 817000
+Adding point id: 818000
+Adding point id: 819000
+Adding point id: 820000
+Adding point id: 821000
+Adding point id: 822000
+Adding point id: 823000
+Adding point id: 824000
+Adding point id: 825000
+Adding point id: 826000
+Adding point id: 827000
+Adding point id: 828000
+Adding point id: 829000
+Adding point id: 830000
+Adding point id: 831000
+Adding point id: 832000
+Adding point id: 833000
+Adding point id: 834000
+Adding point id: 835000
+Adding point id: 836000
+Adding point id: 837000
+Adding point id: 838000
+Adding point id: 839000
+Adding point id: 840000
+Adding point id: 841000
+Adding point id: 842000
+Adding point id: 843000
+Adding point id: 844000
+Adding point id: 845000
+Adding point id: 846000
+Adding point id: 847000
+Adding point id: 848000
+Adding point id: 849000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:27:17] sift500k_adv ema round 7 cum 177.9 [('ef=16', 0.9514, 418.5), ('ef=32', 0.9844, 256.8), ('ef=64', 0.9964, 157.9), ('ef=128', 0.9996, 94.6), ('ef=256', 1.0, 54.7), ('ef=512', 1.0, 31.0), ('ef=1024', 1.0, 17.2), ('ef=2048', 1.0, 9.4)]
+Adding 50000 items with dimension 128
+Adding point id: 850000
+Adding point id: 851000
+Adding point id: 852000
+Adding point id: 853000
+Adding point id: 854000
+Adding point id: 855000
+Adding point id: 856000
+Adding point id: 857000
+Adding point id: 858000
+Adding point id: 859000
+Adding point id: 860000
+Adding point id: 861000
+Adding point id: 862000
+Adding point id: 863000
+Adding point id: 864000
+Adding point id: 865000
+Adding point id: 866000
+Adding point id: 867000
+Adding point id: 868000
+Adding point id: 869000
+Adding point id: 870000
+Adding point id: 871000
+Adding point id: 872000
+Adding point id: 873000
+Adding point id: 874000
+Adding point id: 875000
+Adding point id: 876000
+Adding point id: 877000
+Adding point id: 878000
+Adding point id: 879000
+Adding point id: 880000
+Adding point id: 881000
+Adding point id: 882000
+Adding point id: 883000
+Adding point id: 884000
+Adding point id: 885000
+Adding point id: 886000
+Adding point id: 887000
+Adding point id: 888000
+Adding point id: 889000
+Adding point id: 890000
+Adding point id: 891000
+Adding point id: 892000
+Adding point id: 893000
+Adding point id: 894000
+Adding point id: 895000
+Adding point id: 896000
+Adding point id: 897000
+Adding point id: 898000
+Adding point id: 899000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:36:23] sift500k_adv ema round 8 cum 203.6 [('ef=16', 0.9612, 396.2), ('ef=32', 0.9894, 236.9), ('ef=64', 0.9974, 144.1), ('ef=128', 0.9998, 86.0), ('ef=256', 1.0, 50.0), ('ef=512', 1.0, 28.5), ('ef=1024', 1.0, 15.8), ('ef=2048', 1.0, 8.6)]
+Adding 50000 items with dimension 128
+Adding point id: 900000
+Adding point id: 901000
+Adding point id: 902000
+Adding point id: 903000
+Adding point id: 904000
+Adding point id: 905000
+Adding point id: 906000
+Adding point id: 907000
+Adding point id: 908000
+Adding point id: 909000
+Adding point id: 910000
+Adding point id: 911000
+Adding point id: 912000
+Adding point id: 913000
+Adding point id: 914000
+Adding point id: 915000
+Adding point id: 916000
+Adding point id: 917000
+Adding point id: 918000
+Adding point id: 919000
+Adding point id: 920000
+Adding point id: 921000
+Adding point id: 922000
+Adding point id: 923000
+Adding point id: 924000
+Adding point id: 925000
+Adding point id: 926000
+Adding point id: 927000
+Adding point id: 928000
+Adding point id: 929000
+Adding point id: 930000
+Adding point id: 931000
+Adding point id: 932000
+Adding point id: 933000
+Adding point id: 934000
+Adding point id: 935000
+Adding point id: 936000
+Adding point id: 937000
+Adding point id: 938000
+Adding point id: 939000
+Adding point id: 940000
+Adding point id: 941000
+Adding point id: 942000
+Adding point id: 943000
+Adding point id: 944000
+Adding point id: 945000
+Adding point id: 946000
+Adding point id: 947000
+Adding point id: 948000
+Adding point id: 949000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:45:55] sift500k_adv ema round 9 cum 228.9 [('ef=16', 0.9596, 375.2), ('ef=32', 0.9864, 228.5), ('ef=64', 0.9974, 138.1), ('ef=128', 1.0, 82.1), ('ef=256', 1.0, 47.3), ('ef=512', 1.0, 26.6), ('ef=1024', 1.0, 15.0), ('ef=2048', 1.0, 8.2)]
+Adding 50000 items with dimension 128
+Adding point id: 950000
+Adding point id: 951000
+Adding point id: 952000
+Adding point id: 953000
+Adding point id: 954000
+Adding point id: 955000
+Adding point id: 956000
+Adding point id: 957000
+Adding point id: 958000
+Adding point id: 959000
+Adding point id: 960000
+Adding point id: 961000
+Adding point id: 962000
+Adding point id: 963000
+Adding point id: 964000
+Adding point id: 965000
+Adding point id: 966000
+Adding point id: 967000
+Adding point id: 968000
+Adding point id: 969000
+Adding point id: 970000
+Adding point id: 971000
+Adding point id: 972000
+Adding point id: 973000
+Adding point id: 974000
+Adding point id: 975000
+Adding point id: 976000
+Adding point id: 977000
+Adding point id: 978000
+Adding point id: 979000
+Adding point id: 980000
+Adding point id: 981000
+Adding point id: 982000
+Adding point id: 983000
+Adding point id: 984000
+Adding point id: 985000
+Adding point id: 986000
+Adding point id: 987000
+Adding point id: 988000
+Adding point id: 989000
+Adding point id: 990000
+Adding point id: 991000
+Adding point id: 992000
+Adding point id: 993000
+Adding point id: 994000
+Adding point id: 995000
+Adding point id: 996000
+Adding point id: 997000
+Adding point id: 998000
+Adding point id: 999000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[03:56:05] sift500k_adv ema round 10 cum 254.0 [('ef=16', 0.9576, 327.3), ('ef=32', 0.9864, 203.7), ('ef=64', 0.9974, 124.1), ('ef=128', 0.9994, 73.6), ('ef=256', 0.9998, 43.7), ('ef=512', 1.0, 25.2), ('ef=1024', 1.0, 14.1), ('ef=2048', 1.0, 7.7)]
+Adding 50000 items with dimension 128
+Adding point id: 1000000
+Adding point id: 1001000
+Adding point id: 1002000
+Adding point id: 1003000
+Adding point id: 1004000
+Adding point id: 1005000
+Adding point id: 1006000
+Adding point id: 1007000
+Adding point id: 1008000
+Adding point id: 1009000
+Adding point id: 1010000
+Adding point id: 1011000
+Adding point id: 1012000
+Adding point id: 1013000
+Adding point id: 1014000
+Adding point id: 1015000
+Adding point id: 1016000
+Adding point id: 1017000
+Adding point id: 1018000
+Adding point id: 1019000
+Adding point id: 1020000
+Adding point id: 1021000
+Adding point id: 1022000
+Adding point id: 1023000
+Adding point id: 1024000
+Adding point id: 1025000
+Adding point id: 1026000
+Adding point id: 1027000
+Adding point id: 1028000
+Adding point id: 1029000
+Adding point id: 1030000
+Adding point id: 1031000
+Adding point id: 1032000
+Adding point id: 1033000
+Adding point id: 1034000
+Adding point id: 1035000
+Adding point id: 1036000
+Adding point id: 1037000
+Adding point id: 1038000
+Adding point id: 1039000
+Adding point id: 1040000
+Adding point id: 1041000
+Adding point id: 1042000
+Adding point id: 1043000
+Adding point id: 1044000
+Adding point id: 1045000
+Adding point id: 1046000
+Adding point id: 1047000
+Adding point id: 1048000
+Adding point id: 1049000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[04:06:32] sift500k_adv ema round 11 cum 279.5 [('ef=16', 0.955, 330.3), ('ef=32', 0.9856, 202.8), ('ef=64', 0.9968, 124.3), ('ef=128', 0.9992, 74.5), ('ef=256', 0.9998, 43.4), ('ef=512', 1.0, 24.5), ('ef=1024', 1.0, 13.6), ('ef=2048', 1.0, 7.5)]
+Adding 50000 items with dimension 128
+Adding point id: 1050000
+Adding point id: 1051000
+Adding point id: 1052000
+Adding point id: 1053000
+Adding point id: 1054000
+Adding point id: 1055000
+Adding point id: 1056000
+Adding point id: 1057000
+Adding point id: 1058000
+Adding point id: 1059000
+Adding point id: 1060000
+Adding point id: 1061000
+Adding point id: 1062000
+Adding point id: 1063000
+Adding point id: 1064000
+Adding point id: 1065000
+Adding point id: 1066000
+Adding point id: 1067000
+Adding point id: 1068000
+Adding point id: 1069000
+Adding point id: 1070000
+Adding point id: 1071000
+Adding point id: 1072000
+Adding point id: 1073000
+Adding point id: 1074000
+Adding point id: 1075000
+Adding point id: 1076000
+Adding point id: 1077000
+Adding point id: 1078000
+Adding point id: 1079000
+Adding point id: 1080000
+Adding point id: 1081000
+Adding point id: 1082000
+Adding point id: 1083000
+Adding point id: 1084000
+Adding point id: 1085000
+Adding point id: 1086000
+Adding point id: 1087000
+Adding point id: 1088000
+Adding point id: 1089000
+Adding point id: 1090000
+Adding point id: 1091000
+Adding point id: 1092000
+Adding point id: 1093000
+Adding point id: 1094000
+Adding point id: 1095000
+Adding point id: 1096000
+Adding point id: 1097000
+Adding point id: 1098000
+Adding point id: 1099000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[04:17:50] sift500k_adv ema round 12 cum 304.9 [('ef=16', 0.9548, 308.9), ('ef=32', 0.9884, 190.9), ('ef=64', 0.997, 115.7), ('ef=128', 0.9998, 67.5), ('ef=256', 0.9998, 39.2), ('ef=512', 1.0, 22.4), ('ef=1024', 1.0, 12.6), ('ef=2048', 1.0, 6.9)]
+Adding 50000 items with dimension 128
+Adding point id: 1100000
+Adding point id: 1101000
+Adding point id: 1102000
+Adding point id: 1103000
+Adding point id: 1104000
+Adding point id: 1105000
+Adding point id: 1106000
+Adding point id: 1107000
+Adding point id: 1108000
+Adding point id: 1109000
+Adding point id: 1110000
+Adding point id: 1111000
+Adding point id: 1112000
+Adding point id: 1113000
+Adding point id: 1114000
+Adding point id: 1115000
+Adding point id: 1116000
+Adding point id: 1117000
+Adding point id: 1118000
+Adding point id: 1119000
+Adding point id: 1120000
+Adding point id: 1121000
+Adding point id: 1122000
+Adding point id: 1123000
+Adding point id: 1124000
+Adding point id: 1125000
+Adding point id: 1126000
+Adding point id: 1127000
+Adding point id: 1128000
+Adding point id: 1129000
+Adding point id: 1130000
+Adding point id: 1131000
+Adding point id: 1132000
+Adding point id: 1133000
+Adding point id: 1134000
+Adding point id: 1135000
+Adding point id: 1136000
+Adding point id: 1137000
+Adding point id: 1138000
+Adding point id: 1139000
+Adding point id: 1140000
+Adding point id: 1141000
+Adding point id: 1142000
+Adding point id: 1143000
+Adding point id: 1144000
+Adding point id: 1145000
+Adding point id: 1146000
+Adding point id: 1147000
+Adding point id: 1148000
+Adding point id: 1149000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[04:27:59] sift500k_adv ema round 13 cum 330.0 [('ef=16', 0.9556, 317.8), ('ef=32', 0.985, 200.3), ('ef=64', 0.9946, 125.7), ('ef=128', 0.9994, 75.2), ('ef=256', 0.9998, 44.8), ('ef=512', 1.0, 26.0), ('ef=1024', 1.0, 14.4), ('ef=2048', 1.0, 7.6)]
+Adding 50000 items with dimension 128
+Adding point id: 1150000
+Adding point id: 1151000
+Adding point id: 1152000
+Adding point id: 1153000
+Adding point id: 1154000
+Adding point id: 1155000
+Adding point id: 1156000
+Adding point id: 1157000
+Adding point id: 1158000
+Adding point id: 1159000
+Adding point id: 1160000
+Adding point id: 1161000
+Adding point id: 1162000
+Adding point id: 1163000
+Adding point id: 1164000
+Adding point id: 1165000
+Adding point id: 1166000
+Adding point id: 1167000
+Adding point id: 1168000
+Adding point id: 1169000
+Adding point id: 1170000
+Adding point id: 1171000
+Adding point id: 1172000
+Adding point id: 1173000
+Adding point id: 1174000
+Adding point id: 1175000
+Adding point id: 1176000
+Adding point id: 1177000
+Adding point id: 1178000
+Adding point id: 1179000
+Adding point id: 1180000
+Adding point id: 1181000
+Adding point id: 1182000
+Adding point id: 1183000
+Adding point id: 1184000
+Adding point id: 1185000
+Adding point id: 1186000
+Adding point id: 1187000
+Adding point id: 1188000
+Adding point id: 1189000
+Adding point id: 1190000
+Adding point id: 1191000
+Adding point id: 1192000
+Adding point id: 1193000
+Adding point id: 1194000
+Adding point id: 1195000
+Adding point id: 1196000
+Adding point id: 1197000
+Adding point id: 1198000
+Adding point id: 1199000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[04:39:35] sift500k_adv ema round 14 cum 354.1 [('ef=16', 0.958, 305.1), ('ef=32', 0.9892, 186.3), ('ef=64', 0.997, 111.0), ('ef=128', 0.9996, 65.5), ('ef=256', 0.9998, 38.4), ('ef=512', 1.0, 21.9), ('ef=1024', 1.0, 12.2), ('ef=2048', 1.0, 6.7)]
+Adding 50000 items with dimension 128
+Adding point id: 1200000
+Adding point id: 1201000
+Adding point id: 1202000
+Adding point id: 1203000
+Adding point id: 1204000
+Adding point id: 1205000
+Adding point id: 1206000
+Adding point id: 1207000
+Adding point id: 1208000
+Adding point id: 1209000
+Adding point id: 1210000
+Adding point id: 1211000
+Adding point id: 1212000
+Adding point id: 1213000
+Adding point id: 1214000
+Adding point id: 1215000
+Adding point id: 1216000
+Adding point id: 1217000
+Adding point id: 1218000
+Adding point id: 1219000
+Adding point id: 1220000
+Adding point id: 1221000
+Adding point id: 1222000
+Adding point id: 1223000
+Adding point id: 1224000
+Adding point id: 1225000
+Adding point id: 1226000
+Adding point id: 1227000
+Adding point id: 1228000
+Adding point id: 1229000
+Adding point id: 1230000
+Adding point id: 1231000
+Adding point id: 1232000
+Adding point id: 1233000
+Adding point id: 1234000
+Adding point id: 1235000
+Adding point id: 1236000
+Adding point id: 1237000
+Adding point id: 1238000
+Adding point id: 1239000
+Adding point id: 1240000
+Adding point id: 1241000
+Adding point id: 1242000
+Adding point id: 1243000
+Adding point id: 1244000
+Adding point id: 1245000
+Adding point id: 1246000
+Adding point id: 1247000
+Adding point id: 1248000
+Adding point id: 1249000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[04:51:54] sift500k_adv ema round 15 cum 379.2 [('ef=16', 0.957, 273.5), ('ef=32', 0.99, 171.0), ('ef=64', 0.997, 103.0), ('ef=128', 0.9996, 61.6), ('ef=256', 1.0, 36.2), ('ef=512', 1.0, 20.7), ('ef=1024', 1.0, 11.5), ('ef=2048', 1.0, 6.3)]
+Adding 50000 items with dimension 128
+Adding point id: 1250000
+Adding point id: 1251000
+Adding point id: 1252000
+Adding point id: 1253000
+Adding point id: 1254000
+Adding point id: 1255000
+Adding point id: 1256000
+Adding point id: 1257000
+Adding point id: 1258000
+Adding point id: 1259000
+Adding point id: 1260000
+Adding point id: 1261000
+Adding point id: 1262000
+Adding point id: 1263000
+Adding point id: 1264000
+Adding point id: 1265000
+Adding point id: 1266000
+Adding point id: 1267000
+Adding point id: 1268000
+Adding point id: 1269000
+Adding point id: 1270000
+Adding point id: 1271000
+Adding point id: 1272000
+Adding point id: 1273000
+Adding point id: 1274000
+Adding point id: 1275000
+Adding point id: 1276000
+Adding point id: 1277000
+Adding point id: 1278000
+Adding point id: 1279000
+Adding point id: 1280000
+Adding point id: 1281000
+Adding point id: 1282000
+Adding point id: 1283000
+Adding point id: 1284000
+Adding point id: 1285000
+Adding point id: 1286000
+Adding point id: 1287000
+Adding point id: 1288000
+Adding point id: 1289000
+Adding point id: 1290000
+Adding point id: 1291000
+Adding point id: 1292000
+Adding point id: 1293000
+Adding point id: 1294000
+Adding point id: 1295000
+Adding point id: 1296000
+Adding point id: 1297000
+Adding point id: 1298000
+Adding point id: 1299000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[05:04:28] sift500k_adv ema round 16 cum 404.5 [('ef=16', 0.9574, 295.4), ('ef=32', 0.9896, 178.7), ('ef=64', 0.9962, 105.4), ('ef=128', 0.9994, 61.2), ('ef=256', 0.9998, 35.8), ('ef=512', 0.9998, 20.3), ('ef=1024', 1.0, 11.3), ('ef=2048', 0.9998, 6.1)]
+Adding 50000 items with dimension 128
+Adding point id: 1300000
+Adding point id: 1301000
+Adding point id: 1302000
+Adding point id: 1303000
+Adding point id: 1304000
+Adding point id: 1305000
+Adding point id: 1306000
+Adding point id: 1307000
+Adding point id: 1308000
+Adding point id: 1309000
+Adding point id: 1310000
+Adding point id: 1311000
+Adding point id: 1312000
+Adding point id: 1313000
+Adding point id: 1314000
+Adding point id: 1315000
+Adding point id: 1316000
+Adding point id: 1317000
+Adding point id: 1318000
+Adding point id: 1319000
+Adding point id: 1320000
+Adding point id: 1321000
+Adding point id: 1322000
+Adding point id: 1323000
+Adding point id: 1324000
+Adding point id: 1325000
+Adding point id: 1326000
+Adding point id: 1327000
+Adding point id: 1328000
+Adding point id: 1329000
+Adding point id: 1330000
+Adding point id: 1331000
+Adding point id: 1332000
+Adding point id: 1333000
+Adding point id: 1334000
+Adding point id: 1335000
+Adding point id: 1336000
+Adding point id: 1337000
+Adding point id: 1338000
+Adding point id: 1339000
+Adding point id: 1340000
+Adding point id: 1341000
+Adding point id: 1342000
+Adding point id: 1343000
+Adding point id: 1344000
+Adding point id: 1345000
+Adding point id: 1346000
+Adding point id: 1347000
+Adding point id: 1348000
+Adding point id: 1349000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[05:17:15] sift500k_adv ema round 17 cum 430.0 [('ef=16', 0.9574, 270.8), ('ef=32', 0.9888, 166.0), ('ef=64', 0.9972, 102.4), ('ef=128', 0.9996, 60.1), ('ef=256', 0.9998, 35.3), ('ef=512', 1.0, 20.1), ('ef=1024', 1.0, 11.1), ('ef=2048', 1.0, 6.0)]
+Adding 50000 items with dimension 128
+Adding point id: 1350000
+Adding point id: 1351000
+Adding point id: 1352000
+Adding point id: 1353000
+Adding point id: 1354000
+Adding point id: 1355000
+Adding point id: 1356000
+Adding point id: 1357000
+Adding point id: 1358000
+Adding point id: 1359000
+Adding point id: 1360000
+Adding point id: 1361000
+Adding point id: 1362000
+Adding point id: 1363000
+Adding point id: 1364000
+Adding point id: 1365000
+Adding point id: 1366000
+Adding point id: 1367000
+Adding point id: 1368000
+Adding point id: 1369000
+Adding point id: 1370000
+Adding point id: 1371000
+Adding point id: 1372000
+Adding point id: 1373000
+Adding point id: 1374000
+Adding point id: 1375000
+Adding point id: 1376000
+Adding point id: 1377000
+Adding point id: 1378000
+Adding point id: 1379000
+Adding point id: 1380000
+Adding point id: 1381000
+Adding point id: 1382000
+Adding point id: 1383000
+Adding point id: 1384000
+Adding point id: 1385000
+Adding point id: 1386000
+Adding point id: 1387000
+Adding point id: 1388000
+Adding point id: 1389000
+Adding point id: 1390000
+Adding point id: 1391000
+Adding point id: 1392000
+Adding point id: 1393000
+Adding point id: 1394000
+Adding point id: 1395000
+Adding point id: 1396000
+Adding point id: 1397000
+Adding point id: 1398000
+Adding point id: 1399000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[05:30:42] sift500k_adv ema round 18 cum 455.2 [('ef=16', 0.9542, 256.1), ('ef=32', 0.9882, 158.2), ('ef=64', 0.9978, 95.3), ('ef=128', 0.9998, 56.4), ('ef=256', 0.9998, 32.6), ('ef=512', 0.9998, 18.9), ('ef=1024', 1.0, 10.6), ('ef=2048', 1.0, 5.8)]
+Adding 50000 items with dimension 128
+Adding point id: 1400000
+Adding point id: 1401000
+Adding point id: 1402000
+Adding point id: 1403000
+Adding point id: 1404000
+Adding point id: 1405000
+Adding point id: 1406000
+Adding point id: 1407000
+Adding point id: 1408000
+Adding point id: 1409000
+Adding point id: 1410000
+Adding point id: 1411000
+Adding point id: 1412000
+Adding point id: 1413000
+Adding point id: 1414000
+Adding point id: 1415000
+Adding point id: 1416000
+Adding point id: 1417000
+Adding point id: 1418000
+Adding point id: 1419000
+Adding point id: 1420000
+Adding point id: 1421000
+Adding point id: 1422000
+Adding point id: 1423000
+Adding point id: 1424000
+Adding point id: 1425000
+Adding point id: 1426000
+Adding point id: 1427000
+Adding point id: 1428000
+Adding point id: 1429000
+Adding point id: 1430000
+Adding point id: 1431000
+Adding point id: 1432000
+Adding point id: 1433000
+Adding point id: 1434000
+Adding point id: 1435000
+Adding point id: 1436000
+Adding point id: 1437000
+Adding point id: 1438000
+Adding point id: 1439000
+Adding point id: 1440000
+Adding point id: 1441000
+Adding point id: 1442000
+Adding point id: 1443000
+Adding point id: 1444000
+Adding point id: 1445000
+Adding point id: 1446000
+Adding point id: 1447000
+Adding point id: 1448000
+Adding point id: 1449000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[05:44:09] sift500k_adv ema round 19 cum 480.1 [('ef=16', 0.9514, 256.9), ('ef=32', 0.9862, 160.7), ('ef=64', 0.9968, 96.3), ('ef=128', 0.9994, 57.4), ('ef=256', 1.0, 33.2), ('ef=512', 1.0, 18.9), ('ef=1024', 1.0, 10.5), ('ef=2048', 1.0, 5.7)]
+Adding 50000 items with dimension 128
+Adding point id: 1450000
+Adding point id: 1451000
+Adding point id: 1452000
+Adding point id: 1453000
+Adding point id: 1454000
+Adding point id: 1455000
+Adding point id: 1456000
+Adding point id: 1457000
+Adding point id: 1458000
+Adding point id: 1459000
+Adding point id: 1460000
+Adding point id: 1461000
+Adding point id: 1462000
+Adding point id: 1463000
+Adding point id: 1464000
+Adding point id: 1465000
+Adding point id: 1466000
+Adding point id: 1467000
+Adding point id: 1468000
+Adding point id: 1469000
+Adding point id: 1470000
+Adding point id: 1471000
+Adding point id: 1472000
+Adding point id: 1473000
+Adding point id: 1474000
+Adding point id: 1475000
+Adding point id: 1476000
+Adding point id: 1477000
+Adding point id: 1478000
+Adding point id: 1479000
+Adding point id: 1480000
+Adding point id: 1481000
+Adding point id: 1482000
+Adding point id: 1483000
+Adding point id: 1484000
+Adding point id: 1485000
+Adding point id: 1486000
+Adding point id: 1487000
+Adding point id: 1488000
+Adding point id: 1489000
+Adding point id: 1490000
+Adding point id: 1491000
+Adding point id: 1492000
+Adding point id: 1493000
+Adding point id: 1494000
+Adding point id: 1495000
+Adding point id: 1496000
+Adding point id: 1497000
+Adding point id: 1498000
+Adding point id: 1499000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[05:57:41] sift500k_adv ema round 20 cum 505.6 [('ef=16', 0.9558, 279.1), ('ef=32', 0.987, 168.6), ('ef=64', 0.998, 100.0), ('ef=128', 0.9998, 59.0), ('ef=256', 1.0, 33.7), ('ef=512', 1.0, 19.0), ('ef=1024', 1.0, 10.4), ('ef=2048', 1.0, 5.6)]
+[05:57:41] DONE sift500k_adv ema
+--- [6] exit=0
+=== [7 c4782d793357b690.1] 2026-10-30 05:57:44 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+[05:57:45] sift500k_adv acorn stream start
+[06:34:21] sift500k_adv acorn round 0 cum 0.0 [('ef=16', 0.8202, 4492.7), ('ef=32', 0.9262, 2636.2), ('ef=64', 0.9736, 1516.3), ('ef=128', 0.9928, 871.0), ('ef=256', 0.998, 491.8), ('ef=512', 0.9994, 266.2), ('ef=1024', 1.0, 138.5), ('ef=2048', 1.0, 63.6)]
+[06:34:21] sift500k_adv acorn round 1 cum 15.451 [('ef=16', 0.789, 4062.3), ('ef=32', 0.904, 2363.7), ('ef=64', 0.9574, 1345.2), ('ef=128', 0.9858, 763.3), ('ef=256', 0.9954, 424.6), ('ef=512', 0.9986, 224.9), ('ef=1024', 0.999, 112.4), ('ef=2048', 0.999, 50.7)]
+[06:34:21] sift500k_adv acorn round 2 cum 31.051 [('ef=16', 0.758, 3796.8), ('ef=32', 0.8806, 2197.9), ('ef=64', 0.9402, 1254.0), ('ef=128', 0.9744, 702.9), ('ef=256', 0.9856, 384.9), ('ef=512', 0.9904, 203.0), ('ef=1024', 0.993, 100.2), ('ef=2048', 0.9934, 45.1)]
+[06:34:21] sift500k_adv acorn round 3 cum 46.482 [('ef=16', 0.7308, 3652.2), ('ef=32', 0.8638, 2105.8), ('ef=64', 0.9406, 1180.0), ('ef=128', 0.975, 655.9), ('ef=256', 0.9892, 357.1), ('ef=512', 0.995, 186.2), ('ef=1024', 0.9974, 91.7), ('ef=2048', 0.998, 41.2)]
+[06:34:21] sift500k_adv acorn round 4 cum 62.214 [('ef=16', 0.7264, 3487.3), ('ef=32', 0.852, 1991.8), ('ef=64', 0.9336, 1115.3), ('ef=128', 0.9732, 617.4), ('ef=256', 0.9878, 334.3), ('ef=512', 0.9934, 174.0), ('ef=1024', 0.9962, 85.8), ('ef=2048', 0.997, 38.9)]
+[06:34:21] sift500k_adv acorn round 5 cum 77.939 [('ef=16', 0.7182, 3379.0), ('ef=32', 0.8412, 1934.5), ('ef=64', 0.9328, 1075.6), ('ef=128', 0.9722, 591.4), ('ef=256', 0.9854, 319.1), ('ef=512', 0.993, 165.8), ('ef=1024', 0.9962, 82.1), ('ef=2048', 0.997, 37.3)]
+[06:34:21] sift500k_adv acorn round 6 cum 93.468 [('ef=16', 0.7074, 3288.1), ('ef=32', 0.8608, 1853.3), ('ef=64', 0.9302, 1029.7), ('ef=128', 0.9684, 569.0), ('ef=256', 0.9868, 305.0), ('ef=512', 0.9948, 159.0), ('ef=1024', 0.997, 78.4), ('ef=2048', 0.9974, 35.9)]
+[06:34:21] sift500k_adv acorn round 7 cum 109.153 [('ef=16', 0.698, 3316.1), ('ef=32', 0.848, 1841.6), ('ef=64', 0.9264, 1012.0), ('ef=128', 0.9686, 554.1), ('ef=256', 0.984, 297.6), ('ef=512', 0.991, 154.8), ('ef=1024', 0.9948, 76.2), ('ef=2048', 0.9958, 35.1)]
+[06:34:21] sift500k_adv acorn round 8 cum 124.758 [('ef=16', 0.7276, 3056.2), ('ef=32', 0.8602, 1745.3), ('ef=64', 0.9298, 968.0), ('ef=128', 0.9678, 533.8), ('ef=256', 0.9838, 287.3), ('ef=512', 0.9936, 148.8), ('ef=1024', 0.996, 73.8), ('ef=2048', 0.997, 34.1)]
+[06:34:21] sift500k_adv acorn round 9 cum 140.664 [('ef=16', 0.7062, 3037.4), ('ef=32', 0.835, 1699.4), ('ef=64', 0.929, 946.4), ('ef=128', 0.9646, 519.5), ('ef=256', 0.9856, 280.1), ('ef=512', 0.9932, 145.6), ('ef=1024', 0.996, 72.2), ('ef=2048', 0.9968, 33.3)]
+[06:34:21] sift500k_adv acorn round 10 cum 155.789 [('ef=16', 0.6368, 3564.7), ('ef=32', 0.757, 2020.5), ('ef=64', 0.8298, 1084.9), ('ef=128', 0.8606, 613.5), ('ef=256', 0.8772, 327.2), ('ef=512', 0.883, 171.4), ('ef=1024', 0.8866, 83.9), ('ef=2048', 0.8878, 38.6)]
+[06:34:21] sift500k_adv acorn round 11 cum 171.825 [('ef=16', 0.718, 2998.2), ('ef=32', 0.8514, 1664.5), ('ef=64', 0.9322, 927.6), ('ef=128', 0.9658, 510.0), ('ef=256', 0.9852, 273.4), ('ef=512', 0.9922, 142.1), ('ef=1024', 0.9944, 70.1), ('ef=2048', 0.9958, 32.2)]
+[06:34:21] sift500k_adv acorn round 12 cum 187.121 [('ef=16', 0.6828, 2966.3), ('ef=32', 0.824, 1650.5), ('ef=64', 0.9176, 914.9), ('ef=128', 0.9616, 504.3), ('ef=256', 0.9804, 271.0), ('ef=512', 0.987, 138.9), ('ef=1024', 0.992, 68.8), ('ef=2048', 0.994, 31.8)]
+[06:34:21] sift500k_adv acorn round 13 cum 201.995 [('ef=16', 0.6822, 3017.1), ('ef=32', 0.8162, 1747.9), ('ef=64', 0.8912, 970.0), ('ef=128', 0.9394, 524.5), ('ef=256', 0.966, 287.6), ('ef=512', 0.9812, 151.1), ('ef=1024', 0.986, 74.5), ('ef=2048', 0.9882, 34.1)]
+[06:34:21] sift500k_adv acorn round 14 cum 217.163 [('ef=16', 0.7126, 2820.7), ('ef=32', 0.8476, 1583.6), ('ef=64', 0.9346, 858.3), ('ef=128', 0.9662, 482.2), ('ef=256', 0.9834, 261.0), ('ef=512', 0.9914, 135.5), ('ef=1024', 0.995, 67.1), ('ef=2048', 0.9956, 31.1)]
+[06:34:22] sift500k_adv acorn round 15 cum 232.574 [('ef=16', 0.7086, 2793.5), ('ef=32', 0.839, 1549.8), ('ef=64', 0.9116, 870.3), ('ef=128', 0.9496, 475.1), ('ef=256', 0.9646, 260.1), ('ef=512', 0.9718, 135.7), ('ef=1024', 0.975, 67.3), ('ef=2048', 0.9762, 30.9)]
+[06:34:22] sift500k_adv acorn round 16 cum 247.84 [('ef=16', 0.7184, 2843.7), ('ef=32', 0.8556, 1538.0), ('ef=64', 0.933, 822.2), ('ef=128', 0.9704, 464.2), ('ef=256', 0.9844, 248.4), ('ef=512', 0.9932, 128.8), ('ef=1024', 0.9954, 64.2), ('ef=2048', 0.9962, 29.8)]
+[06:34:22] sift500k_adv acorn round 17 cum 263.438 [('ef=16', 0.723, 2732.2), ('ef=32', 0.8652, 1504.4), ('ef=64', 0.9348, 825.4), ('ef=128', 0.9676, 455.6), ('ef=256', 0.9834, 244.3), ('ef=512', 0.9918, 127.2), ('ef=1024', 0.9964, 63.2), ('ef=2048', 0.9972, 29.5)]
+[06:34:22] sift500k_adv acorn round 18 cum 278.394 [('ef=16', 0.6794, 2678.7), ('ef=32', 0.8406, 1476.9), ('ef=64', 0.9276, 819.4), ('ef=128', 0.9688, 452.0), ('ef=256', 0.9848, 246.2), ('ef=512', 0.9906, 128.9), ('ef=1024', 0.9944, 63.7), ('ef=2048', 0.9954, 29.7)]
+[06:34:22] sift500k_adv acorn round 19 cum 293.469 [('ef=16', 0.7242, 2656.3), ('ef=32', 0.8532, 1473.8), ('ef=64', 0.9334, 813.3), ('ef=128', 0.9672, 449.5), ('ef=256', 0.9844, 242.5), ('ef=512', 0.992, 125.6), ('ef=1024', 0.9958, 62.7), ('ef=2048', 0.9968, 29.1)]
+[06:34:22] sift500k_adv acorn round 20 cum 308.944 [('ef=16', 0.7148, 2743.0), ('ef=32', 0.8464, 1500.1), ('ef=64', 0.914, 831.3), ('ef=128', 0.9476, 459.6), ('ef=256', 0.961, 248.7), ('ef=512', 0.9676, 130.1), ('ef=1024', 0.9702, 64.0), ('ef=2048', 0.9716, 29.7)]
+[06:34:22] DONE sift500k_adv acorn_repair_all
+--- [7] exit=0
+=== [8 2df18ae10fa81a86.1] 2026-10-30 06:34:24 BENCH_TAG=tr_end BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+[06:34:37] sift500k_adv ivf round 0 cum 0.0 [('nprobe=8', 0.5266, 10787.6), ('nprobe=16', 0.6706, 8282.9), ('nprobe=32', 0.8, 5856.1), ('nprobe=64', 0.8988, 3409.4), ('nprobe=128', 0.9632, 2248.1), ('nprobe=256', 0.989, 1350.3), ('nprobe=512', 0.998, 800.0), ('nprobe=1024', 0.9996, 439.5)]
+[06:34:48] sift500k_adv ivf round 1 cum 0.09 [('nprobe=8', 0.5204, 10713.2), ('nprobe=16', 0.6656, 8346.3), ('nprobe=32', 0.797, 5820.4), ('nprobe=64', 0.8974, 3718.1), ('nprobe=128', 0.9608, 2218.8), ('nprobe=256', 0.987, 1394.5), ('nprobe=512', 0.9982, 803.6), ('nprobe=1024', 0.9998, 437.1)]
+[06:34:59] sift500k_adv ivf round 2 cum 0.18 [('nprobe=8', 0.5086, 9806.5), ('nprobe=16', 0.6498, 8354.5), ('nprobe=32', 0.7856, 5854.6), ('nprobe=64', 0.8904, 3731.2), ('nprobe=128', 0.9546, 2332.3), ('nprobe=256', 0.9846, 1427.6), ('nprobe=512', 0.9966, 820.0), ('nprobe=1024', 0.9996, 439.7)]
+[06:35:10] sift500k_adv ivf round 3 cum 0.25 [('nprobe=8', 0.5046, 10874.7), ('nprobe=16', 0.6494, 8335.5), ('nprobe=32', 0.78, 5828.5), ('nprobe=64', 0.8822, 3763.8), ('nprobe=128', 0.9504, 2357.4), ('nprobe=256', 0.9816, 1359.8), ('nprobe=512', 0.9958, 812.4), ('nprobe=1024', 0.9996, 434.0)]
+[06:35:21] sift500k_adv ivf round 4 cum 0.31 [('nprobe=8', 0.497, 10762.3), ('nprobe=16', 0.6368, 8418.8), ('nprobe=32', 0.7646, 5930.3), ('nprobe=64', 0.8718, 3787.4), ('nprobe=128', 0.9446, 2362.7), ('nprobe=256', 0.98, 1426.1), ('nprobe=512', 0.9946, 803.6), ('nprobe=1024', 0.9996, 428.6)]
+[06:35:31] sift500k_adv ivf round 5 cum 0.39 [('nprobe=8', 0.4906, 10916.1), ('nprobe=16', 0.6294, 8459.9), ('nprobe=32', 0.7578, 5991.5), ('nprobe=64', 0.8664, 3773.9), ('nprobe=128', 0.9442, 2344.3), ('nprobe=256', 0.98, 1424.3), ('nprobe=512', 0.9942, 809.3), ('nprobe=1024', 1.0, 430.1)]
+[06:35:42] sift500k_adv ivf round 6 cum 0.45 [('nprobe=8', 0.4854, 10979.6), ('nprobe=16', 0.6214, 8479.0), ('nprobe=32', 0.7556, 6024.7), ('nprobe=64', 0.8612, 3827.6), ('nprobe=128', 0.935, 2397.0), ('nprobe=256', 0.9746, 1441.7), ('nprobe=512', 0.9926, 802.7), ('nprobe=1024', 0.9998, 427.7)]
+[06:35:53] sift500k_adv ivf round 7 cum 0.53 [('nprobe=8', 0.4732, 10884.9), ('nprobe=16', 0.6152, 8556.4), ('nprobe=32', 0.7446, 6041.1), ('nprobe=64', 0.857, 3844.5), ('nprobe=128', 0.9376, 2392.9), ('nprobe=256', 0.978, 1427.3), ('nprobe=512', 0.9934, 806.7), ('nprobe=1024', 0.9996, 429.2)]
+[06:36:04] sift500k_adv ivf round 8 cum 0.62 [('nprobe=8', 0.4762, 11082.7), ('nprobe=16', 0.6166, 8569.6), ('nprobe=32', 0.7438, 6045.5), ('nprobe=64', 0.8562, 3889.1), ('nprobe=128', 0.9394, 2418.9), ('nprobe=256', 0.9788, 1447.5), ('nprobe=512', 0.995, 814.7), ('nprobe=1024', 0.9996, 429.9)]
+[06:36:14] sift500k_adv ivf round 9 cum 0.67 [('nprobe=8', 0.466, 11025.7), ('nprobe=16', 0.6074, 8728.8), ('nprobe=32', 0.7344, 6074.2), ('nprobe=64', 0.8506, 3884.8), ('nprobe=128', 0.9322, 2429.0), ('nprobe=256', 0.9754, 1448.4), ('nprobe=512', 0.993, 817.9), ('nprobe=1024', 0.9984, 428.9)]
+[06:36:25] sift500k_adv ivf round 10 cum 0.74 [('nprobe=8', 0.4712, 11061.0), ('nprobe=16', 0.6108, 8611.8), ('nprobe=32', 0.7366, 6120.1), ('nprobe=64', 0.852, 3918.0), ('nprobe=128', 0.9278, 2451.1), ('nprobe=256', 0.9738, 1454.4), ('nprobe=512', 0.9926, 818.4), ('nprobe=1024', 0.9986, 433.0)]
+[06:36:36] sift500k_adv ivf round 11 cum 0.8 [('nprobe=8', 0.4662, 11106.7), ('nprobe=16', 0.6086, 8680.6), ('nprobe=32', 0.7314, 6145.6), ('nprobe=64', 0.8494, 3950.9), ('nprobe=128', 0.925, 2436.2), ('nprobe=256', 0.9714, 1460.9), ('nprobe=512', 0.9914, 819.7), ('nprobe=1024', 0.9984, 433.3)]
+[06:36:46] sift500k_adv ivf round 12 cum 0.87 [('nprobe=8', 0.462, 11141.6), ('nprobe=16', 0.6026, 8663.0), ('nprobe=32', 0.7196, 6167.2), ('nprobe=64', 0.8414, 3941.6), ('nprobe=128', 0.9204, 2456.3), ('nprobe=256', 0.969, 1469.4), ('nprobe=512', 0.9908, 827.2), ('nprobe=1024', 0.9988, 435.6)]
+[06:36:57] sift500k_adv ivf round 13 cum 0.93 [('nprobe=8', 0.4508, 11131.1), ('nprobe=16', 0.5924, 8708.6), ('nprobe=32', 0.7216, 6173.3), ('nprobe=64', 0.841, 3951.1), ('nprobe=128', 0.9232, 2463.4), ('nprobe=256', 0.9732, 1470.0), ('nprobe=512', 0.9924, 824.6), ('nprobe=1024', 0.9994, 433.9)]
+[06:37:07] sift500k_adv ivf round 14 cum 1.0 [('nprobe=8', 0.4468, 11183.5), ('nprobe=16', 0.5926, 8753.2), ('nprobe=32', 0.7206, 6183.4), ('nprobe=64', 0.846, 3986.5), ('nprobe=128', 0.9222, 2474.5), ('nprobe=256', 0.9714, 1466.9), ('nprobe=512', 0.9914, 826.2), ('nprobe=1024', 0.9994, 435.7)]
+[06:37:18] sift500k_adv ivf round 15 cum 1.07 [('nprobe=8', 0.4478, 11150.7), ('nprobe=16', 0.591, 8815.9), ('nprobe=32', 0.7158, 6207.3), ('nprobe=64', 0.8354, 3975.3), ('nprobe=128', 0.9204, 2472.7), ('nprobe=256', 0.9692, 1474.5), ('nprobe=512', 0.993, 826.7), ('nprobe=1024', 0.9994, 436.0)]
+[06:37:28] sift500k_adv ivf round 16 cum 1.13 [('nprobe=8', 0.4384, 11267.1), ('nprobe=16', 0.5816, 8762.4), ('nprobe=32', 0.71, 6221.6), ('nprobe=64', 0.8324, 4007.0), ('nprobe=128', 0.9144, 2477.6), ('nprobe=256', 0.9656, 1486.4), ('nprobe=512', 0.9908, 829.1), ('nprobe=1024', 0.9992, 439.2)]
+[06:37:39] sift500k_adv ivf round 17 cum 1.19 [('nprobe=8', 0.443, 11324.3), ('nprobe=16', 0.5862, 8919.3), ('nprobe=32', 0.7194, 6265.6), ('nprobe=64', 0.8402, 4016.4), ('nprobe=128', 0.922, 2496.2), ('nprobe=256', 0.9674, 1483.9), ('nprobe=512', 0.9894, 832.2), ('nprobe=1024', 0.9986, 437.8)]
+[06:37:49] sift500k_adv ivf round 18 cum 1.26 [('nprobe=8', 0.4284, 11203.2), ('nprobe=16', 0.5742, 8783.5), ('nprobe=32', 0.7042, 6205.8), ('nprobe=64', 0.8232, 3983.7), ('nprobe=128', 0.9152, 2504.5), ('nprobe=256', 0.9664, 1469.6), ('nprobe=512', 0.9918, 831.6), ('nprobe=1024', 0.999, 436.5)]
+[06:38:00] sift500k_adv ivf round 19 cum 1.32 [('nprobe=8', 0.4374, 11360.4), ('nprobe=16', 0.582, 8885.4), ('nprobe=32', 0.7162, 6193.7), ('nprobe=64', 0.8306, 4035.1), ('nprobe=128', 0.9158, 2511.9), ('nprobe=256', 0.9714, 1486.4), ('nprobe=512', 0.9922, 836.8), ('nprobe=1024', 0.9988, 438.8)]
+[06:38:10] sift500k_adv ivf round 20 cum 1.39 [('nprobe=8', 0.4362, 11261.9), ('nprobe=16', 0.5834, 8892.3), ('nprobe=32', 0.7244, 6278.7), ('nprobe=64', 0.8424, 4036.0), ('nprobe=128', 0.9218, 2511.3), ('nprobe=256', 0.9702, 1486.4), ('nprobe=512', 0.992, 836.4), ('nprobe=1024', 0.9988, 440.0)]
+[06:38:10] DONE sift500k_adv ivf
+--- [8] exit=0
+=== [9 1464541d4e086d49.1] 2026-10-30 06:38:13 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+[06:41:18] arxiv_time ivf round 0 cum 0.0 [('nprobe=8', 0.8582, 417.0), ('nprobe=16', 0.935, 287.4), ('nprobe=32', 0.9712, 189.1), ('nprobe=64', 0.988, 120.1), ('nprobe=128', 0.995, 73.0), ('nprobe=256', 0.999, 46.4), ('nprobe=512', 1.0, 32.7)]
+[06:44:15] arxiv_time ivf round 1 cum 0.66 [('nprobe=8', 0.8674, 386.4), ('nprobe=16', 0.9382, 279.0), ('nprobe=32', 0.9736, 184.7), ('nprobe=64', 0.9904, 114.0), ('nprobe=128', 0.997, 70.6), ('nprobe=256', 0.9996, 45.2), ('nprobe=512', 1.0, 32.0)]
+[06:47:28] arxiv_time ivf round 2 cum 1.31 [('nprobe=8', 0.8772, 356.7), ('nprobe=16', 0.9432, 249.8), ('nprobe=32', 0.9746, 164.7), ('nprobe=64', 0.9906, 102.0), ('nprobe=128', 0.9966, 63.5), ('nprobe=256', 0.9996, 41.6), ('nprobe=512', 1.0, 29.8)]
+[06:50:49] arxiv_time ivf round 3 cum 1.96 [('nprobe=8', 0.877, 340.7), ('nprobe=16', 0.941, 237.4), ('nprobe=32', 0.976, 156.1), ('nprobe=64', 0.9918, 96.6), ('nprobe=128', 0.9984, 60.7), ('nprobe=256', 1.0, 39.9), ('nprobe=512', 1.0, 28.8)]
+[06:54:20] arxiv_time ivf round 4 cum 2.62 [('nprobe=8', 0.885, 323.1), ('nprobe=16', 0.9446, 224.2), ('nprobe=32', 0.9768, 147.6), ('nprobe=64', 0.9908, 91.0), ('nprobe=128', 0.9972, 57.3), ('nprobe=256', 1.0, 38.3), ('nprobe=512', 1.0, 27.6)]
+[06:57:58] arxiv_time ivf round 5 cum 3.28 [('nprobe=8', 0.8882, 306.7), ('nprobe=16', 0.9454, 211.7), ('nprobe=32', 0.9772, 139.4), ('nprobe=64', 0.9914, 86.6), ('nprobe=128', 0.997, 55.3), ('nprobe=256', 0.9996, 37.2), ('nprobe=512', 1.0, 27.1)]
+[07:01:40] arxiv_time ivf round 6 cum 3.92 [('nprobe=8', 0.8898, 293.4), ('nprobe=16', 0.9468, 204.8), ('nprobe=32', 0.9774, 131.7), ('nprobe=64', 0.991, 83.9), ('nprobe=128', 0.9962, 54.2), ('nprobe=256', 0.9994, 36.6), ('nprobe=512', 1.0, 27.1)]
+[07:05:31] arxiv_time ivf round 7 cum 4.59 [('nprobe=8', 0.8946, 268.0), ('nprobe=16', 0.9488, 185.5), ('nprobe=32', 0.978, 124.2), ('nprobe=64', 0.9898, 78.2), ('nprobe=128', 0.9962, 51.4), ('nprobe=256', 0.9996, 35.7), ('nprobe=512', 1.0, 26.5)]
+[07:09:48] arxiv_time ivf round 8 cum 5.25 [('nprobe=8', 0.8942, 237.0), ('nprobe=16', 0.9452, 163.2), ('nprobe=32', 0.978, 105.7), ('nprobe=64', 0.9904, 68.3), ('nprobe=128', 0.9966, 45.6), ('nprobe=256', 0.999, 32.5), ('nprobe=512', 0.9996, 24.6)]
+[07:14:25] arxiv_time ivf round 9 cum 5.98 [('nprobe=8', 0.8942, 214.2), ('nprobe=16', 0.9474, 141.6), ('nprobe=32', 0.9798, 94.1), ('nprobe=64', 0.9912, 61.1), ('nprobe=128', 0.997, 41.8), ('nprobe=256', 0.9992, 30.4), ('nprobe=512', 0.9998, 23.5)]
+[07:19:17] arxiv_time ivf round 10 cum 6.65 [('nprobe=8', 0.897, 198.2), ('nprobe=16', 0.9484, 130.2), ('nprobe=32', 0.9818, 87.1), ('nprobe=64', 0.9916, 56.9), ('nprobe=128', 0.9972, 39.5), ('nprobe=256', 0.9994, 29.0), ('nprobe=512', 1.0, 22.7)]
+[07:19:17] DONE arxiv_time ivf
+--- [9] exit=0
+=== [10 7f997ec440187802.1] 2026-10-30 07:19:20 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+[07:19:26] arxiv_time acorn stream start
+[08:02:03] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.9152, 1077.5), ('ef=32', 0.9628, 692.7), ('ef=64', 0.983, 439.1), ('ef=128', 0.9938, 274.8), ('ef=256', 0.9978, 176.3), ('ef=512', 0.9988, 111.0), ('ef=1024', 0.9992, 64.5), ('ef=2048', 0.9992, 37.0)]
+[08:02:03] arxiv_time acorn round 1 cum 88.08 [('ef=16', 0.916, 1062.4), ('ef=32', 0.966, 680.5), ('ef=64', 0.9858, 427.9), ('ef=128', 0.9936, 261.0), ('ef=256', 0.9988, 156.7), ('ef=512', 0.9996, 100.8), ('ef=1024', 0.9998, 61.1), ('ef=2048', 0.9998, 34.1)]
+[08:02:04] arxiv_time acorn round 2 cum 177.509 [('ef=16', 0.9062, 1040.2), ('ef=32', 0.9636, 661.1), ('ef=64', 0.988, 413.1), ('ef=128', 0.9962, 248.4), ('ef=256', 0.9988, 149.7), ('ef=512', 0.9994, 95.9), ('ef=1024', 0.9996, 56.5), ('ef=2048', 0.9996, 32.2)]
+[08:02:04] arxiv_time acorn round 3 cum 267.415 [('ef=16', 0.9054, 1052.4), ('ef=32', 0.9644, 646.6), ('ef=64', 0.9854, 393.0), ('ef=128', 0.9942, 240.3), ('ef=256', 0.9974, 153.4), ('ef=512', 0.9984, 93.7), ('ef=1024', 0.9984, 56.2), ('ef=2048', 0.9988, 31.7)]
+[08:02:04] arxiv_time acorn round 4 cum 361.319 [('ef=16', 0.9108, 1047.4), ('ef=32', 0.96, 654.9), ('ef=64', 0.9838, 407.2), ('ef=128', 0.993, 239.4), ('ef=256', 0.9956, 146.3), ('ef=512', 0.9972, 92.0), ('ef=1024', 0.9992, 55.0), ('ef=2048', 0.9992, 31.2)]
+[08:02:04] arxiv_time acorn round 5 cum 457.759 [('ef=16', 0.9196, 1053.4), ('ef=32', 0.9704, 655.0), ('ef=64', 0.9854, 403.2), ('ef=128', 0.994, 247.5), ('ef=256', 0.9966, 145.4), ('ef=512', 0.9974, 90.0), ('ef=1024', 0.9982, 54.3), ('ef=2048', 0.9984, 31.0)]
+[08:02:04] arxiv_time acorn round 6 cum 561.085 [('ef=16', 0.9212, 1055.8), ('ef=32', 0.968, 653.3), ('ef=64', 0.987, 400.4), ('ef=128', 0.995, 244.3), ('ef=256', 0.9962, 149.1), ('ef=512', 0.9968, 87.8), ('ef=1024', 0.9982, 54.1), ('ef=2048', 0.9984, 31.1)]
+[08:02:04] arxiv_time acorn round 7 cum 660.476 [('ef=16', 0.9338, 1059.3), ('ef=32', 0.974, 661.6), ('ef=64', 0.9918, 405.2), ('ef=128', 0.9956, 247.7), ('ef=256', 0.997, 146.4), ('ef=512', 0.9976, 89.2), ('ef=1024', 0.9982, 54.0), ('ef=2048', 0.9982, 30.9)]
+[08:02:04] arxiv_time acorn round 8 cum 767.888 [('ef=16', 0.9248, 1054.7), ('ef=32', 0.97, 657.4), ('ef=64', 0.9904, 405.7), ('ef=128', 0.9958, 247.1), ('ef=256', 0.9976, 145.8), ('ef=512', 0.9986, 88.2), ('ef=1024', 0.9988, 52.8), ('ef=2048', 0.9994, 30.4)]
+[08:02:04] arxiv_time acorn round 9 cum 872.077 [('ef=16', 0.9332, 1066.9), ('ef=32', 0.9728, 669.7), ('ef=64', 0.9892, 411.0), ('ef=128', 0.9956, 250.3), ('ef=256', 0.9978, 146.8), ('ef=512', 0.9986, 89.1), ('ef=1024', 0.9992, 53.0), ('ef=2048', 0.9994, 30.0)]
+[08:02:04] arxiv_time acorn round 10 cum 980.952 [('ef=16', 0.9232, 1068.7), ('ef=32', 0.9726, 670.4), ('ef=64', 0.9906, 413.9), ('ef=128', 0.9956, 251.8), ('ef=256', 0.9976, 150.9), ('ef=512', 0.9984, 88.7), ('ef=1024', 0.9988, 53.1), ('ef=2048', 0.999, 29.9)]
+[08:02:05] DONE arxiv_time acorn
+--- [10] exit=0
+=== [11 ee9b0ff12768854c.1] 2026-10-30 08:02:08 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part
+WARNING clustering 17632 points to 531 centroids: please provide at least 20709 training points
+WARNING clustering 12002 points to 438 centroids: please provide at least 17082 training points
+WARNING clustering 10195 points to 403 centroids: please provide at least 15717 training points
+WARNING clustering 9101 points to 381 centroids: please provide at least 14859 training points
+WARNING clustering 6116 points to 312 centroids: please provide at least 12168 training points
+WARNING clustering 6009 points to 310 centroids: please provide at least 12090 training points
+WARNING clustering 19515 points to 558 centroids: please provide at least 21762 training points
+[08:04:29] arxiv_time ivf_part round 0 cum 0.0 [('nprobe=1', 0.4032, 2107.9), ('nprobe=2', 0.5802, 1855.9), ('nprobe=4', 0.7398, 1441.8), ('nprobe=8', 0.8672, 1063.3), ('nprobe=16', 0.941, 712.1), ('nprobe=32', 0.9822, 417.0), ('nprobe=64', 0.9964, 234.8), ('nprobe=128', 0.9988, 123.0), ('nprobe=256', 1.0, 63.2), ('nprobe=512', 1.0, 35.8)]
+[08:06:42] arxiv_time ivf_part round 1 cum 0.52 [('nprobe=1', 0.406, 2001.7), ('nprobe=2', 0.5918, 1732.1), ('nprobe=4', 0.7468, 1382.6), ('nprobe=8', 0.8718, 1001.4), ('nprobe=16', 0.94, 646.9), ('nprobe=32', 0.9806, 379.5), ('nprobe=64', 0.9962, 211.5), ('nprobe=128', 0.9994, 111.6), ('nprobe=256', 1.0, 60.3), ('nprobe=512', 1.0, 34.7)]
+[08:09:05] arxiv_time ivf_part round 2 cum 1.05 [('nprobe=1', 0.416, 1966.3), ('nprobe=2', 0.6024, 1640.0), ('nprobe=4', 0.7576, 1274.0), ('nprobe=8', 0.879, 880.0), ('nprobe=16', 0.9426, 564.1), ('nprobe=32', 0.9806, 329.3), ('nprobe=64', 0.9948, 180.6), ('nprobe=128', 0.9992, 103.5), ('nprobe=256', 1.0, 55.8), ('nprobe=512', 1.0, 33.3)]
+[08:11:34] arxiv_time ivf_part round 3 cum 1.56 [('nprobe=1', 0.4156, 1908.8), ('nprobe=2', 0.5978, 1583.3), ('nprobe=4', 0.7562, 1213.6), ('nprobe=8', 0.878, 833.4), ('nprobe=16', 0.9412, 525.5), ('nprobe=32', 0.9788, 305.7), ('nprobe=64', 0.9944, 172.8), ('nprobe=128', 0.9988, 95.5), ('nprobe=256', 1.0, 53.6), ('nprobe=512', 1.0, 32.5)]
+[08:14:12] arxiv_time ivf_part round 4 cum 2.08 [('nprobe=1', 0.4232, 1855.9), ('nprobe=2', 0.6006, 1492.0), ('nprobe=4', 0.756, 1127.0), ('nprobe=8', 0.8776, 763.2), ('nprobe=16', 0.9424, 475.9), ('nprobe=32', 0.9802, 278.5), ('nprobe=64', 0.9958, 155.6), ('nprobe=128', 0.9984, 90.0), ('nprobe=256', 0.9996, 50.4), ('nprobe=512', 1.0, 30.9)]
+[08:16:56] arxiv_time ivf_part round 5 cum 2.57 [('nprobe=1', 0.4176, 1782.3), ('nprobe=2', 0.5986, 1431.1), ('nprobe=4', 0.7584, 1059.4), ('nprobe=8', 0.8748, 715.6), ('nprobe=16', 0.9406, 447.6), ('nprobe=32', 0.9808, 257.5), ('nprobe=64', 0.9962, 145.5), ('nprobe=128', 0.9988, 84.0), ('nprobe=256', 0.9998, 48.6), ('nprobe=512', 1.0, 30.6)]
+[08:19:44] arxiv_time ivf_part round 6 cum 3.08 [('nprobe=1', 0.4178, 1691.8), ('nprobe=2', 0.598, 1359.2), ('nprobe=4', 0.7602, 1002.2), ('nprobe=8', 0.8706, 664.6), ('nprobe=16', 0.938, 414.2), ('nprobe=32', 0.9784, 239.9), ('nprobe=64', 0.9954, 139.9), ('nprobe=128', 0.9986, 81.5), ('nprobe=256', 0.9998, 47.8), ('nprobe=512', 1.0, 30.6)]
+[08:22:40] arxiv_time ivf_part round 7 cum 3.59 [('nprobe=1', 0.4226, 1594.8), ('nprobe=2', 0.6106, 1204.6), ('nprobe=4', 0.7654, 855.2), ('nprobe=8', 0.881, 556.0), ('nprobe=16', 0.9414, 352.7), ('nprobe=32', 0.9802, 213.5), ('nprobe=64', 0.9954, 128.4), ('nprobe=128', 0.9978, 76.2), ('nprobe=256', 0.9996, 45.6), ('nprobe=512', 1.0, 30.1)]
+[08:26:00] arxiv_time ivf_part round 8 cum 4.12 [('nprobe=1', 0.4316, 1381.7), ('nprobe=2', 0.6148, 1008.5), ('nprobe=4', 0.7698, 699.3), ('nprobe=8', 0.883, 450.5), ('nprobe=16', 0.9442, 283.3), ('nprobe=32', 0.9802, 175.2), ('nprobe=64', 0.994, 105.8), ('nprobe=128', 0.9982, 65.6), ('nprobe=256', 0.9998, 40.8), ('nprobe=512', 1.0, 27.9)]
+[08:29:43] arxiv_time ivf_part round 9 cum 4.69 [('nprobe=1', 0.4426, 1217.8), ('nprobe=2', 0.6254, 833.7), ('nprobe=4', 0.7774, 566.4), ('nprobe=8', 0.8834, 356.9), ('nprobe=16', 0.9458, 230.7), ('nprobe=32', 0.98, 145.4), ('nprobe=64', 0.994, 90.2), ('nprobe=128', 0.9982, 57.9), ('nprobe=256', 0.9998, 37.2), ('nprobe=512', 1.0, 26.2)]
+[08:33:43] arxiv_time ivf_part round 10 cum 5.2 [('nprobe=1', 0.4494, 1087.4), ('nprobe=2', 0.63, 731.3), ('nprobe=4', 0.7768, 488.9), ('nprobe=8', 0.883, 303.6), ('nprobe=16', 0.9454, 195.9), ('nprobe=32', 0.9792, 123.3), ('nprobe=64', 0.9934, 80.7), ('nprobe=128', 0.9982, 54.2), ('nprobe=256', 0.9998, 34.9), ('nprobe=512', 1.0, 25.3)]
+[08:33:43] DONE arxiv_time ivf_part
+--- [11] exit=0
+=== [12 b37dd8079ca1b25a.1] 2026-10-30 08:33:46 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5
+[08:36:49] arxiv_time ivf_rt5 round 0 cum 0.0 [('nprobe=8', 0.8582, 428.8), ('nprobe=16', 0.935, 289.4), ('nprobe=32', 0.9712, 192.7), ('nprobe=64', 0.988, 120.8), ('nprobe=128', 0.995, 74.5), ('nprobe=256', 0.999, 46.9), ('nprobe=512', 1.0, 33.4)]
+[08:39:42] arxiv_time ivf_rt5 round 1 cum 0.66 [('nprobe=8', 0.8674, 395.5), ('nprobe=16', 0.9382, 282.4), ('nprobe=32', 0.9736, 187.0), ('nprobe=64', 0.9904, 117.0), ('nprobe=128', 0.997, 72.0), ('nprobe=256', 0.9996, 45.8), ('nprobe=512', 1.0, 32.4)]
+[08:42:51] arxiv_time ivf_rt5 round 2 cum 1.3 [('nprobe=8', 0.8772, 362.4), ('nprobe=16', 0.9432, 255.4), ('nprobe=32', 0.9746, 166.9), ('nprobe=64', 0.9906, 107.0), ('nprobe=128', 0.9966, 65.1), ('nprobe=256', 0.9996, 42.3), ('nprobe=512', 1.0, 30.4)]
+[08:46:08] arxiv_time ivf_rt5 round 3 cum 1.96 [('nprobe=8', 0.877, 348.7), ('nprobe=16', 0.941, 241.4), ('nprobe=32', 0.976, 158.7), ('nprobe=64', 0.9918, 100.4), ('nprobe=128', 0.9984, 61.9), ('nprobe=256', 1.0, 40.6), ('nprobe=512', 1.0, 29.4)]
+[08:49:34] arxiv_time ivf_rt5 round 4 cum 2.61 [('nprobe=8', 0.885, 329.8), ('nprobe=16', 0.9446, 227.9), ('nprobe=32', 0.9768, 149.4), ('nprobe=64', 0.9908, 94.6), ('nprobe=128', 0.9972, 58.8), ('nprobe=256', 1.0, 38.8), ('nprobe=512', 1.0, 28.1)]
+[08:52:46] arxiv_time ivf_rt5 round 5 cum 14.64 [('nprobe=8', 0.8744, 423.5), ('nprobe=16', 0.9438, 307.7), ('nprobe=32', 0.975, 200.6), ('nprobe=64', 0.9902, 120.6), ('nprobe=128', 0.9966, 71.6), ('nprobe=256', 0.9994, 43.1), ('nprobe=512', 1.0, 29.6)]
+[08:55:49] arxiv_time ivf_rt5 round 6 cum 15.29 [('nprobe=8', 0.8708, 400.9), ('nprobe=16', 0.9388, 296.4), ('nprobe=32', 0.9742, 191.1), ('nprobe=64', 0.99, 117.7), ('nprobe=128', 0.9954, 70.4), ('nprobe=256', 0.999, 42.6), ('nprobe=512', 1.0, 29.5)]
+[08:58:58] arxiv_time ivf_rt5 round 7 cum 15.93 [('nprobe=8', 0.8804, 379.8), ('nprobe=16', 0.9466, 273.4), ('nprobe=32', 0.977, 183.3), ('nprobe=64', 0.9896, 111.5), ('nprobe=128', 0.996, 67.9), ('nprobe=256', 0.9994, 41.6), ('nprobe=512', 1.0, 28.8)]
+[09:02:22] arxiv_time ivf_rt5 round 8 cum 16.59 [('nprobe=8', 0.879, 359.8), ('nprobe=16', 0.9448, 253.8), ('nprobe=32', 0.9752, 162.8), ('nprobe=64', 0.9908, 103.0), ('nprobe=128', 0.9956, 62.7), ('nprobe=256', 0.9992, 38.7), ('nprobe=512', 0.9996, 27.1)]
+[09:05:54] arxiv_time ivf_rt5 round 9 cum 17.25 [('nprobe=8', 0.884, 336.4), ('nprobe=16', 0.9478, 235.8), ('nprobe=32', 0.9762, 152.7), ('nprobe=64', 0.9912, 97.0), ('nprobe=128', 0.9964, 59.8), ('nprobe=256', 0.999, 37.3), ('nprobe=512', 0.9998, 26.0)]
+[09:09:14] arxiv_time ivf_rt5 round 10 cum 29.29 [('nprobe=8', 0.8964, 412.9), ('nprobe=16', 0.953, 295.5), ('nprobe=32', 0.98, 191.3), ('nprobe=64', 0.9936, 116.5), ('nprobe=128', 0.9972, 68.9), ('nprobe=256', 0.999, 42.1), ('nprobe=512', 1.0, 27.9)]
+[09:09:14] DONE arxiv_time ivf_rt5
+--- [12] exit=0
+=== [13 076571460ca76536.1] 2026-10-30 09:09:17 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+max_cate_size_:10, cate_int_byte_: 1
+num-attribute split positions: 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 
+label distribution to 128 buckets: 
+label=0, bucket=1, count=58640; 
+label=1, bucket=0, count=58659; 
+label=2, bucket=2, count=50286; 
+label=3, bucket=4, count=35868; 
+label=4, bucket=5, count=30792; 
+label=5, bucket=6, count=29213; 
+label=6, bucket=7, count=28208; 
+label=7, bucket=8, count=25501; 
+label=8, bucket=9, count=25423; 
+label=9, bucket=3, count=37570; 
+
+Adding 100000 items with dimension 4096
+Adding point id: 1000
+Adding point id: 2000
+Adding point id: 3000
+Adding point id: 4000
+Adding point id: 5000
+Adding point id: 6000
+Adding point id: 7000
+Adding point id: 8000
+Adding point id: 9000
+Adding point id: 10000
+Adding point id: 11000
+Adding point id: 12000
+Adding point id: 13000
+Adding point id: 14000
+Adding point id: 15000
+Adding point id: 16000
+Adding point id: 17000
+Adding point id: 18000
+Adding point id: 19000
+Adding point id: 20000
+Adding point id: 21000
+Adding point id: 22000
+Adding point id: 23000
+Adding point id: 24000
+Adding point id: 25000
+Adding point id: 26000
+Adding point id: 27000
+Adding point id: 28000
+Adding point id: 29000
+Adding point id: 30000
+Adding point id: 31000
+Adding point id: 32000
+Adding point id: 33000
+Adding point id: 34000
+Adding point id: 35000
+Adding point id: 36000
+Adding point id: 37000
+Adding point id: 38000
+Adding point id: 39000
+Adding point id: 40000
+Adding point id: 41000
+Adding point id: 42000
+Adding point id: 43000
+Adding point id: 44000
+Adding point id: 45000
+Adding point id: 46000
+Adding point id: 47000
+Adding point id: 48000
+Adding point id: 49000
+Adding point id: 50000
+Adding point id: 51000
+Adding point id: 52000
+Adding point id: 53000
+Adding point id: 54000
+Adding point id: 55000
+Adding point id: 56000
+Adding point id: 57000
+Adding point id: 58000
+Adding point id: 59000
+Adding point id: 60000
+Adding point id: 61000
+Adding point id: 62000
+Adding point id: 63000
+Adding point id: 64000
+Adding point id: 65000
+Adding point id: 66000
+Adding point id: 67000
+Adding point id: 68000
+Adding point id: 69000
+Adding point id: 70000
+Adding point id: 71000
+Adding point id: 72000
+Adding point id: 73000
+Adding point id: 74000
+Adding point id: 75000
+Adding point id: 76000
+Adding point id: 77000
+Adding point id: 78000
+Adding point id: 79000
+Adding point id: 80000
+Adding point id: 81000
+Adding point id: 82000
+Adding point id: 83000
+Adding point id: 84000
+Adding point id: 85000
+Adding point id: 86000
+Adding point id: 87000
+Adding point id: 88000
+Adding point id: 89000
+Adding point id: 90000
+Adding point id: 91000
+Adding point id: 92000
+Adding point id: 93000
+Adding point id: 94000
+Adding point id: 95000
+Adding point id: 96000
+Adding point id: 97000
+Adding point id: 98000
+Adding point id: 99000
+Adding 100000 items with dimension 4096
+Adding point id: 100000
+Adding point id: 101000
+Adding point id: 102000
+Adding point id: 103000
+Adding point id: 104000
+Adding point id: 105000
+Adding point id: 106000
+Adding point id: 107000
+Adding point id: 108000
+Adding point id: 109000
+Adding point id: 110000
+Adding point id: 111000
+Adding point id: 112000
+Adding point id: 113000
+Adding point id: 114000
+Adding point id: 115000
+Adding point id: 116000
+Adding point id: 117000
+Adding point id: 118000
+Adding point id: 119000
+Adding point id: 120000
+Adding point id: 121000
+Adding point id: 122000
+Adding point id: 123000
+Adding point id: 124000
+Adding point id: 125000
+Adding point id: 126000
+Adding point id: 127000
+Adding point id: 128000
+Adding point id: 129000
+Adding point id: 130000
+Adding point id: 131000
+Adding point id: 132000
+Adding point id: 133000
+Adding point id: 134000
+Adding point id: 135000
+Adding point id: 136000
+Adding point id: 137000
+Adding point id: 138000
+Adding point id: 139000
+Adding point id: 140000
+Adding point id: 141000
+Adding point id: 142000
+Adding point id: 143000
+Adding point id: 144000
+Adding point id: 145000
+Adding point id: 146000
+Adding point id: 147000
+Adding point id: 148000
+Adding point id: 149000
+Adding point id: 150000
+Adding point id: 151000
+Adding point id: 152000
+Adding point id: 153000
+Adding point id: 154000
+Adding point id: 155000
+Adding point id: 156000
+Adding point id: 157000
+Adding point id: 158000
+Adding point id: 159000
+Adding point id: 160000
+Adding point id: 161000
+Adding point id: 162000
+Adding point id: 163000
+Adding point id: 164000
+Adding point id: 165000
+Adding point id: 166000
+Adding point id: 167000
+Adding point id: 168000
+Adding point id: 169000
+Adding point id: 170000
+Adding point id: 171000
+Adding point id: 172000
+Adding point id: 173000
+Adding point id: 174000
+Adding point id: 175000
+Adding point id: 176000
+Adding point id: 177000
+Adding point id: 178000
+Adding point id: 179000
+Adding point id: 180000
+Adding point id: 181000
+Adding point id: 182000
+Adding point id: 183000
+Adding point id: 184000
+Adding point id: 185000
+Adding point id: 186000
+Adding point id: 187000
+Adding point id: 188000
+Adding point id: 189000
+Adding point id: 190000
+Adding point id: 191000
+Adding point id: 192000
+Adding point id: 193000
+Adding point id: 194000
+Adding point id: 195000
+Adding point id: 196000
+Adding point id: 197000
+Adding point id: 198000
+Adding point id: 199000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:14:14] arxiv_time ema round 0 cum 0.0 [('ef=16', 0.9412, 1220.4), ('ef=32', 0.9792, 727.4), ('ef=64', 0.995, 424.0), ('ef=128', 0.9976, 249.3), ('ef=256', 1.0, 148.3), ('ef=512', 0.9998, 85.9), ('ef=1024', 0.9998, 48.0), ('ef=2048', 0.9998, 25.7)]
+Adding 40000 items with dimension 4096
+Adding point id: 200000
+Adding point id: 201000
+Adding point id: 202000
+Adding point id: 203000
+Adding point id: 204000
+Adding point id: 205000
+Adding point id: 206000
+Adding point id: 207000
+Adding point id: 208000
+Adding point id: 209000
+Adding point id: 210000
+Adding point id: 211000
+Adding point id: 212000
+Adding point id: 213000
+Adding point id: 214000
+Adding point id: 215000
+Adding point id: 216000
+Adding point id: 217000
+Adding point id: 218000
+Adding point id: 219000
+Adding point id: 220000
+Adding point id: 221000
+Adding point id: 222000
+Adding point id: 223000
+Adding point id: 224000
+Adding point id: 225000
+Adding point id: 226000
+Adding point id: 227000
+Adding point id: 228000
+Adding point id: 229000
+Adding point id: 230000
+Adding point id: 231000
+Adding point id: 232000
+Adding point id: 233000
+Adding point id: 234000
+Adding point id: 235000
+Adding point id: 236000
+Adding point id: 237000
+Adding point id: 238000
+Adding point id: 239000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:19:11] arxiv_time ema round 1 cum 115.9 [('ef=16', 0.9556, 1025.0), ('ef=32', 0.9872, 647.3), ('ef=64', 0.9948, 390.2), ('ef=128', 0.9988, 225.0), ('ef=256', 0.9992, 134.5), ('ef=512', 0.9996, 79.2), ('ef=1024', 1.0, 45.9), ('ef=2048', 0.9998, 25.7)]
+Adding 40000 items with dimension 4096
+Adding point id: 240000
+Adding point id: 241000
+Adding point id: 242000
+Adding point id: 243000
+Adding point id: 244000
+Adding point id: 245000
+Adding point id: 246000
+Adding point id: 247000
+Adding point id: 248000
+Adding point id: 249000
+Adding point id: 250000
+Adding point id: 251000
+Adding point id: 252000
+Adding point id: 253000
+Adding point id: 254000
+Adding point id: 255000
+Adding point id: 256000
+Adding point id: 257000
+Adding point id: 258000
+Adding point id: 259000
+Adding point id: 260000
+Adding point id: 261000
+Adding point id: 262000
+Adding point id: 263000
+Adding point id: 264000
+Adding point id: 265000
+Adding point id: 266000
+Adding point id: 267000
+Adding point id: 268000
+Adding point id: 269000
+Adding point id: 270000
+Adding point id: 271000
+Adding point id: 272000
+Adding point id: 273000
+Adding point id: 274000
+Adding point id: 275000
+Adding point id: 276000
+Adding point id: 277000
+Adding point id: 278000
+Adding point id: 279000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:24:09] arxiv_time ema round 2 cum 230.2 [('ef=16', 0.9634, 976.7), ('ef=32', 0.9872, 622.2), ('ef=64', 0.9956, 377.2), ('ef=128', 0.9994, 218.1), ('ef=256', 0.9998, 131.6), ('ef=512', 1.0, 76.9), ('ef=1024', 1.0, 45.3), ('ef=2048', 1.0, 25.4)]
+Adding 40000 items with dimension 4096
+Adding point id: 280000
+Adding point id: 281000
+Adding point id: 282000
+Adding point id: 283000
+Adding point id: 284000
+Adding point id: 285000
+Adding point id: 286000
+Adding point id: 287000
+Adding point id: 288000
+Adding point id: 289000
+Adding point id: 290000
+Adding point id: 291000
+Adding point id: 292000
+Adding point id: 293000
+Adding point id: 294000
+Adding point id: 295000
+Adding point id: 296000
+Adding point id: 297000
+Adding point id: 298000
+Adding point id: 299000
+Adding point id: 300000
+Adding point id: 301000
+Adding point id: 302000
+Adding point id: 303000
+Adding point id: 304000
+Adding point id: 305000
+Adding point id: 306000
+Adding point id: 307000
+Adding point id: 308000
+Adding point id: 309000
+Adding point id: 310000
+Adding point id: 311000
+Adding point id: 312000
+Adding point id: 313000
+Adding point id: 314000
+Adding point id: 315000
+Adding point id: 316000
+Adding point id: 317000
+Adding point id: 318000
+Adding point id: 319000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:28:50] arxiv_time ema round 3 cum 337.7 [('ef=16', 0.9604, 1060.4), ('ef=32', 0.9874, 652.4), ('ef=64', 0.9954, 396.6), ('ef=128', 1.0, 228.6), ('ef=256', 1.0, 136.0), ('ef=512', 1.0, 80.3), ('ef=1024', 1.0, 47.9), ('ef=2048', 1.0, 27.2)]
+Adding 40000 items with dimension 4096
+Adding point id: 320000
+Adding point id: 321000
+Adding point id: 322000
+Adding point id: 323000
+Adding point id: 324000
+Adding point id: 325000
+Adding point id: 326000
+Adding point id: 327000
+Adding point id: 328000
+Adding point id: 329000
+Adding point id: 330000
+Adding point id: 331000
+Adding point id: 332000
+Adding point id: 333000
+Adding point id: 334000
+Adding point id: 335000
+Adding point id: 336000
+Adding point id: 337000
+Adding point id: 338000
+Adding point id: 339000
+Adding point id: 340000
+Adding point id: 341000
+Adding point id: 342000
+Adding point id: 343000
+Adding point id: 344000
+Adding point id: 345000
+Adding point id: 346000
+Adding point id: 347000
+Adding point id: 348000
+Adding point id: 349000
+Adding point id: 350000
+Adding point id: 351000
+Adding point id: 352000
+Adding point id: 353000
+Adding point id: 354000
+Adding point id: 355000
+Adding point id: 356000
+Adding point id: 357000
+Adding point id: 358000
+Adding point id: 359000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:33:25] arxiv_time ema round 4 cum 441.2 [('ef=16', 0.958, 956.3), ('ef=32', 0.988, 605.5), ('ef=64', 0.996, 380.2), ('ef=128', 0.9994, 236.5), ('ef=256', 0.9998, 137.2), ('ef=512', 1.0, 82.3), ('ef=1024', 1.0, 48.6), ('ef=2048', 1.0, 27.7)]
+Adding 40000 items with dimension 4096
+Adding point id: 360000
+Adding point id: 361000
+Adding point id: 362000
+Adding point id: 363000
+Adding point id: 364000
+Adding point id: 365000
+Adding point id: 366000
+Adding point id: 367000
+Adding point id: 368000
+Adding point id: 369000
+Adding point id: 370000
+Adding point id: 371000
+Adding point id: 372000
+Adding point id: 373000
+Adding point id: 374000
+Adding point id: 375000
+Adding point id: 376000
+Adding point id: 377000
+Adding point id: 378000
+Adding point id: 379000
+Adding point id: 380000
+Adding point id: 381000
+Adding point id: 382000
+Adding point id: 383000
+Adding point id: 384000
+Adding point id: 385000
+Adding point id: 386000
+Adding point id: 387000
+Adding point id: 388000
+Adding point id: 389000
+Adding point id: 390000
+Adding point id: 391000
+Adding point id: 392000
+Adding point id: 393000
+Adding point id: 394000
+Adding point id: 395000
+Adding point id: 396000
+Adding point id: 397000
+Adding point id: 398000
+Adding point id: 399000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:38:06] arxiv_time ema round 5 cum 547.3 [('ef=16', 0.9654, 886.3), ('ef=32', 0.99, 559.5), ('ef=64', 0.997, 350.3), ('ef=128', 0.999, 219.4), ('ef=256', 0.9998, 139.2), ('ef=512', 0.9998, 80.7), ('ef=1024', 0.9998, 48.0), ('ef=2048', 1.0, 27.6)]
+Adding 40000 items with dimension 4096
+Adding point id: 400000
+Adding point id: 401000
+Adding point id: 402000
+Adding point id: 403000
+Adding point id: 404000
+Adding point id: 405000
+Adding point id: 406000
+Adding point id: 407000
+Adding point id: 408000
+Adding point id: 409000
+Adding point id: 410000
+Adding point id: 411000
+Adding point id: 412000
+Adding point id: 413000
+Adding point id: 414000
+Adding point id: 415000
+Adding point id: 416000
+Adding point id: 417000
+Adding point id: 418000
+Adding point id: 419000
+Adding point id: 420000
+Adding point id: 421000
+Adding point id: 422000
+Adding point id: 423000
+Adding point id: 424000
+Adding point id: 425000
+Adding point id: 426000
+Adding point id: 427000
+Adding point id: 428000
+Adding point id: 429000
+Adding point id: 430000
+Adding point id: 431000
+Adding point id: 432000
+Adding point id: 433000
+Adding point id: 434000
+Adding point id: 435000
+Adding point id: 436000
+Adding point id: 437000
+Adding point id: 438000
+Adding point id: 439000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:42:48] arxiv_time ema round 6 cum 653.7 [('ef=16', 0.972, 907.0), ('ef=32', 0.9894, 580.9), ('ef=64', 0.9976, 352.5), ('ef=128', 0.9992, 213.0), ('ef=256', 0.9996, 137.1), ('ef=512', 0.9998, 79.6), ('ef=1024', 0.9998, 47.7), ('ef=2048', 0.9998, 27.5)]
+Adding 40000 items with dimension 4096
+Adding point id: 440000
+Adding point id: 441000
+Adding point id: 442000
+Adding point id: 443000
+Adding point id: 444000
+Adding point id: 445000
+Adding point id: 446000
+Adding point id: 447000
+Adding point id: 448000
+Adding point id: 449000
+Adding point id: 450000
+Adding point id: 451000
+Adding point id: 452000
+Adding point id: 453000
+Adding point id: 454000
+Adding point id: 455000
+Adding point id: 456000
+Adding point id: 457000
+Adding point id: 458000
+Adding point id: 459000
+Adding point id: 460000
+Adding point id: 461000
+Adding point id: 462000
+Adding point id: 463000
+Adding point id: 464000
+Adding point id: 465000
+Adding point id: 466000
+Adding point id: 467000
+Adding point id: 468000
+Adding point id: 469000
+Adding point id: 470000
+Adding point id: 471000
+Adding point id: 472000
+Adding point id: 473000
+Adding point id: 474000
+Adding point id: 475000
+Adding point id: 476000
+Adding point id: 477000
+Adding point id: 478000
+Adding point id: 479000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:47:26] arxiv_time ema round 7 cum 759.5 [('ef=16', 0.975, 940.7), ('ef=32', 0.9926, 609.1), ('ef=64', 0.9982, 382.0), ('ef=128', 0.9988, 233.2), ('ef=256', 0.9994, 133.1), ('ef=512', 0.9996, 80.8), ('ef=1024', 0.9998, 48.2), ('ef=2048', 0.9998, 27.8)]
+Adding 40000 items with dimension 4096
+Adding point id: 480000
+Adding point id: 481000
+Adding point id: 482000
+Adding point id: 483000
+Adding point id: 484000
+Adding point id: 485000
+Adding point id: 486000
+Adding point id: 487000
+Adding point id: 488000
+Adding point id: 489000
+Adding point id: 490000
+Adding point id: 491000
+Adding point id: 492000
+Adding point id: 493000
+Adding point id: 494000
+Adding point id: 495000
+Adding point id: 496000
+Adding point id: 497000
+Adding point id: 498000
+Adding point id: 499000
+Adding point id: 500000
+Adding point id: 501000
+Adding point id: 502000
+Adding point id: 503000
+Adding point id: 504000
+Adding point id: 505000
+Adding point id: 506000
+Adding point id: 507000
+Adding point id: 508000
+Adding point id: 509000
+Adding point id: 510000
+Adding point id: 511000
+Adding point id: 512000
+Adding point id: 513000
+Adding point id: 514000
+Adding point id: 515000
+Adding point id: 516000
+Adding point id: 517000
+Adding point id: 518000
+Adding point id: 519000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:51:59] arxiv_time ema round 8 cum 862.7 [('ef=16', 0.968, 1009.0), ('ef=32', 0.9914, 637.2), ('ef=64', 0.9976, 397.6), ('ef=128', 0.9992, 241.8), ('ef=256', 0.9996, 137.0), ('ef=512', 0.9996, 83.1), ('ef=1024', 0.9998, 48.7), ('ef=2048', 0.9998, 28.2)]
+Adding 40000 items with dimension 4096
+Adding point id: 520000
+Adding point id: 521000
+Adding point id: 522000
+Adding point id: 523000
+Adding point id: 524000
+Adding point id: 525000
+Adding point id: 526000
+Adding point id: 527000
+Adding point id: 528000
+Adding point id: 529000
+Adding point id: 530000
+Adding point id: 531000
+Adding point id: 532000
+Adding point id: 533000
+Adding point id: 534000
+Adding point id: 535000
+Adding point id: 536000
+Adding point id: 537000
+Adding point id: 538000
+Adding point id: 539000
+Adding point id: 540000
+Adding point id: 541000
+Adding point id: 542000
+Adding point id: 543000
+Adding point id: 544000
+Adding point id: 545000
+Adding point id: 546000
+Adding point id: 547000
+Adding point id: 548000
+Adding point id: 549000
+Adding point id: 550000
+Adding point id: 551000
+Adding point id: 552000
+Adding point id: 553000
+Adding point id: 554000
+Adding point id: 555000
+Adding point id: 556000
+Adding point id: 557000
+Adding point id: 558000
+Adding point id: 559000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[09:56:28] arxiv_time ema round 9 cum 966.7 [('ef=16', 0.9714, 1050.5), ('ef=32', 0.9918, 668.0), ('ef=64', 0.9984, 413.5), ('ef=128', 0.9994, 250.6), ('ef=256', 0.9998, 142.2), ('ef=512', 0.9998, 84.9), ('ef=1024', 0.9998, 49.6), ('ef=2048', 0.9998, 28.4)]
+Adding 40000 items with dimension 4096
+Adding point id: 560000
+Adding point id: 561000
+Adding point id: 562000
+Adding point id: 563000
+Adding point id: 564000
+Adding point id: 565000
+Adding point id: 566000
+Adding point id: 567000
+Adding point id: 568000
+Adding point id: 569000
+Adding point id: 570000
+Adding point id: 571000
+Adding point id: 572000
+Adding point id: 573000
+Adding point id: 574000
+Adding point id: 575000
+Adding point id: 576000
+Adding point id: 577000
+Adding point id: 578000
+Adding point id: 579000
+Adding point id: 580000
+Adding point id: 581000
+Adding point id: 582000
+Adding point id: 583000
+Adding point id: 584000
+Adding point id: 585000
+Adding point id: 586000
+Adding point id: 587000
+Adding point id: 588000
+Adding point id: 589000
+Adding point id: 590000
+Adding point id: 591000
+Adding point id: 592000
+Adding point id: 593000
+Adding point id: 594000
+Adding point id: 595000
+Adding point id: 596000
+Adding point id: 597000
+Adding point id: 598000
+Adding point id: 599000
+Generating attribute indexes ...
+Number of attributes: 2
+Attribute 0: numerical
+Attribute 1: categorical
+Attribute indexes generated.
+set ft_routing flag to 1
+set ft_routing_min_deg to 8
+set ft_routing_backfill_tail to 0
+[10:01:01] arxiv_time ema round 10 cum 1074.3 [('ef=16', 0.9748, 1059.2), ('ef=32', 0.9906, 676.8), ('ef=64', 0.9976, 419.3), ('ef=128', 0.9994, 244.8), ('ef=256', 0.9998, 146.8), ('ef=512', 1.0, 84.8), ('ef=1024', 1.0, 49.3), ('ef=2048', 1.0, 29.0)]
+[10:01:01] DONE arxiv_time ema
+--- [13] exit=0
+=== [14 7e9b5d320037e259.1] 2026-10-30 10:01:05 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 176.824s
+Index built with degree: max:64  avg:53.0552  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.15246s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43244168, _max_observed_degree: 64, _start: 168810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r0/ann...done. Index has 200000 nodes and 10611036 out-edges, _start is set to 168810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 168810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:05:44] arxiv_time fdiskann round 0 rebuild 188.8 [('L=16', 0.971, 917.8), ('L=32', 0.9906, 615.3), ('L=64', 0.9968, 383.6), ('L=128', 0.9998, 239.2), ('L=256', 1.0, 155.3), ('L=512', 1.0, 93.2), ('L=1024', 1.0, 58.3)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 174.823s
+Index built with degree: max:64  avg:53.5294  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.17155s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43623512, _max_observed_degree: 64, _start: 128810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r1/ann...done. Index has 200000 nodes and 10705872 out-edges, _start is set to 128810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 128810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:10:25] arxiv_time fdiskann round 1 rebuild 186.8 [('L=16', 0.973, 911.1), ('L=32', 0.9916, 602.9), ('L=64', 0.998, 375.9), ('L=128', 0.9992, 234.2), ('L=256', 0.9994, 148.2), ('L=512', 0.9998, 93.1), ('L=1024', 0.9998, 57.4)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 176.743s
+Index built with degree: max:64  avg:53.3565  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.14025s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43485192, _max_observed_degree: 64, _start: 88810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r2/ann...done. Index has 200000 nodes and 10671292 out-edges, _start is set to 88810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 88810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:15:08] arxiv_time fdiskann round 2 rebuild 188.6 [('L=16', 0.9754, 919.9), ('L=32', 0.9936, 606.6), ('L=64', 0.9982, 377.4), ('L=128', 0.9994, 233.2), ('L=256', 0.9998, 146.7), ('L=512', 0.9998, 89.9), ('L=1024', 0.9998, 56.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 173.796s
+Index built with degree: max:64  avg:53.4761  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.21558s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43580900, _max_observed_degree: 64, _start: 48810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r3/ann...done. Index has 200000 nodes and 10695219 out-edges, _start is set to 48810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 48810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:19:49] arxiv_time fdiskann round 3 rebuild 185.8 [('L=16', 0.975, 889.6), ('L=32', 0.9912, 587.6), ('L=64', 0.999, 364.3), ('L=128', 0.9996, 231.0), ('L=256', 0.9998, 144.8), ('L=512', 0.9998, 91.9), ('L=1024', 0.9998, 55.4)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 177.56s
+Index built with degree: max:64  avg:53.551  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.15656s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43640792, _max_observed_degree: 64, _start: 21168, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r4/ann...done. Index has 200000 nodes and 10710192 out-edges, _start is set to 21168
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 21168 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:24:34] arxiv_time fdiskann round 4 rebuild 189.5 [('L=16', 0.9752, 890.6), ('L=32', 0.992, 582.0), ('L=64', 0.9986, 364.4), ('L=128', 0.9994, 229.3), ('L=256', 0.9996, 144.2), ('L=512', 0.9998, 90.0), ('L=1024', 0.9998, 55.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 173.737s
+Index built with degree: max:64  avg:53.5844  min:2  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.1647s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43667564, _max_observed_degree: 64, _start: 12417, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r5/ann...done. Index has 200000 nodes and 10716885 out-edges, _start is set to 12417
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 12417 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:29:16] arxiv_time fdiskann round 5 rebuild 185.7 [('L=16', 0.9782, 891.8), ('L=32', 0.995, 578.3), ('L=64', 0.999, 364.0), ('L=128', 0.9994, 226.7), ('L=256', 0.9998, 143.1), ('L=512', 1.0, 90.0), ('L=1024', 1.0, 56.7)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 174.902s
+Index built with degree: max:64  avg:53.6782  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.24291s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43742580, _max_observed_degree: 64, _start: 52018, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r6/ann...done. Index has 200000 nodes and 10735639 out-edges, _start is set to 52018
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 52018 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:34:00] arxiv_time fdiskann round 6 rebuild 186.9 [('L=16', 0.979, 873.8), ('L=32', 0.9932, 572.3), ('L=64', 0.999, 356.2), ('L=128', 0.9998, 226.6), ('L=256', 0.9998, 142.3), ('L=512', 1.0, 91.2), ('L=1024', 1.0, 54.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 174.885s
+Index built with degree: max:64  avg:53.747  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.19931s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43797644, _max_observed_degree: 64, _start: 12018, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r7/ann...done. Index has 200000 nodes and 10749405 out-edges, _start is set to 12018
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 12018 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:38:43] arxiv_time fdiskann round 7 rebuild 186.8 [('L=16', 0.985, 891.5), ('L=32', 0.9966, 585.8), ('L=64', 0.9988, 361.8), ('L=128', 0.999, 227.0), ('L=256', 0.9992, 143.1), ('L=512', 0.9998, 90.9), ('L=1024', 0.9998, 54.6)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 179.488s
+Index built with degree: max:64  avg:53.8775  min:3  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.14333s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43902036, _max_observed_degree: 64, _start: 190204, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r8/ann...done. Index has 200000 nodes and 10775503 out-edges, _start is set to 190204
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 190204 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:43:31] arxiv_time fdiskann round 8 rebuild 191.4 [('L=16', 0.9856, 872.0), ('L=32', 0.9962, 572.2), ('L=64', 0.9992, 358.0), ('L=128', 0.9992, 224.4), ('L=256', 0.9996, 140.6), ('L=512', 0.9996, 90.5), ('L=1024', 0.9996, 55.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 175.047s
+Index built with degree: max:64  avg:54.1935  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.15667s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 44154808, _max_observed_degree: 64, _start: 37105, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r9/ann...done. Index has 200000 nodes and 10838696 out-edges, _start is set to 37105
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 37105 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:48:15] arxiv_time fdiskann round 9 rebuild 186.9 [('L=16', 0.9818, 890.3), ('L=32', 0.9948, 581.1), ('L=64', 0.9972, 360.0), ('L=128', 0.9998, 226.1), ('L=256', 1.0, 141.6), ('L=512', 1.0, 91.0), ('L=1024', 1.0, 55.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 174.642s
+Index built with degree: max:64  avg:54.4279  min:5  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 2.19252s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 44342364, _max_observed_degree: 64, _start: 60241, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r10/ann...done. Index has 200000 nodes and 10885585 out-edges, _start is set to 60241
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 60241 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[10:52:59] arxiv_time fdiskann round 10 rebuild 186.6 [('L=16', 0.978, 870.1), ('L=32', 0.9916, 566.4), ('L=64', 0.9976, 358.9), ('L=128', 0.9992, 225.8), ('L=256', 0.9994, 144.5), ('L=512', 0.9996, 89.6), ('L=1024', 1.0, 54.3)]
+[10:53:00] DONE arxiv_time fdiskann
+--- [14] exit=0
+=== [15 510f634a2c3febbf.1] 2026-10-30 10:53:03 BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+[10:53:08] arxiv_time acorn stream start
+[11:36:50] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.903, 1089.9), ('ef=32', 0.9634, 710.6), ('ef=64', 0.9858, 458.2), ('ef=128', 0.9948, 289.5), ('ef=256', 0.9978, 182.0), ('ef=512', 0.9986, 107.1), ('ef=1024', 0.999, 67.0), ('ef=2048', 0.999, 36.5)]
+[11:36:50] arxiv_time acorn round 1 cum 121.492 [('ef=16', 0.9352, 934.4), ('ef=32', 0.975, 670.9), ('ef=64', 0.988, 432.9), ('ef=128', 0.9956, 275.7), ('ef=256', 0.998, 166.5), ('ef=512', 0.9992, 102.2), ('ef=1024', 0.9998, 60.9), ('ef=2048', 1.0, 31.7)]
+[11:36:50] arxiv_time acorn round 2 cum 227.972 [('ef=16', 0.9418, 921.3), ('ef=32', 0.9754, 667.1), ('ef=64', 0.9848, 433.6), ('ef=128', 0.991, 274.1), ('ef=256', 0.9958, 164.4), ('ef=512', 0.9988, 102.3), ('ef=1024', 0.9994, 59.8), ('ef=2048', 0.9994, 31.1)]
+[11:36:50] arxiv_time acorn round 3 cum 327.1 [('ef=16', 0.9388, 922.7), ('ef=32', 0.9706, 669.0), ('ef=64', 0.9864, 434.0), ('ef=128', 0.991, 274.5), ('ef=256', 0.9952, 163.8), ('ef=512', 0.9966, 103.0), ('ef=1024', 0.9974, 60.0), ('ef=2048', 0.9976, 31.2)]
+[11:36:51] arxiv_time acorn round 4 cum 428.545 [('ef=16', 0.9334, 923.9), ('ef=32', 0.9712, 662.9), ('ef=64', 0.9848, 434.0), ('ef=128', 0.994, 275.7), ('ef=256', 0.9958, 169.8), ('ef=512', 0.997, 99.9), ('ef=1024', 0.9998, 58.8), ('ef=2048', 1.0, 31.0)]
+[11:36:51] arxiv_time acorn round 5 cum 537.687 [('ef=16', 0.9446, 920.0), ('ef=32', 0.9716, 672.0), ('ef=64', 0.9848, 435.9), ('ef=128', 0.9924, 276.7), ('ef=256', 0.994, 171.1), ('ef=512', 0.9982, 100.1), ('ef=1024', 0.999, 59.0), ('ef=2048', 0.9994, 31.0)]
+[11:36:51] arxiv_time acorn round 6 cum 650.12 [('ef=16', 0.9498, 1035.6), ('ef=32', 0.9752, 694.4), ('ef=64', 0.9866, 445.1), ('ef=128', 0.9934, 275.2), ('ef=256', 0.9962, 165.0), ('ef=512', 0.9974, 104.3), ('ef=1024', 0.998, 59.0), ('ef=2048', 0.998, 31.7)]
+[11:36:51] arxiv_time acorn round 7 cum 759.381 [('ef=16', 0.9526, 934.3), ('ef=32', 0.9808, 685.1), ('ef=64', 0.9896, 443.6), ('ef=128', 0.995, 281.4), ('ef=256', 0.9958, 166.4), ('ef=512', 0.9978, 102.4), ('ef=1024', 0.9978, 58.9), ('ef=2048', 0.999, 31.5)]
+[11:36:51] arxiv_time acorn round 8 cum 871.998 [('ef=16', 0.9564, 944.4), ('ef=32', 0.9804, 688.4), ('ef=64', 0.9914, 444.8), ('ef=128', 0.9956, 280.6), ('ef=256', 0.9968, 164.5), ('ef=512', 0.9984, 101.2), ('ef=1024', 0.999, 57.9), ('ef=2048', 0.9994, 30.9)]
+[11:36:51] arxiv_time acorn round 9 cum 983.432 [('ef=16', 0.9628, 999.8), ('ef=32', 0.9836, 699.0), ('ef=64', 0.9886, 451.7), ('ef=128', 0.9964, 284.5), ('ef=256', 0.9976, 174.0), ('ef=512', 0.9984, 101.3), ('ef=1024', 0.999, 58.0), ('ef=2048', 0.999, 30.8)]
+[11:36:51] arxiv_time acorn round 10 cum 1098.679 [('ef=16', 0.9564, 957.3), ('ef=32', 0.978, 665.0), ('ef=64', 0.9884, 442.8), ('ef=128', 0.9948, 282.8), ('ef=256', 0.9982, 175.2), ('ef=512', 0.9988, 99.2), ('ef=1024', 0.9996, 57.9), ('ef=2048', 0.9998, 30.4)]
+[11:36:52] DONE arxiv_time acorn_repair_all
+--- [15] exit=0
+=== [16 99a976d7b2d2b8af.1] 2026-10-30 11:36:55 BENCH_TAG=tr_end BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+[11:39:55] arxiv_time ivf round 0 cum 0.0 [('nprobe=8', 0.8582, 430.4), ('nprobe=16', 0.935, 291.6), ('nprobe=32', 0.9712, 194.1), ('nprobe=64', 0.988, 122.9), ('nprobe=128', 0.995, 75.9), ('nprobe=256', 0.999, 47.8), ('nprobe=512', 1.0, 34.0)]
+[11:42:46] arxiv_time ivf round 1 cum 0.65 [('nprobe=8', 0.8674, 398.8), ('nprobe=16', 0.9382, 284.8), ('nprobe=32', 0.9736, 189.8), ('nprobe=64', 0.9904, 120.5), ('nprobe=128', 0.997, 73.2), ('nprobe=256', 0.9996, 46.7), ('nprobe=512', 1.0, 33.0)]
+[11:45:51] arxiv_time ivf round 2 cum 1.29 [('nprobe=8', 0.8772, 377.0), ('nprobe=16', 0.9432, 261.3), ('nprobe=32', 0.9746, 169.7), ('nprobe=64', 0.9906, 106.7), ('nprobe=128', 0.9966, 66.2), ('nprobe=256', 0.9996, 43.1), ('nprobe=512', 1.0, 31.0)]
+[11:49:05] arxiv_time ivf round 3 cum 1.93 [('nprobe=8', 0.877, 355.3), ('nprobe=16', 0.941, 246.1), ('nprobe=32', 0.976, 161.5), ('nprobe=64', 0.9918, 100.7), ('nprobe=128', 0.9984, 63.3), ('nprobe=256', 1.0, 41.4), ('nprobe=512', 1.0, 29.8)]
+[11:52:29] arxiv_time ivf round 4 cum 2.58 [('nprobe=8', 0.885, 336.8), ('nprobe=16', 0.9446, 231.0), ('nprobe=32', 0.9768, 150.9), ('nprobe=64', 0.9908, 94.3), ('nprobe=128', 0.9972, 59.3), ('nprobe=256', 1.0, 39.5), ('nprobe=512', 1.0, 28.7)]
+[11:55:59] arxiv_time ivf round 5 cum 3.22 [('nprobe=8', 0.8882, 317.9), ('nprobe=16', 0.9454, 218.5), ('nprobe=32', 0.9772, 145.5), ('nprobe=64', 0.9914, 90.1), ('nprobe=128', 0.997, 57.5), ('nprobe=256', 0.9996, 38.3), ('nprobe=512', 1.0, 28.1)]
+[11:59:33] arxiv_time ivf round 6 cum 3.86 [('nprobe=8', 0.8898, 301.1), ('nprobe=16', 0.9468, 208.2), ('nprobe=32', 0.9774, 137.8), ('nprobe=64', 0.991, 88.2), ('nprobe=128', 0.9962, 56.1), ('nprobe=256', 0.9994, 38.0), ('nprobe=512', 1.0, 28.0)]
+[12:03:16] arxiv_time ivf round 7 cum 4.5 [('nprobe=8', 0.8946, 278.7), ('nprobe=16', 0.9488, 192.3), ('nprobe=32', 0.978, 128.0), ('nprobe=64', 0.9898, 81.7), ('nprobe=128', 0.9962, 53.6), ('nprobe=256', 0.9996, 36.8), ('nprobe=512', 1.0, 27.2)]
+[12:07:33] arxiv_time ivf round 8 cum 5.22 [('nprobe=8', 0.8942, 236.2), ('nprobe=16', 0.9452, 159.8), ('nprobe=32', 0.978, 105.9), ('nprobe=64', 0.9904, 68.2), ('nprobe=128', 0.9966, 45.5), ('nprobe=256', 0.999, 32.4), ('nprobe=512', 0.9996, 24.7)]
+[12:12:09] arxiv_time ivf round 9 cum 5.89 [('nprobe=8', 0.8942, 210.9), ('nprobe=16', 0.9474, 143.7), ('nprobe=32', 0.9798, 94.0), ('nprobe=64', 0.9912, 61.5), ('nprobe=128', 0.997, 41.9), ('nprobe=256', 0.9992, 30.5), ('nprobe=512', 0.9998, 23.5)]
+[12:17:00] arxiv_time ivf round 10 cum 6.57 [('nprobe=8', 0.897, 195.4), ('nprobe=16', 0.9484, 131.7), ('nprobe=32', 0.9818, 86.8), ('nprobe=64', 0.9916, 57.0), ('nprobe=128', 0.9972, 39.2), ('nprobe=256', 0.9994, 29.2), ('nprobe=512', 1.0, 22.9)]
+[12:17:00] DONE arxiv_time ivf
+--- [16] exit=0
+QUEUE_EMPTY 12:17:02

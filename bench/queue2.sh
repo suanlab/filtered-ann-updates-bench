@@ -15,6 +15,9 @@
 # (default 20); otherwise the queue waits, so that a full disk pauses the queue instead of failing every job.
 cd "$(dirname "$0")/.."; mkdir -p results/bench
 QF=${QUEUE_FILE:-bench/queue.txt}; DF=${DONE_FILE:-results/bench/queue.done}; LF=${LOG_FILE:-results/bench/queue.log}
+# MANIFEST (optional, follow-up 5 on): one JSON line per executed job with its key, line, command, exit code, times,
+# the repository's commit and dirty state, and the gate probes, so that the done file's entries can be audited.
+MF=${MANIFEST:-}
 touch "$DF"; chmod 600 "$QF" "$DF"
 export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 GATE=${GATE:-380}; MIN_FREE_GB=${MIN_FREE_GB:-20}; PROBE_FAILS=${PROBE_FAILS:-5}; PROBE_LOG=${PROBE_LOG:-results/bench/probe.log}; PROBE_CPU=${PROBE_CPU:-16}
@@ -61,6 +64,11 @@ while true; do
   echo "=== [$n $key] $(date '+%F %T') $job" >> "$LF"
   bash -c "$job" >> "$LF" 2>&1; rc=$?
   post=$(checked_probe "post:$n") || exit 1
+  if [[ -n "$MF" ]]; then
+    JOB="$job" KEY="$key" N="$n" RC="$rc" T0="$start" T1="$(date +%s)" PRE="${q:-}" POST="$post" \
+    GIT="$(git rev-parse HEAD 2>/dev/null)" DIRTY="$(git status --porcelain --untracked-files=no -- bench src scripts 2>/dev/null | wc -l)" \
+    python3 -c 'import json,os;e=os.environ;print(json.dumps({"key":e["KEY"],"line":int(e["N"]),"cmd":e["JOB"],"rc":int(e["RC"]),"start":int(e["T0"]),"end":int(e["T1"]),"git":e["GIT"],"dirty_code_files":int(e["DIRTY"]),"probe_pre":e["PRE"],"probe_post":e["POST"]}))' >> "$MF"
+  fi
   if [[ $gated == 1 && $post -lt $GATE && $rc == 0 ]]; then
     echo "$key 99 $start $(date +%s) $n" >> "$DF"
     echo "$job" >> "$QF"

@@ -110,6 +110,21 @@ def latency_pct(per_query_s):
     a = np.asarray(per_query_s, float) * 1e3
     return {'p50_ms': float(np.percentile(a, 50)), 'p95_ms': float(np.percentile(a, 95)), 'p99_ms': float(np.percentile(a, 99))}
 
+def measure_rounds(meta):
+    """The rounds a stream runner sweeps: the stream's measured rounds, or every round with MEASURE_ALL=1 (follow-up 5:
+    executed trace of every round)."""
+    return list(range(meta['R'] + 1)) if os.environ.get('MEASURE_ALL') == '1' else list(meta['measure_rounds'])
+
+def rss_now(pid='self'):
+    """Current resident memory of a process, MB: anonymous (heap and index structures; file-backed pages such as
+    memory-mapped inputs are excluded) and total (VmRSS)."""
+    out = {}
+    with open(f'/proc/{pid}/status') as f:
+        for l in f:
+            k = l.split(':')[0]
+            if k in ('RssAnon', 'VmRSS'): out[{'RssAnon': 'rss_anon_mb', 'VmRSS': 'vm_rss_mb'}[k]] = int(l.split()[1]) / 1024.0
+    return out
+
 def peak_rss_mb(children=False):
     import resource
     r = resource.getrusage(resource.RUSAGE_CHILDREN if children else resource.RUSAGE_SELF).ru_maxrss

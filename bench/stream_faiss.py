@@ -13,7 +13,7 @@ per-query latency percentiles and peak RSS recorded."""
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
-from common import ROOT, RES, recall, timed_search, log, K, faiss_bitmap, E2E, latency_pct, peak_rss_mb, bitmap_set
+from common import ROOT, RES, recall, timed_search, log, K, faiss_bitmap, E2E, latency_pct, peak_rss_mb, bitmap_set, measure_rounds, rss_now
 
 name, method = sys.argv[1], sys.argv[2]; D = f'{ROOT}/stream_{name}'
 # ivf_rt<k>: IVF whose centroids are retrained on the live set, and the index rebuilt, every k rounds (cost counted as
@@ -21,7 +21,7 @@ name, method = sys.argv[1], sys.argv[2]; D = f'{ROOT}/stream_{name}'
 RT = int(method[len('ivf_rt'):]) if method.startswith('ivf_rt') else 0
 if RT: method_out = method; method = 'ivf'
 else: method_out = method
-meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
+meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']; meta['measure_rounds'] = measure_rounds(meta)
 X = np.load(f'{D}/Xall.npy'); Q = np.load(f'{D}/Q.npy'); attr = np.load(f'{D}/attr.npy'); qlab = np.load(f'{D}/qlab.npy')
 gt = np.load(f'{D}/gt.npy'); sch = np.load(f'{D}/sched.npz'); n, d = X.shape; nq = len(Q)
 G = [(b, np.where(qlab == b)[0]) for b in range(10)]; alive = np.zeros(n, bool); alive[:N0] = True
@@ -81,7 +81,7 @@ for r in range(R + 1):
             row['t_pred'] = time.time() - t; cum += row['t_pred']
     row['cum_maint_s'] = cum
     if r in meta['measure_rounds']:
-        faiss.omp_set_num_threads(1); sweep = []; live = int(alive.sum()); row['resident'] = live
+        faiss.omp_set_num_threads(1); sweep = []; live = int(alive.sum()); row['resident'] = live; row.update(rss_now())
         if method == 'ivf':
             sels = SELE if E2E else {b: bitmap(alive & (attr == b)) for b, _ in G}; row['bytes'] = int(live * (d * 4 + 8) + nlist * d * 4)
             for npb in (8, 16, 32, 64, 128, 256, 512, 1024, 2048):
@@ -99,7 +99,7 @@ for r in range(R + 1):
                     return (o, tot, per) if E2E else (o, tot)
                 res = timed_search(run, nq); o, q = res[0], res[1]; sweep.append({'param': f'nprobe={npb}', 'recall': recall(o, gt[r]), 'qps': q})
                 if E2E: sweep[-1]['latency'] = latency_pct(res[2])
-                if sweep[-1]['recall'] > 0.999: break
+                if sweep[-1]['recall'] > 0.999 and os.environ.get('MEASURE_ALL') != '1': break      # MEASURE_ALL: the full grid at every round
         elif method == 'ivf_part':
             row['bytes'] = int(live * (d * 4 + 8) + nlist * d * 4)
             for npb in (1, 2, 4, 8, 16, 32, 64, 128, 256, 512):
@@ -115,7 +115,7 @@ for r in range(R + 1):
                     return (o, tot, per) if E2E else (o, tot)
                 res = timed_search(run, nq); o, q = res[0], res[1]; sweep.append({'param': f'nprobe={npb}', 'recall': recall(o, gt[r]), 'qps': q})
                 if E2E: sweep[-1]['latency'] = latency_pct(res[2])
-                if sweep[-1]['recall'] > 0.999 or npb >= max(nl.values()): break
+                if (sweep[-1]['recall'] > 0.999 and os.environ.get('MEASURE_ALL') != '1') or npb >= max(nl.values()): break
         else:
             row['bytes'] = int(live * (d * 4 + 8))
             def run():

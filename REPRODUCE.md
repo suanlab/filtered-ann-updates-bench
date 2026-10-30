@@ -130,6 +130,7 @@ results.
 | `cc4` | concurrency under one phase-fair reader-writer lock for every method (follow-up 4, B1) | Table IV | `stream_concurrent.py`, `src/cc_ivf` |
 | `e2e4` | EMA end to end (`E2E=1`, one call per query) with an IVF anchor (follow-up 4, B2) | VII, Table IV | `stream_ema.py`, `stream_faiss.py ivf` |
 | `fdx` | Filtered-DiskANN rebuilt at every round (`REBUILD_ALL=1`) against the estimate (follow-up 4, B3) | VI, Table IV | `stream_diskann.py` |
+| `tr`, `tr_end` | every round measured (`MEASURE_ALL=1`), random method order between two IVF runs; memory per round (follow-up 5) | VI, VII, Table IV | stream runners |
 | `yst` | multi-label AND stream on YFCC tags (`stream_prep.py yfcc_stream`) (I18) | Table IV | `stream_multi.py` |
 | `amz` | Amazon Reviews 2023 temporal stream (`prep_amazon.py`, `stream_prep.py amz_time`) (I18) | Table IV | stream runners |
 | `simdn`, `simd2` | Faiss SIMD level generic / AVX2 (`FAISS_SIMD`) (I18) | Table IV | `run_faiss.py`, `microbench_cost.py` |
@@ -263,3 +264,19 @@ remapped to dense ids. This is a workload-informed build. Every query behaves as
   generates only its first part.
 - `bench/predicate_cost.py` and `bench/microbench_cost.py` ignore `BENCH_TAG` and write fixed paths. The
   re-execution copy of the first is kept under `results/bench_rep_main/` (section 7); the second was not re-executed.
+
+## 10. Follow-up 5: executed trace of every round, and memory (pre-registered; Table IV)
+
+`paper_audit/followup5_prereg.md` (commit 30ae136) fixed the design, the four query-cost policies, and the decisions
+before the runs. `paper_audit/followup5_results.md` records the outcome.
+- `MEASURE_ALL=1` makes the stream runners sweep their full grid at every round, without the early stop at 0.999.
+  EMA then regenerates its attribute indexes, and Filtered-DiskANN rebuilds, at every round.
+- Each measured round records `rss_anon_mb` and `vm_rss_mb` from `/proc`. ACORN reads them inside
+  `src/acorn_stream.cpp`, before the sweep allocates its filter maps.
+- `bench/queue2.sh` with `MANIFEST=<file>` appends one JSON line per job: key, line, command, exit code, times,
+  commit, modified tracked code files, and gate probes.
+```bash
+QUEUE_FILE=bench/queue_f5.txt DONE_FILE=results/bench/f5.done LOG_FILE=results/bench/f5.log \
+  PROBE_LOG=results/bench/probe_f5.log MANIFEST=results/bench/f5_manifest.jsonl bench/queue2.sh
+python3 bench/analyze_followup5.py > results/bench_f5_analysis.txt   # results/bench_f5_summary.json
+```

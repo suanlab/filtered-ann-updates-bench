@@ -1,0 +1,16 @@
+# follow-up 5 (paper_audit/followup5_prereg.md): every round measured; random order (random.Random(2030)) between two IVF runs
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py sift500k_adv
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf_part
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py sift500k_adv
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=tr_end BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf_rt5
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-ema/bin/python bench/stream_ema.py arxiv_time
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+BENCH_TAG=tr BENCH_PASS=1 MEASURE_ALL=1 ACORN_BIN=./src/acorn_stream_mech_avx2 REPAIR=2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=tr_end BENCH_PASS=1 MEASURE_ALL=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/stream_faiss.py arxiv_time ivf

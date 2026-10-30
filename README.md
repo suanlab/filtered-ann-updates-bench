@@ -33,6 +33,7 @@ python3 paper/make_eab_hfigures.py                           # paper/figures/eab
 python3 paper/make_eab_rfigures.py                           # paper/figures/eab_frontier.pdf (total-cost frontier)
 python3 bench/analyze_followup2.py > results/bench_f2_analysis.txt   # results/bench_f2_summary.json (pre-registered follow-ups 2 and 4)
 python3 bench/analyze_followup3.py > results/bench_f3_analysis.txt   # results/bench_f3_summary.json (second machine)
+python3 bench/analyze_followup5.py > results/bench_f5_analysis.txt   # results/bench_f5_summary.json (every round, memory)
 python3 paper/make_eab_fnumbers.py                           # paper/eab_fnumbers.tex  (\V{f/...}, Table IV)
 python3 paper/make_eab_ffigures.py                           # paper/figures/eab_reach.pdf (reachability figure)
 ```

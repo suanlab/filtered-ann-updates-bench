@@ -13,9 +13,9 @@ and FRESH=1 a new index on the final live set with the same metrics (stored unde
 import sys, os, json, subprocess, tempfile
 sys.path.insert(0, 'bench')
 import numpy as np
-from common import ROOT, RES, recall, recall_vec, ci, log, REPS, K, write_fbin, E2E, peak_rss_mb
+from common import ROOT, RES, recall, recall_vec, ci, log, REPS, K, write_fbin, E2E, peak_rss_mb, measure_rounds
 
-name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']
+name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; meta = json.load(open(f'{D}/meta.json')); R, N0 = meta['R'], meta['N0']; meta['measure_rounds'] = measure_rounds(meta)
 if os.environ.get('MAX_ROUND'): R = min(R, int(os.environ['MAX_ROUND'])); meta['measure_rounds'] = [x for x in meta['measure_rounds'] if x <= R]   # smoke tests only
 X = np.load(f'{D}/Xall.npy', mmap_mode='r'); Q = np.load(f'{D}/Q.npy'); gt = np.load(f'{D}/gt.npy'); sch = np.load(f'{D}/sched.npz'); nq = len(Q)
 tmp = tempfile.mkdtemp(dir=ROOT); os.makedirs(f'{tmp}/sched'); os.makedirs(f'{tmp}/out')
@@ -61,7 +61,7 @@ for line in p.stdout.splitlines():
                        'recall_by_label': {int(b): float(rv[qlab == b].mean()) for b in np.unique(qlab)}})
         out.setdefault('fresh', {}).update(round=ev['round'], n=ev['n'], build_s=ev['build_s'], sweep=sw)
         log(name, 'fresh build', [(x['param'], round(x['recall'], 4)) for x in sw]); continue
-    r = ev['round']; row = {k: ev[k] for k in ('round', 't_delete', 't_insert', 'cum_maint_s', 't_pred') if k in ev}; row['resident'] = ev['ntotal']
+    r = ev['round']; row = {k: ev[k] for k in ('round', 't_delete', 't_insert', 'cum_maint_s', 't_pred', 'rss_anon_mb', 'vm_rss_mb') if k in ev}; row['resident'] = ev['ntotal']
     if r in reps_:
         row['t_repair'] = reps_[r]['t_repair']; row['repaired_nodes'] = reps_[r]['nodes']
         if 'm3' in reps_[r]: row['m3'] = reps_[r]['m3']
