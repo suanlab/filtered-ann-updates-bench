@@ -34,15 +34,20 @@ from common import ROOT, log, read_u8bin
 from prep import labels
 
 name = sys.argv[1]; D = f'{ROOT}/stream_{name}'; os.makedirs(D, exist_ok=True)
-if name in ('sift500k', 'sift500k_adv'):
+if name in ('sift500k', 'sift500k_adv') or name.startswith('sift500k_adv_seed'):
     # SIFT descriptors without duplicates: the first 1.5M rows of BIGANN (SIFT1B) and its public queries.
-    u8 = read_u8bin
+    # sift500k_adv_seed<k> (follow-up 6): an independent replicate of sift500k_adv -- row order (which rows are live at
+    # round 0 and when the others arrive), label direction and label noise, deletion noise, and query labels from seed
+    # k; the plain streams keep seeds 11 (labels and direction) / 25 / 7 and the BIGANN order.
+    u8 = read_u8bin; ks = int(name.split('_seed')[1]) if '_seed' in name else None
     R, N0, NI = 20, 500_000, 50_000
     base = next(f for f in ('data/bigann/base.1.5M.u8bin', 'data/bigann/base.100M.u8bin') if os.path.exists(f))   # any prefix of base.1B
     Xall = u8(base, N0 + R * NI).astype(np.float32); Q = u8('data/bigann/query.public.10K.u8bin', 500).astype(np.float32)
-    attr = labels(Xall, 0.9, 10); qlab = np.random.default_rng(7).integers(0, 10, len(Q)).astype(np.int32)
-    w = np.random.default_rng(11).standard_normal(Xall.shape[1]).astype(np.float32); w /= np.linalg.norm(w)   # label direction
-    score = Xall @ w; score = (score - score.mean()) / score.std() + 0.3 * np.random.default_rng(25).standard_normal(len(Xall)).astype(np.float32)
+    if ks is not None: Xall = np.ascontiguousarray(Xall[np.random.default_rng(1000 + ks).permutation(len(Xall))])
+    lseed = 11 if ks is None else ks
+    attr = labels(Xall, 0.9, 10, seed=lseed); qlab = np.random.default_rng(7 if ks is None else 100 + ks).integers(0, 10, len(Q)).astype(np.int32)
+    w = np.random.default_rng(lseed).standard_normal(Xall.shape[1]).astype(np.float32); w /= np.linalg.norm(w)   # label direction
+    score = Xall @ w; score = (score - score.mean()) / score.std() + 0.3 * np.random.default_rng(25 if ks is None else 3000 + ks).standard_normal(len(Xall)).astype(np.float32)
     rng = np.random.default_rng(21); alive = np.zeros(len(Xall), bool); alive[:N0] = True; dels, inss, gts = [], [], []
     def gt_now():
         g = np.full((len(Q), 10), -1, np.int32)

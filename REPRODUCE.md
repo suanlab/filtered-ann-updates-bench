@@ -130,6 +130,7 @@ results.
 | `cc4` | concurrency under one phase-fair reader-writer lock for every method (follow-up 4, B1) | Table IV | `stream_concurrent.py`, `src/cc_ivf` |
 | `e2e4` | EMA end to end (`E2E=1`, one call per query) with an IVF anchor (follow-up 4, B2) | VII, Table IV | `stream_ema.py`, `stream_faiss.py ivf` |
 | `fdx` | Filtered-DiskANN rebuilt at every round (`REBUILD_ALL=1`) against the estimate (follow-up 4, B3) | VI, Table IV | `stream_diskann.py` |
+| `rpx` | ACORN update paths on SIFT-500K-adv and `sift500k_adv_seed2`, `_seed3` (`stream_prep.py`), `MECH=1 MEASURE_ALL=1` (follow-up 6) | VI, Table IV | `stream_acorn.py` |
 | `tr`, `tr_end` | every round measured (`MEASURE_ALL=1`), random method order between two IVF runs; memory per round (follow-up 5) | VI, VII, Table IV | stream runners |
 | `yst` | multi-label AND stream on YFCC tags (`stream_prep.py yfcc_stream`) (I18) | Table IV | `stream_multi.py` |
 | `amz` | Amazon Reviews 2023 temporal stream (`prep_amazon.py`, `stream_prep.py amz_time`) (I18) | Table IV | stream runners |
@@ -279,4 +280,15 @@ before the runs. `paper_audit/followup5_results.md` records the outcome.
 QUEUE_FILE=bench/queue_f5.txt DONE_FILE=results/bench/f5.done LOG_FILE=results/bench/f5.log \
   PROBE_LOG=results/bench/probe_f5.log MANIFEST=results/bench/f5_manifest.jsonl bench/queue2.sh
 python3 bench/analyze_followup5.py > results/bench_f5_analysis.txt   # results/bench_f5_summary.json
+```
+
+## 11. Follow-up 6: the repairs on three stream seeds (pre-registered; Section VI, Table IV)
+
+`paper_audit/followup6_prereg.md` (commit 8d79bd4) fixed the streams, the five update paths, and the rules H1–H5
+before the runs. `paper_audit/followup6_results.md` records the outcome. `sift500k_adv_seed<k>` draws the row order,
+the label direction and noise, the deletion noise, and the query labels from seed k; the plain stream is unchanged.
+```bash
+QUEUE_FILE=bench/queue_f6.txt DONE_FILE=results/bench/f6.done LOG_FILE=results/bench/f6.log \
+  PROBE_LOG=results/bench/probe_f6.log MANIFEST=results/bench/f6_manifest.jsonl bench/queue2.sh
+python3 bench/analyze_followup6.py > results/bench_f6_analysis.txt   # results/bench_f6_summary.json
 ```

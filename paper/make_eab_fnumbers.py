@@ -161,6 +161,22 @@ if os.path.exists('results/bench_f5_summary.json'):     # follow-up 5: executed 
         mm = X['max_recall_below_target'].get('acorn_repair_all')
         if mm: r_, v_ = min(mm['rounds'], key=lambda x: x[1]); out[f'f/tr/{key}/rep_dip'] = f2(v_); out[f'f/tr/{key}/rep_dip_round'] = str(r_); out[f'f/tr/{key}/rep_dip_unmeasured'] = 'yes' if not mm['paper_rounds_only'] else 'no'
         bc = X['policies']['constant']['best']; out[f'f/tr/{key}/const_best1'] = bc['1']; out[f'f/tr/{key}/const_best100'] = bc['100']
+if os.path.exists('results/bench_f6_summary.json'):     # follow-up 6: repairs on three SIFT-500K-adv seeds, every round
+    F6 = json.load(open('results/bench_f6_summary.json')); S6 = F6['streams'].values()
+    rng = lambda m: [x['max_recall_r20'][m] for x in S6]
+    for m, k in (('acorn', 'tomb'), ('acorn_repair', 'l0'), ('acorn_repair_all', 'all'), ('acorn_repair_upper', 'upper'), ('acorn_repair_fill', 'fill')):
+        out[f'f/rpx/{k}_lo'] = f2(min(rng(m))); out[f'f/rpx/{k}_hi'] = f2(max(rng(m)))
+    rh = [x['H3b_rho'] for x in S6]; out['f/rpx/rho_lo'] = f2(min(rh)); out['f/rpx/rho_hi'] = f2(max(rh))
+    out['f/rpx/dips'] = str(F6['H1']['pairs_below']); out['f/rpx/pairs'] = str(F6['H1']['pairs']); out['f/rpx/dip_streams'] = str(F6['H1']['streams_with_dip'])
+    out['f/rpx/dip_min'] = f2(F6['H1']['min']) if F6['H1']['min'] is not None else '--'
+    dr = [e['reach'] for x in S6 for e in x['exploratory_dips_vs_reach']]
+    if dr: out['f/rpx/dip_reach_lo'] = f2(min(dr)); out['f/rpx/dip_reach_hi'] = f2(max(dr))
+    out['f/rpx/rules_all'] = 'yes' if all(F6[h] == 3 for h in ('H2', 'H3a', 'H3b', 'H4', 'H5')) else 'no'
+    mt = [x['maintenance_over_tombstones_r20']['acorn_repair_all'] for x in S6]; out['f/rpx/maint_lo'] = f2(min(mt)); out['f/rpx/maint_hi'] = f2(max(mt))
+    # the all-level repair at round 20 over every run: the main campaigns' (a/h3) and these
+    A = json.load(open('results/bench_a_numbers.json'))
+    comb = [float(A['a/h3/acorn_repair_all/r20_min']), float(A['a/h3/acorn_repair_all/r20_max'])] + rng('acorn_repair_all')
+    out['f/rpx/allruns_lo'] = f3(min(comb)); out['f/rpx/allruns_hi'] = f3(max(comb)); out['f/rpx/allruns_n'] = str(int(A['a/h3/acorn_repair_all/runs']) + len(F6['streams']))
 DISP = {'ivf_part': 'label-partitioned IVF', 'ema': 'EMA', 'acorn_repair_all': 'repaired ACORN', 'acorn': 'ACORN', 'fdiskann_rebuild': 'rebuilt Filtered-DiskANN', 'ivf': 'IVF'}
 for k in ('f/amz/best1', 'f/amz/best100', 'f/tr/adv/const_best1', 'f/tr/adv/const_best100', 'f/tr/ax/const_best1', 'f/tr/ax/const_best100'):
     if k in out: out[k] = DISP.get(out[k], out[k])

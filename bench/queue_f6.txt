@@ -1,0 +1,18 @@
+# follow-up 6 (paper_audit/followup6_prereg.md): ACORN update paths on three SIFT-500K-adv seeds, every round, random order (random.Random(2031))
+python3 bench/stream_prep.py sift500k_adv_seed2
+python3 bench/stream_prep.py sift500k_adv_seed3
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed2
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=4 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed3
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 FRESH=1 REPAIR=0 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed3
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=3 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed3
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=3 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed2
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=1 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=3 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=4 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed2
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=2 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed2
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=4 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=2 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed3
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 FRESH=1 REPAIR=0 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed2
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 REPAIR=2 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=rpx BENCH_PASS=1 MECH=1 MEASURE_ALL=1 FRESH=1 REPAIR=0 ACORN_BIN=./src/acorn_stream_mech_avx2 taskset -c 0-27,56-83 python3 bench/stream_acorn.py sift500k_adv_seed3
