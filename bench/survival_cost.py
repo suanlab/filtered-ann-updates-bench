@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
 """Cost of the per-label survival that stream_diskann_policy.py computes outside its timers (REPRODUCE.md).
   taskset -c <core> .venv-faiss/bin/python bench/survival_cost.py      -> results/bench_mb/survival.json
+  (OUT_DIR=<dir>, or a BENCH_TAG, redirects the output: common.output_dir; a tagged re-execution keeps the original)
 Replays each SIFT stream's schedule against the initial build (the largest stale set) and times the same expression
 as the runner, once per round."""
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np
-from common import ROOT
+from common import ROOT, output_dir
 
 out = {}
 for nm in ('sift500k', 'sift500k_adv'):
@@ -19,4 +20,4 @@ for nm in ('sift500k', 'sift500k_adv'):
         ts.append(time.perf_counter() - t)
     out[nm] = {'rounds': R + 1, 'ms_median': 1e3 * float(np.median(ts)), 'ms_max': 1e3 * float(max(ts))}
     print(nm, out[nm], flush=True)
-os.makedirs('results/bench_mb', exist_ok=True); json.dump(out, open('results/bench_mb/survival.json', 'w'), indent=1)
+json.dump(out, open(f"{output_dir('results/bench_mb')}/survival.json", 'w'), indent=1)

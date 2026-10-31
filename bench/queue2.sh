@@ -18,6 +18,13 @@ QF=${QUEUE_FILE:-bench/queue.txt}; DF=${DONE_FILE:-results/bench/queue.done}; LF
 # MANIFEST (optional, follow-up 5 on): one JSON line per executed job with its key, line, command, exit code, times,
 # the repository's commit and dirty state, and the gate probes, so that the done file's entries can be audited.
 MF=${MANIFEST:-}
+# RUNS_DIR (optional, CHECK.md B14): every executed job gets an immutable directory <RUNS_DIR>/<start>_<key>/ with its
+# command, the commit and the diff of tracked code, the job's output (job.log), its status (ok / failed / contended)
+# and probes, and a copy of every file it wrote under results/ (outputs/, with SHA-256 sums), made read-only. A later
+# re-run that overwrites a result file therefore never loses the earlier attempt's output.
+RD=${RUNS_DIR:-}
+# the queue file itself changes when a contended job is re-queued: it is not a code change (only excludable inside the repo)
+EXCL=(); [[ $QF != /* ]] && EXCL=(":(exclude)$QF")
 touch "$DF"; chmod 600 "$QF" "$DF"
 export OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1
 GATE=${GATE:-380}; MIN_FREE_GB=${MIN_FREE_GB:-20}; PROBE_FAILS=${PROBE_FAILS:-5}; PROBE_LOG=${PROBE_LOG:-results/bench/probe.log}; PROBE_CPU=${PROBE_CPU:-16}
@@ -53,6 +60,7 @@ while true; do
     echo "disk gate [$n] ${free}G free < ${MIN_FREE_GB}G, waiting $(date +%T)" >> "$LF"; sleep 300
   done
   gated=1; [[ "$job" == python3\ bench/stream_prep* || "$job" == python3\ bench/prep* ]] && gated=0
+  q=""
   if [[ $gated == 1 ]]; then
     ok=0
     while [[ $ok -lt 2 ]]; do
@@ -62,14 +70,31 @@ while true; do
   fi
   start=$(date +%s)
   echo "=== [$n $key] $(date '+%F %T') $job" >> "$LF"
-  bash -c "$job" >> "$LF" 2>&1; rc=$?
+  run=""
+  if [[ -n "$RD" ]]; then
+    run="$RD/$(date -d @"$start" +%Y%m%dT%H%M%S)_$key"; mkdir -p "$run"; touch "$run/.start"
+    printf '%s\n' "$job" > "$run/cmd.txt"; git rev-parse HEAD > "$run/git_head.txt" 2>/dev/null
+    git diff -- bench src scripts "${EXCL[@]}" > "$run/code.diff"
+  fi
+  if [[ -n "$run" ]]; then bash -c "$job" 2>&1 | tee -a "$LF" > "$run/job.log"; rc=${PIPESTATUS[0]}
+  else bash -c "$job" >> "$LF" 2>&1; rc=$?; fi
   post=$(checked_probe "post:$n") || exit 1
+  status=ok; [[ $rc != 0 ]] && status=failed; [[ $gated == 1 && $post -lt $GATE && $rc == 0 ]] && status=contended
+  if [[ -n "$run" ]]; then
+    ( find results -type f -newer "$run/.start" ! -path "$RD/*" ! -path "$LF" ! -path "$DF" ! -path "$PROBE_LOG" ! -path "${MF:-/nonexistent}" \
+        -print0 | while IFS= read -r -d '' f; do mkdir -p "$run/outputs/$(dirname "$f")"; cp -p "$f" "$run/outputs/$f"; done )
+    ( cd "$run/outputs" 2>/dev/null && find . -type f -print0 | sort -z | xargs -0 -r sha256sum ) > "$run/outputs.sha256"
+    STATUS="$status" RC="$rc" T0="$start" T1="$(date +%s)" PRE="${q:-}" POST="$post" N="$(wc -l < "$run/outputs.sha256")" \
+    python3 -c 'import json,os;e=os.environ;print(json.dumps({"status":e["STATUS"],"rc":int(e["RC"]),"start":int(e["T0"]),"end":int(e["T1"]),"probe_pre":e["PRE"],"probe_post":e["POST"],"outputs":int(e["N"])}))' > "$run/status.json"
+    rm -f "$run/.start"; chmod -R a-w "$run"
+  fi
   if [[ -n "$MF" ]]; then
     JOB="$job" KEY="$key" N="$n" RC="$rc" T0="$start" T1="$(date +%s)" PRE="${q:-}" POST="$post" \
-    GIT="$(git rev-parse HEAD 2>/dev/null)" DIRTY="$(git status --porcelain --untracked-files=no -- bench src scripts 2>/dev/null | wc -l)" \
-    python3 -c 'import json,os;e=os.environ;print(json.dumps({"key":e["KEY"],"line":int(e["N"]),"cmd":e["JOB"],"rc":int(e["RC"]),"start":int(e["T0"]),"end":int(e["T1"]),"git":e["GIT"],"dirty_code_files":int(e["DIRTY"]),"probe_pre":e["PRE"],"probe_post":e["POST"]}))' >> "$MF"
+    GIT="$(git rev-parse HEAD 2>/dev/null)" DIRTY="$(git status --porcelain --untracked-files=no -- bench src scripts "${EXCL[@]}" | wc -l)" \
+    STATUS="$status" RUN="$run" \
+    python3 -c 'import json,os;e=os.environ;print(json.dumps({"key":e["KEY"],"line":int(e["N"]),"cmd":e["JOB"],"rc":int(e["RC"]),"status":e["STATUS"],"start":int(e["T0"]),"end":int(e["T1"]),"git":e["GIT"],"dirty_code_files":int(e["DIRTY"]),"probe_pre":e["PRE"],"probe_post":e["POST"],"run_dir":e["RUN"]}))' >> "$MF"
   fi
-  if [[ $gated == 1 && $post -lt $GATE && $rc == 0 ]]; then
+  if [[ $status == contended ]]; then
     echo "$key 99 $start $(date +%s) $n" >> "$DF"
     echo "$job" >> "$QF"
     echo "--- [$n] contended (post probe $post); re-queued" >> "$LF"

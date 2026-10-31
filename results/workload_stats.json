@@ -1658,6 +1658,44 @@
    ],
    "updates_per_round": 100000.0
   },
+  "sift500k_adv_seed2": {
+   "name": "sift500k_adv_seed2",
+   "N0": 500000,
+   "R": 20,
+   "n_rows": 1500000,
+   "d": 128,
+   "nq": 500,
+   "beta": 0.9,
+   "s": 0.1,
+   "measure_rounds": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+   ],
+   "updates_per_round": 100000.0
+  },
+  "sift500k_adv_seed3": {
+   "name": "sift500k_adv_seed3",
+   "N0": 500000,
+   "R": 20,
+   "n_rows": 1500000,
+   "d": 128,
+   "nq": 500,
+   "beta": 0.9,
+   "s": 0.1,
+   "measure_rounds": [
+    0,
+    4,
+    8,
+    12,
+    16,
+    20
+   ],
+   "updates_per_round": 100000.0
+  },
   "yfcc_stream": {
    "name": "yfcc_stream",
    "N0": 1000000,

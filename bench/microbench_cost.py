@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Workload-independent calibration of the check/distance cost ratio (review: IDEA_ICDE.md, idea 2).
   taskset -c <cores> .venv-faiss/bin/python bench/microbench_cost.py      -> results/bench_mb/cost.json
+  (OUT_DIR=<dir>, or a BENCH_TAG, redirects the output: common.output_dir; a tagged re-execution keeps the original)
 For d in (96, 4096): random float32 vectors (n rows), Faiss IndexFlatL2 searched one query at a time on one thread
 with an IDSelectorBitmap. With an all-false bitmap every row is only checked (c_chk per row); with an all-true bitmap
 every row is checked and its distance computed (c_chk + c_dist per row). No dataset, query set, or index of the study
@@ -8,7 +9,7 @@ is used, so the ratio can calibrate a dispatch threshold before any workload is 
 import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np, faiss
-from common import faiss_bitmap, apply_simd
+from common import faiss_bitmap, apply_simd, output_dir
 
 faiss.omp_set_num_threads(1); out = {}; SIMD = apply_simd()     # FAISS_SIMD=none|avx2|avx512
 for d, n in ((96, 1_000_000), (4096, 100_000)):
@@ -25,7 +26,6 @@ for d, n in ((96, 1_000_000), (4096, 100_000)):
     c_chk = res['none'] / n; c_dist = (res['all'] - res['none']) / n
     out[str(d)] = {'n': n, 'ns_per_check': 1e9 * c_chk, 'ns_per_distance': 1e9 * c_dist, 'chk_over_dist': c_chk / c_dist}
     print(d, out[str(d)], flush=True)
-os.makedirs('results/bench_mb', exist_ok=True)
 if os.environ.get('FAISS_SIMD'): out['simd'] = SIMD
 suf = f"_{os.environ['FAISS_SIMD']}" if os.environ.get('FAISS_SIMD') else ''
-json.dump(out, open(f'results/bench_mb/cost{suf}.json', 'w'), indent=1)
+json.dump(out, open(f"{output_dir('results/bench_mb')}/cost{suf}.json", 'w'), indent=1)

@@ -13,7 +13,7 @@ figure of the paper.
 
 ```bash
 pip install -r requirements.txt            # numpy, matplotlib, pytest, ...
-python3 -m pytest -q tests/test_bench.py tests/test_cc_stats.py tests/test_analysis_gates.py   # harness tests, analysis gates
+python3 -m pytest -q tests/test_bench.py tests/test_cc_stats.py tests/test_analysis_gates.py tests/test_lineage.py   # harness tests, analysis gates
 # tests/test_units.py needs the RIG kernels (scripts/build_kernels.sh)
 python3 bench/analyze.py > results/bench_analysis.txt
 python3 paper/make_eab_numbers.py          # paper/eab_numbers.tex: every number in the text is a macro from here

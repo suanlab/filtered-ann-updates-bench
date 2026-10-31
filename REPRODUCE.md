@@ -264,8 +264,23 @@ remapped to dense ids. This is a workload-informed build. Every query behaves as
   with a changed line, `REGEN=1` (listed in the script).
 - `bench/queue_h.txt` is the executed queue, including lines appended during the campaign. `make_queue.py hplan`
   generates only its first part.
-- `bench/predicate_cost.py` and `bench/microbench_cost.py` ignore `BENCH_TAG` and write fixed paths. The
-  re-execution copy of the first is kept under `results/bench_rep_main/` (section 7); the second was not re-executed.
+- `bench/predicate_cost.py`, `bench/microbench_cost.py`, and `bench/survival_cost.py` first ignored `BENCH_TAG` and
+  wrote fixed paths. The re-execution copy of the first is kept under `results/bench_rep_main/` (section 7).
+  They now write to `OUT_DIR`, else to the `BENCH_TAG` directory, else to the historical path (`common.output_dir`).
+- Immutable run directories (`RUNS_DIR=results/runs`, `bench/queue2.sh`): every executed job gets a read-only
+  directory `<start>_<key>/` with these files:
+  - `cmd.txt`, `git_head.txt`, and `code.diff` (uncommitted changes to tracked code);
+  - `job.log`;
+  - `status.json`: ok, failed (non-zero exit), or contended (re-queued), with the probes;
+  - a copy of every file the job wrote under `results/` (`outputs/`, with `outputs.sha256`).
+
+  A later re-run that overwrites a result file keeps the earlier attempt's output there. The manifest line records
+  the status and the run directory. Only `status == ok` counts as a completed job (`reexec_compare.py` checks exit
+  code 0 in the done file).
+- `results/workload_stats.json` lets the analysis run without `data/`. Whenever `data/` is present, every cached
+  entry is checked against the data and the analysis stops if they differ (`common._check_cache`).
+  `bench/workload_stats.py` regenerates the cache and writes the inputs' SHA-256 to
+  `results/workload_stats.inputs.json`.
 
 ## 10. Follow-up 5: executed trace of every round, and memory (pre-registered; Table IV)
 

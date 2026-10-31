@@ -39,12 +39,30 @@ STATS = 'results/workload_stats.json'
 def _stats():
     return json.load(open(STATS)) if os.path.exists(STATS) else {'admissible_sizes': {}, 'streams': {}}
 
+def _check_cache(kind, key, computed):
+    """With data/ present, a cached entry must equal what the data gives (CHECK.md B14: the cache lets the analysis
+    run without data/, so a stale entry would silently change results there). bench/workload_stats.py regenerates
+    the cache with STATS_REGEN=1, which skips the check."""
+    if os.environ.get('STATS_REGEN') == '1': return
+    v = _stats()[kind].get(key)
+    if v is not None and json.loads(json.dumps(computed)) != v:
+        raise SystemExit(f'{STATS}: the cached {kind} entry {key} differs from data/; regenerate it with bench/workload_stats.py')
+
+def output_dir(default):
+    """Output directory of a helper script that writes one summary file: OUT_DIR if set, else the BENCH_TAG
+    directory (results/bench_<tag>[_pass<k>]) if a tag is set, else the historical default. A re-execution under
+    its own tag therefore never overwrites the original (CHECK.md B14: predicate_cost.py did)."""
+    d = os.environ.get('OUT_DIR') or (RES if os.environ.get('BENCH_TAG') else default)
+    os.makedirs(d, exist_ok=True); return d
+
 def admissible_sizes(wl):
     """|A_p| per query of a csr workload '<dataset>/<schema>' (None for label workloads)."""
     p = f'{ROOT}/{wl}/pred.npz'
     if os.path.exists(p):
         z = np.load(p)
-        return np.diff(z['qoff']) if str(z['kind']) == 'csr' else None
+        a = np.diff(z['qoff']) if str(z['kind']) == 'csr' else None
+        if a is not None: _check_cache('admissible_sizes', wl, [int(x) for x in a])
+        return a
     v = _stats()['admissible_sizes'].get(wl)
     return None if v is None else np.asarray(v, np.int64)
 
@@ -54,6 +72,7 @@ def stream_stats(name):
     if os.path.exists(f'{D}/meta.json') and os.path.exists(f'{D}/sched.npz'):
         meta = json.load(open(f'{D}/meta.json')); sch = np.load(f'{D}/sched.npz')
         meta['updates_per_round'] = float(np.mean([len(sch[f'del{r}']) + len(sch[f'ins{r}']) for r in range(meta['R'])]))
+        _check_cache('streams', name, meta)
         return meta
     cached = _stats()['streams']
     if name not in cached: raise SystemExit(f'stream {name}: no data/ and no entry in {STATS}; regenerate the cache with bench/workload_stats.py')

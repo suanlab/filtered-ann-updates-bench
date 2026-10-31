@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Cost of evaluating YFCC tag predicates with three implementations (main env, 1 thread; H5).
   taskset -c <core> python3 bench/predicate_cost.py      -> results/bench_h5/predicate_cost.json
+  (OUT_DIR=<dir>, or a BENCH_TAG, redirects the output: common.output_dir; a tagged re-execution keeps the original)
   numpy    intersect the sorted posting lists of a query's tags, materialize the n-entry mask, pack it
            into a bitmap (the implementation whose cost the paper reports; bench/overhead.py)
   roaring  AND of per-tag Roaring bitmaps (pyroaring), then the admissible ids as an array
@@ -11,7 +12,7 @@ import sys, os, json, time
 sys.path.insert(0, 'bench')
 import numpy as np
 from pyroaring import BitMap
-from common import log
+from common import log, output_dir
 
 REPS = 5
 z = np.load('data/bench/yfcc10m/tags/pred.npz'); pp, pi = z['ptag_ptr'], z['ptag_idx']; qp, qi = z['qtag_ptr'], z['qtag_idx']; n = len(pp) - 1
@@ -57,5 +58,5 @@ two = np.array(out['ntags']) > 1
 summ['and_queries'] = {k: 1e3 * float(np.mean(np.array(out[k])[two])) for k in ('numpy', 'roaring_and', 'roaring_ids', 'dense_and')}
 summ['n_and_queries'] = int(two.sum())
 os.makedirs('results/bench_h5', exist_ok=True)
-json.dump({'summary': summ, 'per_query': out}, open('results/bench_h5/predicate_cost.json', 'w'), indent=1)
+json.dump({'summary': summ, 'per_query': out}, open(f"{output_dir('results/bench_h5')}/predicate_cost.json", 'w'), indent=1)
 log(json.dumps(summ))
