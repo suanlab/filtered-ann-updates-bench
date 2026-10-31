@@ -1,0 +1,17 @@
+# follow-up 8 (paper_audit/followup8_prereg.md): deletion lesson on the AMD EPYC 7513; random order within a pass (random.Random(2033 + pass))
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py deep5m ivf
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k_adv ivf_part
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=4 taskset -c 40-55 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k_adv ivf
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=4 taskset -c 40-55 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py deep5m ivf
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py sift500k_adv
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py deep5m
+BENCH_TAG=epyc_str BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k_adv ivf_part

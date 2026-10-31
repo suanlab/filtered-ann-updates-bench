@@ -1,0 +1,5 @@
+== results/bench_epyc_str: tombstones 1.000->0.596, all-level 0.997, slot-fill 0.972; DEEP-5M r10 tombstones 0.982, all-level 0.943
+   E1 True E2 True E3 True E4 True E5 True; label-part/IVF QPS [3.49, 4.0, 3.67, 4.51, 4.19, 4.03]
+== results/bench_epyc_str_pass2: tombstones 1.000->0.590, all-level 0.997, slot-fill 0.961; DEEP-5M r10 tombstones 0.982, all-level 0.941
+   E1 True E2 True E3 True E4 True E5 True; label-part/IVF QPS [4.06, 4.67, 3.59, 4.37, 4.42, 3.61]
+== holds in both passes: {'E1': True, 'E2': True, 'E3': True, 'E4': True, 'E5': True} (5 of 5)

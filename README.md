@@ -36,6 +36,7 @@ python3 bench/analyze_followup3.py > results/bench_f3_analysis.txt   # results/b
 python3 bench/analyze_followup5.py > results/bench_f5_analysis.txt   # results/bench_f5_summary.json (every round, memory)
 python3 bench/analyze_followup6.py > results/bench_f6_analysis.txt   # results/bench_f6_summary.json (repairs on three seeds)
 python3 bench/analyze_followup7.py > results/bench_f7_analysis.txt   # results/bench_f7_summary.json (close verdicts)
+python3 bench/analyze_followup8.py > results/bench_f8_analysis.txt   # results/bench_f8_summary.json (deletion lesson, second machine)
 python3 paper/make_eab_fnumbers.py                           # paper/eab_fnumbers.tex  (\V{f/...}, Table IV)
 python3 paper/make_eab_ffigures.py                           # paper/figures/eab_reach.pdf (reachability figure)
 ```

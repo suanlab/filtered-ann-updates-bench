@@ -184,6 +184,16 @@ if os.path.exists('results/bench_f7_summary.json'):     # follow-up 7: close ver
     R7 = {(r['workload'], r['method']): r for r in F7['rows']}
     r = R7[('deep10m/b0.9_s0.01', 'ivf')]; out['f/g6/ivf10m'] = f2(r['mean_ratio']); out['f/g6/ivf10m_lo'] = f2(r['ci95'][0]); out['f/g6/ivf10m_hi'] = f2(r['ci95'][1])
     for m, k in (('acorn', 'acorn'), ('acorn_g100', 'g100')): out[f'f/g6/sift_{k}_feas'] = str(R7[('sift1m/b0.9_s0.01', m)]['feasible_blocks'])
+if os.path.exists('results/bench_f8_summary.json'):     # follow-up 8: the deletion lesson on the second machine
+    F8 = json.load(open('results/bench_f8_summary.json')); PS = list(F8['passes'].values())
+    rng8 = lambda f: (min(f(p) for p in PS), max(f(p) for p in PS))
+    out['f/hw2/nhold'] = str(F8['n_hold'])
+    for key, f in (('tomb_r20', lambda p: p['sift_adv_max_recall']['acorn']['20']), ('all_r20', lambda p: p['sift_adv_max_recall']['acorn_repair_all']['20']),
+                   ('fill_r20', lambda p: p['sift_adv_max_recall']['acorn_repair_fill']['20']), ('deep_tomb', lambda p: p['deep5m_max_recall']['acorn']['10']),
+                   ('deep_all', lambda p: p['deep5m_max_recall']['acorn_repair_all']['10'])):
+        lo, hi = rng8(f); out[f'f/hw2/{key}'] = f3(lo) if f3(lo) == f3(hi) else f'{f3(lo)}--{f3(hi)}'
+    rr = [p['ivf_part_q095'][r] / p['ivf_q095'][r] for p in PS for r in p['ivf_q095'] if p['ivf_q095'][r] and p['ivf_part_q095'].get(r)]
+    out['f/hw2/part_lo'] = f'{min(rr):.1f}'; out['f/hw2/part_hi'] = f'{max(rr):.1f}'
 DISP = {'ivf_part': 'label-partitioned IVF', 'ema': 'EMA', 'acorn_repair_all': 'repaired ACORN', 'acorn': 'ACORN', 'fdiskann_rebuild': 'rebuilt Filtered-DiskANN', 'ivf': 'IVF'}
 for k in ('f/amz/best1', 'f/amz/best100', 'f/tr/adv/const_best1', 'f/tr/adv/const_best100', 'f/tr/ax/const_best1', 'f/tr/ax/const_best100'):
     if k in out: out[k] = DISP.get(out[k], out[k])

@@ -1,0 +1,1 @@
+BENCH_TAG=epyc_str BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k_adv ivf_part

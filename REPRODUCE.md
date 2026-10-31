@@ -318,3 +318,29 @@ QUEUE_FILE=bench/queue_f7.txt DONE_FILE=results/bench/f7.done LOG_FILE=results/b
   PROBE_LOG=results/bench/probe_f7.log MANIFEST=results/bench/f7_manifest.jsonl bench/queue2.sh
 python3 bench/analyze_followup7.py > results/bench_f7_analysis.txt   # results/bench_f7_summary.json
 ```
+
+## 13. Follow-up 8: the deletion lesson on the second machine (pre-registered; Table V)
+
+`paper_audit/followup8_prereg.md` (commit 5f32308) fixed the runs and decisions E1–E5 before the runs.
+
+**Setup on the AMD EPYC 7513.** The machine is shared; there is no root and no system BLAS.
+- Code: `git archive` of the commit, plus the patched `third_party/ACORN` without its build directories.
+- Stream data: copied and SHA-256 checked.
+- Python environment: `python3 -m venv venv && venv/bin/pip install numpy==2.2.6 faiss-cpu==1.15.1 mkl==2026.1.0`,
+  then link `venv/lib/libmkl_rt.so` to `libmkl_rt.so.3`.
+- zlib 1.3.1 built into a local prefix, because the machine has no zlib headers (tarball SHA-256
+  9a93b2b7dfdac77ceba5a558a580e74667dd6fede4585b91eefb60f03b72df23).
+- ACORN configured as in `scripts/build_acorn.sh`, adding `-DZLIB_ROOT=<prefix>` and building with
+  `taskset -c 40-55 make -j16`.
+- `src/acorn_stream.cpp` linked as `src/acorn_stream_avx2`.
+
+**Placement and gate.**
+- Jobs run on cores 40–55 and the probe on core 39.
+- The quiet probe median was 653, so the gate is 555 (85%).
+```bash
+export PATH=$PWD/venv/bin:$PATH
+GATE=555 PROBE_CPU=39 QUEUE_FILE=bench/queue_f8.txt DONE_FILE=results/bench/f8.done LOG_FILE=results/bench/f8.log \
+  PROBE_LOG=results/bench/probe_f8.log MANIFEST=results/bench/f8_manifest.jsonl RUNS_DIR=results/runs bench/queue2.sh
+# copied back to results/bench_epyc_str[_pass2], results/bench_epyc_str_log/
+python3 bench/analyze_followup8.py > results/bench_f8_analysis.txt   # results/bench_f8_summary.json
+```
