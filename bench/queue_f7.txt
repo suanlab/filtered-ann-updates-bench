@@ -1,0 +1,110 @@
+# follow-up 7 (paper_audit/followup7_prereg.md): 19 close comparisons, four blocks; random order within a block (random.Random(2032 + block)); IVF training seed 12 in blocks 3-4
+# block 1
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.01 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.03125+b0.0_s0.1
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep10m b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep300k b0.0_s0.1 postfilter
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.5 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.03125
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.1 postfilter
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.01 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.01 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep300k b0.0_s0.1
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.9_s0.01+b0.0_s0.03125
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.03125 scan_part,ivf
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.0_s0.03125+b0.0_s0.333333
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.0_s0.01 rig
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.03125 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01 gamma=100 M=32 Mb=64
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift1m b0.9_s0.5
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.1 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.9_s0.1 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01 scan_part,ivf
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.5+b0.0_s0.01 gamma=1 M=32 Mb=32
+# block 2
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.0_s0.01 rig
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.1 postfilter
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep10m b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.03125 scan_part,ivf
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.03125+b0.0_s0.1
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.5+b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01 scan_part,ivf
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep300k b0.0_s0.1
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.01 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.1 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.0_s0.03125+b0.0_s0.333333
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.9_s0.01+b0.0_s0.03125
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.03125 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.5 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.9_s0.1 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01 gamma=100 M=32 Mb=64
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.01 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift1m b0.9_s0.5
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.03125
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep300k b0.0_s0.1 postfilter
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b2 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.01 scan_part
+# block 3
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.1 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01 gamma=100 M=32 Mb=64
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep10m b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.5+b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.03125+b0.0_s0.1
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.5 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift1m b0.9_s0.5
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01 scan_part,ivf
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.03125
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep300k b0.0_s0.1
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.0_s0.03125+b0.0_s0.333333
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.03125 scan_part,ivf
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep300k b0.0_s0.1 postfilter
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.03125 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.1 postfilter
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.9_s0.1 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.9_s0.01+b0.0_s0.03125
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.0_s0.01 rig
+BENCH_TAG=g6b3 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.01 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.01 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.01 scan_part
+BENCH_TAG=g6b3 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part
+# block 4
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep300k b0.0_s0.1 postfilter
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.0_s0.01 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.01 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.1 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.9_s0.1 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep300k b0.0_s0.03125 scan_part,ivf
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep300k b0.0_s0.1
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.9_s0.03125 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.333333 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep1m b0.0_s0.03125+b0.0_s0.333333
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep1m b0.0_s0.03125 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep10m b0.0_s0.01 rig
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep10m b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.03125
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep3m b0.0_s0.1 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep3m b0.9_s0.03125+b0.0_s0.1
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.01 gamma=100 M=32 Mb=64
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py deep10m b0.9_s0.01 scan_part,ivf
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.5 scan_part
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py sift1m b0.9_s0.5+b0.0_s0.01 gamma=1 M=32 Mb=32
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_main.py deep1m b0.9_s0.1 postfilter
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py sift1m b0.9_s0.5
+BENCH_TAG=g6b4 BENCH_PASS=1 taskset -c 0-27,56-83 .venv-curator/bin/python bench/run_curator.py deep10m b0.9_s0.01+b0.0_s0.03125
+BENCH_TAG=g6b4 BENCH_PASS=1 FAISS_SEED=12 taskset -c 0-27,56-83 .venv-faiss/bin/python bench/run_faiss.py sift1m b0.9_s0.01 scan_part
+BENCH_TAG=g6b1 BENCH_PASS=1 taskset -c 0-27,56-83 python3 bench/run_acorn.py deep3m b0.9_s0.03125

@@ -177,6 +177,13 @@ if os.path.exists('results/bench_f6_summary.json'):     # follow-up 6: repairs o
     A = json.load(open('results/bench_a_numbers.json'))
     comb = [float(A['a/h3/acorn_repair_all/r20_min']), float(A['a/h3/acorn_repair_all/r20_max'])] + rng('acorn_repair_all')
     out['f/rpx/allruns_lo'] = f3(min(comb)); out['f/rpx/allruns_hi'] = f3(max(comb)); out['f/rpx/allruns_n'] = str(int(A['a/h3/acorn_repair_all/runs']) + len(F6['streams']))
+if os.path.exists('results/bench_f7_summary.json'):     # follow-up 7: close verdicts in four paired blocks
+    F7 = json.load(open('results/bench_f7_summary.json')); d1, d2 = F7['D1'], F7['D2']
+    out.update({'f/g6/close_n': str(d1['n']), 'f/g6/confirmed': str(d1['confirmed']), 'f/g6/ties': str(d1['tie']), 'f/g6/reversed': str(d1['reversed']),
+                'f/g6/edge_n': str(d2['n']), 'f/g6/edge_hold': str(d2['holds'])})
+    R7 = {(r['workload'], r['method']): r for r in F7['rows']}
+    r = R7[('deep10m/b0.9_s0.01', 'ivf')]; out['f/g6/ivf10m'] = f2(r['mean_ratio']); out['f/g6/ivf10m_lo'] = f2(r['ci95'][0]); out['f/g6/ivf10m_hi'] = f2(r['ci95'][1])
+    for m, k in (('acorn', 'acorn'), ('acorn_g100', 'g100')): out[f'f/g6/sift_{k}_feas'] = str(R7[('sift1m/b0.9_s0.01', m)]['feasible_blocks'])
 DISP = {'ivf_part': 'label-partitioned IVF', 'ema': 'EMA', 'acorn_repair_all': 'repaired ACORN', 'acorn': 'ACORN', 'fdiskann_rebuild': 'rebuilt Filtered-DiskANN', 'ivf': 'IVF'}
 for k in ('f/amz/best1', 'f/amz/best100', 'f/tr/adv/const_best1', 'f/tr/adv/const_best100', 'f/tr/ax/const_best1', 'f/tr/ax/const_best100'):
     if k in out: out[k] = DISP.get(out[k], out[k])

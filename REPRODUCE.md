@@ -130,6 +130,7 @@ results.
 | `cc4` | concurrency under one phase-fair reader-writer lock for every method (follow-up 4, B1) | Table IV | `stream_concurrent.py`, `src/cc_ivf` |
 | `e2e4` | EMA end to end (`E2E=1`, one call per query) with an IVF anchor (follow-up 4, B2) | VII, Table IV | `stream_ema.py`, `stream_faiss.py ivf` |
 | `fdx` | Filtered-DiskANN rebuilt at every round (`REBUILD_ALL=1`) against the estimate (follow-up 4, B3) | VI, Table IV | `stream_diskann.py` |
+| `g6b1`–`g6b4` | 19 close index-versus-scan comparisons re-measured in four blocks (follow-up 7) | V, Table IV | static runners |
 | `rpx` | ACORN update paths on SIFT-500K-adv and `sift500k_adv_seed2`, `_seed3` (`stream_prep.py`), `MECH=1 MEASURE_ALL=1` (follow-up 6) | VI, Table IV | `stream_acorn.py` |
 | `tr`, `tr_end` | every round measured (`MEASURE_ALL=1`), random method order between two IVF runs; memory per round (follow-up 5) | VI, VII, Table IV | stream runners |
 | `yst` | multi-label AND stream on YFCC tags (`stream_prep.py yfcc_stream`) (I18) | Table IV | `stream_multi.py` |
@@ -291,4 +292,14 @@ the label direction and noise, the deletion noise, and the query labels from see
 QUEUE_FILE=bench/queue_f6.txt DONE_FILE=results/bench/f6.done LOG_FILE=results/bench/f6.log \
   PROBE_LOG=results/bench/probe_f6.log MANIFEST=results/bench/f6_manifest.jsonl bench/queue2.sh
 python3 bench/analyze_followup6.py > results/bench_f6_analysis.txt   # results/bench_f6_summary.json
+```
+
+## 12. Follow-up 7: close verdicts in paired blocks (pre-registered; Section V, Table IV)
+
+`paper_audit/followup7_prereg.md` (commit 05adc09) fixed the 19 candidates, the blocks, and decisions D1 and D2
+before the runs. `paper_audit/followup7_results.md` records the outcome.
+```bash
+QUEUE_FILE=bench/queue_f7.txt DONE_FILE=results/bench/f7.done LOG_FILE=results/bench/f7.log \
+  PROBE_LOG=results/bench/probe_f7.log MANIFEST=results/bench/f7_manifest.jsonl bench/queue2.sh
+python3 bench/analyze_followup7.py > results/bench_f7_analysis.txt   # results/bench_f7_summary.json
 ```
