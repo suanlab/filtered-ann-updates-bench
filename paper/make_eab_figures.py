@@ -52,17 +52,19 @@ fig.legend(handles=hs, fontsize=6, frameon=False, loc='upper center', ncol=6)
 plt.tight_layout(rect=(0, 0, 1, 0.95)); plt.savefig('paper/figures/eab_crossover.pdf'); plt.close()
 
 # Fig C: correlation on SIFT1M (s=0.1): max recall and QPS@0.95 vs beta
-fig, axes = plt.subplots(1, 2, figsize=(7.0, 2.2))
+fig, axes = plt.subplots(2, 1, figsize=(3.45, 2.75), sharex=True)     # one column, panels stacked
 betas = ['0.0', '0.5', '0.9', '1.0']
 for m, lab, c, mk, ls in M:
     if m == 'scan_mask': continue
     r = [get(f'sift1m/b{b}_s0.1', m, 'max_recall') for b in betas]; q = [get(f'sift1m/b{b}_s0.1', m, 'qps@0.95') for b in betas]
     if any(v is not None for v in r): axes[0].plot([float(b) for b in betas], [v if v is not None else np.nan for v in r], color=c, marker=mk, ls=ls, lw=1.1, ms=4, label=lab)
     if any(v is not None for v in q): axes[1].plot([float(b) for b in betas], [v if v is not None else np.nan for v in q], color=c, marker=mk, ls=ls, lw=1.1, ms=4)
-axes[0].set_ylabel('max recall@10 in sweep'); axes[1].set_ylabel('QPS at recall 0.95'); axes[1].set_yscale('log')
-for ax in axes: ax.set_xlabel('label--geometry correlation $\\beta$ (SIFT1M, $s{=}0.1$)')
-axes[0].legend(fontsize=5.8, frameon=False, loc='lower left')
-plt.tight_layout(); plt.savefig('paper/figures/eab_correlation.pdf'); plt.close()
+axes[0].set_ylabel('max recall', fontsize=7); axes[1].set_ylabel('QPS @ 0.95', fontsize=7); axes[1].set_yscale('log'); fig.align_ylabels(axes)
+lo, hi = axes[1].get_ylim(); tk = [t for t in (30, 100, 300, 1000, 3000, 10000) if lo <= t <= hi]
+axes[1].set_yticks(tk); axes[1].set_yticklabels([f'{t:,}' for t in tk]); axes[1].minorticks_off()
+axes[1].set_xlabel('label--geometry correlation $\\beta$ (SIFT1M, $s{=}0.1$)'); axes[1].set_xticks([0, 0.5, 0.9, 1.0])
+fig.legend(*axes[0].get_legend_handles_labels(), fontsize=5.6, frameon=False, loc='upper center', ncol=3, bbox_to_anchor=(0.55, 1.0), handlelength=2.2, columnspacing=0.8)
+plt.tight_layout(rect=(0, 0, 1, 0.86), h_pad=0.4); plt.savefig('paper/figures/eab_correlation.pdf'); plt.close()
 print('static figures written')
 
 # Fig D: update streams -- per stream: max recall, QPS at recall 0.95, cumulative maintenance vs round

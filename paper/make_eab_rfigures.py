@@ -13,7 +13,7 @@ STY = {'ivf': ('C0', '-'), 'ivf_part': ('C3', '-'), 'ivf_rt5': ('C0', '--'), 'sc
        'postfilter': ('C2', '-'), 'curator': ('C4', '-'), 'rig': ('C7', '-'), 'fdiskann_rebuild': ('C5', '-'), 'ema': ('C6', '-'), 'policy': ('C5', '--')}
 TITLE = {'sift500k': 'SIFT-500K (uniform)', 'sift500k_adv': 'SIFT-500K-adv (correlated)', 'deep5m': 'DEEP-5M (uniform)', 'arxiv_time': 'arXiv, time order (4096-d)'}
 SN = [nm for nm in ('sift500k', 'sift500k_adv', 'deep5m', 'arxiv_time') if nm in F]
-fig, axs = plt.subplots(1, len(SN), figsize=(7.1, 2.2), sharey=True); handles = {}
+fig, axs = plt.subplots(1, len(SN), figsize=(7.1, 1.85), sharey=True); handles = {}
 for ax, nm in zip(axs, SN):
     T = F[nm]['relative_to_ivf']
     pol = {m: v for m, v in T.items() if m.startswith('fdiskann_policy')}

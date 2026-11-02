@@ -1,0 +1,25 @@
+# follow-up 9 (paper_audit/followup9_prereg.md): cost lesson on the AMD EPYC 7513; anchors first and last, methods in random order (random.Random(2034 + pass))
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py sift500k
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf_part
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=epyc_cost_end BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=epyc_cost_end BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py sift500k
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf_part
+BENCH_TAG=epyc_cost_end BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf_part
+BENCH_TAG=epyc_cost_end BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
