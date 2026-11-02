@@ -5,7 +5,7 @@ Scan?"* (ICDE 2027 submission; `paper/paper_eab.pdf`).
 
 It contains the benchmark harness (workload generators, one runner per method and environment, update-stream
 runners, gated measurement queue, analysis), build scripts and patches for the baselines (Faiss IVF, hnswlib,
-ACORN, Filtered-DiskANN via diskannpy, Curator), the regenerable pool index RIG (the author's own design point),
+ACORN, Filtered-DiskANN via diskannpy, Curator), the regenerable pool index RIG (the first author's own design point),
 all raw per-configuration and per-query results, and the scripts that turn them into every number, table, and
 figure of the paper.
 

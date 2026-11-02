@@ -83,7 +83,7 @@ cd paper && pdflatex paper_eab.tex && pdflatex paper_eab.tex
 |---|---|
 | `bench/` | harness: workload generators, one runner per method family and environment, stream runners, gated queue, analysis |
 | `src/acorn_driver.cpp`, `src/acorn_stream.cpp` | ACORN drivers (static, and incremental insertion with deletions through the predicate bitmap) |
-| `src/rig.cpp`, `src/carve.cpp`, `experiments/rigx.py` | the regenerable pool index (RIG), a design point of the author's own |
+| `src/rig.cpp`, `src/carve.cpp`, `experiments/rigx.py` | the regenerable pool index (RIG), a design point of the first author's own |
 | `patches/` | ACORN patch |
 | `results/bench*/` | raw per-configuration results, including per-query recall and time |
 | `results/bench_superseded/` | results discarded and why (scalar ACORN build; SIFT stream with re-used vectors) |
