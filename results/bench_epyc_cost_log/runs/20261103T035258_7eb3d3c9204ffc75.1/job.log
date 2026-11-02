@@ -1,0 +1,11 @@
+WARNING clustering 17632 points to 531 centroids: please provide at least 20709 training points
+WARNING clustering 12002 points to 438 centroids: please provide at least 17082 training points
+WARNING clustering 10195 points to 403 centroids: please provide at least 15717 training points
+WARNING clustering 9101 points to 381 centroids: please provide at least 14859 training points
+WARNING clustering 6116 points to 312 centroids: please provide at least 12168 training points
+WARNING clustering 6009 points to 310 centroids: please provide at least 12090 training points
+WARNING clustering 19515 points to 558 centroids: please provide at least 21762 training points
+[03:55:00] arxiv_time ivf_part round 0 cum 0.0 [('nprobe=1', 0.4032, 2909.2), ('nprobe=2', 0.5798, 2658.8), ('nprobe=4', 0.7396, 2083.7), ('nprobe=8', 0.867, 1596.9), ('nprobe=16', 0.941, 1115.9), ('nprobe=32', 0.982, 670.4), ('nprobe=64', 0.9964, 357.2), ('nprobe=128', 0.9988, 207.2), ('nprobe=256', 1.0, 108.8)]
+[03:56:19] arxiv_time ivf_part round 5 cum 17.86 [('nprobe=1', 0.4178, 2519.6), ('nprobe=2', 0.5986, 2027.8), ('nprobe=4', 0.7586, 1537.0), ('nprobe=8', 0.8752, 1065.7), ('nprobe=16', 0.9406, 679.8), ('nprobe=32', 0.9808, 407.9), ('nprobe=64', 0.9962, 242.4), ('nprobe=128', 0.9988, 140.0), ('nprobe=256', 0.9998, 79.3)]
+[03:58:15] arxiv_time ivf_part round 10 cum 34.89 [('nprobe=1', 0.4494, 1565.9), ('nprobe=2', 0.629, 1142.1), ('nprobe=4', 0.7768, 776.2), ('nprobe=8', 0.883, 482.7), ('nprobe=16', 0.9454, 304.7), ('nprobe=32', 0.9792, 188.1), ('nprobe=64', 0.9936, 130.9), ('nprobe=128', 0.9982, 88.7), ('nprobe=256', 0.9998, 58.1)]
+[03:58:15] DONE arxiv_time ivf_part

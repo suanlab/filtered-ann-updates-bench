@@ -1,0 +1,91 @@
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.6285s
+Index built with degree: max:64  avg:62.8709  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.45552s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127741880, _max_observed_degree: 64, _start: 89028, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r0/ann...done. Index has 500000 nodes and 31435464 out-edges, _start is set to 89028
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 89028 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:58:47] sift500k fdiskann round 0 rebuild 62.0 [('L=16', 0.7908, 5686.1), ('L=32', 0.89, 3815.4), ('L=64', 0.9528, 2441.9), ('L=128', 0.9846, 1342.4), ('L=256', 0.9956, 715.4), ('L=512', 0.9982, 433.4), ('L=1024', 0.9994, 215.8)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.4642s
+Index built with degree: max:64  avg:62.823  min:12  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.44665s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127645948, _max_observed_degree: 64, _start: 58541, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r4/ann...done. Index has 500000 nodes and 31411481 out-edges, _start is set to 58541
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 58541 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:00:10] sift500k fdiskann round 4 rebuild 62.8 [('L=16', 0.7858, 5610.5), ('L=32', 0.8842, 3607.5), ('L=64', 0.9504, 2476.7), ('L=128', 0.9788, 1388.1), ('L=256', 0.9926, 786.5), ('L=512', 0.9986, 385.3), ('L=1024', 1.0, 227.1)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.667s
+Index built with degree: max:64  avg:62.8458  min:10  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.4555s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127691632, _max_observed_degree: 64, _start: 38355, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r8/ann...done. Index has 500000 nodes and 31422902 out-edges, _start is set to 38355
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 38355 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:01:34] sift500k fdiskann round 8 rebuild 62.9 [('L=16', 0.7758, 5957.0), ('L=32', 0.8734, 4154.2), ('L=64', 0.9422, 2600.4), ('L=128', 0.9778, 1479.5), ('L=256', 0.9922, 791.1), ('L=512', 0.9974, 411.1), ('L=1024', 0.9992, 219.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.3877s
+Index built with degree: max:64  avg:62.8289  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.46736s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127657800, _max_observed_degree: 64, _start: 25151, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r12/ann...done. Index has 500000 nodes and 31414444 out-edges, _start is set to 25151
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 25151 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:02:56] sift500k fdiskann round 12 rebuild 61.7 [('L=16', 0.7948, 5848.1), ('L=32', 0.8948, 3851.5), ('L=64', 0.9476, 2383.3), ('L=128', 0.9798, 1427.9), ('L=256', 0.993, 799.6), ('L=512', 0.998, 419.1), ('L=1024', 0.9996, 211.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.0188s
+Index built with degree: max:64  avg:62.6497  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.44547s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127299344, _max_observed_degree: 64, _start: 291936, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r16/ann...done. Index has 500000 nodes and 31324830 out-edges, _start is set to 291936
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 291936 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:04:20] sift500k fdiskann round 16 rebuild 62.4 [('L=16', 0.7838, 5535.2), ('L=32', 0.8848, 4142.9), ('L=64', 0.9476, 2399.5), ('L=128', 0.9816, 1470.3), ('L=256', 0.991, 807.4), ('L=512', 0.997, 378.1), ('L=1024', 0.9992, 206.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.4684s
+Index built with degree: max:64  avg:62.5626  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.43278s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127125304, _max_observed_degree: 64, _start: 191851, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r20/ann...done. Index has 500000 nodes and 31281320 out-edges, _start is set to 191851
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 191851 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:05:33] sift500k fdiskann round 20 rebuild 61.7 [('L=16', 0.809, 5462.6), ('L=32', 0.8904, 4221.3), ('L=64', 0.9516, 2346.2), ('L=128', 0.981, 1223.3), ('L=256', 0.994, 711.5), ('L=512', 0.9992, 410.2)]
+[02:05:34] DONE sift500k fdiskann

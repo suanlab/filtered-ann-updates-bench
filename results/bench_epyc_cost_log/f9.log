@@ -1,0 +1,495 @@
+=== [2 b139bcca6db453e6.1] 2026-11-03 01:42:34 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+[01:42:52] sift500k ivf round 0 cum 0.0 [('nprobe=8', 0.5266, 11572.7), ('nprobe=16', 0.6706, 9002.3), ('nprobe=32', 0.8, 5933.6), ('nprobe=64', 0.8988, 3881.5), ('nprobe=128', 0.9632, 2309.5), ('nprobe=256', 0.989, 1189.4), ('nprobe=512', 0.998, 646.4), ('nprobe=1024', 0.9996, 333.9)]
+[01:43:06] sift500k ivf round 4 cum 0.58 [('nprobe=8', 0.5176, 11235.1), ('nprobe=16', 0.664, 9392.3), ('nprobe=32', 0.7948, 5974.9), ('nprobe=64', 0.8926, 3382.2), ('nprobe=128', 0.96, 2031.5), ('nprobe=256', 0.9888, 1125.5), ('nprobe=512', 0.9976, 653.8), ('nprobe=1024', 1.0, 330.5)]
+[01:43:18] sift500k ivf round 8 cum 1.06 [('nprobe=8', 0.5114, 13748.5), ('nprobe=16', 0.6606, 10540.2), ('nprobe=32', 0.7882, 7098.9), ('nprobe=64', 0.889, 4290.6), ('nprobe=128', 0.9574, 2554.9), ('nprobe=256', 0.9872, 1379.8), ('nprobe=512', 0.9972, 783.4), ('nprobe=1024', 1.0, 385.2)]
+[01:43:29] sift500k ivf round 12 cum 1.55 [('nprobe=8', 0.5178, 14001.5), ('nprobe=16', 0.6628, 10256.5), ('nprobe=32', 0.7848, 7044.8), ('nprobe=64', 0.8866, 4470.0), ('nprobe=128', 0.9526, 2652.8), ('nprobe=256', 0.984, 1475.5), ('nprobe=512', 0.9958, 780.8), ('nprobe=1024', 0.9996, 387.4)]
+[01:43:41] sift500k ivf round 16 cum 2.2 [('nprobe=8', 0.514, 13621.1), ('nprobe=16', 0.6544, 10430.9), ('nprobe=32', 0.778, 7098.2), ('nprobe=64', 0.8798, 4314.5), ('nprobe=128', 0.9522, 2699.9), ('nprobe=256', 0.9836, 1507.7), ('nprobe=512', 0.9954, 786.4), ('nprobe=1024', 0.9996, 373.7)]
+[01:43:53] sift500k ivf round 20 cum 2.7 [('nprobe=8', 0.5096, 12784.9), ('nprobe=16', 0.6574, 10296.5), ('nprobe=32', 0.7782, 6824.0), ('nprobe=64', 0.8832, 4395.6), ('nprobe=128', 0.9514, 2572.0), ('nprobe=256', 0.986, 1470.6), ('nprobe=512', 0.9982, 779.3), ('nprobe=1024', 0.9996, 383.6)]
+[01:43:53] DONE sift500k ivf
+--- [2] exit=0
+=== [3 f232076904bb70fc.1] 2026-11-03 01:43:55 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+[01:44:03] sift500k acorn stream start
+[01:57:21] sift500k acorn round 0 cum 0.0 [('ef=16', 0.8236, 4269.7), ('ef=32', 0.9232, 2478.8), ('ef=64', 0.9702, 1494.2), ('ef=128', 0.991, 844.1), ('ef=256', 0.9978, 482.7), ('ef=512', 0.9996, 269.5), ('ef=1024', 1.0, 140.6), ('ef=2048', 1.0, 68.4)]
+[01:57:21] sift500k acorn round 4 cum 68.928 [('ef=16', 0.8044, 3939.6), ('ef=32', 0.9098, 2304.8), ('ef=64', 0.9662, 1319.3), ('ef=128', 0.989, 801.2), ('ef=256', 0.9968, 466.8), ('ef=512', 0.9984, 257.8), ('ef=1024', 0.9992, 132.6), ('ef=2048', 0.9994, 63.5)]
+[01:57:21] sift500k acorn round 8 cum 141.614 [('ef=16', 0.7688, 3689.4), ('ef=32', 0.8872, 2180.6), ('ef=64', 0.9528, 1269.4), ('ef=128', 0.98, 756.8), ('ef=256', 0.9932, 424.9), ('ef=512', 0.9964, 237.7), ('ef=1024', 0.9978, 122.1), ('ef=2048', 0.9986, 61.2)]
+[01:57:21] sift500k acorn round 12 cum 213.23 [('ef=16', 0.7452, 3501.4), ('ef=32', 0.8712, 2011.4), ('ef=64', 0.9382, 1173.2), ('ef=128', 0.9734, 702.4), ('ef=256', 0.9884, 402.2), ('ef=512', 0.9936, 226.3), ('ef=1024', 0.9948, 119.8), ('ef=2048', 0.9962, 57.1)]
+[01:57:21] sift500k acorn round 16 cum 285.881 [('ef=16', 0.704, 3215.4), ('ef=32', 0.8412, 1887.5), ('ef=64', 0.9216, 1132.4), ('ef=128', 0.9592, 650.2), ('ef=256', 0.9774, 389.9), ('ef=512', 0.9876, 220.5), ('ef=1024', 0.9908, 115.8), ('ef=2048', 0.9924, 56.8)]
+[01:57:21] sift500k acorn round 20 cum 354.221 [('ef=16', 0.6742, 3421.7), ('ef=32', 0.8236, 1937.5), ('ef=64', 0.9064, 1106.5), ('ef=128', 0.9496, 659.4), ('ef=256', 0.9726, 389.0), ('ef=512', 0.9848, 221.1), ('ef=1024', 0.9874, 117.8), ('ef=2048', 0.9888, 56.6)]
+[01:57:22] DONE sift500k acorn
+--- [3] exit=0
+=== [4 987680c8db358d65.1] 2026-11-03 01:57:24 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py sift500k
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.6285s
+Index built with degree: max:64  avg:62.8709  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.45552s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127741880, _max_observed_degree: 64, _start: 89028, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r0/ann...done. Index has 500000 nodes and 31435464 out-edges, _start is set to 89028
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 89028 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[01:58:47] sift500k fdiskann round 0 rebuild 62.0 [('L=16', 0.7908, 5686.1), ('L=32', 0.89, 3815.4), ('L=64', 0.9528, 2441.9), ('L=128', 0.9846, 1342.4), ('L=256', 0.9956, 715.4), ('L=512', 0.9982, 433.4), ('L=1024', 0.9994, 215.8)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.4642s
+Index built with degree: max:64  avg:62.823  min:12  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.44665s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127645948, _max_observed_degree: 64, _start: 58541, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r4/ann...done. Index has 500000 nodes and 31411481 out-edges, _start is set to 58541
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 58541 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:00:10] sift500k fdiskann round 4 rebuild 62.8 [('L=16', 0.7858, 5610.5), ('L=32', 0.8842, 3607.5), ('L=64', 0.9504, 2476.7), ('L=128', 0.9788, 1388.1), ('L=256', 0.9926, 786.5), ('L=512', 0.9986, 385.3), ('L=1024', 1.0, 227.1)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.667s
+Index built with degree: max:64  avg:62.8458  min:10  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.4555s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127691632, _max_observed_degree: 64, _start: 38355, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r8/ann...done. Index has 500000 nodes and 31422902 out-edges, _start is set to 38355
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 38355 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:01:34] sift500k fdiskann round 8 rebuild 62.9 [('L=16', 0.7758, 5957.0), ('L=32', 0.8734, 4154.2), ('L=64', 0.9422, 2600.4), ('L=128', 0.9778, 1479.5), ('L=256', 0.9922, 791.1), ('L=512', 0.9974, 411.1), ('L=1024', 0.9992, 219.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.3877s
+Index built with degree: max:64  avg:62.8289  min:11  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.46736s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127657800, _max_observed_degree: 64, _start: 25151, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r12/ann...done. Index has 500000 nodes and 31414444 out-edges, _start is set to 25151
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 25151 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:02:56] sift500k fdiskann round 12 rebuild 61.7 [('L=16', 0.7948, 5848.1), ('L=32', 0.8948, 3851.5), ('L=64', 0.9476, 2383.3), ('L=128', 0.9798, 1427.9), ('L=256', 0.993, 799.6), ('L=512', 0.998, 419.1), ('L=1024', 0.9996, 211.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 53.0188s
+Index built with degree: max:64  avg:62.6497  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.44547s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127299344, _max_observed_degree: 64, _start: 291936, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r16/ann...done. Index has 500000 nodes and 31324830 out-edges, _start is set to 291936
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 291936 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:04:20] sift500k fdiskann round 16 rebuild 62.4 [('L=16', 0.7838, 5535.2), ('L=32', 0.8848, 4142.9), ('L=64', 0.9476, 2399.5), ('L=128', 0.9816, 1470.3), ('L=256', 0.991, 807.4), ('L=512', 0.997, 378.1), ('L=1024', 0.9992, 206.9)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.4684s
+Index built with degree: max:64  avg:62.5626  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.43278s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127125304, _max_observed_degree: 64, _start: 191851, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r20/ann...done. Index has 500000 nodes and 31281320 out-edges, _start is set to 191851
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 191851 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[02:05:33] sift500k fdiskann round 20 rebuild 61.7 [('L=16', 0.809, 5462.6), ('L=32', 0.8904, 4221.3), ('L=64', 0.9516, 2346.2), ('L=128', 0.981, 1223.3), ('L=256', 0.994, 711.5), ('L=512', 0.9992, 410.2)]
+[02:05:34] DONE sift500k fdiskann
+--- [4] exit=0
+=== [5 6220779bfd2de86e.1] 2026-11-03 02:05:36 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf_part
+[02:05:43] sift500k ivf_part round 0 cum 0.0 [('nprobe=1', 0.2876, 41224.2), ('nprobe=2', 0.424, 43331.4), ('nprobe=4', 0.5816, 31843.7), ('nprobe=8', 0.7338, 26558.5), ('nprobe=16', 0.8588, 19353.8), ('nprobe=32', 0.9356, 12644.9), ('nprobe=64', 0.9826, 7942.6), ('nprobe=128', 0.996, 4200.6), ('nprobe=256', 1.0, 2832.9)]
+[02:05:45] sift500k ivf_part round 4 cum 0.27 [('nprobe=1', 0.2826, 47069.7), ('nprobe=2', 0.4176, 40160.4), ('nprobe=4', 0.571, 33779.5), ('nprobe=8', 0.7254, 27403.6), ('nprobe=16', 0.8462, 19453.4), ('nprobe=32', 0.9298, 13144.2), ('nprobe=64', 0.9802, 8508.1), ('nprobe=128', 0.9952, 4731.3), ('nprobe=256', 0.9998, 2797.8)]
+[02:05:47] sift500k ivf_part round 8 cum 0.58 [('nprobe=1', 0.2762, 49188.9), ('nprobe=2', 0.4118, 38194.5), ('nprobe=4', 0.5692, 33262.2), ('nprobe=8', 0.7178, 26665.4), ('nprobe=16', 0.8414, 19382.8), ('nprobe=32', 0.9252, 13241.5), ('nprobe=64', 0.9764, 8529.0), ('nprobe=128', 0.9944, 5352.9), ('nprobe=256', 0.9994, 2677.8)]
+[02:05:50] sift500k ivf_part round 12 cum 0.9 [('nprobe=1', 0.2672, 34999.2), ('nprobe=2', 0.403, 42270.5), ('nprobe=4', 0.5616, 32208.2), ('nprobe=8', 0.712, 26678.8), ('nprobe=16', 0.8422, 19733.2), ('nprobe=32', 0.9254, 12423.1), ('nprobe=64', 0.977, 8267.7), ('nprobe=128', 0.9954, 4886.1), ('nprobe=256', 0.9994, 2995.2)]
+[02:05:52] sift500k ivf_part round 16 cum 1.11 [('nprobe=1', 0.2742, 46068.2), ('nprobe=2', 0.4132, 38395.7), ('nprobe=4', 0.5638, 34624.1), ('nprobe=8', 0.7162, 21235.3), ('nprobe=16', 0.841, 19284.5), ('nprobe=32', 0.9292, 13008.0), ('nprobe=64', 0.9762, 8607.1), ('nprobe=128', 0.9948, 4578.6), ('nprobe=256', 0.9992, 3010.4)]
+[02:05:54] sift500k ivf_part round 20 cum 1.33 [('nprobe=1', 0.2676, 44002.2), ('nprobe=2', 0.4082, 42447.6), ('nprobe=4', 0.562, 32742.7), ('nprobe=8', 0.7168, 26461.5), ('nprobe=16', 0.8392, 19397.2), ('nprobe=32', 0.9272, 11629.4), ('nprobe=64', 0.9748, 7264.2), ('nprobe=128', 0.9944, 5462.0), ('nprobe=256', 0.9994, 3063.5)]
+[02:05:54] DONE sift500k ivf_part
+--- [5] exit=0
+=== [6 d6fa11ad62634584.1] 2026-11-03 02:05:56 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+[02:06:04] sift500k acorn stream start
+[02:21:22] sift500k acorn round 0 cum 0.0 [('ef=16', 0.8184, 4456.5), ('ef=32', 0.9228, 2564.1), ('ef=64', 0.9708, 1471.2), ('ef=128', 0.992, 861.6), ('ef=256', 0.9974, 493.7), ('ef=512', 0.9992, 269.5), ('ef=1024', 1.0, 143.5), ('ef=2048', 1.0, 68.1)]
+[02:21:22] sift500k acorn round 4 cum 82.739 [('ef=16', 0.7054, 3970.5), ('ef=32', 0.8416, 2220.4), ('ef=64', 0.927, 1281.8), ('ef=128', 0.9676, 738.4), ('ef=256', 0.985, 399.2), ('ef=512', 0.9942, 209.7), ('ef=1024', 0.996, 97.5), ('ef=2048', 0.9972, 45.0)]
+[02:21:22] sift500k acorn round 8 cum 159.434 [('ef=16', 0.708, 3818.2), ('ef=32', 0.836, 2110.1), ('ef=64', 0.9186, 1210.0), ('ef=128', 0.9612, 678.7), ('ef=256', 0.9798, 375.9), ('ef=512', 0.9892, 202.9), ('ef=1024', 0.9944, 98.5), ('ef=2048', 0.996, 43.8)]
+[02:21:22] sift500k acorn round 12 cum 237.902 [('ef=16', 0.706, 3758.6), ('ef=32', 0.837, 2103.2), ('ef=64', 0.921, 1199.4), ('ef=128', 0.9594, 666.1), ('ef=256', 0.9766, 369.3), ('ef=512', 0.9862, 195.1), ('ef=1024', 0.991, 96.1), ('ef=2048', 0.9962, 43.2)]
+[02:21:22] sift500k acorn round 16 cum 314.293 [('ef=16', 0.7024, 3704.3), ('ef=32', 0.8202, 2073.6), ('ef=64', 0.91, 1158.3), ('ef=128', 0.9516, 660.9), ('ef=256', 0.9754, 364.3), ('ef=512', 0.9846, 190.8), ('ef=1024', 0.99, 91.7), ('ef=2048', 0.9912, 42.0)]
+[02:21:22] sift500k acorn round 20 cum 393.129 [('ef=16', 0.702, 3670.1), ('ef=32', 0.8196, 2037.8), ('ef=64', 0.9056, 1100.3), ('ef=128', 0.9492, 639.1), ('ef=256', 0.9782, 351.2), ('ef=512', 0.9882, 186.1), ('ef=1024', 0.9928, 91.9), ('ef=2048', 0.9956, 41.5)]
+[02:21:23] DONE sift500k acorn_repair_all
+--- [6] exit=0
+=== [7 3c4d6659c4171f2f.1] 2026-11-03 02:21:25 BENCH_TAG=epyc_cost_end BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+[02:21:41] sift500k ivf round 0 cum 0.0 [('nprobe=8', 0.5266, 13654.8), ('nprobe=16', 0.6706, 10738.9), ('nprobe=32', 0.8, 7261.0), ('nprobe=64', 0.8988, 4197.6), ('nprobe=128', 0.9632, 2660.0), ('nprobe=256', 0.989, 1391.5), ('nprobe=512', 0.998, 735.3), ('nprobe=1024', 0.9996, 384.9)]
+[02:21:52] sift500k ivf round 4 cum 0.51 [('nprobe=8', 0.5176, 10212.0), ('nprobe=16', 0.664, 10391.4), ('nprobe=32', 0.7948, 6952.1), ('nprobe=64', 0.8926, 4308.0), ('nprobe=128', 0.96, 2622.3), ('nprobe=256', 0.9888, 1420.7), ('nprobe=512', 0.9976, 766.4), ('nprobe=1024', 1.0, 381.2)]
+[02:22:05] sift500k ivf round 8 cum 1.19 [('nprobe=8', 0.5114, 13523.7), ('nprobe=16', 0.6606, 9753.8), ('nprobe=32', 0.7882, 6748.8), ('nprobe=64', 0.889, 3899.0), ('nprobe=128', 0.9574, 2448.5), ('nprobe=256', 0.9872, 1487.0), ('nprobe=512', 0.9972, 778.7), ('nprobe=1024', 1.0, 370.9)]
+[02:22:16] sift500k ivf round 12 cum 1.63 [('nprobe=8', 0.5178, 13986.0), ('nprobe=16', 0.6628, 10376.2), ('nprobe=32', 0.7848, 7049.9), ('nprobe=64', 0.8866, 3865.2), ('nprobe=128', 0.9526, 2527.5), ('nprobe=256', 0.984, 1499.0), ('nprobe=512', 0.9958, 767.8), ('nprobe=1024', 0.9996, 362.7)]
+[02:22:29] sift500k ivf round 16 cum 2.89 [('nprobe=8', 0.514, 13204.9), ('nprobe=16', 0.6544, 10101.8), ('nprobe=32', 0.778, 7230.3), ('nprobe=64', 0.8798, 4189.8), ('nprobe=128', 0.9522, 2528.5), ('nprobe=256', 0.9836, 1445.4), ('nprobe=512', 0.9954, 753.3), ('nprobe=1024', 0.9996, 370.1)]
+[02:22:41] sift500k ivf round 20 cum 3.52 [('nprobe=8', 0.5096, 11442.4), ('nprobe=16', 0.6574, 10223.0), ('nprobe=32', 0.7782, 6830.0), ('nprobe=64', 0.8832, 4024.1), ('nprobe=128', 0.9514, 2513.6), ('nprobe=256', 0.986, 1348.7), ('nprobe=512', 0.9982, 735.8), ('nprobe=1024', 0.9996, 374.4)]
+[02:22:41] DONE sift500k ivf
+--- [7] exit=0
+=== [8 80ca61401c1194b8.1] 2026-11-03 02:22:47 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+[02:25:00] arxiv_time ivf round 0 cum 0.0 [('nprobe=8', 0.8582, 561.2), ('nprobe=16', 0.935, 440.3), ('nprobe=32', 0.9712, 294.7), ('nprobe=64', 0.988, 204.6), ('nprobe=128', 0.995, 130.4), ('nprobe=256', 0.999, 82.7), ('nprobe=512', 1.0, 60.3)]
+[02:26:43] arxiv_time ivf round 5 cum 19.79 [('nprobe=8', 0.8882, 448.0), ('nprobe=16', 0.9454, 323.8), ('nprobe=32', 0.9772, 222.7), ('nprobe=64', 0.9914, 148.3), ('nprobe=128', 0.997, 98.7), ('nprobe=256', 0.9996, 66.5)]
+[02:29:00] arxiv_time ivf round 10 cum 39.43 [('nprobe=8', 0.8972, 303.8), ('nprobe=16', 0.9486, 210.9), ('nprobe=32', 0.9818, 146.4), ('nprobe=64', 0.9916, 98.9), ('nprobe=128', 0.9972, 69.3), ('nprobe=256', 0.9994, 52.0)]
+[02:29:00] DONE arxiv_time ivf
+--- [8] exit=0
+=== [9 551588904af5060c.1] 2026-11-03 02:29:03 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 194.048s
+Index built with degree: max:64  avg:53.0595  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.599s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43247604, _max_observed_degree: 64, _start: 168810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r0/ann...done. Index has 200000 nodes and 10611895 out-edges, _start is set to 168810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 168810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[02:33:44] arxiv_time fdiskann round 0 rebuild 264.5 [('L=16', 0.9714, 1324.9), ('L=32', 0.9906, 893.8), ('L=64', 0.9968, 555.5), ('L=128', 0.9998, 348.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 191.297s
+Index built with degree: max:64  avg:53.6183  min:2  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.4697s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43694660, _max_observed_degree: 64, _start: 12417, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r5/ann...done. Index has 200000 nodes and 10723659 out-edges, _start is set to 12417
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 12417 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[02:38:17] arxiv_time fdiskann round 5 rebuild 261.8 [('L=16', 0.978, 1246.9), ('L=32', 0.9954, 836.5), ('L=64', 0.9992, 529.5)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 188.165s
+Index built with degree: max:64  avg:54.2984  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.5845s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 44238740, _max_observed_degree: 64, _start: 60241, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r10/ann...done. Index has 200000 nodes and 10859679 out-edges, _start is set to 60241
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 60241 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[02:42:54] arxiv_time fdiskann round 10 rebuild 258.6 [('L=16', 0.9776, 1257.6), ('L=32', 0.9922, 836.3), ('L=64', 0.998, 513.9), ('L=128', 0.9992, 322.8)]
+[02:42:56] DONE arxiv_time fdiskann
+--- [9] exit=0
+=== [10 a1eb3658466de027.1] 2026-11-03 02:42:59 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+[02:44:29] arxiv_time acorn stream start
+[03:17:31] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.9114, 1561.2), ('ef=32', 0.9662, 1041.7), ('ef=64', 0.9838, 667.6), ('ef=128', 0.9938, 420.2), ('ef=256', 0.9982, 272.8), ('ef=512', 0.9992, 158.8), ('ef=1024', 0.9994, 94.9), ('ef=2048', 0.9994, 54.4)]
+[03:17:31] arxiv_time acorn round 5 cum 629.577 [('ef=16', 0.9428, 1496.3), ('ef=32', 0.9754, 998.1), ('ef=64', 0.9874, 653.9), ('ef=128', 0.993, 415.6), ('ef=256', 0.9972, 245.5), ('ef=512', 0.9992, 141.6), ('ef=1024', 0.9998, 86.3), ('ef=2048', 0.9998, 42.7)]
+[03:17:31] arxiv_time acorn round 10 cum 1275.509 [('ef=16', 0.9574, 1699.6), ('ef=32', 0.9786, 1092.9), ('ef=64', 0.989, 718.7), ('ef=128', 0.9964, 418.1), ('ef=256', 0.9984, 241.5), ('ef=512', 0.9988, 146.1), ('ef=1024', 0.9996, 85.0), ('ef=2048', 0.9998, 41.7)]
+[03:17:33] DONE arxiv_time acorn_repair_all
+--- [10] exit=0
+=== [11 d84a01b458fbcc25.1] 2026-11-03 03:17:36 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+[03:19:06] arxiv_time acorn stream start
+[03:52:52] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.9036, 1638.4), ('ef=32', 0.9606, 1071.6), ('ef=64', 0.9844, 691.9), ('ef=128', 0.9932, 434.8), ('ef=256', 0.9982, 272.0), ('ef=512', 0.9988, 163.6), ('ef=1024', 0.9996, 96.8), ('ef=2048', 0.9996, 54.3)]
+[03:52:52] arxiv_time acorn round 5 cum 610.811 [('ef=16', 0.9144, 1551.0), ('ef=32', 0.9658, 933.8), ('ef=64', 0.9868, 592.7), ('ef=128', 0.992, 381.3), ('ef=256', 0.9952, 230.6), ('ef=512', 0.9956, 138.5), ('ef=1024', 0.9964, 80.4), ('ef=2048', 0.9966, 46.6)]
+[03:52:52] arxiv_time acorn round 10 cum 1301.819 [('ef=16', 0.9252, 1387.2), ('ef=32', 0.9694, 861.5), ('ef=64', 0.991, 517.2), ('ef=128', 0.9958, 309.2), ('ef=256', 0.998, 188.4), ('ef=512', 0.9988, 123.6), ('ef=1024', 0.999, 69.6), ('ef=2048', 0.999, 37.2)]
+[03:52:54] DONE arxiv_time acorn
+--- [11] contended (post probe 550); re-queued
+=== [12 7eb3d3c9204ffc75.1] 2026-11-03 03:52:58 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf_part
+WARNING clustering 17632 points to 531 centroids: please provide at least 20709 training points
+WARNING clustering 12002 points to 438 centroids: please provide at least 17082 training points
+WARNING clustering 10195 points to 403 centroids: please provide at least 15717 training points
+WARNING clustering 9101 points to 381 centroids: please provide at least 14859 training points
+WARNING clustering 6116 points to 312 centroids: please provide at least 12168 training points
+WARNING clustering 6009 points to 310 centroids: please provide at least 12090 training points
+WARNING clustering 19515 points to 558 centroids: please provide at least 21762 training points
+[03:55:00] arxiv_time ivf_part round 0 cum 0.0 [('nprobe=1', 0.4032, 2909.2), ('nprobe=2', 0.5798, 2658.8), ('nprobe=4', 0.7396, 2083.7), ('nprobe=8', 0.867, 1596.9), ('nprobe=16', 0.941, 1115.9), ('nprobe=32', 0.982, 670.4), ('nprobe=64', 0.9964, 357.2), ('nprobe=128', 0.9988, 207.2), ('nprobe=256', 1.0, 108.8)]
+[03:56:19] arxiv_time ivf_part round 5 cum 17.86 [('nprobe=1', 0.4178, 2519.6), ('nprobe=2', 0.5986, 2027.8), ('nprobe=4', 0.7586, 1537.0), ('nprobe=8', 0.8752, 1065.7), ('nprobe=16', 0.9406, 679.8), ('nprobe=32', 0.9808, 407.9), ('nprobe=64', 0.9962, 242.4), ('nprobe=128', 0.9988, 140.0), ('nprobe=256', 0.9998, 79.3)]
+[03:58:15] arxiv_time ivf_part round 10 cum 34.89 [('nprobe=1', 0.4494, 1565.9), ('nprobe=2', 0.629, 1142.1), ('nprobe=4', 0.7768, 776.2), ('nprobe=8', 0.883, 482.7), ('nprobe=16', 0.9454, 304.7), ('nprobe=32', 0.9792, 188.1), ('nprobe=64', 0.9936, 130.9), ('nprobe=128', 0.9982, 88.7), ('nprobe=256', 0.9998, 58.1)]
+[03:58:15] DONE arxiv_time ivf_part
+--- [12] exit=0
+=== [13 28aceb89e3136cc6.1] 2026-11-03 03:58:19 BENCH_TAG=epyc_cost_end BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+[04:01:01] arxiv_time ivf round 0 cum 0.0 [('nprobe=8', 0.8582, 500.4), ('nprobe=16', 0.935, 405.7), ('nprobe=32', 0.9712, 273.9), ('nprobe=64', 0.988, 186.9), ('nprobe=128', 0.995, 118.6), ('nprobe=256', 0.999, 76.1), ('nprobe=512', 1.0, 53.5)]
+[04:02:44] arxiv_time ivf round 5 cum 17.78 [('nprobe=8', 0.8882, 434.4), ('nprobe=16', 0.9454, 311.3), ('nprobe=32', 0.9772, 215.8), ('nprobe=64', 0.9914, 150.7), ('nprobe=128', 0.997, 95.1), ('nprobe=256', 0.9996, 65.1)]
+[04:05:08] arxiv_time ivf round 10 cum 35.55 [('nprobe=8', 0.8972, 274.3), ('nprobe=16', 0.9486, 200.5), ('nprobe=32', 0.9818, 137.4), ('nprobe=64', 0.9916, 91.0), ('nprobe=128', 0.9972, 64.3), ('nprobe=256', 0.9994, 47.8)]
+[04:05:08] DONE arxiv_time ivf
+--- [13] exit=0
+=== [14 ede3b9761423837c.1] 2026-11-03 04:05:12 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+[04:05:35] sift500k ivf round 0 cum 0.0 [('nprobe=8', 0.5266, 11665.2), ('nprobe=16', 0.6706, 8483.9), ('nprobe=32', 0.8, 5942.0), ('nprobe=64', 0.8988, 3575.4), ('nprobe=128', 0.9632, 2166.4), ('nprobe=256', 0.989, 1168.1), ('nprobe=512', 0.998, 609.7), ('nprobe=1024', 0.9996, 304.5)]
+[04:05:50] sift500k ivf round 4 cum 0.58 [('nprobe=8', 0.5176, 12259.1), ('nprobe=16', 0.664, 8020.5), ('nprobe=32', 0.7948, 5486.5), ('nprobe=64', 0.8926, 3696.0), ('nprobe=128', 0.96, 2197.2), ('nprobe=256', 0.9888, 1131.2), ('nprobe=512', 0.9976, 602.7), ('nprobe=1024', 1.0, 307.0)]
+[04:06:04] sift500k ivf round 8 cum 1.14 [('nprobe=8', 0.5114, 11150.8), ('nprobe=16', 0.6606, 8406.7), ('nprobe=32', 0.7882, 5574.1), ('nprobe=64', 0.889, 3363.9), ('nprobe=128', 0.9574, 2173.6), ('nprobe=256', 0.9872, 1177.7), ('nprobe=512', 0.9972, 605.4), ('nprobe=1024', 1.0, 305.3)]
+[04:06:19] sift500k ivf round 12 cum 1.69 [('nprobe=8', 0.5178, 9211.8), ('nprobe=16', 0.6628, 6807.9), ('nprobe=32', 0.7848, 5730.9), ('nprobe=64', 0.8866, 3259.8), ('nprobe=128', 0.9526, 2013.8), ('nprobe=256', 0.984, 1131.2), ('nprobe=512', 0.9958, 592.7), ('nprobe=1024', 0.9996, 287.1)]
+[04:06:34] sift500k ivf round 16 cum 2.2 [('nprobe=8', 0.514, 10337.0), ('nprobe=16', 0.6544, 8242.2), ('nprobe=32', 0.778, 5346.0), ('nprobe=64', 0.8798, 3594.7), ('nprobe=128', 0.9522, 1992.2), ('nprobe=256', 0.9836, 1061.4), ('nprobe=512', 0.9954, 600.9), ('nprobe=1024', 0.9996, 291.7)]
+[04:06:49] sift500k ivf round 20 cum 2.78 [('nprobe=8', 0.5096, 10254.0), ('nprobe=16', 0.6574, 7799.7), ('nprobe=32', 0.7782, 5627.5), ('nprobe=64', 0.8832, 3271.1), ('nprobe=128', 0.9514, 2046.8), ('nprobe=256', 0.986, 1123.1), ('nprobe=512', 0.9982, 603.1), ('nprobe=1024', 0.9996, 308.3)]
+[04:06:49] DONE sift500k ivf
+--- [14] exit=0
+=== [15 381bdf4db4eab8a4.1] 2026-11-03 04:06:52 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py sift500k
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 63.6456s
+Index built with degree: max:64  avg:62.873  min:14  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.5959s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127746028, _max_observed_degree: 64, _start: 89028, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r0/ann...done. Index has 500000 nodes and 31436501 out-edges, _start is set to 89028
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 89028 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[04:08:34] sift500k fdiskann round 0 rebuild 73.7 [('L=16', 0.7886, 3694.6), ('L=32', 0.891, 2772.4), ('L=64', 0.9532, 1796.1), ('L=128', 0.9848, 1077.5), ('L=256', 0.9956, 552.9), ('L=512', 0.9978, 299.5), ('L=1024', 0.9992, 155.6)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 63.4441s
+Index built with degree: max:64  avg:62.8236  min:9  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.56917s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127647144, _max_observed_degree: 64, _start: 58541, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r4/ann...done. Index has 500000 nodes and 31411780 out-edges, _start is set to 58541
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 58541 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[04:10:15] sift500k fdiskann round 4 rebuild 73.2 [('L=16', 0.78, 4332.8), ('L=32', 0.8824, 2526.3), ('L=64', 0.9464, 1760.6), ('L=128', 0.98, 1015.1), ('L=256', 0.992, 560.7), ('L=512', 0.9978, 323.4), ('L=1024', 0.9994, 163.7)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 63.8713s
+Index built with degree: max:64  avg:62.8461  min:10  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.56251s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127692308, _max_observed_degree: 64, _start: 38355, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r8/ann...done. Index has 500000 nodes and 31423071 out-edges, _start is set to 38355
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 38355 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[04:11:54] sift500k fdiskann round 8 rebuild 73.6 [('L=16', 0.773, 3769.9), ('L=32', 0.8744, 2500.4), ('L=64', 0.946, 1869.0), ('L=128', 0.9786, 1210.0), ('L=256', 0.993, 666.9), ('L=512', 0.9976, 345.1), ('L=1024', 0.9994, 173.7)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 58.5508s
+Index built with degree: max:64  avg:62.8292  min:9  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.47226s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127658440, _max_observed_degree: 64, _start: 25151, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r12/ann...done. Index has 500000 nodes and 31414604 out-edges, _start is set to 25151
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 25151 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[04:13:27] sift500k fdiskann round 12 rebuild 68.1 [('L=16', 0.7916, 4267.5), ('L=32', 0.8924, 3174.8), ('L=64', 0.9456, 2205.9), ('L=128', 0.979, 1241.8), ('L=256', 0.9932, 612.0), ('L=512', 0.9974, 345.0), ('L=1024', 0.999, 183.3)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 58.5718s
+Index built with degree: max:64  avg:62.6488  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.51438s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127297636, _max_observed_degree: 64, _start: 291936, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r16/ann...done. Index has 500000 nodes and 31324403 out-edges, _start is set to 291936
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 291936 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[04:15:02] sift500k fdiskann round 16 rebuild 70.1 [('L=16', 0.7884, 4286.2), ('L=32', 0.8868, 3018.4), ('L=64', 0.9476, 2057.2), ('L=128', 0.9818, 1178.9), ('L=256', 0.9924, 617.7), ('L=512', 0.9968, 315.4), ('L=1024', 0.9988, 183.0)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 500000 from file.. 
+Starting index build with 500000 points... 
+0% of index build completed.20% of index build completed.40% of index build completed.60% of index build completed.80% of index build completed.Starting final cleanup..done. Link time: 52.5184s
+Index built with degree: max:64  avg:62.5666  min:6  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 4.44061s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 127133240, _max_observed_degree: 64, _start: 191851, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_sift500k/fd_r20/ann...done. Index has 500000 nodes and 31283304 out-edges, _start is set to 191851
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 500000 _start: 191851 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 500000
+[04:16:16] sift500k fdiskann round 20 rebuild 61.7 [('L=16', 0.7984, 5562.7), ('L=32', 0.8876, 3776.1), ('L=64', 0.9504, 2382.1), ('L=128', 0.9812, 1382.9), ('L=256', 0.9942, 752.7), ('L=512', 0.9992, 421.1)]
+[04:16:16] DONE sift500k fdiskann
+--- [15] exit=0
+=== [16 fa4a53f7dc77ca74.1] 2026-11-03 04:16:19 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+[04:16:26] sift500k acorn stream start
+[04:29:52] sift500k acorn round 0 cum 0.0 [('ef=16', 0.8232, 4242.3), ('ef=32', 0.925, 2479.9), ('ef=64', 0.9706, 1449.2), ('ef=128', 0.9892, 878.4), ('ef=256', 0.9964, 507.2), ('ef=512', 0.9984, 272.8), ('ef=1024', 0.999, 146.1), ('ef=2048', 0.9998, 68.4)]
+[04:29:52] sift500k acorn round 4 cum 68.957 [('ef=16', 0.7914, 3987.6), ('ef=32', 0.9024, 2309.5), ('ef=64', 0.9624, 1356.8), ('ef=128', 0.9858, 809.4), ('ef=256', 0.9954, 465.5), ('ef=512', 0.9988, 258.2), ('ef=1024', 0.9994, 133.3), ('ef=2048', 0.9994, 64.5)]
+[04:29:52] sift500k acorn round 8 cum 140.808 [('ef=16', 0.7632, 3772.9), ('ef=32', 0.883, 2175.3), ('ef=64', 0.9486, 1256.4), ('ef=128', 0.9802, 757.3), ('ef=256', 0.9912, 443.6), ('ef=512', 0.996, 246.0), ('ef=1024', 0.9986, 128.8), ('ef=2048', 0.999, 61.4)]
+[04:29:52] sift500k acorn round 12 cum 214.376 [('ef=16', 0.748, 3625.6), ('ef=32', 0.8746, 2088.0), ('ef=64', 0.9382, 1194.1), ('ef=128', 0.9728, 707.8), ('ef=256', 0.9892, 407.4), ('ef=512', 0.9954, 232.0), ('ef=1024', 0.9974, 112.0), ('ef=2048', 0.9976, 57.9)]
+[04:29:52] sift500k acorn round 16 cum 288.471 [('ef=16', 0.71, 3532.0), ('ef=32', 0.844, 2008.0), ('ef=64', 0.9242, 1165.6), ('ef=128', 0.961, 676.5), ('ef=256', 0.9816, 400.3), ('ef=512', 0.9892, 202.1), ('ef=1024', 0.9924, 121.3), ('ef=2048', 0.9934, 57.1)]
+[04:29:52] sift500k acorn round 20 cum 360.114 [('ef=16', 0.666, 3401.3), ('ef=32', 0.8208, 1940.1), ('ef=64', 0.9068, 1127.5), ('ef=128', 0.9538, 666.1), ('ef=256', 0.9782, 393.6), ('ef=512', 0.9884, 220.9), ('ef=1024', 0.992, 108.9), ('ef=2048', 0.9934, 58.0)]
+[04:29:52] DONE sift500k acorn
+--- [16] contended (post probe 415); re-queued
+gate [17] probe=415 < 555, waiting 04:29:55
+=== [17 afda357ba1b7dc08.1] 2026-11-03 04:31:56 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+[04:32:04] sift500k acorn stream start
+[04:47:04] sift500k acorn round 0 cum 0.0 [('ef=16', 0.8148, 4461.1), ('ef=32', 0.9184, 2572.5), ('ef=64', 0.9692, 1545.3), ('ef=128', 0.9912, 910.6), ('ef=256', 0.9976, 520.9), ('ef=512', 0.9996, 284.7), ('ef=1024', 0.9996, 149.4), ('ef=2048', 1.0, 67.8)]
+[04:47:04] sift500k acorn round 4 cum 81.958 [('ef=16', 0.6954, 3692.7), ('ef=32', 0.8334, 2215.0), ('ef=64', 0.919, 1310.0), ('ef=128', 0.9626, 748.3), ('ef=256', 0.982, 404.0), ('ef=512', 0.9914, 213.6), ('ef=1024', 0.9934, 100.7), ('ef=2048', 0.9952, 45.8)]
+[04:47:04] sift500k acorn round 8 cum 156.96 [('ef=16', 0.7026, 3857.4), ('ef=32', 0.8362, 2114.8), ('ef=64', 0.9156, 1218.5), ('ef=128', 0.959, 707.4), ('ef=256', 0.9806, 388.0), ('ef=512', 0.9906, 204.6), ('ef=1024', 0.9948, 99.3), ('ef=2048', 0.9972, 44.4)]
+[04:47:04] sift500k acorn round 12 cum 234.622 [('ef=16', 0.706, 3744.7), ('ef=32', 0.8362, 2093.8), ('ef=64', 0.9164, 1175.2), ('ef=128', 0.96, 644.8), ('ef=256', 0.9792, 371.1), ('ef=512', 0.9894, 197.6), ('ef=1024', 0.9938, 96.7), ('ef=2048', 0.9972, 44.0)]
+[04:47:04] sift500k acorn round 16 cum 311.063 [('ef=16', 0.7006, 3713.1), ('ef=32', 0.8228, 2065.7), ('ef=64', 0.91, 1188.2), ('ef=128', 0.9538, 658.8), ('ef=256', 0.9764, 362.8), ('ef=512', 0.9856, 191.4), ('ef=1024', 0.9892, 94.8), ('ef=2048', 0.9914, 42.1)]
+[04:47:04] sift500k acorn round 20 cum 388.164 [('ef=16', 0.6902, 3673.9), ('ef=32', 0.8146, 2012.7), ('ef=64', 0.901, 1170.6), ('ef=128', 0.9456, 655.8), ('ef=256', 0.9752, 354.3), ('ef=512', 0.9862, 189.0), ('ef=1024', 0.99, 92.6), ('ef=2048', 0.9934, 42.3)]
+[04:47:04] DONE sift500k acorn_repair_all
+--- [17] exit=0
+=== [18 ec57fe41acea8aa6.1] 2026-11-03 04:47:07 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf_part
+[04:47:13] sift500k ivf_part round 0 cum 0.0 [('nprobe=1', 0.2876, 46654.1), ('nprobe=2', 0.424, 43337.2), ('nprobe=4', 0.5816, 36140.1), ('nprobe=8', 0.7338, 26831.9), ('nprobe=16', 0.8588, 20094.8), ('nprobe=32', 0.9356, 10414.4), ('nprobe=64', 0.9826, 8580.9), ('nprobe=128', 0.996, 4635.3), ('nprobe=256', 1.0, 2946.0)]
+[04:47:15] sift500k ivf_part round 4 cum 0.29 [('nprobe=1', 0.2826, 45794.0), ('nprobe=2', 0.4176, 41958.2), ('nprobe=4', 0.571, 36287.8), ('nprobe=8', 0.7254, 20429.2), ('nprobe=16', 0.8462, 18937.8), ('nprobe=32', 0.9298, 13152.7), ('nprobe=64', 0.9802, 6937.2), ('nprobe=128', 0.9952, 5058.4), ('nprobe=256', 0.9998, 2930.5)]
+[04:47:18] sift500k ivf_part round 8 cum 0.78 [('nprobe=1', 0.2762, 42802.5), ('nprobe=2', 0.4118, 43562.8), ('nprobe=4', 0.5692, 34248.2), ('nprobe=8', 0.7178, 26974.5), ('nprobe=16', 0.8414, 18116.7), ('nprobe=32', 0.9252, 12723.5), ('nprobe=64', 0.9764, 8443.9), ('nprobe=128', 0.9944, 5224.0), ('nprobe=256', 0.9994, 2911.7)]
+[04:47:20] sift500k ivf_part round 12 cum 1.17 [('nprobe=1', 0.2672, 48215.0), ('nprobe=2', 0.403, 43160.9), ('nprobe=4', 0.5616, 34699.2), ('nprobe=8', 0.712, 27849.7), ('nprobe=16', 0.8422, 19713.7), ('nprobe=32', 0.9254, 13193.1), ('nprobe=64', 0.977, 6518.2), ('nprobe=128', 0.9954, 4893.7), ('nprobe=256', 0.9994, 2928.2)]
+[04:47:22] sift500k ivf_part round 16 cum 1.43 [('nprobe=1', 0.2742, 46411.7), ('nprobe=2', 0.4132, 39990.9), ('nprobe=4', 0.5638, 32706.9), ('nprobe=8', 0.7162, 26217.5), ('nprobe=16', 0.841, 17952.3), ('nprobe=32', 0.9292, 12321.2), ('nprobe=64', 0.9762, 8301.2), ('nprobe=128', 0.9948, 5123.7), ('nprobe=256', 0.9992, 2827.1)]
+[04:47:25] sift500k ivf_part round 20 cum 1.69 [('nprobe=1', 0.2676, 47992.3), ('nprobe=2', 0.4082, 39916.8), ('nprobe=4', 0.562, 34260.3), ('nprobe=8', 0.7168, 25993.8), ('nprobe=16', 0.8392, 16667.0), ('nprobe=32', 0.9272, 12799.3), ('nprobe=64', 0.9748, 8450.2), ('nprobe=128', 0.9944, 5458.5), ('nprobe=256', 0.9994, 2990.5)]
+[04:47:25] DONE sift500k ivf_part
+--- [18] exit=0
+=== [19 672a3c28d38d903d.1] 2026-11-03 04:47:27 BENCH_TAG=epyc_cost_end BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py sift500k ivf
+[04:47:42] sift500k ivf round 0 cum 0.0 [('nprobe=8', 0.5266, 12768.5), ('nprobe=16', 0.6706, 9304.2), ('nprobe=32', 0.8, 6772.0), ('nprobe=64', 0.8988, 4368.1), ('nprobe=128', 0.9632, 2716.9), ('nprobe=256', 0.989, 1416.3), ('nprobe=512', 0.998, 781.9), ('nprobe=1024', 0.9996, 387.8)]
+[04:47:54] sift500k ivf round 4 cum 0.62 [('nprobe=8', 0.5176, 13517.5), ('nprobe=16', 0.664, 10093.4), ('nprobe=32', 0.7948, 6955.6), ('nprobe=64', 0.8926, 4218.1), ('nprobe=128', 0.96, 2507.1), ('nprobe=256', 0.9888, 1439.1), ('nprobe=512', 0.9976, 792.9), ('nprobe=1024', 1.0, 392.6)]
+[04:48:06] sift500k ivf round 8 cum 1.41 [('nprobe=8', 0.5114, 13614.5), ('nprobe=16', 0.6606, 8124.5), ('nprobe=32', 0.7882, 6836.8), ('nprobe=64', 0.889, 4404.8), ('nprobe=128', 0.9574, 2627.2), ('nprobe=256', 0.9872, 1471.0), ('nprobe=512', 0.9972, 754.3), ('nprobe=1024', 1.0, 381.9)]
+[04:48:18] sift500k ivf round 12 cum 1.94 [('nprobe=8', 0.5178, 12962.1), ('nprobe=16', 0.6628, 9721.9), ('nprobe=32', 0.7848, 6829.5), ('nprobe=64', 0.8866, 4322.3), ('nprobe=128', 0.9526, 2442.8), ('nprobe=256', 0.984, 1400.3), ('nprobe=512', 0.9958, 748.0), ('nprobe=1024', 0.9996, 365.9)]
+[04:48:30] sift500k ivf round 16 cum 2.42 [('nprobe=8', 0.514, 11941.5), ('nprobe=16', 0.6544, 9916.3), ('nprobe=32', 0.778, 6621.6), ('nprobe=64', 0.8798, 3995.1), ('nprobe=128', 0.9522, 2518.5), ('nprobe=256', 0.9836, 1446.7), ('nprobe=512', 0.9954, 772.5), ('nprobe=1024', 0.9996, 358.3)]
+[04:48:42] sift500k ivf round 20 cum 2.86 [('nprobe=8', 0.5096, 12934.8), ('nprobe=16', 0.6574, 9852.6), ('nprobe=32', 0.7782, 6831.3), ('nprobe=64', 0.8832, 4410.6), ('nprobe=128', 0.9514, 2628.3), ('nprobe=256', 0.986, 1484.8), ('nprobe=512', 0.9982, 764.6), ('nprobe=1024', 0.9996, 371.1)]
+[04:48:42] DONE sift500k ivf
+--- [19] exit=0
+=== [20 6b64c601cb00e201.1] 2026-11-03 04:48:44 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+[04:51:13] arxiv_time ivf round 0 cum 0.0 [('nprobe=8', 0.8582, 568.0), ('nprobe=16', 0.935, 443.7), ('nprobe=32', 0.9712, 301.3), ('nprobe=64', 0.988, 207.2), ('nprobe=128', 0.995, 130.9), ('nprobe=256', 0.999, 85.4), ('nprobe=512', 1.0, 56.1)]
+[04:52:56] arxiv_time ivf round 5 cum 16.63 [('nprobe=8', 0.8882, 449.1), ('nprobe=16', 0.9454, 325.6), ('nprobe=32', 0.9772, 228.1), ('nprobe=64', 0.9914, 131.0), ('nprobe=128', 0.997, 99.0), ('nprobe=256', 0.9996, 63.1)]
+[04:55:15] arxiv_time ivf round 10 cum 34.12 [('nprobe=8', 0.8972, 310.2), ('nprobe=16', 0.9486, 188.2), ('nprobe=32', 0.9818, 149.7), ('nprobe=64', 0.9916, 101.0), ('nprobe=128', 0.9972, 73.1), ('nprobe=256', 0.9994, 49.7)]
+[04:55:15] DONE arxiv_time ivf
+--- [20] exit=0
+=== [21 74581a0302ecda4d.1] 2026-11-03 04:55:18 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+[04:56:49] arxiv_time acorn stream start
+[05:32:38] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.9144, 1615.2), ('ef=32', 0.96, 1057.2), ('ef=64', 0.9812, 676.3), ('ef=128', 0.9936, 416.0), ('ef=256', 0.9982, 261.1), ('ef=512', 0.9992, 134.6), ('ef=1024', 0.9998, 94.9), ('ef=2048', 0.9998, 50.6)]
+[05:32:38] arxiv_time acorn round 5 cum 624.278 [('ef=16', 0.918, 1471.3), ('ef=32', 0.968, 939.2), ('ef=64', 0.9874, 587.6), ('ef=128', 0.9938, 367.3), ('ef=256', 0.9964, 218.4), ('ef=512', 0.9968, 125.1), ('ef=1024', 0.9976, 78.9), ('ef=2048', 0.9978, 34.0)]
+[05:32:38] arxiv_time acorn round 10 cum 1386.764 [('ef=16', 0.9232, 1186.5), ('ef=32', 0.969, 657.6), ('ef=64', 0.9902, 321.0), ('ef=128', 0.9964, 235.6), ('ef=256', 0.9976, 208.3), ('ef=512', 0.9988, 127.3), ('ef=1024', 0.9988, 73.6), ('ef=2048', 0.9988, 42.3)]
+[05:32:40] DONE arxiv_time acorn
+--- [21] contended (post probe 300); re-queued
+gate [22] probe=434 < 555, waiting 05:32:44
+gate [22] probe=440 < 555, waiting 05:34:45
+=== [22 4a3414b762462ded.1] 2026-11-03 05:36:47 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 REPAIR=2 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+[05:38:19] arxiv_time acorn stream start
+[06:12:48] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.9074, 1631.3), ('ef=32', 0.9626, 1058.4), ('ef=64', 0.9838, 662.0), ('ef=128', 0.9934, 402.6), ('ef=256', 0.9976, 226.6), ('ef=512', 0.9986, 164.2), ('ef=1024', 0.9988, 99.7), ('ef=2048', 0.999, 53.5)]
+[06:12:48] arxiv_time acorn round 5 cum 626.99 [('ef=16', 0.9468, 1137.8), ('ef=32', 0.975, 884.3), ('ef=64', 0.9872, 576.3), ('ef=128', 0.9932, 371.4), ('ef=256', 0.995, 197.0), ('ef=512', 0.9988, 135.1), ('ef=1024', 0.9994, 72.3), ('ef=2048', 0.9996, 38.2)]
+[06:12:48] arxiv_time acorn round 10 cum 1315.217 [('ef=16', 0.9562, 1291.9), ('ef=32', 0.9802, 866.2), ('ef=64', 0.99, 540.7), ('ef=128', 0.9958, 344.3), ('ef=256', 0.9986, 205.9), ('ef=512', 0.9992, 104.9), ('ef=1024', 0.9996, 62.3), ('ef=2048', 0.9998, 34.7)]
+[06:12:49] DONE arxiv_time acorn_repair_all
+--- [22] exit=0
+gate [23] probe=446 < 555, waiting 06:12:52
+gate [23] probe=251 < 555, waiting 06:14:54
+=== [23 dffe00aee8abb029.1] 2026-11-03 06:16:56 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py arxiv_time
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 202.876s
+Index built with degree: max:64  avg:53.0501  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 32.0708s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43240116, _max_observed_degree: 64, _start: 168810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r0/ann...done. Index has 200000 nodes and 10610023 out-edges, _start is set to 168810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 168810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[06:22:33] arxiv_time fdiskann round 0 rebuild 318.5 [('L=16', 0.9734, 1169.9), ('L=32', 0.9906, 785.9), ('L=64', 0.9972, 499.2), ('L=128', 0.9998, 311.4)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 204.477s
+Index built with degree: max:64  avg:53.603  min:2  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.7703s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43682452, _max_observed_degree: 64, _start: 12417, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r5/ann...done. Index has 200000 nodes and 10720607 out-edges, _start is set to 12417
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 12417 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[06:28:05] arxiv_time fdiskann round 5 rebuild 319.0 [('L=16', 0.9796, 1126.8), ('L=32', 0.9954, 748.4), ('L=64', 0.9992, 477.8)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 195.749s
+Index built with degree: max:64  avg:54.2945  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.8079s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 44235640, _max_observed_degree: 64, _start: 60241, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r10/ann...done. Index has 200000 nodes and 10858904 out-edges, _start is set to 60241
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 60241 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[06:33:35] arxiv_time fdiskann round 10 rebuild 309.0 [('L=16', 0.9766, 1206.6), ('L=32', 0.9924, 790.0), ('L=64', 0.9978, 452.1), ('L=128', 0.9992, 295.0)]
+[06:33:37] DONE arxiv_time fdiskann
+--- [23] exit=0
+=== [24 84458276b97f9e53.1] 2026-11-03 06:33:40 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf_part
+WARNING clustering 17632 points to 531 centroids: please provide at least 20709 training points
+WARNING clustering 12002 points to 438 centroids: please provide at least 17082 training points
+WARNING clustering 10195 points to 403 centroids: please provide at least 15717 training points
+WARNING clustering 9101 points to 381 centroids: please provide at least 14859 training points
+WARNING clustering 6116 points to 312 centroids: please provide at least 12168 training points
+WARNING clustering 6009 points to 310 centroids: please provide at least 12090 training points
+WARNING clustering 19515 points to 558 centroids: please provide at least 21762 training points
+[06:35:52] arxiv_time ivf_part round 0 cum 0.0 [('nprobe=1', 0.4032, 2916.1), ('nprobe=2', 0.5798, 2571.6), ('nprobe=4', 0.7396, 2130.2), ('nprobe=8', 0.867, 1577.2), ('nprobe=16', 0.941, 1070.7), ('nprobe=32', 0.982, 681.8), ('nprobe=64', 0.9964, 382.0), ('nprobe=128', 0.9988, 205.7), ('nprobe=256', 1.0, 104.8)]
+[06:37:08] arxiv_time ivf_part round 5 cum 16.32 [('nprobe=1', 0.4178, 2565.4), ('nprobe=2', 0.5986, 2053.6), ('nprobe=4', 0.7586, 1523.8), ('nprobe=8', 0.8752, 1057.6), ('nprobe=16', 0.9406, 674.6), ('nprobe=32', 0.9808, 404.5), ('nprobe=64', 0.9962, 250.0), ('nprobe=128', 0.9988, 146.8), ('nprobe=256', 0.9998, 81.3)]
+[06:39:00] arxiv_time ivf_part round 10 cum 32.05 [('nprobe=1', 0.4494, 1494.1), ('nprobe=2', 0.629, 1090.2), ('nprobe=4', 0.7768, 772.4), ('nprobe=8', 0.883, 501.2), ('nprobe=16', 0.9454, 321.8), ('nprobe=32', 0.9792, 202.7), ('nprobe=64', 0.9936, 138.3), ('nprobe=128', 0.9982, 90.2), ('nprobe=256', 0.9998, 59.3)]
+[06:39:00] DONE arxiv_time ivf_part
+--- [24] exit=0
+=== [25 f3be0d166ace623b.1] 2026-11-03 06:39:04 BENCH_TAG=epyc_cost_end BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_faiss.py arxiv_time ivf
+[06:41:52] arxiv_time ivf round 0 cum 0.0 [('nprobe=8', 0.8582, 500.6), ('nprobe=16', 0.935, 405.1), ('nprobe=32', 0.9712, 301.0), ('nprobe=64', 0.988, 188.9), ('nprobe=128', 0.995, 127.0), ('nprobe=256', 0.999, 76.8), ('nprobe=512', 1.0, 56.4)]
+[06:43:34] arxiv_time ivf round 5 cum 18.01 [('nprobe=8', 0.8882, 432.5), ('nprobe=16', 0.9454, 312.1), ('nprobe=32', 0.9772, 227.7), ('nprobe=64', 0.9914, 152.4), ('nprobe=128', 0.997, 98.9), ('nprobe=256', 0.9996, 66.6)]
+[06:45:51] arxiv_time ivf round 10 cum 35.62 [('nprobe=8', 0.8972, 303.3), ('nprobe=16', 0.9486, 196.7), ('nprobe=32', 0.9818, 148.6), ('nprobe=64', 0.9916, 94.2), ('nprobe=128', 0.9972, 69.1), ('nprobe=256', 0.9994, 51.3)]
+[06:45:51] DONE arxiv_time ivf
+--- [25] exit=0
+=== [26 d84a01b458fbcc25.2] 2026-11-03 06:45:54 BENCH_TAG=epyc_cost BENCH_PASS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+[06:47:26] arxiv_time acorn stream start
+[07:21:51] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.91, 1559.7), ('ef=32', 0.9568, 997.2), ('ef=64', 0.9818, 642.1), ('ef=128', 0.9942, 404.4), ('ef=256', 0.9984, 216.4), ('ef=512', 0.999, 159.2), ('ef=1024', 0.999, 95.2), ('ef=2048', 0.9992, 53.3)]
+[07:21:51] arxiv_time acorn round 5 cum 620.843 [('ef=16', 0.9164, 1489.7), ('ef=32', 0.9704, 987.1), ('ef=64', 0.9876, 608.5), ('ef=128', 0.993, 375.0), ('ef=256', 0.995, 231.6), ('ef=512', 0.9956, 122.5), ('ef=1024', 0.9964, 79.7), ('ef=2048', 0.9966, 42.9)]
+[07:21:51] arxiv_time acorn round 10 cum 1334.621 [('ef=16', 0.9296, 680.3), ('ef=32', 0.97, 773.8), ('ef=64', 0.989, 550.9), ('ef=128', 0.9964, 343.6), ('ef=256', 0.9982, 217.2), ('ef=512', 0.999, 109.1), ('ef=1024', 0.999, 75.1), ('ef=2048', 0.999, 41.9)]
+[07:21:52] DONE arxiv_time acorn
+--- [26] exit=0
+=== [27 fa4a53f7dc77ca74.2] 2026-11-03 07:21:56 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+[07:22:03] sift500k acorn stream start
+[07:36:02] sift500k acorn round 0 cum 0.0 [('ef=16', 0.8186, 4509.1), ('ef=32', 0.9238, 2567.1), ('ef=64', 0.9736, 1501.9), ('ef=128', 0.992, 861.4), ('ef=256', 0.9974, 513.1), ('ef=512', 0.9992, 279.7), ('ef=1024', 0.9994, 129.3), ('ef=2048', 0.9996, 64.9)]
+[07:36:02] sift500k acorn round 4 cum 68.634 [('ef=16', 0.7866, 3945.1), ('ef=32', 0.9066, 2289.9), ('ef=64', 0.9642, 1329.0), ('ef=128', 0.9874, 796.0), ('ef=256', 0.9964, 340.8), ('ef=512', 0.9988, 242.8), ('ef=1024', 0.9994, 129.5), ('ef=2048', 0.9996, 55.9)]
+[07:36:02] sift500k acorn round 8 cum 142.395 [('ef=16', 0.7698, 3565.2), ('ef=32', 0.886, 2146.3), ('ef=64', 0.9458, 1257.5), ('ef=128', 0.9816, 754.6), ('ef=256', 0.9928, 432.8), ('ef=512', 0.9962, 237.7), ('ef=1024', 0.9976, 111.3), ('ef=2048', 0.9986, 59.2)]
+[07:36:02] sift500k acorn round 12 cum 219.663 [('ef=16', 0.7452, 3322.0), ('ef=32', 0.8694, 1857.2), ('ef=64', 0.937, 1093.5), ('ef=128', 0.971, 659.2), ('ef=256', 0.9882, 372.2), ('ef=512', 0.9946, 206.1), ('ef=1024', 0.9968, 101.8), ('ef=2048', 0.9976, 50.9)]
+[07:36:03] sift500k acorn round 16 cum 293.795 [('ef=16', 0.7066, 3097.7), ('ef=32', 0.8498, 1770.6), ('ef=64', 0.9258, 1039.6), ('ef=128', 0.9654, 613.1), ('ef=256', 0.9844, 358.8), ('ef=512', 0.9918, 192.4), ('ef=1024', 0.9942, 102.4), ('ef=2048', 0.9954, 50.1)]
+[07:36:03] sift500k acorn round 20 cum 371.97 [('ef=16', 0.6854, 3164.8), ('ef=32', 0.8288, 1811.3), ('ef=64', 0.9102, 1026.5), ('ef=128', 0.955, 618.5), ('ef=256', 0.9786, 302.7), ('ef=512', 0.9902, 193.9), ('ef=1024', 0.994, 104.2), ('ef=2048', 0.9954, 48.1)]
+[07:36:03] DONE sift500k acorn
+--- [27] contended (post probe 426); re-queued
+gate [28] probe=375 < 555, waiting 07:36:06
+=== [28 74581a0302ecda4d.2] 2026-11-03 07:38:08 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py arxiv_time
+[07:39:41] arxiv_time acorn stream start
+[08:18:04] arxiv_time acorn round 0 cum 0.0 [('ef=16', 0.908, 1503.1), ('ef=32', 0.9576, 989.2), ('ef=64', 0.9806, 640.0), ('ef=128', 0.9946, 394.5), ('ef=256', 0.9986, 249.5), ('ef=512', 0.9988, 125.4), ('ef=1024', 0.9992, 90.3), ('ef=2048', 0.9992, 46.4)]
+[08:18:04] arxiv_time acorn round 5 cum 650.384 [('ef=16', 0.9168, 901.8), ('ef=32', 0.9662, 527.8), ('ef=64', 0.9856, 441.9), ('ef=128', 0.995, 304.3), ('ef=256', 0.9968, 187.0), ('ef=512', 0.9976, 97.5), ('ef=1024', 0.9984, 65.9), ('ef=2048', 0.9984, 39.4)]
+[08:18:04] arxiv_time acorn round 10 cum 1490.904 [('ef=16', 0.9308, 1043.5), ('ef=32', 0.975, 674.9), ('ef=64', 0.9888, 414.9), ('ef=128', 0.9956, 249.6), ('ef=256', 0.9982, 137.0), ('ef=512', 0.999, 92.6), ('ef=1024', 0.999, 51.1), ('ef=2048', 0.999, 28.7)]
+[08:18:06] DONE arxiv_time acorn
+--- [28] exit=0
+=== [29 fa4a53f7dc77ca74.3] 2026-11-03 08:18:10 BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 python3 bench/stream_acorn.py sift500k
+[08:18:17] sift500k acorn stream start
+[08:32:34] sift500k acorn round 0 cum 0.0 [('ef=16', 0.8162, 4156.3), ('ef=32', 0.924, 2401.7), ('ef=64', 0.9748, 1358.0), ('ef=128', 0.9902, 804.1), ('ef=256', 0.9976, 479.8), ('ef=512', 0.9992, 249.9), ('ef=1024', 0.9994, 132.8), ('ef=2048', 0.9998, 62.2)]
+[08:32:34] sift500k acorn round 4 cum 71.792 [('ef=16', 0.8036, 3538.9), ('ef=32', 0.9126, 1872.0), ('ef=64', 0.9662, 1200.6), ('ef=128', 0.9882, 741.2), ('ef=256', 0.9966, 416.2), ('ef=512', 0.9992, 228.0), ('ef=1024', 0.9996, 116.9), ('ef=2048', 0.9998, 56.2)]
+[08:32:34] sift500k acorn round 8 cum 147.102 [('ef=16', 0.767, 3416.5), ('ef=32', 0.8854, 2024.6), ('ef=64', 0.949, 1198.9), ('ef=128', 0.9818, 601.6), ('ef=256', 0.9934, 339.9), ('ef=512', 0.9968, 222.5), ('ef=1024', 0.9982, 108.2), ('ef=2048', 0.9986, 54.1)]
+[08:32:34] sift500k acorn round 12 cum 223.714 [('ef=16', 0.7342, 3297.0), ('ef=32', 0.8698, 1906.5), ('ef=64', 0.9332, 1128.6), ('ef=128', 0.9708, 673.3), ('ef=256', 0.9888, 388.2), ('ef=512', 0.9954, 215.0), ('ef=1024', 0.9966, 108.9), ('ef=2048', 0.9978, 51.9)]
+[08:32:34] sift500k acorn round 16 cum 298.649 [('ef=16', 0.6978, 3045.8), ('ef=32', 0.84, 1877.8), ('ef=64', 0.921, 1087.9), ('ef=128', 0.9536, 621.4), ('ef=256', 0.9728, 378.7), ('ef=512', 0.9824, 208.5), ('ef=1024', 0.986, 107.2), ('ef=2048', 0.9874, 57.6)]
+[08:32:34] sift500k acorn round 20 cum 378.784 [('ef=16', 0.6786, 2455.5), ('ef=32', 0.8174, 1519.6), ('ef=64', 0.9046, 901.3), ('ef=128', 0.956, 562.5), ('ef=256', 0.978, 349.6), ('ef=512', 0.989, 190.8), ('ef=1024', 0.9934, 93.2), ('ef=2048', 0.996, 47.0)]
+[08:32:34] DONE sift500k acorn
+--- [29] exit=0
+QUEUE_EMPTY 08:32:36

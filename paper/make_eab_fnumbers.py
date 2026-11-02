@@ -194,6 +194,14 @@ if os.path.exists('results/bench_f8_summary.json'):     # follow-up 8: the delet
         lo, hi = rng8(f); out[f'f/hw2/{key}'] = f3(lo) if f3(lo) == f3(hi) else f'{f3(lo)}--{f3(hi)}'
     rr = [p['ivf_part_q095'][r] / p['ivf_q095'][r] for p in PS for r in p['ivf_q095'] if p['ivf_q095'][r] and p['ivf_part_q095'].get(r)]
     out['f/hw2/part_lo'] = f'{min(rr):.1f}'; out['f/hw2/part_hi'] = f'{max(rr):.1f}'
+if os.path.exists('results/bench_f9_summary.json'):     # follow-up 9: the cost lesson on the second machine
+    F9 = json.load(open('results/bench_f9_summary.json')); P9 = list(F9['passes'].values())
+    out['f/hw3/nhold'] = str(F9['n_hold'])
+    def rg(m, q):
+        v = [p['arxiv_time']['relative_to_ivf_anchors'][m][q] for p in P9]; return f2(min(v)) if f2(min(v)) == f2(max(v)) else f'{f2(min(v))}--{f2(max(v))}'
+    out['f/hw3/part1'] = rg('ivf_part', '1'); out['f/hw3/rep1'] = rg('acorn_repair_all', '1'); out['f/hw3/rep3'] = rg('acorn_repair_all', '3'); out['f/hw3/part3'] = rg('ivf_part', '3')
+    firsts = [min(float(q) for q, m in p['arxiv_time']['best'].items() if m != 'ivf_part') for p in P9]
+    out['f/hw3/graph_from'] = f'{min(firsts):g}' if min(firsts) == max(firsts) else f'{min(firsts):g}--{max(firsts):g}'
 DISP = {'ivf_part': 'label-partitioned IVF', 'ema': 'EMA', 'acorn_repair_all': 'repaired ACORN', 'acorn': 'ACORN', 'fdiskann_rebuild': 'rebuilt Filtered-DiskANN', 'ivf': 'IVF'}
 for k in ('f/amz/best1', 'f/amz/best100', 'f/tr/adv/const_best1', 'f/tr/adv/const_best100', 'f/tr/ax/const_best1', 'f/tr/ax/const_best100'):
     if k in out: out[k] = DISP.get(out[k], out[k])

@@ -1,0 +1,1 @@
+BENCH_TAG=epyc_cost BENCH_PASS=2 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 taskset -c 40-55 venv-diskann/bin/python bench/stream_diskann.py sift500k

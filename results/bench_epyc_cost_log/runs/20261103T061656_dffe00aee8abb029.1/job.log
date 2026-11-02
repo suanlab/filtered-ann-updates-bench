@@ -1,0 +1,46 @@
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 202.876s
+Index built with degree: max:64  avg:53.0501  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 32.0708s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43240116, _max_observed_degree: 64, _start: 168810, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r0/ann...done. Index has 200000 nodes and 10610023 out-edges, _start is set to 168810
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 168810 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[06:22:33] arxiv_time fdiskann round 0 rebuild 318.5 [('L=16', 0.9734, 1169.9), ('L=32', 0.9906, 785.9), ('L=64', 0.9972, 499.2), ('L=128', 0.9998, 311.4)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 204.477s
+Index built with degree: max:64  avg:53.603  min:2  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.7703s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 43682452, _max_observed_degree: 64, _start: 12417, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r5/ann...done. Index has 200000 nodes and 10720607 out-edges, _start is set to 12417
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 12417 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[06:28:05] arxiv_time fdiskann round 5 rebuild 319.0 [('L=16', 0.9796, 1126.8), ('L=32', 0.9954, 748.4), ('L=64', 0.9992, 477.8)]
+L2: Using AVX2 distance computation DistanceL2Float
+Identified 10 distinct label(s)
+Using only first 200000 from file.. 
+Starting index build with 200000 points... 
+0% of index build completed.50% of index build completed.Starting final cleanup..done. Link time: 195.749s
+Index built with degree: max:64  avg:54.2945  min:4  count(deg<2):0
+Not saving tags as they are not enabled.
+Time taken for save: 31.8079s.
+L2: Using AVX2 distance computation DistanceL2Float
+Passed, empty build_params while creating index config
+From graph header, expected_file_size: 44235640, _max_observed_degree: 64, _start: 60241, file_frozen_pts: 0
+Loading vamana graph data/bench/stream_arxiv_time/fd_r10/ann...done. Index has 200000 nodes and 10858904 out-edges, _start is set to 60241
+Identified 10 distinct label(s)
+Num frozen points:0 _nd: 200000 _start: 60241 size(_location_to_tag): 0 size(_tag_to_location):0 Max points: 200000
+[06:33:35] arxiv_time fdiskann round 10 rebuild 309.0 [('L=16', 0.9766, 1206.6), ('L=32', 0.9924, 790.0), ('L=64', 0.9978, 452.1), ('L=128', 0.9992, 295.0)]
+[06:33:37] DONE arxiv_time fdiskann

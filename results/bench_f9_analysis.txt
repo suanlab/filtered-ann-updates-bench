@@ -1,0 +1,7 @@
+== sift500k (pass 1): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible []; drift at 1: 0.975
+== arxiv_time (pass 1): best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'acorn_repair_all', '10': 'acorn_repair_all', '30': 'acorn_repair_all', '100': 'acorn_repair_all'}; infeasible []; drift at 1: 1.048
+   C1 True C2 False C3 True
+== sift500k_pass2: best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'ivf_part', '10': 'ivf_part', '30': 'ivf_part', '100': 'ivf_part'}; infeasible []; drift at 1: 0.819
+== arxiv_time_pass2: best {'0.01': 'ivf_part', '0.03': 'ivf_part', '0.1': 'ivf_part', '0.3': 'ivf_part', '1': 'ivf_part', '3': 'acorn_repair_all', '10': 'acorn_repair_all', '30': 'acorn_repair_all', '100': 'acorn_repair_all'}; infeasible []; drift at 1: 1.007
+   C1 True C2 False C3 True
+== holds in both passes: {'C1': True, 'C2': False, 'C3': True} (2 of 3)

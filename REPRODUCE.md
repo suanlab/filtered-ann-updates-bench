@@ -131,6 +131,7 @@ results.
 | `e2e4` | EMA end to end (`E2E=1`, one call per query) with an IVF anchor (follow-up 4, B2) | VII, Table IV | `stream_ema.py`, `stream_faiss.py ivf` |
 | `fdx` | Filtered-DiskANN rebuilt at every round (`REBUILD_ALL=1`) against the estimate (follow-up 4, B3) | VI, Table IV | `stream_diskann.py` |
 | `g6b1`–`g6b4` | 19 close index-versus-scan comparisons re-measured in four blocks (follow-up 7) | V, Table IV | static runners |
+| `epyc_str`, `epyc_cost`, `epyc_cost_end` | follow-ups 8 and 9 on the AMD EPYC 7513 (deletion and cost lessons) | V, Table V | stream runners |
 | `rpx` | ACORN update paths on SIFT-500K-adv and `sift500k_adv_seed2`, `_seed3` (`stream_prep.py`), `MECH=1 MEASURE_ALL=1` (follow-up 6) | VI, Table IV | `stream_acorn.py` |
 | `tr`, `tr_end` | every round measured (`MEASURE_ALL=1`), random method order between two IVF runs; memory per round (follow-up 5) | VI, VII, Table IV | stream runners |
 | `yst` | multi-label AND stream on YFCC tags (`stream_prep.py yfcc_stream`) (I18) | Table IV | `stream_multi.py` |
@@ -343,4 +344,21 @@ GATE=555 PROBE_CPU=39 QUEUE_FILE=bench/queue_f8.txt DONE_FILE=results/bench/f8.d
   PROBE_LOG=results/bench/probe_f8.log MANIFEST=results/bench/f8_manifest.jsonl RUNS_DIR=results/runs bench/queue2.sh
 # copied back to results/bench_epyc_str[_pass2], results/bench_epyc_str_log/
 python3 bench/analyze_followup8.py > results/bench_f8_analysis.txt   # results/bench_f8_summary.json
+```
+
+## 14. Follow-up 9: the cost lesson on the second machine (pre-registered; Table V)
+
+`paper_audit/followup9_prereg.md` (commit 90c47b8) fixed the runs and decisions C1–C3 before the runs.
+
+Setup as in section 13, with two additions:
+- SIFT-500K and arXiv-time copied and checked;
+- `diskannpy` 0.7.0 with numpy 1.25.0 under Python 3.10 installed with `uv`. The machine has no Python 3.10:
+  `venv/bin/pip install uv && UV_PYTHON_INSTALL_DIR=$PWD/uvpy uv python install 3.10`, then a `venv-diskann` from it.
+
+Gate 555 (follow-up 8's), cores 40–55, probe on core 39.
+```bash
+GATE=555 PROBE_CPU=39 QUEUE_FILE=bench/queue_f9.txt DONE_FILE=results/bench/f9.done LOG_FILE=results/bench/f9.log \
+  PROBE_LOG=results/bench/probe_f9.log MANIFEST=results/bench/f9_manifest.jsonl RUNS_DIR=results/runs bench/queue2.sh
+# copied back to results/bench_epyc_cost[_pass2], results/bench_epyc_cost_end[_pass2], results/bench_epyc_cost_log/
+python3 bench/analyze_followup9.py > results/bench_f9_analysis.txt   # results/bench_f9_summary.json
 ```
